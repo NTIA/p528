@@ -1,0 +1,53 @@
+#include <math.h>
+#include "..\include\p528.h"
+
+/*=============================================================================
+ |
+ |  Description:  This file computes the terminal geometry as described
+ |                in Annex 2, Section 4 of Recommendation ITU-R P.528-4,
+ |                "Propagation curves for aeronautical mobile and
+ |                radionavigation services using the VHF, UHF and SHF bands"
+ |
+ |        Input:  N_s       - Surface refractivity, in N-Units
+ |                a_e__km   - Effective earth radius, in km
+ |
+ |      Outputs:  terminal  - Structure containing parameters dealing
+ |                            with the geometry of the terminal
+ |
+ *===========================================================================*/
+void TerminalGeometry(double N_s, double a_e__km, Terminal *terminal)
+{
+    // Step 1
+    RayTrace(N_s, terminal->h_r__km, &terminal->d_r__km, &terminal->theta__rad);
+
+    // Step 2
+    terminal->phi__rad = terminal->d_r__km / a_e__km;       // [Eqn 21]
+
+    // [Eqn 22]
+    if (terminal->phi__rad <= 0.1)
+        terminal->h_e__km = pow(terminal->d_r__km, 2) / (2.0 * a_e__km);
+    else
+        terminal->h_e__km = (a_e__km / cos(terminal->phi__rad)) - a_e__km;
+
+    // Step 3
+    if (terminal->h_e__km <= terminal->h_r__km)
+    {
+        terminal->h__km = terminal->h_e__km;
+        terminal->d__km = terminal->d_r__km;
+    }
+    else
+    {
+        terminal->h__km = terminal->h_r__km;
+        terminal->d__km = sqrt(2.0 * a_e__km * terminal->h_r__km);
+    }
+
+    // Step 4
+    terminal->delta_h__km = terminal->h_r__km - terminal->h__km;    // [Eqn 26]
+
+    // Step 5
+    if (terminal->delta_h__km <= 0.0)
+    {
+        terminal->theta__rad = sqrt(2.0 * terminal->h_r__km / a_e__km);
+        terminal->d__km = sqrt(2.0 * terminal->h_r__km * a_e__km);
+    }
+}
