@@ -23,7 +23,7 @@
  |                CASE              - Case as defined in Step 6.5
  |
  *===========================================================================*/
-void TranshorizonSearch(Path* path, Terminal terminal_1, Terminal terminal_2, double f__mhz,
+int TranshorizonSearch(Path* path, Terminal terminal_1, Terminal terminal_2, double f__mhz,
     double N_s, double A_dML__db, double *M_d, double *A_d0, double* d_crx__km, int *CASE)
 {
     *CASE = CONST_MODE__SEARCH;
@@ -107,5 +107,9 @@ void TranshorizonSearch(Path* path, Terminal terminal_1, Terminal terminal_2, do
     {
         *CASE = CONST_MODE__DIFFRACTION;
         *d_crx__km = d_search__km[1];
+
+        return WARNING__DFRAC_TROPO_REGION;
     }
+
+    return SUCCESS;
 }

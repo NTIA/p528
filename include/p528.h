@@ -26,6 +26,10 @@
 #define PROP_MODE__DIFFRACTION              2
 #define PROP_MODE__SCATTERING               3
 
+//
+// RETURN CODES
+///////////////////////////////////////////////
+#define	SUCCESS                             0
 #define ERROR_VALIDATION__D_KM              1
 #define ERROR_VALIDATION__H_1               2
 #define ERROR_VALIDATION__H_2               3
@@ -34,15 +38,8 @@
 #define ERROR_VALIDATION__F_MHZ_HIGH        6
 #define ERROR_VALIDATION__PERCENT_LOW       7
 #define ERROR_VALIDATION__PERCENT_HIGH      8
-
 #define ERROR_HEIGHT_AND_DISTANCE			10
-
-//
-// RETURN CODES
-///////////////////////////////////////////////
-#define		SUCCESS                         0
-#define     ERR_LOS__PATH_TOO_SMALL         300
-#define     ERR_LOS__PATH_LOSS_PSI          301
+#define WARNING__DFRAC_TROPO_REGION         20
 
 // Struct
 struct Path
@@ -143,7 +140,7 @@ void GetPathLoss(double psi, Path path, Terminal terminal_1, Terminal terminal_2
 void RayOptics(Path path, Terminal terminal_1, Terminal terminal_2, double psi, LineOfSightParams *result);
 void TerminalGeometry(double N_s, double a_e__km, Terminal *terminal);
 void Troposcatter(Path path, Terminal terminal_1, Terminal terminal_2, double d__km, double f__mhz, double N_s, TroposcatterParams *tropo_params);
-void TranshorizonSearch(Path* path, Terminal terminal_1, Terminal terminal_2, double f__mhz,
+int TranshorizonSearch(Path* path, Terminal terminal_1, Terminal terminal_2, double f__mhz,
     double N_s, double A_dML__db, double *M_d, double *A_d0, double* d_crx__km, int* MODE);
 double LinearInterpolation(double x1, double y1, double x2, double y2, double x);
 void AtmosphericAbsorptionParameters(double f__mhz, double *gamma_oo, double *gamma_ow);

@@ -106,7 +106,7 @@ int Main(double d__km, double h_1__meter, double h_2__meter, double f__mhz, doub
         // Step 6.  Search past horizon to find crossover point between Diffraction and Troposcatter models
         int CASE;
         double d_crx__km;
-        TranshorizonSearch(&path, terminal_1, terminal_2, f__mhz, N_s, A_dML__db, &M_d, &A_d0, &d_crx__km, &CASE);
+        int rtn = TranshorizonSearch(&path, terminal_1, terminal_2, f__mhz, N_s, A_dML__db, &M_d, &A_d0, &d_crx__km, &CASE);
 
         /////////////////////////////////////////////
         // Compute terrain attenuation, A_T__db
@@ -202,6 +202,6 @@ int Main(double d__km, double h_1__meter, double h_2__meter, double f__mhz, doub
         result->d__km = d__km;
         result->A__db = result->A_fs__db + A_a__db + A_T__db + Y_total__db;     // [Eqn 20]
 
-        return SUCCESS;
+        return rtn;
     }
 }
