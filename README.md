@@ -49,6 +49,7 @@ The following is a list of possible return codes, including the corresponding de
 |     7 | `ERROR_VALIDATION__PERCENT_LOW`  | Time percentage must be >= 0.01 |
 |     8 | `ERROR_VALIDATION__PERCENT_HIGH` | Time percentage must be <= 0.99 |
 |    10 | `ERROR_HEIGHT_AND_DISTANCE`      | Terminals are occupying the same point in space (they are the same height and 0 km apart) |
+|    20	| `WARNING__DFRAC_TROPO_REGION`    |	Warning that the diffraction and troposcatter model may not be physically consistent with each other. Caution should be taken when using the results |
 
 # Example Values
 
