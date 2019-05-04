@@ -53,7 +53,7 @@ Possible return codes, including the corresponding defined constant name as defi
 
 ## Example Values ##
 
-The below table includes a select set of example inputs and outputs for testing purposes. [The P.528 CSV data files](https://www.itu.int/rec/R-REC-P.528/en) contain an extensive set of validation example values.
+The below table includes a select set of example inputs and outputs for testing purposes. The [P.528 CSV data files](https://www.itu.int/rec/R-REC-P.528/en) contain an extensive set of validation example values.
 
 | `d__km` | `h_1__meter` | `h_2__meter` | `f__mhz` | `time_percentage` | `A__db` |
 | --------|--------------|--------------|----------|-------------------|---------|
@@ -61,18 +61,14 @@ The below table includes a select set of example inputs and outputs for testing 
 |     100 |          100 |       15 000 |    3 600 |               0.9 |  -151.2 |
 |   1 500 |           15 |       10 000 |    5 700 |               0.1 |  -299.5 |
 
-## Dependencies ##
-
-The P.528 source code is only dependent on the standard C++ build libraries, such as `math.lib`.
-
 ## Notes on Code Style ##
 
  * In general, variables follow the naming convention in which a single underscore denotes a subscript (pseudo-LaTeX format), where a double underscore is followed by the units, i.e. h_1__meter.
  * Variables are named to match their corresponding mathematical variables in the underlying Recommendation text.
 
-## Configuring and Building ##
+## Configure and Build ##
 
-This project was developed and built using Microsoft Visual Studio 2017.  However, the source code has no direct dependence upon the Windows operating system and can be built for any OS that supports the standard C++ libraries.
+This project was developed and built using Microsoft Visual Studio 2017, with the `.vcxproj` and `.sln` files located in the `win32` directory.  However, the source code can be built for any OS that supports the standard C++ libraries.
 
 # Contact #
 
