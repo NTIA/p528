@@ -1,17 +1,15 @@
 # NOTICE!
-**Please note that this software is based on a proposed update to ITU Recommendation P.528 which will be considered during the May 2019 ITU-R Study Group 3 meetings.  The current in-force Recommendation is P.525-3 (not P.528-4).  This code could undergo changes, including but not limited to breaking and functional changes, up until the conclusion of the Study Group 3 meetings, based on the outcomes of the meetings.**
+**This software is based on a proposed update to ITU Recommendation P.528 which will be considered during the May 2019 ITU-R Study Group 3 meetings.  The current in-force Recommendation is P.525-3 (not P.528-4).  This code could undergo changes, including but not limited to breaking and functional changes, up until the conclusion of the Study Group 3 meetings, based on the outcomes of the meetings.**
 
 ---
 
 # ITU-R Recommendation P.528-4 - U.S. Reference Implementation  #
 
-This repo contains the U.S. Reference Software Implementation of Recommendation [ITU-R P.528](http://www.itu.int/rec/R-REC-P.528/en): Propagation curves for aeronautical mobile and radionavigation services using the VHF, UHF and SHF bands. This Recommendation contains a method for predicting basic transmission loss in the frequency range 125-15 500 MHz for aeronautical and satellite services. [A companion repo](https://github.com/NTIA/p528-gui) provides a Graphical User Interface (GUI) frontend that can be used with this software implementation.
+This code repository contains the U.S. Reference Software Implementation of ITU-R Recommendation P.528. This Recommendation contains a method for predicting basic transmission loss in the frequency range 125-15 500 MHz for aeronautical and satellite services. Companion software ([p528-gui](https://github.com/NTIA/p528-gui)) provides a Graphical User Interface (GUI) that can be used with this software implementation.
 
 # Summary of Software #
 
-This repo contains C++ code that implements Annex 2 of Rec P.528, the Step-by-Step method to computing propagation loss for air-to-ground paths.  It was developed to provide maximum traceability back to the Recommendation text.  Wherever possible, equation numbers are provided.  It is assumed that a user reviewing this source code would have a copy of the Recommendation's text available as a primary reference.
-
-The software is designed to be built into a DLL (or corresponding library for non-Windows systems).  A Visual Studio project file is provided for Windows users to support the build process and configuration.
+This software is written in C++.  It implements Annex 2 of Rec P.528, the Step-by-Step method to computing propagation loss for air-to-ground paths.  
 
 ## Inputs ##
 
@@ -65,10 +63,16 @@ The below table includes a select set of example inputs and outputs for testing 
 
  * In general, variables follow the naming convention in which a single underscore denotes a subscript (pseudo-LaTeX format), where a double underscore is followed by the units, i.e. h_1__meter.
  * Variables are named to match their corresponding mathematical variables in the underlying Recommendation text.
+ * Wherever possible, equation numbers are provided.  It is assumed that a user reviewing this source code would have a copy of the Recommendation's text available as a primary reference.
 
 ## Configure and Build ##
 
-This project was developed and built using Microsoft Visual Studio 2017, with the `.vcxproj` and `.sln` files located in the `win32` directory.  However, the source code can be built for any OS that supports the standard C++ libraries.
+The software is designed to be built into a DLL (or corresponding library for non-Windows systems).  The source code can be built for any OS that supports the standard C++ libraries.  A Visual Studio 2017 project file is provided for Windows users to support the build process and configuration.
+
+## References ##
+
+ * [ITU-R Recommencation P.528 : Propagation curves for aeronautical mobile and radionavigation services using the VHF, UHF and SHF bands](https://www.itu.int/rec/R-REC-P.528/en)
+ * [Rec P.528-4 Curve Visualizer Tool](https://github.com/NTIA/p528-gui)
 
 # Contact #
 
