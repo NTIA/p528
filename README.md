@@ -71,7 +71,7 @@ The software is designed to be built into a DLL (or corresponding library for no
 
 ## References ##
 
- * [ITU-R Recommencation P.528 : Propagation curves for aeronautical mobile and radionavigation services using the VHF, UHF and SHF bands](https://www.itu.int/rec/R-REC-P.528/en)
+ * [ITU-R Recommendation P.528](https://www.itu.int/rec/R-REC-P.528/en)
  * [Rec P.528-4 Curve Visualizer Tool](https://github.com/NTIA/p528-gui)
 
 # Contact #
