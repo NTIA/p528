@@ -6,29 +6,28 @@
 
 This code repository contains the U.S. Reference Software Implementation of ITU-R Recommendation P.528. This Recommendation contains a method for predicting basic transmission loss in the frequency range 125-15 500 MHz for aeronautical and satellite services. Companion software ([p528-gui](https://github.com/NTIA/p528-gui)) provides a Graphical User Interface (GUI) that can be used with this software implementation.
 
-## Summary of Software ##
-
 This software is written in C++.  It implements Annex 2 of Rec P.528, the Step-by-Step method to computing propagation loss for air-to-ground paths.  
 
 ## Inputs ##
 
- * __double__ `d__km` : Path distance between terminals, in km.  0 <= `d__km`
- * __double__ `h_1__meter` : Height of the low terminal, in meters. 1.5 <= `h_1__meter`
- * __double__ `h_2__meter` : Height of the high terminal, in meters.  1.5 <= `h_2__meter`
- * __double__ `f__mhz` : Frequency, in MHz.  125 <= `f__mhz` <= 15 500
- * __double__ `time_percentage` : Time percentage.  0.01 <= `time_percentage` <= 0.99
+| Variable | Type       | Units  | Limits       | Description  |
+|----------|------------|--------|--------------|--------------|
+| `d__km`  | __double__ | km     | 0 <= `d__km` | Path distance between terminals |
+| `h_1__meter` | __double__ | meter | 1.5 <= `h_1__meter` | Height of the low terminal |
+| `h_2__meter` | __double__ | meter | 1.5 <= `h_2__meter` | Height of the high terminal |
+| `f__mhz` | __double__ | MHz    | 125 <= `f__mhz` <= 15 500 | Frequency |
+| `time_percentage` | __double__ | _N/A_ | 0.01 <= `time_percentage` <= 0.99 | Time percentage |
  
 ## Outputs ##
 
 Outputs to P.528 are contained within a defined `Results` structure.
 
- * __double__ `d__km` : Path distance, in km.  Could be slightly different than specified in input variable if within LOS region
- * __double__ `A__db` : Total path loss, in dB
- * __double__ `A_fs__db` : Free space path loss, in dB
- * __double__ `propagation_mode`
-   * 1 = Line of Sight
-   * 2 = Diffraction
-   * 3 = Troposcatter
+| Variable | Type | Units | Description |
+|----------|---|---|---|
+| `d__km`  | __double__ | km | Path distance.  Could be slightly different than specified in input variable if within LOS region |
+| `A__db`  | __double__ | dB | Total path loss |
+| `A_fs__db` | __double__ | dB | Free space path loss |
+| `propagation_mode` | __int__ | _N/A_ | Mode of propagation. <ul><li>1 = Line of Sight</li><li>2 = Diffraction</li><li>3 = Troposcatter</li></ul> |
 
 ## Return Codes ##
 
