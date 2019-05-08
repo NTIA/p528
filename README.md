@@ -10,31 +10,31 @@ Companion software ([p528-gui](https://github.com/NTIA/p528-gui)) provides a Gra
 
 ## Inputs ##
 
-| Variable | Type       | Units  | Limits       | Description  |
-|----------|------------|--------|--------------|--------------|
-| `d__km`  | __double__ | km     | 0 <= `d__km` | Path distance between terminals |
-| `h_1__meter` | __double__ | meter | 1.5 <= `h_1__meter` | Height of the low terminal |
-| `h_2__meter` | __double__ | meter | 1.5 <= `h_2__meter` | Height of the high terminal |
-| `f__mhz` | __double__ | MHz    | 125 <= `f__mhz` <= 15 500 | Frequency |
-| `time_percentage` | __double__ | _N/A_ | 0.01 <= `time_percentage` <= 0.99 | Time percentage |
+| Variable          | Type   | Units | Limits       | Description  |
+|-------------------|--------|-------|--------------|--------------|
+| `d__km`           | double | km    | 0 <= `d__km` | Path distance between terminals |
+| `h_1__meter`      | double | meter | 1.5 <= `h_1__meter` | Height of the low terminal |
+| `h_2__meter`      | double | meter | 1.5 <= `h_2__meter` | Height of the high terminal |
+| `f__mhz`          | double | MHz   | 125 <= `f__mhz` <= 15 500 | Frequency |
+| `time_percentage` | double |       | 0.01 <= `time_percentage` <= 0.99 | Time percentage |
  
 ## Outputs ##
 
 Outputs to P.528 are contained within a defined `Results` structure.
 
-| Variable | Type | Units | Description |
-|----------|---|---|---|
-| `d__km`  | __double__ | km | Path distance.  Could be slightly different than specified in input variable if within LOS region |
-| `A__db`  | __double__ | dB | Total path loss |
-| `A_fs__db` | __double__ | dB | Free space path loss |
-| `propagation_mode` | __int__ | _N/A_ | Mode of propagation. <ul><li>1 = Line of Sight</li><li>2 = Diffraction</li><li>3 = Troposcatter</li></ul> |
+| Variable   | Type   | Units | Description |
+|------------|--------|-------|-------------|
+| `d__km`    | double | km    | Path distance.  Could be slightly different than specified in input variable if within LOS region |
+| `A__db`    | double | dB    | Total path loss |
+| `A_fs__db` | double | dB    | Free space path loss |
+| `propagation_mode` | int |  | Mode of propagation. <ul><li>1 = Line of Sight</li><li>2 = Diffraction</li><li>3 = Troposcatter</li></ul> |
 
 ## Return Codes ##
 
 Possible return codes, including the corresponding defined constant name as defined in `p528.h`:
 
 | Value | Const Name                       | Description  |
-| ------|----------------------------------|-------------|
+| ------|----------------------------------|--------------|
 |     0 | `SUCCESS`                        | Successful execution |
 |     1 | `ERROR_VALIDATION__D_KM`         | Path distance must be >= 0 km |
 |     2 | `ERROR_VALIDATION__H_1`          | Low terminal height must be >= 1.5 meters |
@@ -70,7 +70,7 @@ The software is designed to be built into a DLL (or corresponding library for no
 ## References ##
 
  * [ITU-R Recommendation P.528](https://www.itu.int/rec/R-REC-P.528/en)
- * [Rec P.528-4 Curve Visualizer Tool](https://github.com/NTIA/p528-gui)
+ * [ITU-R Rec P.528 GUI](https://github.com/NTIA/p528-gui)
 
 ## Contact ##
 
