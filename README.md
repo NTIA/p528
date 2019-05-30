@@ -1,7 +1,3 @@
-# NOTICE!
-
-**This software is based on a proposed update to ITU Recommendation P.528 which will be considered during the May 2019 ITU-R Study Group 3 meetings.  The current in-force Recommendation is P.525-3 (not P.528-4).  This code could undergo changes, including but not limited to breaking and functional changes, up until the conclusion of the Study Group 3 meetings, based on the outcomes of the meetings.**
-
 # ITU-R Recommendation P.528-4 - U.S. Reference Implementation  #
 
 This code repository contains the U.S. Reference Software Implementation of ITU-R Recommendation P.528. This Recommendation contains a method for predicting basic transmission loss in the frequency range 125-15 500 MHz for aeronautical and satellite services.  The software implements Annex 2 of Rec P.528, the Step-by-Step method to computing propagation loss for air-to-ground paths.
