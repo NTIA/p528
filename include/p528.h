@@ -39,7 +39,8 @@
 #define ERROR_VALIDATION__PERCENT_LOW       7
 #define ERROR_VALIDATION__PERCENT_HIGH      8
 #define ERROR_HEIGHT_AND_DISTANCE			10
-#define WARNING__DFRAC_TROPO_REGION         20
+#define WARNING__DFRAC_TROPO_REGION         0xFF1
+#define WARNING__LOW_FREQUENCY              0xFF2
 
 // Struct
 struct Path

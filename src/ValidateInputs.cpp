@@ -14,7 +14,7 @@ int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, double f_
     if (h_1__meter > h_2__meter)
         return ERROR_VALIDATION__TERM_GEO;
 
-    if (f__mhz < 125)
+    if (f__mhz < 100)
         return ERROR_VALIDATION__F_MHZ_LOW;
 
     if (f__mhz > 15500)

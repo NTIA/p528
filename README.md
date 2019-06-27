@@ -41,7 +41,10 @@ Possible return codes, including the corresponding defined constant name as defi
 |     7 | `ERROR_VALIDATION__PERCENT_LOW`  | Time percentage must be >= 0.01 |
 |     8 | `ERROR_VALIDATION__PERCENT_HIGH` | Time percentage must be <= 0.99 |
 |    10 | `ERROR_HEIGHT_AND_DISTANCE`      | Terminals are occupying the same point in space (they are the same height and 0 km apart) |
-|    20	| `WARNING__DFRAC_TROPO_REGION`    |	Warning that the diffraction and troposcatter model may not be physically consistent with each other. Caution should be taken when using the results |
+| 0xFF1 | `WARNING__DFRAC_TROPO_REGION`    | Warning that the diffraction and troposcatter model may not be physically consistent with each other. Caution should be taken when using the results |
+| 0xFF2 | `WARNING__LOW_FREQUENCY`         | Warning that the entered frequency is between 100 MHz and 125 MHz.  Although this is below the lower limit specified in P.528-4, the model will calculate a predicted loss as the underlying theory is not violated |
+
+Note: Return codes over 0xFF0 signify warnings occured in the calculation.  Use bitwise OR operations to diagnosis, as more than one warning could be possible.
 
 ## Example Values ##
 

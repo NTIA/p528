@@ -31,6 +31,8 @@ int Main(double d__km, double h_1__meter, double h_2__meter, double f__mhz, doub
     Path path;
     LineOfSightParams los_params;
 
+    int rtn = SUCCESS;
+
     // reset Results struct
     result->A_fs__db = 0;
     result->A__db = 0;
@@ -41,6 +43,10 @@ int Main(double d__km, double h_1__meter, double h_2__meter, double f__mhz, doub
     int err = ValidateInputs(d__km, h_1__meter, h_2__meter, f__mhz, time_percentage);
     if (err != SUCCESS)
         return err;
+
+    // Check for frequency low warning
+    if (f__mhz < 125)
+        rtn = WARNING__LOW_FREQUENCY;
 
     double N_s = N_0;
     path.a_e__km = a_0__km / (1.0 - 0.04665 * exp(0.005577 * N_s));
@@ -96,7 +102,7 @@ int Main(double d__km, double h_1__meter, double h_2__meter, double f__mhz, doub
         result->propagation_mode = PROP_MODE__LOS;
         LineOfSight(&path, terminal_1, terminal_2, &los_params, f__mhz, -A_dML__db, time_percentage, d__km, result, &K_LOS);
 
-        return SUCCESS;
+        return rtn;
     }
     else
     {
@@ -106,7 +112,7 @@ int Main(double d__km, double h_1__meter, double h_2__meter, double f__mhz, doub
         // Step 6.  Search past horizon to find crossover point between Diffraction and Troposcatter models
         int CASE;
         double d_crx__km;
-        int rtn = TranshorizonSearch(&path, terminal_1, terminal_2, f__mhz, N_s, A_dML__db, &M_d, &A_d0, &d_crx__km, &CASE);
+        rtn = rtn | TranshorizonSearch(&path, terminal_1, terminal_2, f__mhz, N_s, A_dML__db, &M_d, &A_d0, &d_crx__km, &CASE);
 
         /////////////////////////////////////////////
         // Compute terrain attenuation, A_T__db
