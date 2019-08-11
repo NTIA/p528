@@ -38,6 +38,7 @@
     <ClCompile Include="..\src\LineOfSight.cpp" />
     <ClCompile Include="..\src\LongTermVariability.cpp" />
     <ClCompile Include="..\src\LOSTable.cpp" />
+    <ClCompile Include="..\src\MainEx.cpp" />
     <ClCompile Include="..\src\Main.cpp" />
     <ClCompile Include="..\src\NakagamiRice.cpp" />
     <ClCompile Include="..\src\RayOptics.cpp" />

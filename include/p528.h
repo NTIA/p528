@@ -116,7 +116,6 @@ struct TroposcatterParams
 
 struct Result {
     int propagation_mode;       // Mode of propagation
-    int los_iterations;         // **Temp var**
 
     double d__km;               // Path distance used in calculations
     double A__db;               // Total loss
@@ -163,5 +162,6 @@ int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, double f_
 ////////////////////
 
 DLLEXPORT int Main(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, Result *result);
-
+DLLEXPORT int MainEx(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, Result* result,
+    Terminal* terminal_1, Terminal* terminal_2, TroposcatterParams* tropo, Path* path, LineOfSightParams* los_params);
 
