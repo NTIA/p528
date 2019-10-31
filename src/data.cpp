@@ -1,4 +1,4 @@
-#include "..\include\p528.h"
+#include "../include/p528.h"
 
 // Data table with K-values and corresponding Nakagami-Rice distributions
 const double data::NR_Data[17][18] =

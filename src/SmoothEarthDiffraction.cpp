@@ -1,5 +1,5 @@
 #include <math.h>
-#include "..\include\p528.h"
+#include "../include/p528.h"
 
 // References:
 //  - [Vogler 1964]   Calculation of Groundwave Attenuation in the Far Diffraction Region.  L. Vogler.  1964
