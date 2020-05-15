@@ -32,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\ITS.Propagation.P528.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -45,11 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="P528.cs" />
-    <Compile Include="P528LineOfSightParams.cs" />
-    <Compile Include="P528Path.cs" />
-    <Compile Include="P528Result.cs" />
-    <Compile Include="P528Terminal.cs" />
-    <Compile Include="P528TroposcatterParams.cs" />
+    <Compile Include="LineOfSightParams.cs" />
+    <Compile Include="Path.cs" />
+    <Compile Include="Result.cs" />
+    <Compile Include="Terminal.cs" />
+    <Compile Include="TroposcatterParams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

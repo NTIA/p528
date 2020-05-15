@@ -36,3 +36,7 @@ Thumbs.db
 *.sdf
 *.u2d
 *.suo
+*.aps
+**/obj
+**/x64
+**/x86
