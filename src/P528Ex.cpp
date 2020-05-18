@@ -23,7 +23,7 @@
  |                                      + 3 : Troposcatter
  |
  *===========================================================================*/
-int MainEx(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, Result *result,
+int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, Result *result,
     Terminal *terminal_1, Terminal *terminal_2, TroposcatterParams *tropo, Path *path, LineOfSightParams *los_params)
 {
     int rtn = SUCCESS;

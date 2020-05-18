@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Recommendation ITU-R P.528-4")]
 [assembly: AssemblyDescription("Recommendation ITU-R P.528-4")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("The Institute for Telecommunication Sciences (ITS)")]
+[assembly: AssemblyCompany("The Institute for Telecommunication Sciences")]
 [assembly: AssemblyProduct("Recommendation ITU-R P.528-4")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.2.0.0")]
-[assembly: AssemblyFileVersion("4.2.0.0")]
+[assembly: AssemblyVersion("4.3.0.0")]
+[assembly: AssemblyFileVersion("4.3.0.0")]
