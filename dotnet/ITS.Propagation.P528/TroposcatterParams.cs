@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices;
 
 namespace ITS.Propagation
 {
@@ -34,17 +29,17 @@ namespace ITS.Propagation
             public double h_v__km;
 
             /// <summary>
-            /// Scattering angle
+            /// Scattering angle, in radians
             /// </summary>
-            public double theta_s;
+            public double theta_s__rad;
 
             /// <summary>
-            /// Cross-over angle
+            /// Cross-over angle, in radians
             /// </summary>
-            public double theta_A;
+            public double theta_A__rad;
 
             /// <summary>
-            /// Troposcattter Loss
+            /// Troposcatter Loss
             /// </summary>
             public double A_s__db;
 
@@ -54,7 +49,7 @@ namespace ITS.Propagation
             public double A_s_prev__db;
 
             /// <summary>
-            /// Troposcatter Line Slope
+            /// Troposcatter Line Slope, in dB/km
             /// </summary>
             public double M_s;
         };
