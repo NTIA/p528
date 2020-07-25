@@ -21,10 +21,10 @@ void TerminalGeometry(double N_s, double a_e__km, Terminal *terminal)
     RayTrace(N_s, terminal->h_r__km, &terminal->d_r__km, &terminal->theta__rad);
 
     // Step 2
-    terminal->phi__rad = terminal->d_r__km / a_e__km;       // [Eqn 21]
+    terminal->phi__rad = terminal->d_r__km / a_e__km;       // [Eqn 24]
 
-    // [Eqn 22]
-    if (terminal->phi__rad <= 0.1)
+    // [Eqn 25]
+    if (terminal->phi__rad <= 0.1)  // conditional is using the small angle approximation for cosine
         terminal->h_e__km = pow(terminal->d_r__km, 2) / (2.0 * a_e__km);
     else
         terminal->h_e__km = (a_e__km / cos(terminal->phi__rad)) - a_e__km;
@@ -38,13 +38,13 @@ void TerminalGeometry(double N_s, double a_e__km, Terminal *terminal)
     else
     {
         terminal->h__km = terminal->h_r__km;
-        terminal->d__km = sqrt(2.0 * a_e__km * terminal->h_r__km);
+        terminal->d__km = sqrt(2.0 * a_e__km * terminal->h_r__km); // approx. of horizon distance for low terminal heights
     }
 
     // Step 4
-    terminal->delta_h__km = terminal->h_r__km - terminal->h__km;    // [Eqn 26]
+    terminal->delta_h__km = terminal->h_r__km - terminal->h__km;    // [Eqn 29]
 
-    // Step 5
+    // Step 5, Really if h_e > h_r => h_e == h_r from above
     if (terminal->delta_h__km <= 0.0)
     {
         terminal->theta__rad = sqrt(2.0 * terminal->h_r__km / a_e__km);

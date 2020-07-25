@@ -26,7 +26,7 @@ double FindKForYpiAt99Percent(double Y_pi_99__db)
 
     if (i == 0)
         return data::NR_Data[0][0];
-
+    
     // Interpolate to find K (dependent variable)
     return (data::NR_Data[i][0] * (Y_pi_99__db - data::NR_Data[i - 1][17]) - data::NR_Data[i - 1][0] * (Y_pi_99__db - data::NR_Data[i][17])) / (data::NR_Data[i][17] - data::NR_Data[i - 1][17]);
 }

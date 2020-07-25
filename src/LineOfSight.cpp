@@ -25,16 +25,16 @@
  |      Returns:  [void]
  |
  *===========================================================================*/
-void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSightParams *los_params, double f__mhz, double A_dML__db,
-    double q, double d__km, Result *result, double *K_LOS)
+void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSightParams *los_params, 
+    double f__mhz, double A_dML__db, double q, double d__km, Result *result, double *K_LOS)
 {
     double psi;
     double R_Tg;
 
     // 0.2997925 = speed of light, megameters per sec
-    double lambda = 0.2997925 / f__mhz;
+    double lambda = 0.2997925 / f__mhz;                             // [Eqn 49]
 
-    // Build table of psi, delta_r, and d__km relationships
+    // Build table of psi, delta_r, and d__km
     LOSTable table;
     table.Build(*path, terminal_1, terminal_2, lambda);
 
@@ -99,7 +99,7 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
     //
     // Tune d_0__km distance
     /////////////////////////////////////////////
-
+    
     /////////////////////////////////////////////
     // Compute loss at d_0__km
     //
@@ -166,12 +166,13 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 
     double theta_fs = ((los_params->theta[0] + los_params->theta[1]) * los_params->a_a__km) / a_0__km;
 
-    double z_1__km = a_0__km + terminal_1.h_r__km;
-    double z_2__km = a_0__km + terminal_2.h_r__km;
-    double r_FS__km = MAX(sqrt(pow(z_2__km - z_1__km, 2) + (4.0 * z_1__km * z_2__km * pow(sin(theta_fs * 0.5), 2))), fabs(z_2__km - z_1__km));   // Total ray length for free space path loss
+    double z_1__km = a_0__km + terminal_1.h_r__km;                          // [Eqn 57]
+    double z_2__km = a_0__km + terminal_2.h_r__km;                          // [Eqn 57]
 
-    double L_bf__db = -32.45 - 20.0 * log10(f__mhz);
-    result->A_fs__db = L_bf__db - 20.0 * log10(r_FS__km);
+    double r_fs__km = MAX(sqrt(pow(z_2__km - z_1__km, 2) + (4.0 * z_1__km * z_2__km * pow(sin(theta_fs * 0.5), 2))), fabs(z_2__km - z_1__km));   // [Eqn 58]
+
+    double L_bf__db = -32.45 - 20.0 * log10(f__mhz);                        // [Eqn 59]
+    result->A_fs__db = L_bf__db - 20.0 * log10(r_fs__km);                   // [Eqn 60]
 
     //
     // Compute free-space loss
@@ -201,6 +202,7 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
     else
         F_AY = (1.1 + (0.9 * cos((A_Y / 9.0) * PI))) / 2.0;
 
+    // [Eqn 175]
     double F_delta_r;
     if (los_params->delta_r >= (lambda / 2.0))
         F_delta_r = 1.0;
@@ -209,7 +211,7 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
     else
         F_delta_r = 0.5 * (1.1 - (0.9 * cos(((3.0 * PI) / lambda) * (los_params->delta_r - (lambda / 6.0)))));
 
-    double R_s = R_Tg * F_delta_r * F_AY;
+    double R_s = R_Tg * F_delta_r * F_AY;       // [Eqn 178]
 
     double W_a;
     if (r_ew__km <= 0.0)
@@ -222,10 +224,11 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
         W_a = pow(10.0, K_t / 10.0);
     }
 
-    double W_R = pow(R_s, 2) + pow(0.01, 2);
+    double W_R = pow(R_s, 2) + pow(0.01, 2);        // [Eqn 180]
 
-    double W = W_R + W_a;
+    double W = W_R + W_a;                           // [Eqn 181]
 
+    // [Eqn 183]
     if (W <= 0.0)
         *K_LOS = -40.0;
     else
