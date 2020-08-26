@@ -38,9 +38,9 @@
     <ClCompile Include="..\src\LineOfSight.cpp" />
     <ClCompile Include="..\src\LongTermVariability.cpp" />
     <ClCompile Include="..\src\LOSTable.cpp" />
-    <ClCompile Include="..\src\MainEx.cpp" />
-    <ClCompile Include="..\src\Main.cpp" />
+    <ClCompile Include="..\src\P528Ex.cpp" />
     <ClCompile Include="..\src\NakagamiRice.cpp" />
+    <ClCompile Include="..\src\P528.cpp" />
     <ClCompile Include="..\src\RayOptics.cpp" />
     <ClCompile Include="..\src\RayTrace.cpp" />
     <ClCompile Include="..\src\ReflectionCoefficients.cpp" />
@@ -50,6 +50,9 @@
     <ClCompile Include="..\src\TranshorizonSearch.cpp" />
     <ClCompile Include="..\src\Troposcatter.cpp" />
     <ClCompile Include="..\src\ValidateInputs.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="p528.def" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1802289F-BF6D-4386-84F9-A850C27DB1AF}</ProjectGuid>
@@ -127,6 +130,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;P528_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <CallingConvention>StdCall</CallingConvention>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -140,6 +144,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;P528_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CallingConvention>StdCall</CallingConvention>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -156,6 +161,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;P528_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <CallingConvention>StdCall</CallingConvention>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -174,6 +180,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;P528_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <CallingConvention>StdCall</CallingConvention>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

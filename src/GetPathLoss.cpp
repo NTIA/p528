@@ -31,7 +31,7 @@ void GetPathLoss(double psi, Path path, Terminal terminal_1, Terminal terminal_2
     double R_g, phi_g;
     ReflectionCoefficients(psi, f__mhz, &R_g, &phi_g);
 
-    double D_v;             // Divergence factor, [Eqn 78]
+    double D_v;             // Divergence factor, [Eqn 81]
     if (tan(psi) >= 0.1)
         D_v = 1.0;
     else
@@ -51,7 +51,6 @@ void GetPathLoss(double psi, Path path, Terminal terminal_1, Terminal terminal_2
 
     *R_Tg = R_g * D_v * TD3;
 
-    // [Eqn 177]
     if (params->d__km > path.d_0__km)
     {
         params->A_LOS__db = ((params->d__km - path.d_0__km) * (A_dML__db - A_d_0__db) / (path.d_ML__km - path.d_0__km)) + A_d_0__db;
@@ -60,9 +59,9 @@ void GetPathLoss(double psi, Path path, Terminal terminal_1, Terminal terminal_2
     {
         double lambda = 0.2997925 / f__mhz;
 
-        double F_r = MIN(params->r_0__km / params->r_12__km, 1);    // Ray-length factor, [Eqn 79]
+        double F_r = MIN(params->r_0__km / params->r_12__km, 1);    // Ray-length factor, [Eqn 81]
 
-        double R_Tg = R_g * D_v * F_r;                              // [Eqn 80]
+        double R_Tg = R_g * D_v * F_r;                              // [Eqn 83]
 
         double WRL;
         if (psi > psi_limit)
@@ -70,7 +69,7 @@ void GetPathLoss(double psi, Path path, Terminal terminal_1, Terminal terminal_2
         else
         {
             // Total phase lag of the ground reflected ray relative to the direct ray
-            double phi_Tg = (2 * PI * params->delta_r / lambda) + phi_g;     // [Eqn 81]
+            double phi_Tg = (2 * PI * params->delta_r / lambda) + phi_g;     // [Eqn 84]
 
             std::complex<double> cplx = std::complex<double>(R_Tg * cos(phi_Tg), -R_Tg * sin(phi_Tg));
             WRL = MIN(abs(1.0 + cplx), 1.0);
@@ -78,7 +77,7 @@ void GetPathLoss(double psi, Path path, Terminal terminal_1, Terminal terminal_2
 
         double W_R0 = pow(WRL, 2) + 0.0001;
 
-        // A_LOS__db = A_R0__db up to d_0__km, [Eqn 85]
+        // A_LOS__db = A_R0__db up to d_0__km, [Eqn 88]
         params->A_LOS__db = 10.0 * log10(W_R0);
     }
 }

@@ -1,5 +1,18 @@
 #include "..\include\p528.h"
 
+/*=============================================================================
+ |
+ |  Description:  Validate the model input values
+ |
+ |        Input:  d__km             - Path distance, in km
+ |                h_1__meter        - Height of the low terminal, in meters
+ |                h_2__meter        - Height of the high terminal, in meters
+ |                f__mhz            - Frequency, in MHz
+ |                time_percentage   - Time percentage
+ |
+ |      Returns:  SUCCESS, or validation error code
+ |
+ *===========================================================================*/
 int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage)
 {
     if (d__km < 0)

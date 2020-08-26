@@ -2,7 +2,7 @@
 #include "..\include\p528.h"
 #include <math.h>
 
- // Data Tables
+// Data Tables
 double DATA_psi[140], DATA_delta_r[140], DATA_d[140];
 double X_psi[55], X_delta_r[55], X_d[55];
 double Y_psi[55], Y_delta_r[55], Y_d[55];
@@ -87,7 +87,7 @@ void LOSTable::Build(Path path, Terminal terminal_1, Terminal terminal_2, double
 double LOSTable::GetDistanceFromTable(double delta_r)
 {
     if (delta_r < DATA_delta_r[0])
-        return DATA_d[0];   // "OUT OF RANGE FOR INTERPOLATION"
+        return DATA_d[0];
     else if (delta_r == DATA_delta_r[0])
         return DATA_d[0];
     else
@@ -104,14 +104,14 @@ double LOSTable::GetDistanceFromTable(double delta_r)
             }
         }
 
-        return DATA_d[i_DATA - 1];      // "OUT OF RANGE FOR INTERPOLATION"
+        return DATA_d[i_DATA - 1];
     }
 }
 
 double LOSTable::GetPsiFromTable(double d__km)
 {
     if (d__km > DATA_d[0])
-        return DATA_psi[0];     // "OUT OF RANGE FOR INTERPOLATION"
+        return DATA_psi[0];
     else if (d__km == DATA_d[0])
         return DATA_psi[0];
     else
@@ -124,7 +124,7 @@ double LOSTable::GetPsiFromTable(double d__km)
                 return DATA_psi[K];
         }
 
-        return DATA_psi[i_DATA - 1];        // "OUT OF RANGE FOR INTERPOLATION"
+        return DATA_psi[i_DATA - 1];
     }
 }
 

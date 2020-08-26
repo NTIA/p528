@@ -1,5 +1,3 @@
-
- // Operating system preprocessor directives *********************************************************
 #define DLLEXPORT extern "C" __declspec(dllexport)
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
@@ -29,6 +27,7 @@
 //
 // RETURN CODES
 ///////////////////////////////////////////////
+
 #define	SUCCESS                             0
 #define ERROR_VALIDATION__D_KM              1
 #define ERROR_VALIDATION__H_1               2
@@ -42,7 +41,10 @@
 #define WARNING__DFRAC_TROPO_REGION         0xFF1
 #define WARNING__LOW_FREQUENCY              0xFF2
 
-// Struct
+//
+// DATA STRUCTURES
+///////////////////////////////////////////////
+
 struct Path
 {
     // Distances
@@ -132,9 +134,11 @@ public:
     const static double P[NUM_OF_PROBS];    // Probabilities for interpolation and data tables
 };
 
-// Private Functions
-//////////////////////
+//
+// FUNCTIONS
+///////////////////////////////////////////////
 
+// Private Functions
 void GetPathLoss(double psi, Path path, Terminal terminal_1, Terminal terminal_2,
     double f__mhz, double psi_limit, double A_dML__db, double A_d_0__db, LineOfSightParams* params, double *R_Tg);
 void RayOptics(Path path, Terminal terminal_1, Terminal terminal_2, double psi, LineOfSightParams *result);
@@ -159,9 +163,6 @@ double CombineDistributions(double A_M, double A_i, double B_M, double B_i, doub
 int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage);
 
 // Public Functions
-////////////////////
-
-DLLEXPORT int Main(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, Result *result);
-DLLEXPORT int MainEx(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, Result* result,
+DLLEXPORT int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, Result *result);
+DLLEXPORT int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, Result* result,
     Terminal* terminal_1, Terminal* terminal_2, TroposcatterParams* tropo, Path* path, LineOfSightParams* los_params);
-
