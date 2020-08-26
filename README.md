@@ -70,7 +70,7 @@ The software is designed to be built into a DLL (or corresponding library for no
 
 ### C#/.NET Wrapper Software
 
-The .NET support of LFMF consists of a simple pass-through wrapper around the native DLL.  It is compiled to target .NET Framework 4.7.2.  Distribution and updates are provided through the published NuGet package.
+The .NET support of P.528 consists of a simple pass-through wrapper around the native DLL.  It is compiled to target .NET Framework 4.7.2.  Distribution and updates are provided through the published NuGet package.
 
 ## References ##
 
