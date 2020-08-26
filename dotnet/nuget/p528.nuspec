@@ -2,17 +2,20 @@
 <package >
   <metadata>
     <id>P528</id>
-    <version>4.4.0</version>
+    <version>4.3.0</version>
     <authors>The Institute for Telecommunication Sciences</authors>
     <owners>The Institute for Telecommunication Sciences</owners>
     <license type="file">LICENSE.md</license>
     <projectUrl>https://github.com/NTIA/p528</projectUrl>
-    <iconUrl>https://www.its.bldrdoc.gov/media/66689/itslogosquare.png</iconUrl>
+    <icon>images\itslogo.png</icon>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Recommendation ITU-R P.528: A propagation prediction method for aeronautical mobile and radionavigation services using the VHF, UHF and SHF bands.  This Recommendation contains a method for predicting basic transmission loss in the frequency range 125-15 500 MHz for aeronautical and satellite services. The software implements Annex 2 of Rec P.528, the Step-by-Step method to computing propagation loss for air-to-ground paths.</description>
     <releaseNotes>None</releaseNotes>
     <tags>ITU SG3 Propagation P528 P.528</tags>
     <repository type="git" url="https://github.com/NTIA/p528.git" branch="master"/>
+    <dependencies>
+      <group targetFramework=".NETFramework4.7.2" />
+    </dependencies>
   </metadata>
   <files>
     <file src="..\..\LICENSE.md" target=""/>
@@ -22,5 +25,6 @@
     <file src="lib\net472\ITS.Propagation.P528.dll" target="lib\net472\ITS.Propagation.P528.dll"/>
     <file src="lib\net472\ITS.Propagation.P528.pdb" target="lib\net472\ITS.Propagation.P528.pdb"/>
     <file src="lib\net472\ITS.Propagation.P528.xml" target="lib\net472\ITS.Propagation.P528.xml"/>
+	<file src="images\itslogo.png" target="images\itslogo.png"/>
   </files>
 </package>

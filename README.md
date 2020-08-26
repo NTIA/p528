@@ -64,7 +64,13 @@ The below table includes a select set of example inputs and outputs for testing 
 
 ## Configure and Build ##
 
+### C++ Software
+
 The software is designed to be built into a DLL (or corresponding library for non-Windows systems).  The source code can be built for any OS that supports the standard C++ libraries.  A Visual Studio 2017 project file is provided for Windows users to support the build process and configuration.
+
+### C#/.NET Wrapper Software
+
+The .NET support of LFMF consists of a simple pass-through wrapper around the native DLL.  It is compiled to target .NET Framework 4.7.2.  Distribution and updates are provided through the published NuGet package.
 
 ## References ##
 
