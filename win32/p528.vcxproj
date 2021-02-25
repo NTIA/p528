@@ -39,8 +39,12 @@
     <ClCompile Include="..\src\LongTermVariability.cpp" />
     <ClCompile Include="..\src\LOSTable.cpp" />
     <ClCompile Include="..\src\Main.cpp" />
+    <ClCompile Include="..\src\MeanAnnualGlobalReferenceAtmosphere.cpp" />
     <ClCompile Include="..\src\NakagamiRice.cpp" />
+    <ClCompile Include="..\src\OxygenData.cpp" />
     <ClCompile Include="..\src\RayOptics.cpp" />
+    <ClCompile Include="..\src\RayTrace.cpp" />
+    <ClCompile Include="..\src\SpecificAttenuation.cpp" />
     <ClCompile Include="..\src\Thayer.cpp" />
     <ClCompile Include="..\src\ReflectionCoefficients.cpp" />
     <ClCompile Include="..\src\SmoothEarthDiffraction.cpp" />
@@ -49,11 +53,7 @@
     <ClCompile Include="..\src\TranshorizonSearch.cpp" />
     <ClCompile Include="..\src\Troposcatter.cpp" />
     <ClCompile Include="..\src\ValidateInputs.cpp" />
-    <ClCompile Include="MeanAnnualGlobalReferenceAtmosphere.cpp" />
-    <ClCompile Include="OxygenData.cpp" />
-    <ClCompile Include="RayTrace.cpp" />
-    <ClCompile Include="SpecificAttenuation.cpp" />
-    <ClCompile Include="WaterVapourData.cpp" />
+    <ClCompile Include="..\src\WaterVapourData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="p528.def" />
