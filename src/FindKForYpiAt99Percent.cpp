@@ -2,6 +2,13 @@
 
 /*=============================================================================
  |
+ |       Author:  William Kozma Jr
+ |                wkozma@ntia.gov
+ |                US Dept of Commerce, NTIA/ITS
+ |                May 2019 : Geneva Study Group 3 Meetings
+ |
+ +-----------------------------------------------------------------------------
+ |
  |  Description:  This function returns the K-value of the Nakagami-Rice
  |                distribution for the given value of Y_pi(0.99)
  |

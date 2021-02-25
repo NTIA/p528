@@ -3,6 +3,13 @@
 
 /*=============================================================================
  |
+ |       Author:  William Kozma Jr
+ |                wkozma@ntia.gov
+ |                US Dept of Commerce, NTIA/ITS
+ |                May 2019 : Geneva Study Group 3 Meetings
+ |
+ +-----------------------------------------------------------------------------
+ |
  |  Description:  This function combines two distributions A and B, returning
  |                the resulting percentile.
  |
@@ -15,14 +22,14 @@
  |       Returns: C_q   - q% of resulting distribution C
  |
  *===========================================================================*/
-double CombineDistributions(double A_M, double A_q, double B_M, double B_q, double q)
+double CombineDistributions(double A_M, double A_i, double B_M, double B_i, double q)
 {
     double C_M = A_M + B_M;
 
     double Y_1, Y_2, Y_3;
 
-    Y_1 = A_q - A_M;
-    Y_2 = B_q - B_M;
+    Y_1 = A_i - A_M;
+    Y_2 = B_i - B_M;
 
     Y_3 = sqrt(pow(Y_1, 2) + pow(Y_2, 2));
 

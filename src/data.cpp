@@ -1,5 +1,14 @@
 #include "..\include\p528.h"
 
+/*=============================================================================
+ |
+ |       Author:  William Kozma Jr
+ |                wkozma@ntia.gov
+ |                US Dept of Commerce, NTIA/ITS
+ |                May 2019 : Geneva Study Group 3 Meetings
+ |
+ *===========================================================================*/
+
 // Data table with K-values and corresponding Nakagami-Rice distributions
 const double data::NR_Data[17][18] =
 {

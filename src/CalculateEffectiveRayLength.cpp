@@ -3,6 +3,13 @@
 
 /*=============================================================================
  |
+ |       Author:  William Kozma Jr
+ |                wkozma@ntia.gov
+ |                US Dept of Commerce, NTIA/ITS
+ |                May 2019 : Geneva Study Group 3 Meetings
+ |
+ +-----------------------------------------------------------------------------
+ |
  |  Description:  This function computes the effective ray length as described
  |                in Annex 2, Section 12 of Recommendation ITU-R P.528-4,
  |                "Propagation curves for aeronautical mobile and
