@@ -49,6 +49,11 @@
     <ClCompile Include="..\src\TranshorizonSearch.cpp" />
     <ClCompile Include="..\src\Troposcatter.cpp" />
     <ClCompile Include="..\src\ValidateInputs.cpp" />
+    <ClCompile Include="MeanAnnualGlobalReferenceAtmosphere.cpp" />
+    <ClCompile Include="OxygenData.cpp" />
+    <ClCompile Include="RayTrace.cpp" />
+    <ClCompile Include="SpecificAttenuation.cpp" />
+    <ClCompile Include="WaterVapourData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="p528.def" />

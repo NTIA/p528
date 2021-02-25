@@ -7,6 +7,11 @@
  |
  *===========================================================================*/
 
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
 #define DLLEXPORT extern "C" __declspec(dllexport)
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
@@ -48,6 +53,44 @@
 #define ERROR_VALIDATION__PERCENT_HIGH      8
 #define ERROR_HEIGHT_AND_DISTANCE			10
 #define WARNING__DFRAC_TROPO_REGION         20
+
+//
+// CLASSES
+///////////////////////////////////////////////
+
+class OxygenData
+{
+public:
+	const static vector<double> f_0;		// 
+	const static vector<double> a_1;		//
+	const static vector<double> a_2;		//
+	const static vector<double> a_3;		//
+	const static vector<double> a_4;		//
+	const static vector<double> a_5;		//
+	const static vector<double> a_6;		//
+};
+
+class WaterVapourData
+{
+public:
+	const static vector<double> f_0;		// 
+	const static vector<double> b_1;		//
+	const static vector<double> b_2;		//
+	const static vector<double> b_3;		//
+	const static vector<double> b_4;		//
+	const static vector<double> b_5;		//
+	const static vector<double> b_6;		//
+};
+
+class data
+{
+public:
+	const static int NUM_OF_PROBS = 17;
+	const static int K_ROWS = 17;
+
+	const static double NR_Data[17][18];    // Data table with K-values and corresponding Nakagami-Rice distributions
+	const static double P[NUM_OF_PROBS];    // Probabilities for interpolation and data tables
+};
 
 //
 // DATA STRUCTURES
@@ -133,16 +176,6 @@ struct Result {
 	double A_fs__db;            // Free space path loss
 };
 
-class data
-{
-public:
-	const static int NUM_OF_PROBS = 17;
-	const static int K_ROWS = 17;
-
-	const static double NR_Data[17][18];    // Data table with K-values and corresponding Nakagami-Rice distributions
-	const static double P[NUM_OF_PROBS];    // Probabilities for interpolation and data tables
-};
-
 //
 // FUNCTIONS
 ///////////////////////////////////////////////
@@ -170,6 +203,32 @@ double FindKForYpiAt99Percent(double Y_pi__db);
 double CombineDistributions(double A_M, double A_i, double B_M, double B_i, double q);
 int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage);
 double NakagamiRice(double K, double q);
+
+// P.835 Functions
+double ConvertToGeopotentialHeight(double h__km);
+double WaterVapourDensityToPressure(double rho, double T__kelvin);
+double GlobalTemperature(double h__km);
+double GlobalTemperature_Regime1(double h_prime__km);
+double GlobalTemperature_Regime2(double h__km);
+double GlobalPressure(double h__km);
+double GlobalPressure_Regime1(double h_prime__km);
+double GlobalPressure_Regime2(double h__km);
+double GlobalWaterVapourDensity(double h__km);
+double GlobalWaterVapourPressure(double h__km);
+double GlobalDryAtmosphereDensity(double h__km);
+
+// P.676 Functions
+void RayTrace(double f__mhz, double h_rx__km, double* d_arc__km, double* theta_rx, double* A_a__db);
+double SpecificAttenuation(double f__ghz, double T__kelvin, double e__hPa, double P__hPa);
+double OxygenSpecificAttenuation(double f__ghz, double T__kelvin, double e__hPa, double P__hPa);
+double WaterVapourSpecificAttenuation(double f__ghz, double T__kelvin, double e__hPa, double P__hPa);
+double OxygenRefractivity(double f__ghz, double T__kelvin, double e__hPa, double P__hPa);
+double WaterVapourRefractivity(double f__ghz, double T__kelvin, double e__hPa, double P__hPa);
+double LineShapeFactor(double f__ghz, double f_i__ghz, double delta_f__ghz, double delta);
+double NonresonantDebyeAttenuation(double f__ghz, double e__hPa, double P__hPa, double theta);
+void GetLayerProperties(double f__ghz, double h_mid__km, double* n, double* gamma);
+
+double RefractiveIndex(double P_d__hPa, double T__kelvin, double e);
 
 // Public Functions
 DLLEXPORT int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, Result *result);
