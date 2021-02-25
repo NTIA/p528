@@ -11,7 +11,7 @@
  |       Author:  William Kozma Jr
  |                wkozma@ntia.gov
  |                US Dept of Commerce, NTIA/ITS
- |                May 2019 : Geneva Study Group 3 Meetings
+ |                June 2021 : Geneva Study Group 3 Meetings
  |
  +-----------------------------------------------------------------------------
  |
