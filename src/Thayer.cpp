@@ -28,7 +28,7 @@
  |                theta_rx      - Angle, in radian
  |
  *===========================================================================*/
-void RayTrace(double N_s, double h_rx__km, double *arc_distance, double *theta_rx)
+void Thayer(double N_s, double h_rx__km, double *arc_distance, double *theta_rx)
 {
 	if (h_rx__km == 0)                                      // both terminals are on the surface of the Earth
 	{

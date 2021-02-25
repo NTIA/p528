@@ -31,8 +31,8 @@ void LongTermVariability(double h_r1__km, double h_r2__km, double d__km, double 
 {
 	// Step 1
 	double d_Lq1__km, d_Lq2__km, theta__rad;
-	RayTrace(N_9000, h_r1__km, &d_Lq1__km, &theta__rad);
-	RayTrace(N_9000, h_r2__km, &d_Lq2__km, &theta__rad);
+	Thayer(N_9000, h_r1__km, &d_Lq1__km, &theta__rad);
+	Thayer(N_9000, h_r2__km, &d_Lq2__km, &theta__rad);
 
 	// Step 2
 	double d_qs__km = 65.0 * pow((100.0 / f__mhz), 1.0 / 3.0);          // [Eqn 187]

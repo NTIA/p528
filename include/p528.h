@@ -165,7 +165,7 @@ double SmoothEarthDiffraction(double d_1__km, double d_2__km, double f__mhz, dou
 double InverseComplementaryCumulativeDistributionFunction(double q);
 void LongTermVariability(double h_r1__km, double h_r2__km, double d__km, double f__mhz, double time_percentage, double f_theta_h, double PL, double *Y_e__db, double *A_Y);
 double TranshorizonAtmosphericAbsorptionLoss(Terminal terminal_1, Terminal terminal_2, Path path, TroposcatterParams tropo, double f__mhz);
-void RayTrace(double N_s, double h_rx__km, double *arc_distance, double *theta_rx);
+void Thayer(double N_s, double h_rx__km, double *arc_distance, double *theta_rx);
 double FindKForYpiAt99Percent(double Y_pi__db);
 double CombineDistributions(double A_M, double A_i, double B_M, double B_i, double q);
 int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage);
