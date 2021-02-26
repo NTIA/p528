@@ -25,8 +25,7 @@
 void TerminalGeometry(double f__mhz, double N_s, double a_e__km, Terminal *terminal)
 {
 	// Step 1
-	Thayer(N_s, terminal->h_r__km, &terminal->d_r__km, &terminal->theta__rad);
-	//RayTrace(f__mhz, terminal->h_r__km, &terminal->d_r__km, &terminal->theta__rad, &terminal->A_a__db);
+	RayTrace(f__mhz, terminal->h_r__km, &terminal->d_r__km, &terminal->theta__rad, &terminal->A_a__db);
 
 	// Step 2
 	terminal->phi__rad = terminal->d_r__km / a_e__km;       // [Eqn 24]

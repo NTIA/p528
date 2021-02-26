@@ -49,7 +49,6 @@
     <ClCompile Include="..\src\ReflectionCoefficients.cpp" />
     <ClCompile Include="..\src\SmoothEarthDiffraction.cpp" />
     <ClCompile Include="..\src\TerminalGeometry.cpp" />
-    <ClCompile Include="..\src\TranshorizonAbsorptionLoss.cpp" />
     <ClCompile Include="..\src\TranshorizonSearch.cpp" />
     <ClCompile Include="..\src\Troposcatter.cpp" />
     <ClCompile Include="..\src\ValidateInputs.cpp" />

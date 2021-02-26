@@ -74,8 +74,8 @@ namespace Manual
         static void GenerateDataFiles()
         {
             // Generate data file format
-            var freqs = new List<double> { 125, 300, 600, 1200, 2400, 5100, 9400, 15500 };
-            var qs = new List<double> { 0.01, 0.05, 0.10, 0.50, 0.95 };
+            var freqs = new List<double> { 125 };//, 300, 600, 1200, 2400, 5100, 9400, 15500 };
+            var qs = new List<double> { 0.01 };//, 0.05, 0.10, 0.50, 0.95 };
 
             string dir = Path.Combine(Environment.CurrentDirectory, NEW_DATA_TABLES_DIR);
             if (!Directory.Exists(dir))

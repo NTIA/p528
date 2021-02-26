@@ -43,7 +43,7 @@ void RayTrace(double f__mhz, double h_rx__km, double* d_arc__km, double* theta_r
     *A_a__db = 0; // total atmospheric absorption
 
     // loop as long as the full layer is below h_rx__km
-    while (h_i__km + delta_i__km <= h_rx__km && i < 922)
+    while (h_i__km + delta_i__km <= h_rx__km && i < 922 || i == 1)
     {
         // radial to bottom of layer
         r_i__km = a_0__km + h_i__km;
@@ -84,6 +84,9 @@ void RayTrace(double f__mhz, double h_rx__km, double* d_arc__km, double* theta_r
             h_ii__km = h_rx__km;
         }
     }
+
+    // now compute any partial remaining layer
+
 
     *theta_rx = PI / 2 - beta_ii;
 
