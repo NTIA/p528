@@ -85,9 +85,6 @@ void RayTrace(double f__mhz, double h_rx__km, double theta_tx, double* d_arc__km
         }
     }
 
-    // now compute any partial remaining layer
-
-
     *theta_rx = PI / 2 - beta_ii;
 
     // check if above the atmosphere
