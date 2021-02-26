@@ -221,7 +221,7 @@ double GlobalWaterVapourPressure(double h__km);
 double GlobalDryAtmosphereDensity(double h__km);
 
 // P.676 Functions
-void RayTrace(double f__mhz, double h_rx__km, double* d_arc__km, double* theta_rx, double* A_a__db);
+void RayTrace(double f__mhz, double h_rx__km, double theta_tx, double* d_arc__km, double* theta_rx, double* A_a__db);
 double SpecificAttenuation(double f__ghz, double T__kelvin, double e__hPa, double P__hPa);
 double OxygenSpecificAttenuation(double f__ghz, double T__kelvin, double e__hPa, double P__hPa);
 double WaterVapourSpecificAttenuation(double f__ghz, double T__kelvin, double e__hPa, double P__hPa);

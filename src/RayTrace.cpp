@@ -11,7 +11,7 @@ double LayerBottom(int i)
     return 0.0001 * (exp((i - 1) / 100.) - 1) / (exp(1 / 100.) - 1);
 }
 
-void RayTrace(double f__mhz, double h_rx__km, double* d_arc__km, double* theta_rx, double* A_a__db)
+void RayTrace(double f__mhz, double h_rx__km, double theta_tx, double* d_arc__km, double* theta_rx, double* A_a__db)
 {
     double f__ghz = f__mhz / 1000;
 
@@ -23,7 +23,7 @@ void RayTrace(double f__mhz, double h_rx__km, double* d_arc__km, double* theta_r
     double h_i__km = LayerBottom(i);                // height of the bottom of the layer
     double h_ii__km = LayerBottom(i + 1);           //
 
-    double beta_i = PI / 2;   // exit angle
+    double beta_i = PI / 2 - theta_tx;   // exit angle
     double alpha_i; // enter angle
     double a_i__km;     // path length
     double r_i__km; // bottom of layer

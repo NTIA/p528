@@ -216,7 +216,7 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, doub
 		//
 
 		double d_arc__km, theta_rx__rad, A_a_hv__db;
-		RayTrace(f__mhz, tropo.h_v__km, &d_arc__km, &theta_rx__rad, &A_a_hv__db);
+		RayTrace(f__mhz, tropo.h_v__km, 0, &d_arc__km, &theta_rx__rad, &A_a_hv__db);
 
 		double A_a__db = -(terminal_1.A_a__db + terminal_2.A_a__db + 2 * A_a_hv__db);
 
