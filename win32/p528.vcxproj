@@ -38,7 +38,7 @@
     <ClCompile Include="..\src\LineOfSight.cpp" />
     <ClCompile Include="..\src\LongTermVariability.cpp" />
     <ClCompile Include="..\src\LOSTable.cpp" />
-    <ClCompile Include="..\src\Main.cpp" />
+    <ClCompile Include="..\src\P528.cpp" />
     <ClCompile Include="..\src\MeanAnnualGlobalReferenceAtmosphere.cpp" />
     <ClCompile Include="..\src\NakagamiRice.cpp" />
     <ClCompile Include="..\src\OxygenData.cpp" />
