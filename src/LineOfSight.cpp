@@ -41,16 +41,16 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
     double psi;
     double R_Tg;
 
-	// 0.2997925 = speed of light, megameters per sec
-    double lambda = 0.2997925 / f__mhz;                             // [Eqn 49]
+	// 0.2997925 = speed of light, gigameters per sec
+    double lambda__km = 0.2997925 / f__mhz;                             // [Eqn 49]
 
     // Build table of psi, delta_r, and d__km
     LOSTable table;
-    table.Build(*path, terminal_1, terminal_2, lambda);
+    table.Build(*path, terminal_1, terminal_2, lambda__km);
 
 	// determine psi_limit, where you switch from free space to 2-ray model
 	// lambda / 2 is the start of the lobe closest to d_ML
-    double d__km_s = table.GetDistanceFromTable(lambda / 2);
+    double d__km_s = table.GetDistanceFromTable(lambda__km / 2);
 
 	double psi_limit = table.GetPsiFromTable(d__km_s);
 
@@ -60,7 +60,7 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 
 	// "[d_y6__km] is the largest distance at which a free-space value is obtained in a two-ray model
 	//   of reflection from a smooth earth with a reflection coefficient of -1" [ES-83-3, page 44]
-	double d_y6__km = table.GetDistanceFromTable(lambda / 6);
+	double d_y6__km = table.GetDistanceFromTable(lambda__km / 6);
 
 	// In IF-73, the values for d_0 (d_d in IF-77) were found to be too small when both antennas are low,
 	// so this "heuristic" was developed to fix that
@@ -214,12 +214,12 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 
     // [Eqn 175]
 	double F_delta_r;
-	if (los_params->delta_r >= (lambda / 2.0))
+	if (los_params->delta_r >= (lambda__km / 2.0))
 		F_delta_r = 1.0;
-	else if (los_params->delta_r <= lambda / 6.0)
+	else if (los_params->delta_r <= lambda__km / 6.0)
 		F_delta_r = 0.1;
 	else
-		F_delta_r = 0.5 * (1.1 - (0.9 * cos(((3.0 * PI) / lambda) * (los_params->delta_r - (lambda / 6.0)))));
+		F_delta_r = 0.5 * (1.1 - (0.9 * cos(((3.0 * PI) / lambda__km) * (los_params->delta_r - (lambda__km / 6.0)))));
 
 	double R_s = R_Tg * F_delta_r * F_AY;       // [Eqn 178]
 
