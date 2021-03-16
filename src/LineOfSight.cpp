@@ -24,6 +24,9 @@
  |                A_dML__db     - Diffraction loss at d_ML, in dB
  |                q             - Quantile
  |                d__km         - Path length, in km
+ |                T_pol         - Code indicating either polarization
+ |                                  + 0 : POLARIZATION__HORIZONTAL
+ |                                  + 1 : POLARIZATION__VERTICAL
  |
  |      Outputs:  los_params    - Struct contianing LOS parameters
  |                result        - Struct contianing P.528 results
@@ -33,7 +36,7 @@
  |
  *===========================================================================*/
 void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSightParams *los_params, 
-    double f__mhz, double A_dML__db, double q, double d__km, Result *result, double *K_LOS)
+    double f__mhz, double A_dML__db, double q, double d__km, int T_pol, Result *result, double *K_LOS)
 {
     double psi;
     double R_Tg;
@@ -114,7 +117,7 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	double psi_d0 = table.GetPsiFromTable(path->d_0__km);
 	RayOptics(*path, terminal_1, terminal_2, psi_d0, los_params);
 
-	GetPathLoss(psi_d0, *path, terminal_1, terminal_2, f__mhz, psi_limit, A_dML__db, 0, los_params, &R_Tg);
+	GetPathLoss(psi_d0, *path, terminal_1, terminal_2, f__mhz, psi_limit, A_dML__db, 0, T_pol, los_params, &R_Tg);
 
 	//
 	// Compute loss at d_0__km
@@ -149,7 +152,7 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	else
 		RayOptics(*path, terminal_1, terminal_2, psi, los_params);
 
-	GetPathLoss(psi, *path, terminal_1, terminal_2, f__mhz, psi_limit, A_dML__db, los_params->A_LOS__db, los_params, &R_Tg);
+	GetPathLoss(psi, *path, terminal_1, terminal_2, f__mhz, psi_limit, A_dML__db, los_params->A_LOS__db, T_pol, los_params, &R_Tg);
 
 	/////////////////////////////////////////////
 	// Compute atmospheric absorption

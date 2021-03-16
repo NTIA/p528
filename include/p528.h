@@ -38,6 +38,10 @@ using namespace std;
 #define PROP_MODE__DIFFRACTION              2
 #define PROP_MODE__SCATTERING               3
 
+// List of valid polarizations
+#define POLARIZATION__HORIZONTAL            0
+#define POLARIZATION__VERTICAL              1
+
 //
 // RETURN CODES
 ///////////////////////////////////////////////
@@ -51,6 +55,7 @@ using namespace std;
 #define ERROR_VALIDATION__F_MHZ_HIGH        6
 #define ERROR_VALIDATION__PERCENT_LOW       7
 #define ERROR_VALIDATION__PERCENT_HIGH      8
+#define ERROR_VALIDATION__POLARIZATION      9
 #define ERROR_HEIGHT_AND_DISTANCE			10
 #define WARNING__DFRAC_TROPO_REGION         20
 
@@ -185,7 +190,8 @@ struct Result {
 
 // Private Functions
 void GetPathLoss(double psi, Path path, Terminal terminal_1, Terminal terminal_2,
-	double f__mhz, double psi_limit, double A_dML__db, double A_d_0__db, LineOfSightParams* params, double *R_Tg);
+	double f__mhz, double psi_limit, double A_dML__db, double A_d_0__db, 
+	int T_pol, LineOfSightParams* params, double *R_Tg);
 void RayOptics(Path path, Terminal terminal_1, Terminal terminal_2, double psi, LineOfSightParams *result);
 void TerminalGeometry(double f__mhz, double N_s, double a_e__km, Terminal *terminal);
 void Troposcatter(Path path, Terminal terminal_1, Terminal terminal_2, double d__km, double f__mhz, double N_s, TroposcatterParams *tropo_params);
@@ -194,17 +200,17 @@ int TranshorizonSearch(Path* path, Terminal terminal_1, Terminal terminal_2, dou
 double LinearInterpolation(double x1, double y1, double x2, double y2, double x);
 void AtmosphericAbsorptionParameters(double f__mhz, double *gamma_oo, double *gamma_ow);
 double CalculateEffectiveRayLength(double z_1__km, double z_2__km, double a_e__km, double d_arc__km, double beta__rad, double T_e__km);
-void ReflectionCoefficients(double psi, double f__mhz, double *R_g, double *phi_g);
+void ReflectionCoefficients(double psi, double f__mhz, int T_pol, double* R_g, double* phi_g);
 void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSightParams *los_params, double f__mhz, double A_dML__db,
-	double time_percentage, double d__km, Result *result, double *K_LOS);
-double SmoothEarthDiffraction(double d_1__km, double d_2__km, double f__mhz, double d_0__km);
+	double time_percentage, double d__km, int T_pol, Result *result, double *K_LOS);
+double SmoothEarthDiffraction(double d_1__km, double d_2__km, double f__mhz, double d_0__km, int T_pol);
 double InverseComplementaryCumulativeDistributionFunction(double q);
 void LongTermVariability(double h_r1__km, double h_r2__km, double d__km, double f__mhz, double time_percentage, 
 	double f_theta_h, double PL, double *Y_e__db, double *A_Y);
 void Thayer(double N_s, double h_rx__km, double *arc_distance, double *theta_rx);
 double FindKForYpiAt99Percent(double Y_pi__db);
 double CombineDistributions(double A_M, double A_i, double B_M, double B_i, double q);
-int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage);
+int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol, double time_percentage);
 double NakagamiRice(double K, double q);
 
 // P.835 Functions
@@ -234,5 +240,5 @@ void GetLayerProperties(double f__ghz, double h_mid__km, double* n, double* gamm
 double RefractiveIndex(double P_d__hPa, double T__kelvin, double e);
 
 // Public Functions
-DLLEXPORT int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, Result *result);
+DLLEXPORT int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol, double time_percentage, Result *result);
 

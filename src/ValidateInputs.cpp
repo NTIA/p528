@@ -15,12 +15,16 @@
  |                h_1__meter        - Height of the low terminal, in meters
  |                h_2__meter        - Height of the high terminal, in meters
  |                f__mhz            - Frequency, in MHz
+ |                T_pol             - Code indicating either polarization
+ |                                      + 0 : POLARIZATION__HORIZONTAL
+ |                                      + 1 : POLARIZATION__VERTICAL
  |                time_percentage   - Time percentage
  |
  |      Returns:  SUCCESS, or validation error code
  |
  *===========================================================================*/
-int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage)
+int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, 
+	double f__mhz, int T_pol, double time_percentage)
 {
 	if (d__km < 0)
 		return ERROR_VALIDATION__D_KM;
@@ -34,11 +38,15 @@ int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, double f_
 	if (h_1__meter > h_2__meter)
 		return ERROR_VALIDATION__TERM_GEO;
 
-	if (f__mhz < 125)
+	if (f__mhz < 100)
 		return ERROR_VALIDATION__F_MHZ_LOW;
 
 	if (f__mhz > 15500)
 		return ERROR_VALIDATION__F_MHZ_HIGH;
+
+	if (T_pol != POLARIZATION__HORIZONTAL &&
+		T_pol != POLARIZATION__VERTICAL)
+		return ERROR_VALIDATION__POLARIZATION;
 
 	if (time_percentage < 0.01)
 		return ERROR_VALIDATION__PERCENT_LOW;

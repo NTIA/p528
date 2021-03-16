@@ -37,10 +37,17 @@ namespace Manual
         public double A_fs__db;
     }
 
+    enum Polarization : int
+    {
+        Horizontal = 0,
+        Vertical = 1
+    }
+
     class Program
     {
         [DllImport("p528.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi, EntryPoint = "P528")]
-        private static extern int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, ref Result result);
+        private static extern int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
+            int T_pol, double time_percentage, ref Result result);
 
         const string NEW_DATA_TABLES_DIR = "DataTables-v5";
         const string OLD_DATA_TABLES_DIR = "DataTables-v4";
@@ -181,7 +188,7 @@ namespace Manual
         static double GetLoss(double d__km, double h1, double h2, double f__mhz, double q)
         {
             var result = new Result();
-            P528(d__km, h1, h2, f__mhz, q, ref result);
+            P528(d__km, h1, h2, f__mhz, (int)Polarization.Horizontal, q, ref result);
 
             return -Math.Round(result.A__db, 1);
         }
@@ -192,7 +199,7 @@ namespace Manual
         static double GetFreeSpaceLoss(double d__km, double h1, double h2, double f__mhz, double q)
         {
             var result = new Result();
-            P528(d__km, h1, h2, f__mhz, q, ref result);
+            P528(d__km, h1, h2, f__mhz, (int)Polarization.Horizontal, q, ref result);
 
             return -Math.Round(result.A_fs__db, 1);
         }

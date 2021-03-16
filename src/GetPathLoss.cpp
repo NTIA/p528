@@ -25,6 +25,9 @@
  |                psi_limit     - Angular limit seperating FS and 2-Ray
  |                A_dML__db     - Diffraction loss at d_ML, in dB
  |                A_d_0__db     - Loss at d_0, in dB
+ |                T_pol         - Code indicating either polarization
+ |                                  + 0 : POLARIZATION__HORIZONTAL
+ |                                  + 1 : POLARIZATION__VERTICAL
  |
  |      Outputs:  params        - Line of sight loss params
  |                R_Tg          - Reflection parameter
@@ -33,10 +36,11 @@
  |
  *===========================================================================*/
 void GetPathLoss(double psi, Path path, Terminal terminal_1, Terminal terminal_2,
-	double f__mhz, double psi_limit, double A_dML__db, double A_d_0__db, LineOfSightParams* params, double *R_Tg)
+	double f__mhz, double psi_limit, double A_dML__db, double A_d_0__db, 
+	int T_pol, LineOfSightParams* params, double *R_Tg)
 {
 	double R_g, phi_g;
-	ReflectionCoefficients(psi, f__mhz, &R_g, &phi_g);
+	ReflectionCoefficients(psi, f__mhz, T_pol, &R_g, &phi_g);
 
 	double D_v;             // Divergence factor, [Eqn 81]
 	if (tan(psi) >= 0.1)

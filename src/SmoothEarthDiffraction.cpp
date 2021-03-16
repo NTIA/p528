@@ -25,6 +25,9 @@
  |                a_e__km   - Effective earth radius, in km
  |                f__mhz    - Frequency, in MHz
  |                d_0__km   - Path length of interest, in km
+ |                T_pol     - Code indicating either polarization
+ |                              + 0 : POLARIZATION__HORIZONTAL
+ |                              + 1 : POLARIZATION__VERTICAL
  |
  |      Returns:  A_d__db   - Diffraction loss, in dB
  |
@@ -39,7 +42,7 @@ double DistanceFunction(double x__km)
 	return G_x__db;
 }
 
-double HeightFunction(double x__km)
+double HeightFunction(double x__km, double K)
 {
 	double F_x__db;
 
@@ -51,8 +54,18 @@ double HeightFunction(double x__km)
 
 	if (x__km <= 200.0)
 	{
-		// [FAA-ES-83-3, Equ 74] middle condition always true for P.528
-		F_x__db = y__db;
+		double x_t__km = 450 / -pow(log10(K), 3);		// [Eqn 109]
+
+		// [Eqn 110]
+		if (x__km >= x_t__km)
+		{
+			if (fabs(y__db) < 117)
+				F_x__db = y__db;
+			else
+				F_x__db = -117;
+		}
+		else
+			F_x__db = 20 * log10(K) - 15 + (0.000025 * pow(x__km, 2) / K);
 	}
 	else if (x__km > 2000.0)
 	{
@@ -71,22 +84,30 @@ double HeightFunction(double x__km)
 	return F_x__db;
 }
 
-double SmoothEarthDiffraction(double d_1__km, double d_2__km, double f__mhz, double d_0__km)
+double SmoothEarthDiffraction(double d_1__km, double d_2__km, double f__mhz, double d_0__km, int T_pol)
 {
-	// [Vogler 1964] The limiting value of B is 1.607 for K <= 0.01 and can be used for most cases of horizontal polarization
+	double s = 18000 * sigma / f__mhz;						// [Eqn 101]
+
+	// [Eqn 102]
+	double K;
+	if (T_pol == POLARIZATION__HORIZONTAL)
+		K = 0.01778 * pow(f__mhz, -THIRD) * pow(pow(epsilon - 1, 2) + pow(s, 2), -0.25);
+	else
+		K = 0.01778 * pow(f__mhz, -THIRD) * pow((pow(epsilon, 2) + pow(s, 2)) / pow(pow(epsilon - 1, 2) + pow(s, 2), 0.5), 0.5);
+
 	double B_0 = 1.607;
 
 	// [Vogler 1964, Equ 2] with C_0 = 1 due to "4/3" Earth assumption
-	double x_0__km = pow(f__mhz, THIRD) * B_0 * d_0__km;
-	double x_1__km = pow(f__mhz, THIRD) * B_0 * d_1__km;
-	double x_2__km = pow(f__mhz, THIRD) * B_0 * d_2__km;
-
-	// Compute the height functions for the two terminals
-	double F_x1__db = HeightFunction(x_1__km);
-	double F_x2__db = HeightFunction(x_2__km);
+	double x_0__km = (1.607 - K) * pow(f__mhz, THIRD) * d_0__km;
+	double x_1__km = (1.607 - K) * pow(f__mhz, THIRD) * d_1__km;
+	double x_2__km = (1.607 - K) * pow(f__mhz, THIRD) * d_2__km;
 
 	// Compute the distance function for the path
 	double G_x__db = DistanceFunction(x_0__km);
+
+	// Compute the height functions for the two terminals
+	double F_x1__db = HeightFunction(x_1__km, K);
+	double F_x2__db = HeightFunction(x_2__km, K);
 
 	// [Vogler 1964, Equ 1] with C_1(K, b^0) = 20, which is the approximate value for all K (see Figure 5)
 	return G_x__db - F_x1__db - F_x2__db - 20.0;

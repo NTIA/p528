@@ -30,7 +30,7 @@
  |                                      + 3 : Troposcatter
  |
  *===========================================================================*/
-int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, Result *result)
+int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol, double time_percentage, Result *result)
 {
 	Terminal terminal_1;
 	Terminal terminal_2;
@@ -45,7 +45,7 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, doub
 	result->los_iterations = 0;
 	result->propagation_mode = PROP_MODE__NOT_SET;
 
-	int err = ValidateInputs(d__km, h_1__meter, h_2__meter, f__mhz, time_percentage);
+	int err = ValidateInputs(d__km, h_1__meter, h_2__meter, f__mhz, T_pol, time_percentage);
     if (err != SUCCESS)
     {
         if (err == ERROR_HEIGHT_AND_DISTANCE)
@@ -90,8 +90,8 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, doub
 	double d_4__km = path.d_ML__km + 1.5 * pow(pow(path.a_e__km, 2) / f__mhz, THIRD);   // [Eqn 6]
 
 	// Step 3.2
-	double A_3__db = SmoothEarthDiffraction(terminal_1.d__km, terminal_2.d__km, f__mhz, d_3__km);
-	double A_4__db = SmoothEarthDiffraction(terminal_1.d__km, terminal_2.d__km, f__mhz, d_4__km);
+	double A_3__db = SmoothEarthDiffraction(terminal_1.d__km, terminal_2.d__km, f__mhz, d_3__km, T_pol);
+	double A_4__db = SmoothEarthDiffraction(terminal_1.d__km, terminal_2.d__km, f__mhz, d_4__km, T_pol);
 
 	// Step 3.3
 	double M_d = (A_4__db - A_3__db) / (d_4__km - d_3__km);                             // [Eqn 7]
@@ -111,14 +111,14 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, doub
 	if (path.d_ML__km - d__km > 0.001)
 	{
 		result->propagation_mode = PROP_MODE__LOS;
-		LineOfSight(&path, terminal_1, terminal_2, &los_params, f__mhz, -A_dML__db, time_percentage, d__km, result, &K_LOS);
+		LineOfSight(&path, terminal_1, terminal_2, &los_params, f__mhz, -A_dML__db, time_percentage, d__km, T_pol, result, &K_LOS);
 
 		return SUCCESS;
 	}
 	else
 	{
 		// get K_LOS
-		LineOfSight(&path, terminal_1, terminal_2, &los_params, f__mhz, -A_dML__db, time_percentage, path.d_ML__km - 1, result, &K_LOS);
+		LineOfSight(&path, terminal_1, terminal_2, &los_params, f__mhz, -A_dML__db, time_percentage, path.d_ML__km - 1, T_pol, result, &K_LOS);
 
 		// Step 6.  Search past horizon to find crossover point between Diffraction and Troposcatter models
 		int CASE;
