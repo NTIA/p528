@@ -10,7 +10,7 @@
  +-----------------------------------------------------------------------------
  |
  |  Description:  This function returns the K-value of the Nakagami-Rice
- |                distribution for the given value of Y_pi(0.99)
+ |                distribution for the given value of Y_pi(99)
  |
  |        Input:  Y_pi_99__db   - Y_pi(0.99), in dB
  |

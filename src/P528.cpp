@@ -191,7 +191,7 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 
 		double Y_e__db, Y_e_50__db, A_Y;
 		LongTermVariability(terminal_1.h_r__km, terminal_2.h_r__km, d__km, f__mhz, time_percentage, f_theta_h, A_T__db, &Y_e__db, &A_Y);
-		LongTermVariability(terminal_1.h_r__km, terminal_2.h_r__km, d__km, f__mhz, 0.50, f_theta_h, A_T__db, &Y_e_50__db, &A_Y);
+		LongTermVariability(terminal_1.h_r__km, terminal_2.h_r__km, d__km, f__mhz, 50, f_theta_h, A_T__db, &Y_e_50__db, &A_Y);
 
 		double ANGLE = 0.02617993878;
 		double K_t__db;

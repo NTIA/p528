@@ -48,10 +48,10 @@ int ValidateInputs(double d__km, double h_1__meter, double h_2__meter,
 		T_pol != POLARIZATION__VERTICAL)
 		return ERROR_VALIDATION__POLARIZATION;
 
-	if (time_percentage < 0.01)
+	if (time_percentage < 1)
 		return ERROR_VALIDATION__PERCENT_LOW;
 
-	if (time_percentage > 0.99)
+	if (time_percentage > 99)
 		return ERROR_VALIDATION__PERCENT_HIGH;
 
 	if (h_1__meter == h_2__meter && d__km == 0)

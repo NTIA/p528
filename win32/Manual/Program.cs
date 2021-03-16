@@ -82,7 +82,7 @@ namespace Manual
         {
             // Generate data file format
             var freqs = new List<double> { 125 };//, 300, 600, 1200, 2400, 5100, 9400, 15500 };
-            var qs = new List<double> { 0.01 };//, 0.05, 0.10, 0.50, 0.95 };
+            var qs = new List<double> { 1 };//, 5, 10, 50, 95 };
 
             string dir = Path.Combine(Environment.CurrentDirectory, NEW_DATA_TABLES_DIR);
             if (!Directory.Exists(dir))
@@ -92,12 +92,12 @@ namespace Manual
             {
                 foreach (var q in qs)
                 {
-                    var filename = $"{f__mhz.ToString("0,0")} MHz - Lb({q.ToString("0.00")})_P528.csv";
+                    var filename = $"{f__mhz.ToString("0,0")} MHz - Lb({(q / 100).ToString("0.00")})_P528.csv";
                     Console.Write($"Generating {filename}...");
 
                     using (var fs = new StreamWriter(Path.Combine(dir, filename)) { AutoFlush = true })
                     {
-                        fs.WriteLine($"{f__mhz}MHz / Lb({q.ToString("0.00")}) dB");
+                        fs.WriteLine($"{f__mhz}MHz / Lb({(q / 100).ToString("0.00")}) dB");
                         fs.WriteLine(",h2(m),1000,1000,1000,1000,1000,10000,10000,10000,10000,10000,10000,20000,20000,20000,20000,20000,20000,20000");
                         fs.WriteLine(",h1(m),1.5,15,30,60,1000,1.5,15,30,60,1000,10000,1.5,15,30,60,1000,10000,20000");
                         fs.WriteLine("D (km),FSL");

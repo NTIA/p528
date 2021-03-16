@@ -17,7 +17,7 @@
  |                Abramowitz & Stegun.  This approximation has an error
  |                of abs(epsilon(p)) < 4.5e-4
  |
- |        Input:  q     - Quantile, 0.0 < q < 1.0
+ |        Input:  q     - Percentage, 0.0 < q < 100.0
  |
  |      Returns:  Q_q   - Q(q)^-1
  |
@@ -31,8 +31,8 @@ double InverseComplementaryCumulativeDistributionFunction(double q)
     double D_2 = 0.189269;
     double D_3 = 0.001308;
 
-    double x = q;
-    if (q > 0.5)
+    double x = q / 100;
+    if (q > 50)
         x = 1.0 - x;
 
     double T_x = sqrt(-2.0 * log(x));
@@ -41,7 +41,7 @@ double InverseComplementaryCumulativeDistributionFunction(double q)
 
     double Q_q = T_x - zeta_x;
 
-    if (q > 0.5)
+    if (q > 50)
         Q_q = -Q_q;
 
     return Q_q;

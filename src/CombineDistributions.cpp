@@ -17,7 +17,7 @@
  |                A_q   - q% of distribution A
  |                B_M   - Mean of distribution B
  |                B_q   - q% of distribution B
- |                q     - Quantile
+ |                q     - Percentage
  |
  |       Returns: C_q   - q% of resulting distribution C
  |
@@ -33,7 +33,7 @@ double CombineDistributions(double A_M, double A_i, double B_M, double B_i, doub
 
     Y_3 = sqrt(pow(Y_1, 2) + pow(Y_2, 2));
 
-    if (q < 0.5)
+    if (q < 50)
         return C_M + Y_3;
     else
         return C_M - Y_3;

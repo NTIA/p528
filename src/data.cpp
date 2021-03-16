@@ -100,5 +100,5 @@ const double data::NR_Data[17][18] =
 };
 
 // Probabilities for interpolation and data tables
-const double data::P[17] = { 0.01, 0.02, 0.05, 0.10, 0.15, 0.20, 0.30, 0.40, 0.50,
-    0.60, 0.70, 0.80, 0.85, 0.90, 0.95, 0.98, 0.99 };
+const double data::P[17] = { 1, 2, 5, 10, 15, 20, 30, 40, 50,
+    60, 70, 80, 85, 90, 95, 98, 99 };

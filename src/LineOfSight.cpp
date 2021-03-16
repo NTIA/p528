@@ -22,7 +22,7 @@
  |                terminal_2    - Struct containing high terminal parameters
  |                f__mhz        - Frequency, in MHz
  |                A_dML__db     - Diffraction loss at d_ML, in dB
- |                q             - Quantile
+ |                q             - Time percentage
  |                d__km         - Path length, in km
  |                T_pol         - Code indicating either polarization
  |                                  + 0 : POLARIZATION__HORIZONTAL
@@ -202,7 +202,7 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 
 	double Y_e__db, Y_e_50__db, A_Y;
 	LongTermVariability(terminal_1.h_r__km, terminal_2.h_r__km, d__km, f__mhz, q, f_theta_h, los_params->A_LOS__db, &Y_e__db, &A_Y);
-	LongTermVariability(terminal_1.h_r__km, terminal_2.h_r__km, d__km, f__mhz, 0.50, f_theta_h, los_params->A_LOS__db, &Y_e_50__db, &A_Y);
+	LongTermVariability(terminal_1.h_r__km, terminal_2.h_r__km, d__km, f__mhz, 50, f_theta_h, los_params->A_LOS__db, &Y_e_50__db, &A_Y);
 
 	double F_AY;
 	if (A_Y <= 0.0)

@@ -76,7 +76,7 @@ void LongTermVariability(double h_r1__km, double h_r2__km, double d__km, double 
 	double f_inf[] = { 3.2, 5.4, 0.0 };
 	double f_m[] = { 8.2, 10.0, 3.9 };
 
-	double Z__db[3];    // = [Y_0(0.9) Y_0(0.1) V(0.5)]
+	double Z__db[3];    // = [Y_0(90) Y_0(10) V(50)]
 	for (int i = 0; i < 3; i++)
 	{
 		double f_2 = f_inf[i] + ((f_m[i] - f_inf[i]) * exp(-c_2[i] * pow(d_e__km, n_2[i])));
@@ -85,11 +85,11 @@ void LongTermVariability(double h_r1__km, double h_r2__km, double d__km, double 
 	}
 
 	double Y_q__db;
-	if (time_percentage == 0.5)
+	if (time_percentage == 50)
 		Y_q__db = Z__db[2];
-	else if (time_percentage > 0.5)
+	else if (time_percentage > 50)
 	{
-		double z_9 = InverseComplementaryCumulativeDistributionFunction(0.9);
+		double z_9 = InverseComplementaryCumulativeDistributionFunction(90);
 		double z_q = InverseComplementaryCumulativeDistributionFunction(time_percentage);
 		double c_q = z_q / z_9;
 
@@ -99,19 +99,19 @@ void LongTermVariability(double h_r1__km, double h_r2__km, double d__km, double 
 	else
 	{
 		double c_q;
-		if (time_percentage >= 0.1)
+		if (time_percentage >= 10)
 		{
-			double z_1 = InverseComplementaryCumulativeDistributionFunction(0.1);
+			double z_1 = InverseComplementaryCumulativeDistributionFunction(10);
 			double z_q = InverseComplementaryCumulativeDistributionFunction(time_percentage);
 			c_q = z_q / z_1;
 		}
 		else
 		{
-			// Source for values q < 0.10: [15], Table 10, Page 34, Climate 6
-			double q[4] = { 0.01, 0.02, 0.05, 0.10 };
+			// Source for values q < 10: [15], Table 10, Page 34, Climate 6
+			double q[4] = { 1, 2, 5, 10 };
 			double c[4] = { 1.9507, 1.7166, 1.3265, 1.0000 };
 
-			// find first index greater than 'time_percentage'.  Equality ensures that this will always be true at some point since 0.01 <= time_percentage < 0.1
+			// find first index greater than 'time_percentage'.  Equality ensures that this will always be true at some point since 1 <= time_percentage < 10
 			for (int i = 1; i < 4; i++)
 			{
 				if (time_percentage <= q[i])
@@ -134,7 +134,7 @@ void LongTermVariability(double h_r1__km, double h_r2__km, double d__km, double 
 	double Y_eI_10__db = f_theta_h * Y_10__db;
 
 	// A_Y "is used to prevent available signal powers from exceeding levels expected for free-space propagation by an unrealistic
-	//      amount when the variability about L_b(0.5) is large and L_b(0.5) is near its free-space level" [ES-83-3, p3-4]
+	//      amount when the variability about L_b(50) is large and L_b(50) is near its free-space level" [ES-83-3, p3-4]
 
 	double A_YI = (A_T + Y_eI_10__db) - 3.0;
 
@@ -143,7 +143,7 @@ void LongTermVariability(double h_r1__km, double h_r2__km, double d__km, double 
 	*Y_e__db = Y_eI__db - *A_Y;
 
 	// For variabilities less than 10%, do a correction check
-	if (time_percentage < 0.10)
+	if (time_percentage < 10)
 	{
 		double c_Y[4] = { -5.0, -4.5, -3.7, 0.0 };
 		for (int i = 1; i < 4; i++)
