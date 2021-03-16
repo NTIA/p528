@@ -1,6 +1,39 @@
 #include <math.h>
-#include "..\include\LOSTable.h"
 #include "..\include\p528.h"
+
+double FindPsiAtDistance(double d__km, Path path, Terminal terminal_1, Terminal terminal_2)
+{
+	if (d__km == 0)
+		return PI / 2;
+
+	// initialize to start at mid-point
+	double psi = PI / 2; 
+	double delta_psi = -PI / 4;
+
+	double d_psi__km;
+
+	int cnt = 0;
+	do
+	{
+		psi += delta_psi; // new psi
+
+		LineOfSightParams params_temp;
+		RayOptics(path, terminal_1, terminal_2, psi, &params_temp);
+
+		d_psi__km = params_temp.d__km;
+
+		// compute delta
+		if (d_psi__km > d__km)
+			delta_psi = -delta_psi / 2;
+		else
+			delta_psi = delta_psi / 2;
+
+		cnt++;
+
+	} while (abs(d__km - d_psi__km) > 1e-3 && (abs(delta_psi) > 1e-12));  // get within 1 meter of desired delta_r value
+
+	return psi;
+}
 
 /*=============================================================================
  |
@@ -44,10 +77,6 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	// 0.2997925 = speed of light, gigameters per sec
     double lambda__km = 0.2997925 / f__mhz;                             // [Eqn 49]
 
-    // Build table of psi, delta_r, and d__km
-    LOSTable table;
-    table.Build(*path, terminal_1, terminal_2, lambda__km);
-
 	// determine psi_limit, where you switch from free space to 2-ray model
 	// lambda / 2 is the start of the lobe closest to d_ML
 	double psi_limit = PI / 4;  // start at 45 deg (mid-point)
@@ -68,8 +97,6 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 			psi_limit = psi_limit + psi_limit / 2;
 
 	} while (abs(delta_r - lambda__km / 2) > 1e-6);  // get within 1 millimeter of desired delta_r value
-
-	//double psi_limit = table.GetPsiFromTable(d__km_s);
 
     /////////////////////////////////////////////
     // Determine d_0__km distance
@@ -123,7 +150,7 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
     double d_temp__km = path->d_0__km;
     while (true)
     {
-        psi = table.GetPsiFromTable(d_temp__km);
+        psi = FindPsiAtDistance(d_temp__km, *path, terminal_1, terminal_2);
 
         LineOfSightParams result;
         RayOptics(*path, terminal_1, terminal_2, psi, &result);
@@ -147,7 +174,8 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	// Compute loss at d_0__km
 	//
 
-	double psi_d0 = table.GetPsiFromTable(path->d_0__km);
+	double psi_d0 = FindPsiAtDistance(path->d_0__km, *path, terminal_1, terminal_2);
+
 	RayOptics(*path, terminal_1, terminal_2, psi_d0, los_params);
 
 	GetPathLoss(psi_d0, *path, terminal_1, terminal_2, f__mhz, psi_limit, A_dML__db, 0, T_pol, los_params, &R_Tg);
@@ -157,7 +185,7 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	/////////////////////////////////////////////
 
 	// tune psi for the desired distance
-	psi = table.GetPsiFromTable(d__km);
+	psi = FindPsiAtDistance(d__km, *path, terminal_1, terminal_2);
 
 	if (d__km != 0 && psi != 0)
 	{

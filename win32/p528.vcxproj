@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\LOSTable.h" />
     <ClInclude Include="..\include\p528.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
@@ -37,7 +36,6 @@
     <ClCompile Include="..\src\LinearInterpolation.cpp" />
     <ClCompile Include="..\src\LineOfSight.cpp" />
     <ClCompile Include="..\src\LongTermVariability.cpp" />
-    <ClCompile Include="..\src\LOSTable.cpp" />
     <ClCompile Include="..\src\P528.cpp" />
     <ClCompile Include="..\src\MeanAnnualGlobalReferenceAtmosphere.cpp" />
     <ClCompile Include="..\src\NakagamiRice.cpp" />
