@@ -11,7 +11,6 @@ class LOSTable
 {
 public:
 	void Build(struct Path path, struct Terminal terminal_1, struct Terminal terminal_2, double lambda);
-	double GetDistanceFromTable(double delta_r);
 	double GetPsiFromTable(double d__km);
 
 	LOSTable();

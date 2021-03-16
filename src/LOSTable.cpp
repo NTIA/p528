@@ -93,30 +93,6 @@ void LOSTable::Build(Path path, Terminal terminal_1, Terminal terminal_2, double
 	}
 }
 
-double LOSTable::GetDistanceFromTable(double delta_r)
-{
-	if (delta_r < DATA_delta_r[0])
-		return DATA_d[0];
-	else if (delta_r == DATA_delta_r[0])
-		return DATA_d[0];
-	else
-	{
-		for (int K = 1; K <= i_DATA; K++)
-		{
-			if (delta_r < DATA_delta_r[K])
-			{
-				return ((delta_r - DATA_delta_r[K - 1]) * (DATA_d[K] - DATA_d[K - 1]) / (DATA_delta_r[K] - DATA_delta_r[K - 1])) + DATA_d[K - 1];
-			}
-			else if (delta_r == DATA_delta_r[K])
-			{
-				return DATA_d[K];
-			}
-		}
-
-		return DATA_d[i_DATA - 1];
-	}
-}
-
 double LOSTable::GetPsiFromTable(double d__km)
 {
 	if (d__km > DATA_d[0])

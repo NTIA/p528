@@ -50,9 +50,26 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 
 	// determine psi_limit, where you switch from free space to 2-ray model
 	// lambda / 2 is the start of the lobe closest to d_ML
-    double d__km_s = table.GetDistanceFromTable(lambda__km / 2);
+	double psi_limit = PI / 4;  // start at 45 deg (mid-point)
+	double delta_r;
+	double d__km_s;
+	do
+	{
+		LineOfSightParams params_temp;
+		RayOptics(*path, terminal_1, terminal_2, psi_limit, &params_temp);
 
-	double psi_limit = table.GetPsiFromTable(d__km_s);
+		delta_r = params_temp.delta_r;
+		d__km_s = params_temp.d__km;
+
+		// move psi_y6
+		if (delta_r > lambda__km / 2)
+			psi_limit = psi_limit / 2;
+		else
+			psi_limit = psi_limit + psi_limit / 2;
+
+	} while (abs(delta_r - lambda__km / 2) > 1e-6);  // get within 1 millimeter of desired delta_r value
+
+	//double psi_limit = table.GetPsiFromTable(d__km_s);
 
     /////////////////////////////////////////////
     // Determine d_0__km distance
@@ -60,7 +77,23 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 
 	// "[d_y6__km] is the largest distance at which a free-space value is obtained in a two-ray model
 	//   of reflection from a smooth earth with a reflection coefficient of -1" [ES-83-3, page 44]
-	double d_y6__km = table.GetDistanceFromTable(lambda__km / 6);
+	double psi_y6 = PI / 4;	// start at 45 deg (mid-point)
+	double d_y6__km;
+	do
+	{
+		LineOfSightParams params_temp;
+		RayOptics(*path, terminal_1, terminal_2, psi_y6, &params_temp);
+
+		delta_r = params_temp.delta_r;
+		d_y6__km = params_temp.d__km;
+
+		// move psi_y6
+		if (delta_r > lambda__km / 6)
+			psi_y6 = psi_y6 / 2;
+		else
+			psi_y6 = psi_y6 + psi_y6 / 2;
+
+	} while (abs(delta_r - lambda__km / 6) > 1e-6);  // get within 1 millimeter of desired delta_r value
 
 	// In IF-73, the values for d_0 (d_d in IF-77) were found to be too small when both antennas are low,
 	// so this "heuristic" was developed to fix that
