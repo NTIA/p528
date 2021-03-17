@@ -14,22 +14,22 @@
  |                the resulting percentile.
  |
  |        Input:  A_M   - Mean of distribution A
- |                A_q   - q% of distribution A
+ |                A_p   - p% of distribution A
  |                B_M   - Mean of distribution B
- |                B_q   - q% of distribution B
+ |                B_p   - p% of distribution B
  |                p     - Percentage
  |
- |       Returns: C_q   - q% of resulting distribution C
+ |       Returns: C_p   - p% of resulting distribution C
  |
  *===========================================================================*/
-double CombineDistributions(double A_M, double A_i, double B_M, double B_i, double p)
+double CombineDistributions(double A_M, double A_p, double B_M, double B_p, double p)
 {
     double C_M = A_M + B_M;
 
     double Y_1, Y_2, Y_3;
 
-    Y_1 = A_i - A_M;
-    Y_2 = B_i - B_M;
+    Y_1 = A_p - A_M;
+    Y_2 = B_p - B_M;
 
     Y_3 = sqrt(pow(Y_1, 2) + pow(Y_2, 2));
 

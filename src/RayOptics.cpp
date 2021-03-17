@@ -75,6 +75,6 @@ void RayOptics(Path path, Terminal terminal_1, Terminal terminal_2, double psi, 
 	params->delta_r = 4.0 * Hprime__km[0] * Hprime__km[1] / (params->r_0__km + params->r_12__km);                   // [Eqn 76]
 
 	// Step 9
-	params->theta_h1 = alpha - params->theta[0];                // [Eqn 77]
-	params->theta_h2 = -(alpha + params->theta[1]);             // [Eqn 78]
+	params->theta_h1__rad = alpha - params->theta[0];                // [Eqn 77]
+	params->theta_h2__rad = -(alpha + params->theta[1]);             // [Eqn 78]
 }

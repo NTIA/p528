@@ -177,31 +177,7 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	// tune psi for the desired distance
 	psi = FindPsiAtDistance(d__km, *path, terminal_1, terminal_2);
 
-	if (d__km != 0 && psi != 0)
-	{
-		double delta = 0.01;
-		int los_iterations = 0;
-
-		while (los_iterations < LOS_ITERATION)
-		{
-			RayOptics(*path, terminal_1, terminal_2, psi, los_params);
-
-			if (d__km - los_params->d__km < LOS_EPSILON && d__km > los_params->d__km)
-				break;
-			else if (los_params->d__km < d__km)
-				psi -= delta;
-			else
-			{
-				psi += delta;
-				delta /= 2;
-				psi -= delta;
-			}
-
-			los_iterations++;
-		}
-	}
-	else
-		RayOptics(*path, terminal_1, terminal_2, psi, los_params);
+	RayOptics(*path, terminal_1, terminal_2, psi, los_params);
 
 	GetPathLoss(psi, *path, terminal_1, terminal_2, f__mhz, psi_limit, A_dML__db, los_params->A_LOS__db, T_pol, los_params, &R_Tg);
 
@@ -209,8 +185,8 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	// Compute atmospheric absorption
 	//
 
-	double r_eo__km = CalculateEffectiveRayLength(los_params->z__km[0], los_params->z__km[1], los_params->a_a__km, los_params->r_0__km, los_params->theta_h1, T_eo__km);
-	double r_ew__km = CalculateEffectiveRayLength(los_params->z__km[0], los_params->z__km[1], los_params->a_a__km, los_params->r_0__km, los_params->theta_h1, T_ew__km);
+	double r_eo__km = CalculateEffectiveRayLength(los_params->z__km[0], los_params->z__km[1], los_params->a_a__km, los_params->r_0__km, los_params->theta_h1__rad, T_eo__km);
+	double r_ew__km = CalculateEffectiveRayLength(los_params->z__km[0], los_params->z__km[1], los_params->a_a__km, los_params->r_0__km, los_params->theta_h1__rad, T_ew__km);
 
 	double gamma_oo, gamma_ow;
 	AtmosphericAbsorptionParameters(f__mhz, &gamma_oo, &gamma_ow);
@@ -244,12 +220,12 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	//
 
 	double f_theta_h;
-	if (los_params->theta_h1 <= 0.0)
+	if (los_params->theta_h1__rad <= 0.0)
 		f_theta_h = 1.0;
-	else if (los_params->theta_h1 >= 1.0)
+	else if (los_params->theta_h1__rad >= 1.0)
 		f_theta_h = 0.0;
 	else
-		f_theta_h = MAX(0.5 - 0.3183098862 * (atan(20.0 * log10(32.0 * los_params->theta_h1))), 0);
+		f_theta_h = MAX(0.5 - 0.3183098862 * (atan(20.0 * log10(32.0 * los_params->theta_h1__rad))), 0);
 
 	double Y_e__db, Y_e_50__db, A_Y;
 	LongTermVariability(terminal_1.h_r__km, terminal_2.h_r__km, d__km, f__mhz, q, f_theta_h, los_params->A_LOS__db, &Y_e__db, &A_Y);

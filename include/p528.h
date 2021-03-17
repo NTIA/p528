@@ -94,7 +94,7 @@ public:
 	const static int K_ROWS = 17;
 
 	const static double NR_Data[17][18];    // Data table with K-values and corresponding Nakagami-Rice distributions
-	const static double P[NUM_OF_PROBS];    // Probabilities for interpolation and data tables
+	const static vector<double> P;			// Percentages for interpolation and data tables
 };
 
 //
@@ -145,8 +145,8 @@ struct LineOfSightParams
 	double D__km[2];
 
 	// Angles
-	double theta_h1;
-	double theta_h2;
+	double theta_h1__rad;		// Take-off angle from low terminal to high terminal, in rad
+	double theta_h2__rad;		// Take-off angle from high terminal to low terminal, in rad
 	double theta[2];
 
 	// Misc

@@ -30,9 +30,9 @@ void LongTermVariability(double h_r1__km, double h_r2__km, double d__km, double 
 	double p, double f_theta_h, double A_T, double *Y_e__db, double *A_Y) 
 {
 	// Step 1
-	double d_Lq1__km, d_Lq2__km, theta__rad;
-	Thayer(N_9000, h_r1__km, &d_Lq1__km, &theta__rad);
-	Thayer(N_9000, h_r2__km, &d_Lq2__km, &theta__rad);
+	double d_Lq1__km, d_Lq2__km, dummy;
+	Thayer(N_9000, h_r1__km, &d_Lq1__km, &dummy);
+	Thayer(N_9000, h_r2__km, &d_Lq2__km, &dummy);
 
 	// Step 2
 	double d_qs__km = 65.0 * pow((100.0 / f__mhz), THIRD);              // [Eqn 187]
@@ -107,19 +107,13 @@ void LongTermVariability(double h_r1__km, double h_r2__km, double d__km, double 
 		}
 		else
 		{
-			// Source for values q < 10: [15], Table 10, Page 34, Climate 6
-			double ps[4] = { 1, 2, 5, 10 };
-			double c_ps[4] = { 1.9507, 1.7166, 1.3265, 1.0000 };
+			// Source for values p < 10: [15], Table 10, Page 34, Climate 6
+			vector<double> ps = { 1, 2, 5, 10 };
+			vector<double> c_ps = { 1.9507, 1.7166, 1.3265, 1.0000 };
 
-			// find first index greater than 'p'.  Equality ensures that this will always be true at some point since 1 <= time_percentage < 10
-			for (int i = 1; i < 4; i++)
-			{
-				if (p <= ps[i])
-				{
-					c_p = LinearInterpolation(ps[i - 1], c_ps[i - 1], ps[i], c_ps[i], p);
-					break;
-				}
-			}
+			auto upper = upper_bound(data::P.begin(), data::P.end(), p);
+			auto dist = distance(data::P.begin(), upper);
+			c_p = LinearInterpolation(ps[dist - 1], c_ps[dist - 1], ps[dist], c_ps[dist], p);
 		}
 
 		double Y = c_p * (Z__db[1] * g_10);
@@ -142,25 +136,22 @@ void LongTermVariability(double h_r1__km, double h_r2__km, double d__km, double 
 
 	*Y_e__db = Y_eI__db - *A_Y;
 
-	// For percentanges less than 10%, do a correction check
+	// For percentanges less than 10%, do a correction check to, 
+	//    "prevent available signal powers from exceeding levels expected from free-space levels
+	//     by unrealistic amounts" [Gierhart 1970]
 	if (p < 10)
 	{
-		double c_Y[4] = { -5.0, -4.5, -3.7, 0.0 };
-		for (int i = 1; i < 4; i++)
-		{
-			if (p <= data::P[i])
-			{
-				*Y_e__db += A_T;
+		vector<double> c_Y = { -5.0, -4.5, -3.7, 0.0 };
 
-				double c_Yi = LinearInterpolation(data::P[i - 1], c_Y[i - 1], data::P[i], c_Y[i], p);
+		auto upper = upper_bound(data::P.begin(), data::P.end(), p);
+		auto dist = distance(data::P.begin(), upper);
+		double c_Yi = LinearInterpolation(data::P[dist - 1], c_Y[dist - 1], data::P[dist], c_Y[dist], p);
 
-				if (*Y_e__db > -c_Yi)
-					*Y_e__db = -c_Yi;
+		*Y_e__db += A_T;
 
-				*Y_e__db -= A_T;
+		if (*Y_e__db > -c_Yi)
+			*Y_e__db = -c_Yi;
 
-				break;
-			}
-		}
+		*Y_e__db -= A_T;
 	}
 }

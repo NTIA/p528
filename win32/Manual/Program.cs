@@ -58,7 +58,7 @@ namespace Manual
 
         static void Main(string[] args)
         {
-            double d__km = 1;
+            double d__km = 1000;
             double h_1__meter = 20;
             double h_2__meter = 20000;
             double f__mhz = 15500;

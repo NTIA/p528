@@ -140,7 +140,7 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		double A_T__db;
 		if (d__km < d_crx__km)
 		{
-			A_T__db = -A_d__db;
+			A_T__db = A_d__db;
 			result->propagation_mode = PROP_MODE__DIFFRACTION;
 		}
 		else
@@ -149,18 +149,18 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 			{
 				if (tropo.A_s__db <= A_d__db)
 				{
-					A_T__db = -tropo.A_s__db;
+					A_T__db = tropo.A_s__db;
 					result->propagation_mode = PROP_MODE__SCATTERING;
 				}
 				else
 				{
-					A_T__db = -A_d__db;
+					A_T__db = A_d__db;
 					result->propagation_mode = PROP_MODE__DIFFRACTION;
 				}
 			}
 			else
 			{
-				A_T__db = -tropo.A_s__db;
+				A_T__db = tropo.A_s__db;
 				result->propagation_mode = PROP_MODE__SCATTERING;
 			}
 		}
@@ -173,12 +173,15 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		// Compute variability
 		//
 
+		// f_theta_h is unity for transhorizon paths
 		double f_theta_h = 1;
 
-		double Y_e__db, Y_e_50__db, A_Y;
-		LongTermVariability(terminal_1.h_r__km, terminal_2.h_r__km, d__km, f__mhz, p, f_theta_h, A_T__db, &Y_e__db, &A_Y);
-		LongTermVariability(terminal_1.h_r__km, terminal_2.h_r__km, d__km, f__mhz, 50, f_theta_h, A_T__db, &Y_e_50__db, &A_Y);
+		// compute the 50% and p% of the long-term variability distribution
+		double Y_e__db, Y_e_50__db, dummy;
+		LongTermVariability(terminal_1.h_r__km, terminal_2.h_r__km, d__km, f__mhz, p, f_theta_h, -A_T__db, &Y_e__db, &dummy);
+		LongTermVariability(terminal_1.h_r__km, terminal_2.h_r__km, d__km, f__mhz, 50, f_theta_h, -A_T__db, &Y_e_50__db, &dummy);
 
+		// compute the 50% and p% of the Nakagami-Rice distribution
 		double ANGLE = 0.02617993878;	// 1.5 deg
 		double K_t__db;
 		if (tropo.theta_s >= ANGLE)		// theta_s > 1.5 deg
@@ -191,6 +194,7 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		double Y_pi_50__db = 0.0;		//  zero mean
 		double Y_pi__db = NakagamiRice(K_t__db, p);
 
+		// combine the long-term and Nakagami-Rice distributions
 		double Y_total__db = CombineDistributions(Y_e_50__db, Y_e__db, Y_pi_50__db, Y_pi__db, p);
 
 		//
@@ -228,7 +232,7 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		/////////////////////////////////////////////
 
 		result->d__km = d__km;
-		result->A__db = result->A_fs__db + result->A_a__db - A_T__db - Y_total__db;     // [Eqn 23]
+		result->A__db = result->A_fs__db + result->A_a__db + A_T__db - Y_total__db;     // [Eqn 23]
 
 		return rtn;
 	}

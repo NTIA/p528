@@ -99,6 +99,6 @@ const double data::NR_Data[17][18] =
     }
 };
 
-// Probabilities for interpolation and data tables
-const double data::P[17] = { 1, 2, 5, 10, 15, 20, 30, 40, 50,
+// Percentages for interpolation and data tables
+const vector<double> data::P = { 1, 2, 5, 10, 15, 20, 30, 40, 50,
     60, 70, 80, 85, 90, 95, 98, 99 };
