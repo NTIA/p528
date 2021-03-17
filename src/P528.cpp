@@ -168,21 +168,6 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		/////////////////////////////////////////////
 
 		/////////////////////////////////////////////
-		// Compute free-space loss
-		//
-
-		// Step 8
-		double r_1__km = sqrt(pow(terminal_1.h_r__km, 2) + 4.0 * (a_0__km + terminal_1.h_r__km) * (a_0__km)* pow(sin(0.5 * terminal_1.d__km / a_0__km), 2));    // [Eqn 20]
-		double r_2__km = sqrt(pow(terminal_2.h_r__km, 2) + 4.0 * (a_0__km + terminal_2.h_r__km) * (a_0__km)* pow(sin(0.5 * terminal_2.d__km / a_0__km), 2));    // [Eqn 20]
-		double r_fs__km = r_1__km + r_2__km + tropo.d_s__km;                            // [Eqn 21]
-
-		result->A_fs__db = 32.45 + 20.0 * log10(f__mhz) + 20.0 * log10(r_fs__km);      // [Eqn 22]
-
-		//
-		// Compute free-space loss
-		/////////////////////////////////////////////
-
-		/////////////////////////////////////////////
 		// Compute variability
 		//
 
@@ -214,13 +199,30 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		// Atmospheric absorption for transhorizon path
 		//
 
-		double d_arc__km, theta_rx__rad, A_a_hv__db;
-		RayTrace(f__mhz, tropo.h_v__km, 0, &d_arc__km, &theta_rx__rad, &A_a_hv__db);
+		double d_arc__km, theta_rx__rad, A_a_hv__db, a_v__km;
+		RayTrace(f__mhz, tropo.h_v__km, 0, &d_arc__km, &theta_rx__rad, &A_a_hv__db, &a_v__km);
 
 		result->A_a__db = terminal_1.A_a__db + terminal_2.A_a__db + 2 * A_a_hv__db;
 
 		//
 		// Atmospheric absorption for transhorizon path
+		/////////////////////////////////////////////
+
+		/////////////////////////////////////////////
+		// Compute free-space loss
+		//
+
+		// Step 8
+		double r_1__km = sqrt(pow(terminal_1.h_r__km, 2) + 4.0 * (a_0__km + terminal_1.h_r__km) * (a_0__km)*pow(sin(0.5 * terminal_1.d__km / a_0__km), 2));    // [Eqn 20]
+		double r_2__km = sqrt(pow(terminal_2.h_r__km, 2) + 4.0 * (a_0__km + terminal_2.h_r__km) * (a_0__km)*pow(sin(0.5 * terminal_2.d__km / a_0__km), 2));    // [Eqn 20]
+
+		//double r_fs__km = terminal_1.a__km + terminal_2.a__km + a_v__km;
+		double r_fs__km = r_1__km + r_2__km + tropo.d_s__km;                            // [Eqn 21]
+
+		result->A_fs__db = 32.45 + 20.0 * log10(f__mhz) + 20.0 * log10(r_fs__km);      // [Eqn 22]
+
+		//
+		// Compute free-space loss
 		/////////////////////////////////////////////
 
 		result->d__km = d__km;

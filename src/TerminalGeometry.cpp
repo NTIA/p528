@@ -25,7 +25,7 @@
 void TerminalGeometry(double f__mhz, double N_s, double a_e__km, Terminal *terminal)
 {
 	// Step 1
-	RayTrace(f__mhz, terminal->h_r__km, 0, &terminal->d_r__km, &terminal->theta__rad, &terminal->A_a__db);
+	RayTrace(f__mhz, terminal->h_r__km, 0, &terminal->d_r__km, &terminal->theta__rad, &terminal->A_a__db, &terminal->a__km);
 
 	// Step 2
 	terminal->phi__rad = terminal->d_r__km / a_e__km;       // [Eqn 24]

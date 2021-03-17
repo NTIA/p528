@@ -11,7 +11,8 @@ double LayerBottom(int i)
     return 0.0001 * (exp((i - 1) / 100.) - 1) / (exp(1 / 100.) - 1);
 }
 
-void RayTrace(double f__mhz, double h_rx__km, double theta_tx, double* d_arc__km, double* theta_rx, double* A_a__db)
+void RayTrace(double f__mhz, double h_rx__km, double theta_tx, double* d_arc__km, 
+    double* theta_rx, double* A_a__db, double* a__km)
 {
     double f__ghz = f__mhz / 1000;
 
@@ -41,6 +42,7 @@ void RayTrace(double f__mhz, double h_rx__km, double theta_tx, double* d_arc__km
     double tau = 0; // bending angle
 
     *A_a__db = 0; // total atmospheric absorption
+    *a__km = 0;     // total ray path length, in km
 
     // loop as long as the full layer is below h_rx__km
     while (h_i__km + delta_i__km <= h_rx__km && i < 922 || i == 1)
@@ -53,6 +55,7 @@ void RayTrace(double f__mhz, double h_rx__km, double theta_tx, double* d_arc__km
 
         // compute the length of the path through the current layer
         a_i__km = -r_i__km * cos(beta_i) + sqrt(pow(r_i__km, 2) * pow(cos(beta_i), 2) + 2 * r_i__km * delta_i__km + pow(delta_i__km, 2));
+        *a__km += a_i__km;
 
         // layer midpoint
         h_i_mid__km = h_i__km + delta_i__km / 2;
@@ -89,7 +92,13 @@ void RayTrace(double f__mhz, double h_rx__km, double theta_tx, double* d_arc__km
 
     // check if above the atmosphere
     if (h_rx__km > h_i__km)
+    {
         *theta_rx = acos(cos(*theta_rx) * n_i * r_i__km / r_rx__km);      // [Thayer, Equ 1], rearranged with n = 1
+
+        // remaining path length
+        a_i__km = -r_i__km * cos(beta_i) + sqrt(pow(r_i__km, 2) * pow(cos(beta_i), 2) + 2 * r_i__km * delta_i__km + pow(delta_i__km, 2));
+        *a__km += a_i__km;
+    }
 
     double central_angle = (*theta_rx - 0 + tau);            // [Thayer, Equ 2], rearranged.  0 is takeoff angle
     *d_arc__km = a_0__km * central_angle;
