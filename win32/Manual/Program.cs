@@ -33,6 +33,11 @@ namespace Manual
         /// Free space basic transmission loss, in dB
         /// </summary>
         public double A_fs__db;
+
+        /// <summary>
+        /// Atmospheric absorption loss, in dB
+        /// </summary>
+        public double A_a__db;
     }
 
     enum Polarization : int
@@ -53,18 +58,19 @@ namespace Manual
 
         static void Main(string[] args)
         {
-            //double d__km = 1;
-            //double h_1__meter = 20000;
-            //double h_2__meter = 20000;
-            //double f__mhz = 125;
-            //double time_percentage = 1;
-            //Result result = new Result();
+            double d__km = 1;
+            double h_1__meter = 20;
+            double h_2__meter = 20000;
+            double f__mhz = 15500;
+            double time_percentage = 1;
+            Result result = new Result();
 
-            //int rtn = P528(d__km, h_1__meter, h_2__meter, f__mhz, (int)Polarization.Horizontal, time_percentage, ref result);
+            int rtn = P528(d__km, h_1__meter, h_2__meter, f__mhz, (int)Polarization.Horizontal, time_percentage, ref result);
 
-            //Console.WriteLine($"BTL: {result.A__db}");
-            //Console.WriteLine($"Free Space: {result.A_fs__db}");
-            //Console.ReadKey();
+            Console.WriteLine($"BTL: {result.A__db}");
+            Console.WriteLine($"Free Space: {result.A_fs__db}");
+            Console.WriteLine($"Absorption: {result.A_a__db}");
+            Console.ReadKey();
 
             GenerateDataFiles();
             DiffDataTables();

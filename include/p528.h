@@ -181,6 +181,7 @@ struct Result {
 	double d__km;               // Path distance used in calculations
 	double A__db;               // Total loss
 	double A_fs__db;            // Free space path loss
+	double A_a__db;				// Atmospheric absorption loss, in dB
 };
 
 //

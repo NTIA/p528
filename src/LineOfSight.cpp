@@ -215,7 +215,7 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	double gamma_oo, gamma_ow;
 	AtmosphericAbsorptionParameters(f__mhz, &gamma_oo, &gamma_ow);
 
-	double A_a__db = -gamma_oo * r_eo__km - gamma_ow * r_ew__km;
+	result->A_a__db = -gamma_oo * r_eo__km - gamma_ow * r_ew__km;
 
 	//
 	// Compute atmospheric absorption
@@ -310,5 +310,5 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	/////////////////////////////////////////////
 
 	result->d__km = los_params->d__km;
-	result->A__db = result->A_fs__db + A_a__db + los_params->A_LOS__db + Y_total__db;
+	result->A__db = result->A_fs__db + result->A_a__db + los_params->A_LOS__db + Y_total__db;
 }
