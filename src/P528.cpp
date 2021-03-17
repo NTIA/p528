@@ -42,7 +42,6 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 	result->A_fs__db = 0;
 	result->A__db = 0;
 	result->d__km = 0;
-	result->los_iterations = 0;
 	result->propagation_mode = PROP_MODE__NOT_SET;
 
 	int err = ValidateInputs(d__km, h_1__meter, h_2__meter, f__mhz, T_pol, time_percentage);

@@ -177,7 +177,6 @@ struct TroposcatterParams
 
 struct Result {
 	int propagation_mode;       // Mode of propagation
-	int los_iterations;         // **Temp var**
 
 	double d__km;               // Path distance used in calculations
 	double A__db;               // Total loss

@@ -180,9 +180,9 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	if (d__km != 0 && psi != 0)
 	{
 		double delta = 0.01;
-		result->los_iterations = 0;
+		int los_iterations = 0;
 
-		while (result->los_iterations < LOS_ITERATION)
+		while (los_iterations < LOS_ITERATION)
 		{
 			RayOptics(*path, terminal_1, terminal_2, psi, los_params);
 
@@ -197,7 +197,7 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 				psi -= delta;
 			}
 
-			result->los_iterations++;
+			los_iterations++;
 		}
 	}
 	else

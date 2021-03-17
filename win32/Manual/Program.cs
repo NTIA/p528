@@ -19,8 +19,6 @@ namespace Manual
         /// </summary>
         public int propagation_mode;
 
-        public int LOSIterations;
-
         /// <summary>
         /// Path distance used in calculations, in km
         /// </summary>
