@@ -215,7 +215,7 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	double gamma_oo, gamma_ow;
 	AtmosphericAbsorptionParameters(f__mhz, &gamma_oo, &gamma_ow);
 
-	result->A_a__db = -gamma_oo * r_eo__km - gamma_ow * r_ew__km;
+	result->A_a__db = gamma_oo * r_eo__km + gamma_ow * r_ew__km;
 
 	//
 	// Compute atmospheric absorption
@@ -232,8 +232,8 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 
 	double r_fs__km = MAX(sqrt(pow(z_2__km - z_1__km, 2) + (4.0 * z_1__km * z_2__km * pow(sin(theta_fs * 0.5), 2))), fabs(z_2__km - z_1__km));   // [Eqn 58]
 
-	double L_bf__db = -32.45 - 20.0 * log10(f__mhz);                        // [Eqn 59]
-	result->A_fs__db = L_bf__db - 20.0 * log10(r_fs__km);                   // [Eqn 60]
+	double L_bf__db = 32.45 + 20.0 * log10(f__mhz);                        // [Eqn 59]
+	result->A_fs__db = L_bf__db + 20.0 * log10(r_fs__km);                   // [Eqn 60]
 
 	//
 	// Compute free-space loss
@@ -303,12 +303,12 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	double Y_pi_50__db = 0.0;   //  zero mean
 	double Y_pi__db = NakagamiRice(*K_LOS, q);
 
-	double Y_total__db = CombineDistributions(Y_e_50__db, Y_e__db, Y_pi_50__db, Y_pi__db, q);
+	double Y_total__db = -CombineDistributions(Y_e_50__db, Y_e__db, Y_pi_50__db, Y_pi__db, q);
 
 	//
 	// Compute variability
 	/////////////////////////////////////////////
 
 	result->d__km = los_params->d__km;
-	result->A__db = result->A_fs__db + result->A_a__db + los_params->A_LOS__db + Y_total__db;
+	result->A__db = result->A_fs__db + result->A_a__db - los_params->A_LOS__db + Y_total__db;
 }

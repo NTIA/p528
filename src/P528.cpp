@@ -176,7 +176,7 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		double r_2__km = sqrt(pow(terminal_2.h_r__km, 2) + 4.0 * (a_0__km + terminal_2.h_r__km) * (a_0__km)* pow(sin(0.5 * terminal_2.d__km / a_0__km), 2));    // [Eqn 20]
 		double r_fs__km = r_1__km + r_2__km + tropo.d_s__km;                            // [Eqn 21]
 
-		result->A_fs__db = -32.45 - 20.0 * log10(f__mhz) - 20.0 * log10(r_fs__km);      // [Eqn 22]
+		result->A_fs__db = 32.45 + 20.0 * log10(f__mhz) + 20.0 * log10(r_fs__km);      // [Eqn 22]
 
 		//
 		// Compute free-space loss
@@ -217,14 +217,14 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		double d_arc__km, theta_rx__rad, A_a_hv__db;
 		RayTrace(f__mhz, tropo.h_v__km, 0, &d_arc__km, &theta_rx__rad, &A_a_hv__db);
 
-		result->A_a__db = -(terminal_1.A_a__db + terminal_2.A_a__db + 2 * A_a_hv__db);
+		result->A_a__db = terminal_1.A_a__db + terminal_2.A_a__db + 2 * A_a_hv__db;
 
 		//
 		// Atmospheric absorption for transhorizon path
 		/////////////////////////////////////////////
 
 		result->d__km = d__km;
-		result->A__db = result->A_fs__db + result->A_a__db + A_T__db + Y_total__db;     // [Eqn 23]
+		result->A__db = result->A_fs__db + result->A_a__db - A_T__db - Y_total__db;     // [Eqn 23]
 
 		return rtn;
 	}

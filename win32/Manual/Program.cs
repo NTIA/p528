@@ -197,7 +197,7 @@ namespace Manual
             var result = new Result();
             P528(d__km, h1, h2, f__mhz, (int)Polarization.Horizontal, q, ref result);
 
-            return -Math.Round(result.A__db, 1);
+            return Math.Round(result.A__db, 1);
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace Manual
             var result = new Result();
             P528(d__km, h1, h2, f__mhz, (int)Polarization.Horizontal, q, ref result);
 
-            return -Math.Round(result.A_fs__db, 1);
+            return Math.Round(result.A_fs__db, 1);
         }
     }
 }
