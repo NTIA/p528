@@ -19,7 +19,7 @@
  |                h_1__meter        - Height of the low terminal, in meters
  |                h_2__meter        - Height of the high terminal, in meters
  |                f__mhz            - Frequency, in MHz
- |                time_percentage   - Time percentage
+ |                p                 - Time percentage
  |
  |      Outputs:  A__db             - Total path loss, in dB
  |                A_fs__db          - Free space path loss, in dB
@@ -30,7 +30,7 @@
  |                                      + 3 : Troposcatter
  |
  *===========================================================================*/
-int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol, double time_percentage, Result *result)
+int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol, double p, Result *result)
 {
 	Terminal terminal_1;
 	Terminal terminal_2;
@@ -40,18 +40,20 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 
 	// reset Results struct
 	result->A_fs__db = 0;
+	result->A_a__db = 0;
 	result->A__db = 0;
 	result->d__km = 0;
 	result->propagation_mode = PROP_MODE__NOT_SET;
 
-	int err = ValidateInputs(d__km, h_1__meter, h_2__meter, f__mhz, T_pol, time_percentage);
+	int err = ValidateInputs(d__km, h_1__meter, h_2__meter, f__mhz, T_pol, p);
     if (err != SUCCESS)
     {
         if (err == ERROR_HEIGHT_AND_DISTANCE)
         {
-            result->A_fs__db = 0;
-            result->A__db = 0;
-            result->d__km = 0;
+			result->A_fs__db = 0;
+			result->A_a__db = 0;
+			result->A__db = 0;
+			result->d__km = 0;
             return SUCCESS;
         }
         else
@@ -110,14 +112,14 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 	if (path.d_ML__km - d__km > 0.001)
 	{
 		result->propagation_mode = PROP_MODE__LOS;
-		LineOfSight(&path, terminal_1, terminal_2, &los_params, f__mhz, -A_dML__db, time_percentage, d__km, T_pol, result, &K_LOS);
+		LineOfSight(&path, terminal_1, terminal_2, &los_params, f__mhz, -A_dML__db, p, d__km, T_pol, result, &K_LOS);
 
 		return SUCCESS;
 	}
 	else
 	{
 		// get K_LOS
-		LineOfSight(&path, terminal_1, terminal_2, &los_params, f__mhz, -A_dML__db, time_percentage, path.d_ML__km - 1, T_pol, result, &K_LOS);
+		LineOfSight(&path, terminal_1, terminal_2, &los_params, f__mhz, -A_dML__db, p, path.d_ML__km - 1, T_pol, result, &K_LOS);
 
 		// Step 6.  Search past horizon to find crossover point between Diffraction and Troposcatter models
 		int CASE;
@@ -174,22 +176,22 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		double f_theta_h = 1;
 
 		double Y_e__db, Y_e_50__db, A_Y;
-		LongTermVariability(terminal_1.h_r__km, terminal_2.h_r__km, d__km, f__mhz, time_percentage, f_theta_h, A_T__db, &Y_e__db, &A_Y);
+		LongTermVariability(terminal_1.h_r__km, terminal_2.h_r__km, d__km, f__mhz, p, f_theta_h, A_T__db, &Y_e__db, &A_Y);
 		LongTermVariability(terminal_1.h_r__km, terminal_2.h_r__km, d__km, f__mhz, 50, f_theta_h, A_T__db, &Y_e_50__db, &A_Y);
 
-		double ANGLE = 0.02617993878;
+		double ANGLE = 0.02617993878;	// 1.5 deg
 		double K_t__db;
-		if (tropo.theta_s >= ANGLE) // theta_s > 1.5 deg
+		if (tropo.theta_s >= ANGLE)		// theta_s > 1.5 deg
 			K_t__db = 20;
 		else if (tropo.theta_s <= 0.0)
 			K_t__db = K_LOS;
 		else
 			K_t__db = (tropo.theta_s * (20.0 - K_LOS) / ANGLE) + K_LOS;
 
-		double Y_pi_50__db = 0.0;   //  zero mean
-		double Y_pi__db = NakagamiRice(K_t__db, time_percentage);
+		double Y_pi_50__db = 0.0;		//  zero mean
+		double Y_pi__db = NakagamiRice(K_t__db, p);
 
-		double Y_total__db = CombineDistributions(Y_e_50__db, Y_e__db, Y_pi_50__db, Y_pi__db, time_percentage);
+		double Y_total__db = CombineDistributions(Y_e_50__db, Y_e__db, Y_pi_50__db, Y_pi__db, p);
 
 		//
 		// Compute variability

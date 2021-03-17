@@ -20,14 +20,14 @@
  |                h_r2__km          - Actual height of high terminal
  |                d__km             - Path distance, in km
  |                f__mhz            - Frequency, in MHz
- |                time_percentage   - Time percentage
+ |                p                 - Time percentage
  |
  |      Outputs:  Y_e__db           - Variability, in dB
  |                A_Y               - Value used later
  |
  *===========================================================================*/
 void LongTermVariability(double h_r1__km, double h_r2__km, double d__km, double f__mhz,
-	double time_percentage, double f_theta_h, double A_T, double *Y_e__db, double *A_Y) 
+	double p, double f_theta_h, double A_T, double *Y_e__db, double *A_Y) 
 {
 	// Step 1
 	double d_Lq1__km, d_Lq2__km, theta__rad;
@@ -35,7 +35,7 @@ void LongTermVariability(double h_r1__km, double h_r2__km, double d__km, double 
 	Thayer(N_9000, h_r2__km, &d_Lq2__km, &theta__rad);
 
 	// Step 2
-	double d_qs__km = 65.0 * pow((100.0 / f__mhz), 1.0 / 3.0);          // [Eqn 187]
+	double d_qs__km = 65.0 * pow((100.0 / f__mhz), THIRD);              // [Eqn 187]
 	double d_Lq__km = d_Lq1__km + d_Lq2__km;                            // [Eqn 188]
 	double d_q__km = d_Lq__km + d_qs__km;								// [Eqn 189]
 
@@ -47,16 +47,16 @@ void LongTermVariability(double h_r1__km, double h_r2__km, double d__km, double 
 		d_e__km = 130.0 + d__km - d_q__km;
 
 	// Step 3
-	double g_1, g_9;
+	double g_10, g_90;
 	if (f__mhz > 1600.0)
 	{
-		g_1 = 1.05;
-		g_9 = 1.05;
+		g_10 = 1.05;
+		g_90 = 1.05;
 	}
 	else
 	{
-		g_1 = (0.21 * sin(5.22 * log10(f__mhz / 200.0))) + 1.28;
-		g_9 = (0.18 * sin(5.22 * log10(f__mhz / 200.0))) + 1.23;
+		g_10 = (0.21 * sin(5.22 * log10(f__mhz / 200.0))) + 1.28;
+		g_90 = (0.18 * sin(5.22 * log10(f__mhz / 200.0))) + 1.23;
 	}
 
 	// Step 4
@@ -84,53 +84,53 @@ void LongTermVariability(double h_r1__km, double h_r2__km, double d__km, double 
 		Z__db[i] = (c_1[i] * pow(d_e__km, n_1[i]) - f_2) * exp(-c_3[i] * pow(d_e__km, n_3[i])) + f_2;
 	}
 
-	double Y_q__db;
-	if (time_percentage == 50)
-		Y_q__db = Z__db[2];
-	else if (time_percentage > 50)
+	double Y_p__db;
+	if (p == 50)
+		Y_p__db = Z__db[2];
+	else if (p > 50)
 	{
-		double z_9 = InverseComplementaryCumulativeDistributionFunction(90);
-		double z_q = InverseComplementaryCumulativeDistributionFunction(time_percentage);
-		double c_q = z_q / z_9;
+		double z_90 = InverseComplementaryCumulativeDistributionFunction(90);
+		double z_p = InverseComplementaryCumulativeDistributionFunction(p);
+		double c_p = z_p / z_90;
 
-		double Y = c_q * (-Z__db[0] * g_9);
-		Y_q__db = Y + Z__db[2];
+		double Y = c_p * (-Z__db[0] * g_90);
+		Y_p__db = Y + Z__db[2];
 	}
 	else
 	{
-		double c_q;
-		if (time_percentage >= 10)
+		double c_p;
+		if (p >= 10)
 		{
-			double z_1 = InverseComplementaryCumulativeDistributionFunction(10);
-			double z_q = InverseComplementaryCumulativeDistributionFunction(time_percentage);
-			c_q = z_q / z_1;
+			double z_10 = InverseComplementaryCumulativeDistributionFunction(10);
+			double z_p = InverseComplementaryCumulativeDistributionFunction(p);
+			c_p = z_p / z_10;
 		}
 		else
 		{
 			// Source for values q < 10: [15], Table 10, Page 34, Climate 6
-			double q[4] = { 1, 2, 5, 10 };
-			double c[4] = { 1.9507, 1.7166, 1.3265, 1.0000 };
+			double ps[4] = { 1, 2, 5, 10 };
+			double c_ps[4] = { 1.9507, 1.7166, 1.3265, 1.0000 };
 
-			// find first index greater than 'time_percentage'.  Equality ensures that this will always be true at some point since 1 <= time_percentage < 10
+			// find first index greater than 'p'.  Equality ensures that this will always be true at some point since 1 <= time_percentage < 10
 			for (int i = 1; i < 4; i++)
 			{
-				if (time_percentage <= q[i])
+				if (p <= ps[i])
 				{
-					c_q = LinearInterpolation(q[i - 1], c[i - 1], q[i], c[i], time_percentage);
+					c_p = LinearInterpolation(ps[i - 1], c_ps[i - 1], ps[i], c_ps[i], p);
 					break;
 				}
 			}
 		}
 
-		double Y = c_q * (Z__db[1] * g_1);
-		Y_q__db = Y + Z__db[2];
+		double Y = c_p * (Z__db[1] * g_10);
+		Y_p__db = Y + Z__db[2];
 	}
 
 	// Step 6
-	double Y_10__db = (Z__db[1] * g_1) + Z__db[2];
+	double Y_10__db = (Z__db[1] * g_10) + Z__db[2];
 
 	// Step 7
-	double Y_eI__db = f_theta_h * Y_q__db;
+	double Y_eI__db = f_theta_h * Y_p__db;
 	double Y_eI_10__db = f_theta_h * Y_10__db;
 
 	// A_Y "is used to prevent available signal powers from exceeding levels expected for free-space propagation by an unrealistic
@@ -142,17 +142,17 @@ void LongTermVariability(double h_r1__km, double h_r2__km, double d__km, double 
 
 	*Y_e__db = Y_eI__db - *A_Y;
 
-	// For variabilities less than 10%, do a correction check
-	if (time_percentage < 10)
+	// For percentanges less than 10%, do a correction check
+	if (p < 10)
 	{
 		double c_Y[4] = { -5.0, -4.5, -3.7, 0.0 };
 		for (int i = 1; i < 4; i++)
 		{
-			if (time_percentage <= data::P[i])
+			if (p <= data::P[i])
 			{
 				*Y_e__db += A_T;
 
-				double c_Yi = LinearInterpolation(data::P[i - 1], c_Y[i - 1], data::P[i], c_Y[i], time_percentage);
+				double c_Yi = LinearInterpolation(data::P[i - 1], c_Y[i - 1], data::P[i], c_Y[i], p);
 
 				if (*Y_e__db > -c_Yi)
 					*Y_e__db = -c_Yi;
