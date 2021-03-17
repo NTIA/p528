@@ -55,16 +55,17 @@ namespace Manual
 
         static void Main(string[] args)
         {
-            //double d__km = 1000;
-            //double h_1__meter = 10;
-            //double h_2__meter = 200e3;
-            //double f__mhz = 15500;
-            //double time_percentage = 0.5;
+            //double d__km = 1;
+            //double h_1__meter = 20000;
+            //double h_2__meter = 20000;
+            //double f__mhz = 125;
+            //double time_percentage = 1;
             //Result result = new Result();
 
-            //int rtn = P528(d__km, h_1__meter, h_2__meter, f__mhz, time_percentage, ref result);
+            //int rtn = P528(d__km, h_1__meter, h_2__meter, f__mhz, (int)Polarization.Horizontal, time_percentage, ref result);
 
-            //Console.WriteLine(result.A__db);
+            //Console.WriteLine($"BTL: {result.A__db}");
+            //Console.WriteLine($"Free Space: {result.A_fs__db}");
             //Console.ReadKey();
 
             GenerateDataFiles();
@@ -82,7 +83,7 @@ namespace Manual
         {
             // Generate data file format
             var freqs = new List<double> { 125 };//, 300, 600, 1200, 2400, 5100, 9400, 15500 };
-            var qs = new List<double> { 1 };//, 5, 10, 50, 95 };
+            var ps = new List<double> { 1 };//, 5, 10, 50, 95 };
 
             string dir = Path.Combine(Environment.CurrentDirectory, NEW_DATA_TABLES_DIR);
             if (!Directory.Exists(dir))
@@ -90,41 +91,43 @@ namespace Manual
 
             foreach (var f__mhz in freqs)
             {
-                foreach (var q in qs)
+                foreach (var p in ps)
                 {
-                    var filename = $"{f__mhz.ToString("0,0")} MHz - Lb({(q / 100).ToString("0.00")})_P528.csv";
+                    var filename = $"{f__mhz.ToString("0,0")} MHz - Lb({(p / 100).ToString("0.00")})_P528.csv";
                     Console.Write($"Generating {filename}...");
 
                     using (var fs = new StreamWriter(Path.Combine(dir, filename)) { AutoFlush = true })
                     {
-                        fs.WriteLine($"{f__mhz}MHz / Lb({(q / 100).ToString("0.00")}) dB");
+                        fs.WriteLine($"{f__mhz}MHz / Lb({(p / 100).ToString("0.00")}) dB");
                         fs.WriteLine(",h2(m),1000,1000,1000,1000,1000,10000,10000,10000,10000,10000,10000,20000,20000,20000,20000,20000,20000,20000");
                         fs.WriteLine(",h1(m),1.5,15,30,60,1000,1.5,15,30,60,1000,10000,1.5,15,30,60,1000,10000,20000");
                         fs.WriteLine("D (km),FSL");
 
                         for (int d__km = 0; d__km <= 1000; d__km++)
                         {
+                            Console.Write($"{d__km},");
+
                             fs.Write(d__km);
 
-                            fs.Write($",{GetFreeSpaceLoss(d__km, 1.5, 1000, f__mhz, q)}"); // FSL
-                            fs.Write($",{GetLoss(d__km, 1.5, 1000, f__mhz, q)}");
-                            fs.Write($",{GetLoss(d__km, 15, 1000, f__mhz, q)}");
-                            fs.Write($",{GetLoss(d__km, 30, 1000, f__mhz, q)}");
-                            fs.Write($",{GetLoss(d__km, 60, 1000, f__mhz, q)}");
-                            fs.Write($",{GetLoss(d__km, 1000, 1000, f__mhz, q)}");
-                            fs.Write($",{GetLoss(d__km, 1.5, 10000, f__mhz, q)}");
-                            fs.Write($",{GetLoss(d__km, 15, 10000, f__mhz, q)}");
-                            fs.Write($",{GetLoss(d__km, 30, 10000, f__mhz, q)}");
-                            fs.Write($",{GetLoss(d__km, 60, 10000, f__mhz, q)}");
-                            fs.Write($",{GetLoss(d__km, 1000, 10000, f__mhz, q)}");
-                            fs.Write($",{GetLoss(d__km, 10000, 10000, f__mhz, q)}");
-                            fs.Write($",{GetLoss(d__km, 1.5, 20000, f__mhz, q)}");
-                            fs.Write($",{GetLoss(d__km, 15, 20000, f__mhz, q)}");
-                            fs.Write($",{GetLoss(d__km, 30, 20000, f__mhz, q)}");
-                            fs.Write($",{GetLoss(d__km, 60, 20000, f__mhz, q)}");
-                            fs.Write($",{GetLoss(d__km, 1000, 20000, f__mhz, q)}");
-                            fs.Write($",{GetLoss(d__km, 10000, 20000, f__mhz, q)}");
-                            fs.Write($",{GetLoss(d__km, 20000, 20000, f__mhz, q)}");
+                            fs.Write($",{GetFreeSpaceLoss(d__km, 1.5, 1000, f__mhz, 50)}"); // FSL
+                            fs.Write($",{GetLoss(d__km, 1.5, 1000, f__mhz, p)}");
+                            fs.Write($",{GetLoss(d__km, 15, 1000, f__mhz, p)}");
+                            fs.Write($",{GetLoss(d__km, 30, 1000, f__mhz, p)}");
+                            fs.Write($",{GetLoss(d__km, 60, 1000, f__mhz, p)}");
+                            fs.Write($",{GetLoss(d__km, 1000, 1000, f__mhz, p)}");
+                            fs.Write($",{GetLoss(d__km, 1.5, 10000, f__mhz, p)}");
+                            fs.Write($",{GetLoss(d__km, 15, 10000, f__mhz, p)}");
+                            fs.Write($",{GetLoss(d__km, 30, 10000, f__mhz, p)}");
+                            fs.Write($",{GetLoss(d__km, 60, 10000, f__mhz, p)}");
+                            fs.Write($",{GetLoss(d__km, 1000, 10000, f__mhz, p)}");
+                            fs.Write($",{GetLoss(d__km, 10000, 10000, f__mhz, p)}");
+                            fs.Write($",{GetLoss(d__km, 1.5, 20000, f__mhz, p)}");
+                            fs.Write($",{GetLoss(d__km, 15, 20000, f__mhz, p)}");
+                            fs.Write($",{GetLoss(d__km, 30, 20000, f__mhz, p)}");
+                            fs.Write($",{GetLoss(d__km, 60, 20000, f__mhz, p)}");
+                            fs.Write($",{GetLoss(d__km, 1000, 20000, f__mhz, p)}");
+                            fs.Write($",{GetLoss(d__km, 10000, 20000, f__mhz, p)}");
+                            fs.Write($",{GetLoss(d__km, 20000, 20000, f__mhz, p)}");
 
                             fs.WriteLine();
                         }
