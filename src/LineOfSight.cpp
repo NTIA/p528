@@ -12,7 +12,6 @@ double FindPsiAtDistance(double d__km, Path path, Terminal terminal_1, Terminal 
 
 	double d_psi__km;
 
-	int cnt = 0;
 	do
 	{
 		psi += delta_psi; // new psi
@@ -28,11 +27,53 @@ double FindPsiAtDistance(double d__km, Path path, Terminal terminal_1, Terminal 
 		else
 			delta_psi = -abs(delta_psi) / 2;
 
-		cnt++;
-
 	} while (abs(d__km - d_psi__km) > 1e-3 && (abs(delta_psi) > 1e-12));  // get within 1 meter of desired delta_r value
 
 	return psi;
+}
+
+double FindPsiAtDeltaR(double delta_r, Path path, Terminal terminal_1, Terminal terminal_2)
+{
+	double psi = PI / 2;
+	double delta_psi = -PI / 4;
+
+	LineOfSightParams params_temp;
+	do
+	{
+		psi += delta_psi;
+
+		RayOptics(path, terminal_1, terminal_2, psi, &params_temp);
+
+		if (params_temp.delta_r > delta_r)
+			delta_psi = -abs(delta_psi) / 2;
+		else
+			delta_psi = abs(delta_psi) / 2;
+
+	} while (abs(params_temp.delta_r - delta_r) > 1e-6);  // get within 1 millimeter of desired delta_r value
+
+	return psi;
+}
+
+double FindDistanceAtDeltaR(double delta_r, Path path, Terminal terminal_1, Terminal terminal_2)
+{
+	double psi = PI / 2;
+	double delta_psi = -PI / 4;
+
+	LineOfSightParams params_temp;
+	do
+	{
+		psi += delta_psi;
+
+		RayOptics(path, terminal_1, terminal_2, psi, &params_temp);
+
+		if (params_temp.delta_r > delta_r)
+			delta_psi = -abs(delta_psi) / 2;
+		else
+			delta_psi = abs(delta_psi) / 2;
+
+	} while (abs(params_temp.delta_r - delta_r) > 1e-6);  // get within 1 millimeter of desired delta_r value
+
+	return params_temp.d__km;
 }
 
 /*=============================================================================
@@ -74,43 +115,20 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
     double psi;
     double R_Tg;
 
-	LineOfSightParams los_temp;
-
 	// 0.2997925 = speed of light, gigameters per sec
     double lambda__km = 0.2997925 / f__mhz;                             // [Eqn 49]
 
 	// determine psi_limit, where you switch from free space to 2-ray model
 	// lambda / 2 is the start of the lobe closest to d_ML
-	double psi_limit = PI / 4;  // start at 45 deg (mid-point)
-	do
-	{
-		RayOptics(*path, terminal_1, terminal_2, psi_limit, &los_temp);
+	double psi_limit = FindPsiAtDeltaR(lambda__km / 2, *path, terminal_1, terminal_2);
 
-		if (los_temp.delta_r > lambda__km / 2)
-			psi_limit -= psi_limit / 2;
-		else
-			psi_limit += psi_limit / 2;
-
-	} while (abs(los_temp.delta_r - lambda__km / 2) > 1e-6);  // get within 1 millimeter of desired delta_r value
+	// "[d_y6__km] is the largest distance at which a free-space value is obtained in a two-ray model
+	//   of reflection from a smooth earth with a reflection coefficient of -1" [ES-83-3, page 44]
+	double d_y6__km = FindDistanceAtDeltaR(lambda__km / 6, *path, terminal_1, terminal_2);
 
     /////////////////////////////////////////////
     // Determine d_0__km distance
     //
-
-	// "[d_y6__km] is the largest distance at which a free-space value is obtained in a two-ray model
-	//   of reflection from a smooth earth with a reflection coefficient of -1" [ES-83-3, page 44]
-	double psi_y6 = PI / 4;	// start at 45 deg (mid-point)
-	do
-	{
-		RayOptics(*path, terminal_1, terminal_2, psi_y6, &los_temp);
-
-		if (los_temp.delta_r > lambda__km / 6)
-			psi_y6 -= psi_y6 / 2;
-		else
-			psi_y6 += psi_y6 / 2;
-
-	} while (abs(los_temp.delta_r - lambda__km / 6) > 1e-6);  // get within 1 millimeter of desired delta_r value
-	double d_y6__km = los_temp.d__km;
 
 	// In IF-73, the values for d_0 (d_d in IF-77) were found to be too small when both antennas are low,
 	// so this "heuristic" was developed to fix that
