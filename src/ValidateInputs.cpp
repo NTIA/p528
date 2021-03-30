@@ -41,7 +41,7 @@ int ValidateInputs(double d__km, double h_1__meter, double h_2__meter,
 	if (f__mhz < 100)
 		return ERROR_VALIDATION__F_MHZ_LOW;
 
-	if (f__mhz > 15500)
+	if (f__mhz > 30000)
 		return ERROR_VALIDATION__F_MHZ_HIGH;
 
 	if (T_pol != POLARIZATION__HORIZONTAL &&
