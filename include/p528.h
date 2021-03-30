@@ -17,7 +17,7 @@ using namespace std;
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
 #define PI                                  3.1415926535897932384
-#define a_0__km                             6370.0
+#define a_0__km                             6371.0
 #define T_eo__km                            3.25
 #define T_ew__km                            1.36
 #define N_0                                 301
