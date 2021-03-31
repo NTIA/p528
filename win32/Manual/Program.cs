@@ -80,7 +80,7 @@ namespace Manual
             //    }
             //}
 
-            int rtn = P528(d__km, h_1__meter, h_2__meter, f__mhz, (int)Polarization.Horizontal, time_percentage, ref result);
+            //int rtn = P528(d__km, h_1__meter, h_2__meter, f__mhz, (int)Polarization.Horizontal, time_percentage, ref result);
 
             Console.WriteLine($"BTL: {result.A__db}");
             Console.WriteLine($"Free Space: {result.A_fs__db}");

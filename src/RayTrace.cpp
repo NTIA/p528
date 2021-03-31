@@ -1,21 +1,18 @@
 #include "math.h"
 #include "..\include\p528.h"
 
-double LayerThickness(int i)
+double LayerThickness(double m, int i)
 {
-    return 0.0001 * exp((i - 1) / 100.);
+    double delta_i__km = m * exp((i - 1) / 100.);
+
+    return delta_i__km;
 }
 
-double LayerBottom(int i)
+double LayerBottom(double m, int i)
 {
-    return 0.0001 * (exp((i - 1) / 100.) - 1) / (exp(1 / 100.) - 1);
-}
+    double h_i__km = m * (exp((i - 1) / 100.) - 1) / (exp(1 / 100.) - 1);
 
-double GetLayerIndex(double h__km)
-{
-    double i = 1 + 100 * log((exp(1 / 100) - 1) * 10000 * h__km + 1);
-    
-    return floor(i);
+    return h_i__km;
 }
 
 void RayTrace(double f__mhz, double h_tx__km, double h_rx__km, double theta_tx, double* d_arc__km, 
@@ -23,13 +20,16 @@ void RayTrace(double f__mhz, double h_tx__km, double h_rx__km, double theta_tx, 
 {
     double f__ghz = f__mhz / 1000;
 
-    // start at the ground and trace up to the RX
-    // for layer i = 1
-    int i = GetLayerIndex(h_tx__km);
-    double delta_i__km = LayerThickness(i);         // thickness of current layer
-    double delta_ii__km = LayerThickness(i + 1);    //
-    double h_i__km = LayerBottom(i);                // height of the bottom of the layer
-    double h_ii__km = LayerBottom(i + 1);           //
+    // P.676 Eqns 16(a)-(c)
+    int i_lower = floor(100 * log(1e4 * h_tx__km * (exp(1. / 100.) - 1) + 1) + 1);// Eqn 16a
+    int i_upper = ceil(100 * log(1e4 * h_rx__km * (exp(1. / 100.) - 1) + 1) + 1);
+    double m = ((exp(2. / 100.) - exp(1. / 100.)) / (exp(i_upper / 100.) - exp(i_lower / 100.))) * (h_rx__km - h_tx__km);
+
+    int i = i_lower;
+    double delta_i__km = LayerThickness(m, i);         // thickness of current layer
+    double delta_ii__km = LayerThickness(m, i + 1);    //
+    double h_i__km = LayerBottom(m, i);                // height of the bottom of the layer
+    double h_ii__km = LayerBottom(m, i + 1);           //
 
     double beta_i = PI / 2 - theta_tx;   // exit angle
     double alpha_i; // enter angle
@@ -52,7 +52,7 @@ void RayTrace(double f__mhz, double h_tx__km, double h_rx__km, double theta_tx, 
     *a__km = 0;     // total ray path length, in km
 
     // loop as long as the full layer is below h_rx__km
-    while (h_i__km + delta_i__km <= h_rx__km && i < 922 || i == 1)
+    while (h_i__km + delta_i__km <= h_rx__km && i <= (i_upper - 1) || i == 1)
     {
         // radial to bottom of layer
         r_i__km = a_0__km + h_i__km;
@@ -80,10 +80,10 @@ void RayTrace(double f__mhz, double h_tx__km, double h_rx__km, double theta_tx, 
 
         // compute next layer
         i++;
-        delta_i__km = LayerThickness(i);
-        delta_ii__km = LayerThickness(i + 1);
-        h_i__km = LayerBottom(i);
-        h_ii__km = LayerBottom(i + 1);
+        delta_i__km = LayerThickness(m, i);
+        delta_ii__km = LayerThickness(m, i + 1);
+        h_i__km = LayerBottom(m, i);
+        h_ii__km = LayerBottom(m, i + 1);
         beta_i = beta_ii;
         // check if need to use a partial layer
         if (h_i__km < h_rx__km && h_ii__km > h_rx__km)
@@ -107,7 +107,7 @@ void RayTrace(double f__mhz, double h_tx__km, double h_rx__km, double theta_tx, 
         *a__km += a_i__km;
     }
 
-    double central_angle = (*theta_rx - 0 + tau);            // [Thayer, Equ 2], rearranged.  0 is takeoff angle
+    double central_angle = (*theta_rx - theta_tx + tau);            // [Thayer, Equ 2], rearranged
     *d_arc__km = a_0__km * central_angle;
 }
 

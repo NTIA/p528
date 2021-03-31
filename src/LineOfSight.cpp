@@ -210,6 +210,9 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	double gamma_oo, gamma_ow;
 	AtmosphericAbsorptionParameters(f__mhz, &gamma_oo, &gamma_ow);
 
+	//double d_arc__km, theta_rx__rad, A_a__db, a__km;
+	//RayTrace(f__mhz, terminal_1.h__km, terminal_2.h__km, los_params->theta_h1__rad, &d_arc__km, &theta_rx__rad, &A_a__db, &a__km);
+
 	result->A_a__db = gamma_oo * r_eo__km + gamma_ow * r_ew__km;
 
 	//
