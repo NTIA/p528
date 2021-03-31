@@ -38,6 +38,9 @@ namespace Manual
         /// Atmospheric absorption loss, in dB
         /// </summary>
         public double A_a__db;
+
+        public double r_1__meter;
+        public double a_1__meter;
     }
 
     enum Polarization : int
@@ -64,6 +67,18 @@ namespace Manual
             double f__mhz = 15500;
             double time_percentage = 1;
             Result result = new Result();
+
+            //using (var fs = new StreamWriter("ray_len.csv") { AutoFlush = true })
+            //{
+            //    fs.WriteLine("h_1,r_1,a_1");
+
+            //    for (int h1 = 5; h1 < 10000; h1 += 10)
+            //    {
+            //        P528(d__km, h1, h_2__meter, f__mhz, (int)Polarization.Horizontal, 50, ref result);
+
+            //        fs.WriteLine($"{h1},{result.r_1__meter},{result.a_1__meter}");
+            //    }
+            //}
 
             int rtn = P528(d__km, h_1__meter, h_2__meter, f__mhz, (int)Polarization.Horizontal, time_percentage, ref result);
 

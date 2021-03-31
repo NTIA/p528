@@ -23,7 +23,7 @@
  |                p                 - Time percentage
  |
  |      Outputs:  Y_e__db           - Variability, in dB
- |                A_Y               - Value used later
+ |                A_Y               - Conditional adjustment factor, in dB
  |
  *===========================================================================*/
 void LongTermVariability(double h_r1__km, double h_r2__km, double d__km, double f__mhz,

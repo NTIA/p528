@@ -11,14 +11,21 @@ double LayerBottom(int i)
     return 0.0001 * (exp((i - 1) / 100.) - 1) / (exp(1 / 100.) - 1);
 }
 
-void RayTrace(double f__mhz, double h_rx__km, double theta_tx, double* d_arc__km, 
+double GetLayerIndex(double h__km)
+{
+    double i = 1 + 100 * log((exp(1 / 100) - 1) * 10000 * h__km + 1);
+    
+    return floor(i);
+}
+
+void RayTrace(double f__mhz, double h_tx__km, double h_rx__km, double theta_tx, double* d_arc__km, 
     double* theta_rx, double* A_a__db, double* a__km)
 {
     double f__ghz = f__mhz / 1000;
 
     // start at the ground and trace up to the RX
     // for layer i = 1
-    int i = 1;
+    int i = GetLayerIndex(h_tx__km);
     double delta_i__km = LayerThickness(i);         // thickness of current layer
     double delta_ii__km = LayerThickness(i + 1);    //
     double h_i__km = LayerBottom(i);                // height of the bottom of the layer

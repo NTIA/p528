@@ -32,7 +32,7 @@ double FindPsiAtDistance(double d__km, Path path, Terminal terminal_1, Terminal 
 	return psi;
 }
 
-double FindPsiAtDeltaR(double delta_r, Path path, Terminal terminal_1, Terminal terminal_2)
+double FindPsiAtDeltaR(double delta_r, Path path, Terminal terminal_1, Terminal terminal_2, double terminate)
 {
 	double psi = PI / 2;
 	double delta_psi = -PI / 4;
@@ -49,12 +49,12 @@ double FindPsiAtDeltaR(double delta_r, Path path, Terminal terminal_1, Terminal 
 		else
 			delta_psi = abs(delta_psi) / 2;
 
-	} while (abs(params_temp.delta_r - delta_r) > 1e-6);  // get within 1 millimeter of desired delta_r value
+	} while (abs(params_temp.delta_r - delta_r) > terminate);
 
 	return psi;
 }
 
-double FindDistanceAtDeltaR(double delta_r, Path path, Terminal terminal_1, Terminal terminal_2)
+double FindDistanceAtDeltaR(double delta_r, Path path, Terminal terminal_1, Terminal terminal_2, double terminate)
 {
 	double psi = PI / 2;
 	double delta_psi = -PI / 4;
@@ -71,7 +71,7 @@ double FindDistanceAtDeltaR(double delta_r, Path path, Terminal terminal_1, Term
 		else
 			delta_psi = abs(delta_psi) / 2;
 
-	} while (abs(params_temp.delta_r - delta_r) > 1e-6);  // get within 1 millimeter of desired delta_r value
+	} while (abs(params_temp.delta_r - delta_r) > terminate);
 
 	return params_temp.d__km;
 }
@@ -117,14 +117,15 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 
 	// 0.2997925 = speed of light, gigameters per sec
     double lambda__km = 0.2997925 / f__mhz;                             // [Eqn 49]
+	double terminate = lambda__km / 1e6;
 
 	// determine psi_limit, where you switch from free space to 2-ray model
 	// lambda / 2 is the start of the lobe closest to d_ML
-	double psi_limit = FindPsiAtDeltaR(lambda__km / 2, *path, terminal_1, terminal_2);
+	double psi_limit = FindPsiAtDeltaR(lambda__km / 2, *path, terminal_1, terminal_2, terminate);
 
 	// "[d_y6__km] is the largest distance at which a free-space value is obtained in a two-ray model
 	//   of reflection from a smooth earth with a reflection coefficient of -1" [ES-83-3, page 44]
-	double d_y6__km = FindDistanceAtDeltaR(lambda__km / 6, *path, terminal_1, terminal_2);
+	double d_y6__km = FindDistanceAtDeltaR(lambda__km / 6, *path, terminal_1, terminal_2, terminate);
 
     /////////////////////////////////////////////
     // Determine d_0__km distance

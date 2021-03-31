@@ -183,6 +183,9 @@ struct Result {
 	double A__db;               // Total loss
 	double A_fs__db;            // Free space path loss
 	double A_a__db;				// Atmospheric absorption loss, in dB
+
+	double r_1__meter;
+	double a_1__meter;
 };
 
 //
@@ -228,7 +231,8 @@ double GlobalWaterVapourPressure(double h__km);
 double GlobalDryAtmosphereDensity(double h__km);
 
 // P.676 Functions
-void RayTrace(double f__mhz, double h_rx__km, double theta_tx, double* d_arc__km, double* theta_rx, double* A_a__db, double* a__km);
+void RayTrace(double f__mhz, double h_tx__km, double h_rx__km, double theta_tx, 
+	double* d_arc__km, double* theta_rx, double* A_a__db, double* a__km);
 double SpecificAttenuation(double f__ghz, double T__kelvin, double e__hPa, double P__hPa);
 double OxygenSpecificAttenuation(double f__ghz, double T__kelvin, double e__hPa, double P__hPa);
 double WaterVapourSpecificAttenuation(double f__ghz, double T__kelvin, double e__hPa, double P__hPa);
