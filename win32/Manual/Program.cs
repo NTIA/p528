@@ -55,12 +55,22 @@ namespace Manual
         private static extern int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
             int T_pol, double time_percentage, ref Result result);
 
+        [DllImport("p528.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi, EntryPoint = "Thayer")]
+        private static extern void Thayer(double N_s, double h_rx__km, out double arc_distance, out double theta_rx);
+
+        [DllImport("p528.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi, EntryPoint = "RayTrace")]
+        public static extern void RayTrace(double f__mhz, double h_tx__km, double h_rx__km, double theta_tx,
+            out double d_arc__km, out double theta_rx, out double A_a__db, out double a__km);
+
         const string NEW_DATA_TABLES_DIR = "DataTables-v5";
         const string OLD_DATA_TABLES_DIR = "DataTables-v4";
         const string DIFF_DATA_TABLES_DIR = "DiffDataTables";
 
         static void Main(string[] args)
         {
+            ExtractThayerValues();
+            return;
+
             double d__km = 1000;
             double h_1__meter = 20;
             double h_2__meter = 20000;
@@ -224,6 +234,29 @@ namespace Manual
             P528(d__km, h1, h2, f__mhz, (int)Polarization.Horizontal, q, ref result);
 
             return Math.Round(result.A_fs__db, 1);
+        }
+
+        static void ExtractThayerValues()
+        {
+            double N_9000 = 329;
+            double f__mhz = 1e3;
+
+            using (var fs = new StreamWriter("eff_dist_528_1ghz.csv") { AutoFlush = true })
+            {
+                fs.WriteLine("h__meter,d_hzn528__km,dq528__km,d_hzn676__km,dq676__km,dq676_f__km");
+
+                for (int r__meter = 1; r__meter < 20000; r__meter += 10)
+                {
+                    Thayer(N_9000, (double)r__meter / 1000, out double d_hzn528__km, out _);
+                    double dq528__km = d_hzn528__km * 2 + 65 * Math.Pow(100.0 / f__mhz, 1.0 / 3.0);
+
+                    RayTrace(f__mhz, 0, (double)r__meter / 1000, 0, out double d_hzn676__km, out _, out _, out _);
+                    double dq676__km = d_hzn676__km * 2;
+                    double dq676_f__km = dq676__km + 65 * Math.Pow(100.0 / f__mhz, 1.0 / 3.0);
+
+                    fs.WriteLine($"{r__meter},{d_hzn528__km},{dq528__km},{d_hzn676__km},{dq676__km},{dq676_f__km}");
+                }
+            }
         }
     }
 }
