@@ -61,7 +61,7 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
     }
 
 	double N_s = N_0;
-	path.a_e__km = a_0__km / (1.0 - 0.04665 * exp(0.005577 * N_s));
+	path.a_e__km = 9257;	// from P.835 MAGRA
 
 	/////////////////////////////////////////////
 	// Compute terminal geometries
@@ -69,11 +69,11 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 
 	// Step 1 for low terminal
 	terminal_1.h_r__km = h_1__meter / 1000;
-	TerminalGeometry(f__mhz, N_s, path.a_e__km, &terminal_1);
+	TerminalGeometry(f__mhz, path.a_e__km, &terminal_1);
 
 	// Step 1 for high terminal
 	terminal_2.h_r__km = h_2__meter / 1000;
-	TerminalGeometry(f__mhz, N_s, path.a_e__km, &terminal_2);
+	TerminalGeometry(f__mhz, path.a_e__km, &terminal_2);
 
 	//
 	// Compute terminal geometries

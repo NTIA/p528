@@ -197,7 +197,7 @@ void GetPathLoss(double psi, Path path, Terminal terminal_1, Terminal terminal_2
 	double f__mhz, double psi_limit, double A_dML__db, double A_d_0__db, 
 	int T_pol, LineOfSightParams* params, double *R_Tg);
 void RayOptics(Path path, Terminal terminal_1, Terminal terminal_2, double psi, LineOfSightParams *result);
-void TerminalGeometry(double f__mhz, double N_s, double a_e__km, Terminal *terminal);
+void TerminalGeometry(double f__mhz, double a_e__km, Terminal *terminal);
 void Troposcatter(Path path, Terminal terminal_1, Terminal terminal_2, double d__km, double f__mhz, double N_s, TroposcatterParams *tropo_params);
 int TranshorizonSearch(Path* path, Terminal terminal_1, Terminal terminal_2, double f__mhz,
 	double N_s, double A_dML__db, double *M_d, double *A_d0, double* d_crx__km, int* MODE);

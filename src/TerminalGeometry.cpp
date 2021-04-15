@@ -15,14 +15,13 @@
  |                "Propagation curves for aeronautical mobile and
  |                radionavigation services using the VHF, UHF and SHF bands"
  |
- |        Input:  N_s       - Surface refractivity, in N-Units
- |                a_e__km   - Effective earth radius, in km
+ |        Input:  a_e__km   - Effective earth radius, in km
  |
  |      Outputs:  terminal  - Structure containing parameters dealing
  |                            with the geometry of the terminal
  |
  *===========================================================================*/
-void TerminalGeometry(double f__mhz, double N_s, double a_e__km, Terminal *terminal)
+void TerminalGeometry(double f__mhz, double a_e__km, Terminal *terminal)
 {
 	// Step 1
 	RayTrace(f__mhz, 0, terminal->h_r__km, 0, &terminal->d_r__km, &terminal->theta__rad, &terminal->A_a__db, &terminal->a__km);
