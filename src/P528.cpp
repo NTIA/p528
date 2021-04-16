@@ -60,7 +60,6 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
             return err;
     }
 
-	double N_s = N_0;
 	path.a_e__km = 9257;	// from P.835 MAGRA
 
 	/////////////////////////////////////////////
@@ -124,7 +123,7 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		// Step 6.  Search past horizon to find crossover point between Diffraction and Troposcatter models
 		int CASE;
 		double d_crx__km;
-		int rtn = TranshorizonSearch(&path, terminal_1, terminal_2, f__mhz, N_s, A_dML__db, &M_d, &A_d0, &d_crx__km, &CASE);
+		int rtn = TranshorizonSearch(&path, terminal_1, terminal_2, f__mhz, A_dML__db, &M_d, &A_d0, &d_crx__km, &CASE);
 
 		/////////////////////////////////////////////
 		// Compute terrain attenuation, A_T__db
@@ -134,7 +133,7 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		double A_d__db = M_d * d__km + A_d0;                    // [Eqn 17]
 
 		// Step 7.2
-		Troposcatter(path, terminal_1, terminal_2, d__km, f__mhz, N_s, &tropo);
+		Troposcatter(path, terminal_1, terminal_2, d__km, f__mhz, &tropo);
 
 		// Step 7.3
 		double A_T__db;

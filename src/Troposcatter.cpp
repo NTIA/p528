@@ -21,12 +21,11 @@
  |                terminal_2    - Struct containing high terminal parameters
  |                d__km         - Path distance, in km
  |                f__mhz        - Frequency, in MHz
- |                N_s           - Surface refractivity, in N-Units
  |
  |      Outputs:  tropo         - Struct containing resulting parameters
  |
  *===========================================================================*/
-void Troposcatter(Path path, Terminal terminal_1, Terminal terminal_2, double d__km, double f__mhz, double N_s, TroposcatterParams *tropo)
+void Troposcatter(Path path, Terminal terminal_1, Terminal terminal_2, double d__km, double f__mhz, TroposcatterParams *tropo)
 {
 	double Q_o, Q_a, Q_b, Q_A, Q_B;
 	double z_a__km, z_b__km, Z_a__km, Z_b__km;
