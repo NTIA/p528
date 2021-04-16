@@ -16,8 +16,8 @@
  |                aeronautical mobile and radionavigation services using
  |                the VHF, UHF and SHF bands"
  |
- |        Input:  h_r1__km          - Actual height of low terminal
- |                h_r2__km          - Actual height of high terminal
+ |        Input:  d_r1__km          - Actual height of low terminal
+ |                d_r2__km          - Actual height of high terminal
  |                d__km             - Path distance, in km
  |                f__mhz            - Frequency, in MHz
  |                p                 - Time percentage
@@ -26,17 +26,12 @@
  |                A_Y               - Conditional adjustment factor, in dB
  |
  *===========================================================================*/
-void LongTermVariability(double h_r1__km, double h_r2__km, double d__km, double f__mhz,
+void LongTermVariability(double d_r1__km, double d_r2__km, double d__km, double f__mhz,
 	double p, double f_theta_h, double A_T, double *Y_e__db, double *A_Y) 
 {
-	// Step 1
-	double d_Lq1__km, d_Lq2__km, dummy;
-	Thayer(N_9000, h_r1__km, &d_Lq1__km, &dummy);
-	Thayer(N_9000, h_r2__km, &d_Lq2__km, &dummy);
-
 	// Step 2
 	double d_qs__km = 65.0 * pow((100.0 / f__mhz), THIRD);              // [Eqn 187]
-	double d_Lq__km = d_Lq1__km + d_Lq2__km;                            // [Eqn 188]
+	double d_Lq__km = d_r1__km + d_r2__km;                              // [Eqn 188]
 	double d_q__km = d_Lq__km + d_qs__km;								// [Eqn 189]
 
 	// [Eqn 190]

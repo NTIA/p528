@@ -43,7 +43,6 @@
     <ClCompile Include="..\src\RayOptics.cpp" />
     <ClCompile Include="..\src\RayTrace.cpp" />
     <ClCompile Include="..\src\SpecificAttenuation.cpp" />
-    <ClCompile Include="..\src\Thayer.cpp" />
     <ClCompile Include="..\src\ReflectionCoefficients.cpp" />
     <ClCompile Include="..\src\SmoothEarthDiffraction.cpp" />
     <ClCompile Include="..\src\TerminalGeometry.cpp" />

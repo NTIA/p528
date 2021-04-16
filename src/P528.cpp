@@ -178,8 +178,8 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 
 		// compute the 50% and p% of the long-term variability distribution
 		double Y_e__db, Y_e_50__db, dummy;
-		LongTermVariability(terminal_1.h_r__km, terminal_2.h_r__km, d__km, f__mhz, p, f_theta_h, -A_T__db, &Y_e__db, &dummy);
-		LongTermVariability(terminal_1.h_r__km, terminal_2.h_r__km, d__km, f__mhz, 50, f_theta_h, -A_T__db, &Y_e_50__db, &dummy);
+		LongTermVariability(terminal_1.d_r__km, terminal_2.d_r__km, d__km, f__mhz, p, f_theta_h, -A_T__db, &Y_e__db, &dummy);
+		LongTermVariability(terminal_1.d_r__km, terminal_2.d_r__km, d__km, f__mhz, 50, f_theta_h, -A_T__db, &Y_e_50__db, &dummy);
 
 		// compute the 50% and p% of the Nakagami-Rice distribution
 		double ANGLE = 0.02617993878;	// 1.5 deg
