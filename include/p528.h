@@ -18,6 +18,7 @@ using namespace std;
 
 #define PI                                  3.1415926535897932384
 #define a_0__km                             6371.0
+#define a_e__km                             9257.0
 #define T_eo__km                            3.25
 #define T_ew__km                            1.36
 #define N_s                                 341
@@ -106,9 +107,6 @@ struct Path
 	double d_ML__km;            // Maximum line of sight distance
 	double d_0__km;             //
 	double d_d__km;             // Distance where smooth earth diffraction is 0 dB
-
-	// Earth
-	double a_e__km;             // Effective earth radius
 };
 
 struct Terminal
@@ -196,13 +194,13 @@ void GetPathLoss(double psi, Path path, Terminal terminal_1, Terminal terminal_2
 	double f__mhz, double psi_limit, double A_dML__db, double A_d_0__db, 
 	int T_pol, LineOfSightParams* params, double *R_Tg);
 void RayOptics(Path path, Terminal terminal_1, Terminal terminal_2, double psi, LineOfSightParams *result);
-void TerminalGeometry(double f__mhz, double a_e__km, Terminal *terminal);
+void TerminalGeometry(double f__mhz, Terminal *terminal);
 void Troposcatter(Path path, Terminal terminal_1, Terminal terminal_2, double d__km, double f__mhz, TroposcatterParams *tropo_params);
 int TranshorizonSearch(Path* path, Terminal terminal_1, Terminal terminal_2, double f__mhz,
 	double A_dML__db, double *M_d, double *A_d0, double* d_crx__km, int* MODE);
 double LinearInterpolation(double x1, double y1, double x2, double y2, double x);
 void AtmosphericAbsorptionParameters(double f__mhz, double *gamma_oo, double *gamma_ow);
-double CalculateEffectiveRayLength(double z_1__km, double z_2__km, double a_e__km, double d_arc__km, double beta__rad, double T_e__km);
+double CalculateEffectiveRayLength(double z_1__km, double z_2__km, double a__km, double d_arc__km, double beta__rad, double T_e__km);
 void ReflectionCoefficients(double psi, double f__mhz, int T_pol, double* R_g, double* phi_g);
 void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSightParams *los_params, double f__mhz, double A_dML__db,
 	double time_percentage, double d__km, int T_pol, Result *result, double *K_LOS);

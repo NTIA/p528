@@ -21,7 +21,7 @@
  |                            with the geometry of the terminal
  |
  *===========================================================================*/
-void TerminalGeometry(double f__mhz, double a_e__km, Terminal *terminal)
+void TerminalGeometry(double f__mhz, Terminal *terminal)
 {
 	// Step 1
 	RayTrace(f__mhz, 0, terminal->h_r__km, 0, &terminal->d_r__km, &terminal->theta__rad, &terminal->A_a__db, &terminal->a__km);

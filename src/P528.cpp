@@ -60,19 +60,17 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
             return err;
     }
 
-	path.a_e__km = 9257;	// from P.835 MAGRA
-
 	/////////////////////////////////////////////
 	// Compute terminal geometries
 	//
 
 	// Step 1 for low terminal
 	terminal_1.h_r__km = h_1__meter / 1000;
-	TerminalGeometry(f__mhz, path.a_e__km, &terminal_1);
+	TerminalGeometry(f__mhz, &terminal_1);
 
 	// Step 1 for high terminal
 	terminal_2.h_r__km = h_2__meter / 1000;
-	TerminalGeometry(f__mhz, path.a_e__km, &terminal_2);
+	TerminalGeometry(f__mhz, &terminal_2);
 
 	//
 	// Compute terminal geometries
@@ -86,8 +84,8 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 	//
 
 	// Step 3.1
-	double d_3__km = path.d_ML__km + 0.5 * pow(pow(path.a_e__km, 2) / f__mhz, THIRD);   // [Eqn 5]
-	double d_4__km = path.d_ML__km + 1.5 * pow(pow(path.a_e__km, 2) / f__mhz, THIRD);   // [Eqn 6]
+	double d_3__km = path.d_ML__km + 0.5 * pow(pow(a_e__km, 2) / f__mhz, THIRD);   // [Eqn 5]
+	double d_4__km = path.d_ML__km + 1.5 * pow(pow(a_e__km, 2) / f__mhz, THIRD);   // [Eqn 6]
 
 	// Step 3.2
 	double A_3__db = SmoothEarthDiffraction(terminal_1.d__km, terminal_2.d__km, f__mhz, d_3__km, T_pol);

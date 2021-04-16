@@ -29,13 +29,13 @@
 void RayOptics(Path path, Terminal terminal_1, Terminal terminal_2, double psi, LineOfSightParams *params)
 {
 	// Step 1
-	double z = (a_0__km / path.a_e__km) - 1;                    // [Eqn 62]
+	double z = (a_0__km / a_e__km) - 1;                    // [Eqn 62]
 	double k_a = 1 / (1 + z * cos(psi));                        // [Eqn 63]
 	params->a_a__km = a_0__km * k_a;                            // [Eqn 64]
 
 	// Step 2
-	double delta_h_a1__km = terminal_1.delta_h__km * (params->a_a__km - a_0__km) / (path.a_e__km - a_0__km);        // [Eqn 65]
-	double delta_h_a2__km = terminal_2.delta_h__km * (params->a_a__km - a_0__km) / (path.a_e__km - a_0__km);        // [Eqn 65]
+	double delta_h_a1__km = terminal_1.delta_h__km * (params->a_a__km - a_0__km) / (a_e__km - a_0__km);        // [Eqn 65]
+	double delta_h_a2__km = terminal_2.delta_h__km * (params->a_a__km - a_0__km) / (a_e__km - a_0__km);        // [Eqn 65]
 
 	// Step 3
 	double H__km[2] = { 0 };

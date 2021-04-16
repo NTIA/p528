@@ -50,11 +50,11 @@ void Troposcatter(Path path, Terminal terminal_1, Terminal terminal_2, double d_
 		tropo->d_z__km = 0.5 * tropo->d_s__km;                                      // [Eqn 113]
 
 		double A_m = 1 / a_0__km;                                                   // [Eqn 114]
-		double dN = A_m - (1.0 / path.a_e__km);                                     // [Eqn 115]
+		double dN = A_m - (1.0 / a_e__km);                                     // [Eqn 115]
 		double gamma_e__km = (N_s * 1e-6) / dN;                                     // [Eqn 116]
 
-		z_a__km = 1.0 / (2 * path.a_e__km) * pow(tropo->d_z__km / 2, 2);            // [Eqn 117]
-		z_b__km = 1.0 / (2 * path.a_e__km) * pow(tropo->d_z__km, 2);                // [Eqn 118]
+		z_a__km = 1.0 / (2 * a_e__km) * pow(tropo->d_z__km / 2, 2);            // [Eqn 117]
+		z_b__km = 1.0 / (2 * a_e__km) * pow(tropo->d_z__km, 2);                // [Eqn 118]
 
 		Q_o = A_m - dN;                                                             // [Eqn 119]
 
@@ -95,8 +95,8 @@ void Troposcatter(Path path, Terminal terminal_1, Terminal terminal_2, double d_
 		// Compute the scattering volume term
 		// 
 
-		double X_A1__km2 = pow(terminal_1.h__km, 2) + 4.0 * (path.a_e__km + terminal_1.h__km) * path.a_e__km * pow(sin(terminal_1.d__km / (path.a_e__km * 2)), 2);      // [Eqn 131]
-		double X_A2__km2 = pow(terminal_2.h__km, 2) + 4.0 * (path.a_e__km + terminal_2.h__km) * path.a_e__km * pow(sin(terminal_2.d__km / (path.a_e__km * 2)), 2);      // [Eqn 131]
+		double X_A1__km2 = pow(terminal_1.h__km, 2) + 4.0 * (a_e__km + terminal_1.h__km) * a_e__km * pow(sin(terminal_1.d__km / (a_e__km * 2)), 2);      // [Eqn 131]
+		double X_A2__km2 = pow(terminal_2.h__km, 2) + 4.0 * (a_e__km + terminal_2.h__km) * a_e__km * pow(sin(terminal_2.d__km / (a_e__km * 2)), 2);      // [Eqn 131]
 
 		double ell_1__km = sqrt(X_A1__km2) + tropo->d_z__km;                        // [Eqn 132]
 		double ell_2__km = sqrt(X_A2__km2) + tropo->d_z__km;                        // [Eqn 132]
