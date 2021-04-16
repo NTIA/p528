@@ -20,8 +20,6 @@ using namespace std;
 #define a_0__km                             6371.0
 #define T_eo__km                            3.25
 #define T_ew__km                            1.36
-#define N_0                                 301
-#define N_9000                              329
 #define N_s                                 341
 #define epsilon                             15.0
 #define sigma                               0.005
