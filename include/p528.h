@@ -114,12 +114,10 @@ struct Terminal
 	// Heights
 	double h_r__km;             // Real terminal height
 	double h_e__km;             // Effective terminal height
-	double h__km;               // Terminal height used in model
 	double delta_h__km;         //
 
 	// Distances
 	double d_r__km;             // Ray traced horizon distance
-	double d__km;               // Horizon distance used in model
 	double a__km;				// Total ray path length to horizon
 
 	// Angles
@@ -180,9 +178,6 @@ struct Result {
 	double A__db;               // Total loss
 	double A_fs__db;            // Free space path loss
 	double A_a__db;				// Atmospheric absorption loss, in dB
-
-	double r_1__meter;
-	double a_1__meter;
 };
 
 //

@@ -134,10 +134,10 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	// In IF-73, the values for d_0 (d_d in IF-77) were found to be too small when both antennas are low,
 	// so this "heuristic" was developed to fix that
 	// [ES-83-3, Eqn 172]
-	if (terminal_1.d__km >= path->d_d__km || path->d_d__km >= path->d_ML__km)
+	if (terminal_1.d_r__km >= path->d_d__km || path->d_d__km >= path->d_ML__km)
 	{
-		if (terminal_1.d__km > d_y6__km || d_y6__km > path->d_ML__km)
-			path->d_0__km = terminal_1.d__km;
+		if (terminal_1.d_r__km > d_y6__km || d_y6__km > path->d_ML__km)
+			path->d_0__km = terminal_1.d_r__km;
 		else
 			path->d_0__km = d_y6__km;
 	}

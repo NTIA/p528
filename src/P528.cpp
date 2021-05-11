@@ -77,7 +77,7 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 	/////////////////////////////////////////////
 
 	// Step 2
-	path.d_ML__km = terminal_1.d__km + terminal_2.d__km;                                // [Eqn 4]
+	path.d_ML__km = terminal_1.d_r__km + terminal_2.d_r__km;                                // [Eqn 4]
 
 	/////////////////////////////////////////////
 	// Smooth earth diffraction line calculations
@@ -88,8 +88,8 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 	double d_4__km = path.d_ML__km + 1.5 * pow(pow(a_e__km, 2) / f__mhz, THIRD);   // [Eqn 6]
 
 	// Step 3.2
-	double A_3__db = SmoothEarthDiffraction(terminal_1.d__km, terminal_2.d__km, f__mhz, d_3__km, T_pol);
-	double A_4__db = SmoothEarthDiffraction(terminal_1.d__km, terminal_2.d__km, f__mhz, d_4__km, T_pol);
+	double A_3__db = SmoothEarthDiffraction(terminal_1.d_r__km, terminal_2.d_r__km, f__mhz, d_3__km, T_pol);
+	double A_4__db = SmoothEarthDiffraction(terminal_1.d_r__km, terminal_2.d_r__km, f__mhz, d_4__km, T_pol);
 
 	// Step 3.3
 	double M_d = (A_4__db - A_3__db) / (d_4__km - d_3__km);                             // [Eqn 7]
@@ -202,10 +202,10 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		// Atmospheric absorption for transhorizon path
 		//
 
-		double d_arc__km, theta_rx__rad, A_a_hv__db, a_v__km;
-		RayTrace(f__mhz, 0, tropo.h_v__km, 0, &d_arc__km, &theta_rx__rad, &A_a_hv__db, &a_v__km);
+		double d_arc__km, theta_rx__rad, A_a_v__db, a_v__km;
+		RayTrace(f__mhz, 0, tropo.h_v__km, 0, &d_arc__km, &theta_rx__rad, &A_a_v__db, &a_v__km);
 
-		result->A_a__db = terminal_1.A_a__db + terminal_2.A_a__db + 2 * A_a_hv__db;
+		result->A_a__db = terminal_1.A_a__db + terminal_2.A_a__db + 2 * A_a_v__db;
 
 		//
 		// Atmospheric absorption for transhorizon path
@@ -215,9 +215,7 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		// Compute free-space loss
 		//
 
-		//double r_fs__km = terminal_1.a__km + terminal_2.a__km + a_v__km;
-		double r_fs__km = terminal_1.a__km + terminal_2.a__km + tropo.d_s__km;                            // [Eqn 21]
-
+		double r_fs__km = terminal_1.a__km + terminal_2.a__km + a_v__km;
 		result->A_fs__db = 32.45 + 20.0 * log10(f__mhz) + 20.0 * log10(r_fs__km);      // [Eqn 22]
 
 		//

@@ -8,15 +8,15 @@ namespace ITS.Propagation
     /// </summary>
     public static partial class P528
     {
-        private const string ITM_x86_DLL_NAME = "p528_x86.dll";
-        private const string ITM_x64_DLL_NAME = "p528_x64.dll";
+        private const string P528_x86_DLL_NAME = "p528_x86.dll";
+        private const string P528_x64_DLL_NAME = "p528_x64.dll";
 
         #region 32-Bit P/Invoke Definitions
 
-        [DllImport(ITM_x86_DLL_NAME, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi, EntryPoint = "P528")]
+        [DllImport(P528_x86_DLL_NAME, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi, EntryPoint = "P528")]
         private static extern int P528_x86(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, ref Result result);
 
-        [DllImport(ITM_x86_DLL_NAME, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi, EntryPoint = "P528_Ex")]
+        [DllImport(P528_x86_DLL_NAME, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi, EntryPoint = "P528_Ex")]
         private static extern int P528Ex_x86(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, ref Result result,
             ref Terminal terminal_1, ref Terminal terminal_2, ref TroposcatterParams tropo, ref Path path, ref LineOfSightParams los_params);
 
@@ -24,10 +24,10 @@ namespace ITS.Propagation
 
         #region 64-Bit P/Invoke Definitions
 
-        [DllImport(ITM_x64_DLL_NAME, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi, EntryPoint = "P528")]
+        [DllImport(P528_x64_DLL_NAME, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi, EntryPoint = "P528")]
         private static extern int P528_x64(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, ref Result result);
 
-        [DllImport(ITM_x64_DLL_NAME, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi, EntryPoint = "P528_Ex")]
+        [DllImport(P528_x64_DLL_NAME, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi, EntryPoint = "P528_Ex")]
         private static extern int P528Ex_x64(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, ref Result result,
             ref Terminal terminal_1, ref Terminal terminal_2, ref TroposcatterParams tropo, ref Path path, ref LineOfSightParams los_params);
 
