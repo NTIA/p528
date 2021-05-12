@@ -33,6 +33,9 @@ using namespace std;
 #define CONST_MODE__DIFFRACTION             1
 #define CONST_MODE__SCATTERING              2
 
+#define CASE_1								1
+#define CASE_2								2
+
 #define PROP_MODE__NOT_SET                  0
 #define PROP_MODE__LOS                      1
 #define PROP_MODE__DIFFRACTION              2

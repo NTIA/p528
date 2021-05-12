@@ -46,19 +46,19 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 	result->propagation_mode = PROP_MODE__NOT_SET;
 
 	int err = ValidateInputs(d__km, h_1__meter, h_2__meter, f__mhz, T_pol, p);
-    if (err != SUCCESS)
-    {
-        if (err == ERROR_HEIGHT_AND_DISTANCE)
-        {
+	if (err != SUCCESS)
+	{
+		if (err == ERROR_HEIGHT_AND_DISTANCE)
+		{
 			result->A_fs__db = 0;
 			result->A_a__db = 0;
 			result->A__db = 0;
 			result->d__km = 0;
-            return SUCCESS;
-        }
-        else
-            return err;
-    }
+			return SUCCESS;
+		}
+		else
+			return err;
+	}
 
 	/////////////////////////////////////////////
 	// Compute terminal geometries
@@ -128,7 +128,7 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		//
 
 		// Step 7.1
-		double A_d__db = M_d * d__km + A_d0;                    // [Eqn 17]
+		double A_d__db = M_d * d__km + A_d0;                    // [Eqn 3-14]
 
 		// Step 7.2
 		Troposcatter(path, terminal_1, terminal_2, d__km, f__mhz, &tropo);
@@ -137,13 +137,15 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		double A_T__db;
 		if (d__km < d_crx__km)
 		{
+			// always in diffraction if less than d_crx
 			A_T__db = A_d__db;
 			result->propagation_mode = PROP_MODE__DIFFRACTION;
 		}
 		else
 		{
-			if (CASE == 1)
+			if (CASE == CASE_1)
 			{
+				// select the lower loss mode of propagation
 				if (tropo.A_s__db <= A_d__db)
 				{
 					A_T__db = tropo.A_s__db;
@@ -155,7 +157,7 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 					result->propagation_mode = PROP_MODE__DIFFRACTION;
 				}
 			}
-			else
+			else // CASE_2
 			{
 				A_T__db = tropo.A_s__db;
 				result->propagation_mode = PROP_MODE__SCATTERING;
@@ -215,8 +217,8 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		// Compute free-space loss
 		//
 
-		double r_fs__km = terminal_1.a__km + terminal_2.a__km + a_v__km;
-		result->A_fs__db = 32.45 + 20.0 * log10(f__mhz) + 20.0 * log10(r_fs__km);      // [Eqn 22]
+		double r_fs__km = terminal_1.a__km + terminal_2.a__km + a_v__km;				// [Eqn 3-17]
+		result->A_fs__db = 20.0 * log10(f__mhz) + 20.0 * log10(r_fs__km) + 32.45;		// [Eqn 3-18]
 
 		//
 		// Compute free-space loss

@@ -36,13 +36,13 @@ int TranshorizonSearch(Path* path, Terminal terminal_1, Terminal terminal_2, dou
 	*CASE = CONST_MODE__SEARCH;
 	int k = 0;
 
-	TroposcatterParams tropo_params;
-	tropo_params.A_s__db = 0;
+	TroposcatterParams tropo;
+	tropo.A_s__db = 0;
 
 	// Step 6.1.  Initialize search parameters
 	double d_search__km[2];
-	d_search__km[0] = path->d_ML__km + 3;                                           // [Eqn 11]
-	d_search__km[1] = d_search__km[0] - 1;                                          // [Eqn 12]
+	d_search__km[0] = path->d_ML__km + 3;		// d', [Eqn 3-8]
+	d_search__km[1] = path->d_ML__km + 2;		// d", [Eqn 3-9]
 
 	double A_s__db[2] = { 0 };
 	double M_s = 0;
@@ -54,11 +54,11 @@ int TranshorizonSearch(Path* path, Terminal terminal_1, Terminal terminal_2, dou
 		A_s__db[1] = A_s__db[0];
 
 		// Step 6.2
-		Troposcatter(*path, terminal_1, terminal_2, d_search__km[0], f__mhz, &tropo_params);
-		A_s__db[0] = tropo_params.A_s__db;
+		Troposcatter(*path, terminal_1, terminal_2, d_search__km[0], f__mhz, &tropo);
+		A_s__db[0] = tropo.A_s__db;
 
 		// if loss is less than 20 dB, the result is not within valid part of model
-		if (tropo_params.A_s__db < 20.0)
+		if (tropo.A_s__db < 20.0)
 		{
 			d_search__km[1] = d_search__km[0];
 			d_search__km[0]++;
@@ -74,49 +74,46 @@ int TranshorizonSearch(Path* path, Terminal terminal_1, Terminal terminal_2, dou
 		}
 
 		// Step 6.3
-		M_s = (A_s__db[0] - A_s__db[1]) / (d_search__km[0] - d_search__km[1]);          // [Eqn 13]
+		M_s = (A_s__db[0] - A_s__db[1]) / (d_search__km[0] - d_search__km[1]);		// [Eqn 3-10]
 
+		// TODO: I dont believe this is needed anymore.  commenting it out for now
 		// Verify the tropo line is sloping to increase loss with distance (inverted sign)
-		if (M_s <= -0.01)
-		{
-			k = 0;
-			d_search__km[1] = d_search__km[0];
-			d_search__km[0]++;
-			continue;
-		}
+		//if (M_s <= -0.01)
+		//{
+		//	k = 0;
+		//	d_search__km[1] = d_search__km[0];
+		//	d_search__km[0]++;
+		//	continue;
+		//}
 
 		if (M_s <= *M_d)
 		{
 			*d_crx__km = d_search__km[0];
 
-			double A_d__db = *A_d0 + (*M_d * d_search__km[1]);
+			// Step 6.6
+			double A_d__db = *M_d * d_search__km[1] + *A_d0;							// [Eqn 3-11]
 
-			// Step 6.5
 			if (A_s__db[1] >= A_d__db)
-				*CASE = 1;
+				*CASE = CASE_1;
 			else
 			{
 				// Adjust the diffraction line to the troposcatter model
-				*M_d = (A_s__db[1] - A_dML__db) / (d_search__km[1] - path->d_ML__km);   // [Eqn 15]
-				*A_d0 = A_s__db[1] - (d_search__km[1] * *M_d);                          // [Eqn 16]
+				*M_d = (A_s__db[1] - A_dML__db) / (d_search__km[1] - path->d_ML__km);   // [Eqn 3-12]
+				*A_d0 = A_s__db[1] - (*M_d * d_search__km[1]);                          // [Eqn 3-13]
 
-				*CASE = 2;
+				*CASE = CASE_2;
 			}
 
-			break;
+			return SUCCESS;
 		}
 
 		d_search__km[1] = d_search__km[0];
 		d_search__km[0]++;
 	}
 
-	if (*CASE == CONST_MODE__SEARCH)
-	{
-		*CASE = CONST_MODE__DIFFRACTION;
-		*d_crx__km = d_search__km[1];
+	// M_d was always greater than M_d.  Default to diffraction-only transhorizon model
+	*CASE = CONST_MODE__DIFFRACTION;
+	*d_crx__km = d_search__km[1];
 
-		return WARNING__DFRAC_TROPO_REGION;
-	}
-
-	return SUCCESS;
+	return WARNING__DFRAC_TROPO_REGION;
 }
