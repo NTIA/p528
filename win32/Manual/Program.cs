@@ -38,9 +38,6 @@ namespace Manual
         /// Atmospheric absorption loss, in dB
         /// </summary>
         public double A_a__db;
-
-        public double r_1__meter;
-        public double a_1__meter;
     }
 
     enum Polarization : int

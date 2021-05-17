@@ -51,6 +51,10 @@ void RayTrace(double f__mhz, double h_tx__km, double h_rx__km, double theta_tx, 
     *A_a__db = 0; // total atmospheric absorption
     *a__km = 0;     // total ray path length, in km
 
+    // initialize first layer
+    h_i_mid__km = h_i__km + delta_i__km / 2;
+    GetLayerProperties(f__ghz, h_i_mid__km, &n_i, &gamma_i);
+
     // loop as long as the full layer is below h_rx__km
     while (h_i__km + delta_i__km <= h_rx__km && i <= (i_upper - 1) || i == 1)
     {
@@ -65,10 +69,8 @@ void RayTrace(double f__mhz, double h_tx__km, double h_rx__km, double theta_tx, 
         *a__km += a_i__km;
 
         // layer midpoint
-        h_i_mid__km = h_i__km + delta_i__km / 2;
         h_ii_mid__km = h_ii__km + delta_ii__km / 2;
 
-        GetLayerProperties(f__ghz, h_i_mid__km, &n_i, &gamma_i);
         GetLayerProperties(f__ghz, h_ii_mid__km, &n_ii, &gamma_ii);
 
         *A_a__db += a_i__km * gamma_i;
@@ -78,13 +80,19 @@ void RayTrace(double f__mhz, double h_tx__km, double h_rx__km, double theta_tx, 
         // accumulate the bending angle
         tau += beta_ii - alpha_i;
 
+        // shift params from iith layer to ith layer
+        delta_i__km = delta_ii__km;
+        h_i__km = h_ii__km;
+        h_i_mid__km = h_ii_mid__km;
+        beta_i = beta_ii;
+        n_i = n_ii;
+        gamma_i = gamma_ii;
+
         // compute next layer
         i++;
-        delta_i__km = LayerThickness(m, i);
         delta_ii__km = LayerThickness(m, i + 1);
-        h_i__km = LayerBottom(m, i);
         h_ii__km = LayerBottom(m, i + 1);
-        beta_i = beta_ii;
+
         // check if need to use a partial layer
         if (h_i__km < h_rx__km && h_ii__km > h_rx__km)
         {
