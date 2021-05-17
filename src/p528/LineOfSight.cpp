@@ -1,5 +1,6 @@
 #include <math.h>
-#include "..\include\p528.h"
+#include "..\..\include\p528.h"
+#include "..\..\include\p676.h"
 
 double FindPsiAtDistance(double d__km, Path path, Terminal terminal_1, Terminal terminal_2)
 {
@@ -204,16 +205,10 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	// Compute atmospheric absorption
 	//
 
-	double r_eo__km = CalculateEffectiveRayLength(los_params->z__km[0], los_params->z__km[1], los_params->a_a__km, los_params->r_0__km, los_params->theta_h1__rad, T_eo__km);
-	double r_ew__km = CalculateEffectiveRayLength(los_params->z__km[0], los_params->z__km[1], los_params->a_a__km, los_params->r_0__km, los_params->theta_h1__rad, T_ew__km);
+	SlantPathAttenuationResult result_slant;
+	SlantPathAttenuation(f__mhz / 1000, terminal_1.h_e__km, terminal_2.h_e__km, PI / 2 - los_params->theta_h1__rad, &result_slant);
 
-	double gamma_oo, gamma_ow;
-	AtmosphericAbsorptionParameters(f__mhz, &gamma_oo, &gamma_ow);
-
-	//double d_arc__km, theta_rx__rad, A_a__db, a__km;
-	//RayTrace(f__mhz, terminal_1.h__km, terminal_2.h__km, los_params->theta_h1__rad, &d_arc__km, &theta_rx__rad, &A_a__db, &a__km);
-
-	result->A_a__db = gamma_oo * r_eo__km + gamma_ow * r_ew__km;
+	result->A_a__db = result_slant.A_gas__db;
 
 	//
 	// Compute atmospheric absorption
@@ -272,16 +267,10 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 
 	double R_s = R_Tg * F_delta_r * F_AY;       // [Eqn 178]
 
-	double W_a;
-	if (r_ew__km <= 0.0)
-		W_a = 0.0001;
-	else
-	{
-		double Y_pi_99__db = 10.0 * log10(f__mhz * pow(r_ew__km, 3)) - 84.26;
-		double K_t = FindKForYpiAt99Percent(Y_pi_99__db);
+	double Y_pi_99__db = 10.0 * log10(f__mhz * pow(result_slant.a__km, 3)) - 84.26;
+	double K_t = FindKForYpiAt99Percent(Y_pi_99__db);
 
-		W_a = pow(10.0, K_t / 10.0);
-	}
+	double W_a = pow(10.0, K_t / 10.0);
 
 	double W_R = pow(R_s, 2) + pow(0.01, 2);        // [Eqn 180]
 

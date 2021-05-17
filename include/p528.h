@@ -66,30 +66,6 @@ using namespace std;
 // CLASSES
 ///////////////////////////////////////////////
 
-class OxygenData
-{
-public:
-	const static vector<double> f_0;		// 
-	const static vector<double> a_1;		//
-	const static vector<double> a_2;		//
-	const static vector<double> a_3;		//
-	const static vector<double> a_4;		//
-	const static vector<double> a_5;		//
-	const static vector<double> a_6;		//
-};
-
-class WaterVapourData
-{
-public:
-	const static vector<double> f_0;		// 
-	const static vector<double> b_1;		//
-	const static vector<double> b_2;		//
-	const static vector<double> b_3;		//
-	const static vector<double> b_4;		//
-	const static vector<double> b_5;		//
-	const static vector<double> b_6;		//
-};
-
 class data
 {
 public:
@@ -197,8 +173,6 @@ void Troposcatter(Path path, Terminal terminal_1, Terminal terminal_2, double d_
 int TranshorizonSearch(Path* path, Terminal terminal_1, Terminal terminal_2, double f__mhz,
 	double A_dML__db, double *M_d, double *A_d0, double* d_crx__km, int* MODE);
 double LinearInterpolation(double x1, double y1, double x2, double y2, double x);
-void AtmosphericAbsorptionParameters(double f__mhz, double *gamma_oo, double *gamma_ow);
-double CalculateEffectiveRayLength(double z_1__km, double z_2__km, double a__km, double d_arc__km, double beta__rad, double T_e__km);
 void ReflectionCoefficients(double psi, double f__mhz, int T_pol, double* R_g, double* phi_g);
 void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSightParams *los_params, double f__mhz, double A_dML__db,
 	double time_percentage, double d__km, int T_pol, Result *result, double *K_LOS);
@@ -210,33 +184,6 @@ double FindKForYpiAt99Percent(double Y_pi__db);
 double CombineDistributions(double A_M, double A_i, double B_M, double B_i, double q);
 int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol, double time_percentage);
 double NakagamiRice(double K, double q);
-
-// P.835 Functions
-double ConvertToGeopotentialHeight(double h__km);
-double WaterVapourDensityToPressure(double rho, double T__kelvin);
-double GlobalTemperature(double h__km);
-double GlobalTemperature_Regime1(double h_prime__km);
-double GlobalTemperature_Regime2(double h__km);
-double GlobalPressure(double h__km);
-double GlobalPressure_Regime1(double h_prime__km);
-double GlobalPressure_Regime2(double h__km);
-double GlobalWaterVapourDensity(double h__km);
-double GlobalWaterVapourPressure(double h__km);
-double GlobalDryAtmosphereDensity(double h__km);
-
-// P.676 Functions
-DLLEXPORT void RayTrace(double f__mhz, double h_tx__km, double h_rx__km, double theta_tx, 
-	double* d_arc__km, double* theta_rx, double* A_a__db, double* a__km);
-double SpecificAttenuation(double f__ghz, double T__kelvin, double e__hPa, double P__hPa);
-double OxygenSpecificAttenuation(double f__ghz, double T__kelvin, double e__hPa, double P__hPa);
-double WaterVapourSpecificAttenuation(double f__ghz, double T__kelvin, double e__hPa, double P__hPa);
-double OxygenRefractivity(double f__ghz, double T__kelvin, double e__hPa, double P__hPa);
-double WaterVapourRefractivity(double f__ghz, double T__kelvin, double e__hPa, double P__hPa);
-double LineShapeFactor(double f__ghz, double f_i__ghz, double delta_f__ghz, double delta);
-double NonresonantDebyeAttenuation(double f__ghz, double e__hPa, double P__hPa, double theta);
-void GetLayerProperties(double f__ghz, double h_mid__km, double* n, double* gamma);
-
-double RefractiveIndex(double P_d__hPa, double T__kelvin, double e);
 
 // Public Functions
 DLLEXPORT int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol, double time_percentage, Result *result);

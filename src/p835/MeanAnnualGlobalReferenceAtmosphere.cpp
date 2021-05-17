@@ -1,9 +1,9 @@
 #include "math.h"
-#include "..\include\p528.h"
+#include "..\..\include\p835.h"
 
 /*=============================================================================
  |
- |  Description:  The mean annual global reference atmospheric temperature,
+ |  Description:  The mean annual global reference atmospheric temperature, 
  |                in Kelvin.
  |
  |        Input:  h__km         - Geometric height, in km
@@ -14,6 +14,11 @@
  *===========================================================================*/
 double GlobalTemperature(double h__km)
 {
+    if (h__km < 0)
+        return ERROR_HEIGHT_TOO_SMALL;
+    if (h__km > 100)
+        return ERROR_HEIGHT_TOO_LARGE;
+
     if (h__km < 86)
     {
         double h_prime__km = ConvertToGeopotentialHeight(h__km);
@@ -25,8 +30,8 @@ double GlobalTemperature(double h__km)
 
 /*=============================================================================
  |
- |  Description:  The mean annual global reference atmospheric temperature,
- |                in Kelvin, for the first height regime.
+ |  Description:  The mean annual global reference atmospheric temperature, 
+ |                in Kelvin, for the first height regime.  
  |                See Equations (2a-g).
  |
  |        Input:  h_prime__km   - Geopotential height, in km'
@@ -37,7 +42,9 @@ double GlobalTemperature(double h__km)
  *===========================================================================*/
 double GlobalTemperature_Regime1(double h_prime__km)
 {
-    if (h_prime__km <= 11)
+    if (h_prime__km < 0)
+        return ERROR_HEIGHT_TOO_SMALL;
+    else if (h_prime__km <= 11)
         return 288.15 - 6.5 * h_prime__km;
     else if (h_prime__km <= 20)
         return 216.65;
@@ -49,14 +56,16 @@ double GlobalTemperature_Regime1(double h_prime__km)
         return 270.65;
     else if (h_prime__km <= 71)
         return 270.65 - 2.8 * (h_prime__km - 51);
-    else
+    else if (h_prime__km <= 84.852)
         return 214.65 - 2.0 * (h_prime__km - 71);
+    else
+        return ERROR_HEIGHT_TOO_LARGE;
 }
 
 /*=============================================================================
  |
- |  Description:  The mean annual global reference atmospheric temperature,
- |                in Kelvin, for the second height regime.
+ |  Description:  The mean annual global reference atmospheric temperature, 
+ |                in Kelvin, for the second height regime.  
  |                See Equations (4a-b).
  |
  |        Input:  h__km         - Geometric height, in km
@@ -67,10 +76,14 @@ double GlobalTemperature_Regime1(double h_prime__km)
  *===========================================================================*/
 double GlobalTemperature_Regime2(double h__km)
 {
-    if (h__km <= 91)
+    if (h__km < 86)
+        return ERROR_HEIGHT_TOO_SMALL;
+    else if (h__km <= 91)
         return 186.8673;
-    else
+    else if (h__km <= 100)
         return 263.1905 - 76.3232 * sqrt(1 - pow((h__km - 91) / 19.9429, 2));
+    else
+        return ERROR_HEIGHT_TOO_LARGE;
 }
 
 /*=============================================================================
@@ -80,12 +93,17 @@ double GlobalTemperature_Regime2(double h__km)
  |
  |        Input:  h__km         - Geometric height, in km
  |
- |      Returns:  P__hPa        - Pressure, in hPa.
+ |      Returns:  p__hPa        - Dry air pressure, in hPa.
  |                                Or error (negative number).
  |
  *===========================================================================*/
 double GlobalPressure(double h__km)
 {
+    if (h__km < 0)
+        return ERROR_HEIGHT_TOO_SMALL;
+    if (h__km > 100)
+        return ERROR_HEIGHT_TOO_LARGE;
+
     if (h__km < 86)
     {
         double h_prime__km = ConvertToGeopotentialHeight(h__km);
@@ -97,18 +115,20 @@ double GlobalPressure(double h__km)
 
 /*=============================================================================
  |
- |  Description:  The mean annual global reference atmospheric pressure,
+ |  Description:  The mean annual global reference atmospheric pressure, 
  |                in hPa, for the first height regime.  See Equations (3a-g).
  |
  |        Input:  h_prime__km   - Geopotential height, in km'
  |
- |      Returns:  P__hPa        - Pressure, in hPa.
+ |      Returns:  p__hPa        - Dry air pressure, in hPa.
  |                                Or error (negative number).
  |
  *===========================================================================*/
 double GlobalPressure_Regime1(double h_prime__km)
 {
-    if (h_prime__km <= 11)
+    if (h_prime__km < 0)
+        return ERROR_HEIGHT_TOO_SMALL;
+    else if (h_prime__km <= 11)
         return 1013.25 * pow(288.15 / (288.15 - 6.5 * h_prime__km), -34.1632 / 6.5);
     else if (h_prime__km <= 20)
         return 226.3226 * exp(-34.1632 * (h_prime__km - 11) / 216.65);
@@ -120,23 +140,30 @@ double GlobalPressure_Regime1(double h_prime__km)
         return 1.109106 * exp(-34.1632 * (h_prime__km - 47) / 270.65);
     else if (h_prime__km <= 71)
         return 0.6694167 * pow(270.65 / (270.65 - 2.8 * (h_prime__km - 51)), -34.1632 / 2.8);
-    else
+    else if (h_prime__km <= 84.852)
         return 0.03956649 * pow(214.65 / (214.65 - 2.0 * (h_prime__km - 71)), -34.1632 / 2.0);
+    else
+        return ERROR_HEIGHT_TOO_LARGE;
 }
 
 /*=============================================================================
  |
- |  Description:  The mean annual global reference atmospheric pressure,
+ |  Description:  The mean annual global reference atmospheric pressure, 
  |                in hPa, for the second height regime.  See Equation (5).
  |
  |        Input:  h__km         - Geometric height, in km
  |
- |      Returns:  P__hPa        - Pressure, in hPa.
+ |      Returns:  p__hPa        - Dry air pressure, in hPa.
  |                                Or error (negative number).
  |
  *===========================================================================*/
 double GlobalPressure_Regime2(double h__km)
 {
+    if (h__km < 86)
+        return ERROR_HEIGHT_TOO_SMALL;
+    if (h__km > 100)
+        return ERROR_HEIGHT_TOO_LARGE;
+    
     double a_0 = 95.571899;
     double a_1 = -4.011801;
     double a_2 = 6.424731e-2;
@@ -152,93 +179,54 @@ double GlobalPressure_Regime2(double h__km)
  |                density, in g/m^3.  See Equation (6).
  |
  |        Input:  h__km         - Geometric height, in km
+ |                rho_0         - Ground-level water vapour density, in g/m^3
  |
- |      Returns:  rho           - Density, in g/m^3.
+ |      Returns:  rho           - Water vapour density, in g/m^3.
  |                                Or error (negative number).
  |
  *===========================================================================*/
-double GlobalWaterVapourDensity(double h__km)
+double GlobalWaterVapourDensity(double h__km, double rho_0)
 {
+    if (h__km < 0)
+        return ERROR_HEIGHT_TOO_SMALL;
+    if (h__km > 100)
+        return ERROR_HEIGHT_TOO_LARGE;
+
     double h_0__km = 2;     // scale height
-    double rho_0 = 7.5;     // g/m^3
 
     return rho_0 * exp(-h__km / h_0__km);
 }
 
 /*=============================================================================
  |
- |  Description:  The mean annual global reference atmospheric water vapour
+ |  Description:  The mean annual global reference atmospheric water vapour 
  |                pressure, in hPa.
  |
  |        Input:  h__km         - Geometric height, in km
+ |                rho_0         - Ground-level water vapour density, in g/m^3
  |
- |      Returns:  P__hPa        - Pressure, in hPa.
+ |      Returns:  e__hPa        - Water vapour pressure, e(h), in hPa
  |                                Or error (negative number).
  |
  *===========================================================================*/
-double GlobalWaterVapourPressure(double h__km)
+double GlobalWaterVapourPressure(double h__km, double rho_0)
 {
-    double rho = GlobalWaterVapourDensity(h__km);
+    if (h__km < 0)
+        return ERROR_HEIGHT_TOO_SMALL;
+    if (h__km > 100)
+        return ERROR_HEIGHT_TOO_LARGE;
 
-    double T;
+    double rho = GlobalWaterVapourDensity(h__km, rho_0);
+
+    double T__kelvin;
     if (h__km < 86)
     {
         // convert to geopotential height
         double h_prime__km = ConvertToGeopotentialHeight(h__km);
-        T = GlobalTemperature_Regime1(h_prime__km);
+        T__kelvin = GlobalTemperature_Regime1(h_prime__km);
     }
     else
-        T = GlobalTemperature_Regime2(h__km);
-
-    return WaterVapourDensityToPressure(rho, T);
-}
-
-/*=============================================================================
- |
- |  Description:  The mean annual global reference atmospheric dry gas
- |                density, in g/m^3.
- |
- |        Input:  h__km         - Geometric height, in km
- |
- |      Returns:  rho           - Density, in g/m^3.
- |                                Or error (negative number).
- |
- *===========================================================================*/
-double GlobalDryAtmosphereDensity(double h__km)
-{
-    double h_0__km = 6;     // scale height
-    double rho_0 = 7.5;     // g/m^3
-
-    return rho_0 * exp(-h__km / h_0__km);
-}
-
-/*=============================================================================
- |
- |  Description:  Converts from geometric height, in km, to geopotential
- |                height, in km'.  See Equation (1a).
- |
- |        Input:  k__km         - Geometric height, in km
- |
- |      Returns:  k_prime__km   - Geopotential height, in km'
- |
- *===========================================================================*/
-double ConvertToGeopotentialHeight(double h__km)
-{
-    return (6356.766 * h__km) / (6356.766 + h__km);
-}
-
-/*=============================================================================
- |
- |  Description:  Converts water vapour density, in g/m^3, to water vapour
- |                pressure, in hPa.  See Equation (8).
- |
- |        Input:  rho       - Water vapour density, rho(h), in g/m^3
- |                T__kelvin - Temperature, T(h), in Kelvin
- |
- |      Returns:  e         - Water vapour pressure, e(h), in hPa
- |
- *===========================================================================*/
-double WaterVapourDensityToPressure(double rho, double T__kelvin)
-{
-    return (rho * T__kelvin) / 216.7;
+        T__kelvin = GlobalTemperature_Regime2(h__km);
+    
+    return WaterVapourDensityToPressure(rho, T__kelvin);
 }

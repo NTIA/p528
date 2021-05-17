@@ -1,5 +1,6 @@
 #include <math.h>
-#include "..\include\p528.h"
+#include "..\..\include\p528.h"
+#include "..\..\include\p676.h"
 
 /*=============================================================================
  |
@@ -24,7 +25,16 @@
 void TerminalGeometry(double f__mhz, Terminal *terminal)
 {
 	// Step 1
-	RayTrace(f__mhz, 0, terminal->h_r__km, 0, &terminal->d_r__km, &terminal->theta__rad, &terminal->A_a__db, &terminal->a__km);
+	double theta_tx__rad = 0;
+	SlantPathAttenuationResult result;
+	SlantPathAttenuation(f__mhz / 1000, 0, terminal->h_r__km, PI / 2 - theta_tx__rad, &result);
+	terminal->theta__rad = result.angle__rad;
+	terminal->A_a__db = result.A_gas__db;
+	terminal->a__km = result.a__km;
+
+	// compute arc distance
+	double central_angle = ((PI / 2 - result.angle__rad) - theta_tx__rad + result.bending__rad);            // [Thayer, Equ 2], rearranged
+	terminal->d_r__km = a_0__km * central_angle;
 
 	// Step 2
 	terminal->phi__rad = terminal->d_r__km / a_e__km;       // [Eqn 24]

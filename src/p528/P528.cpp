@@ -1,5 +1,6 @@
 #include <math.h>
-#include "..\include\p528.h"
+#include "..\..\include\p528.h"
+#include "..\..\include\p676.h"
 
 /*=============================================================================
  |
@@ -204,10 +205,10 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		// Atmospheric absorption for transhorizon path
 		//
 
-		double d_arc__km, theta_rx__rad, A_a_v__db, a_v__km;
-		RayTrace(f__mhz, 0, tropo.h_v__km, 0, &d_arc__km, &theta_rx__rad, &A_a_v__db, &a_v__km);
+		SlantPathAttenuationResult result_v;
+		SlantPathAttenuation(f__mhz / 1000, 0, tropo.h_v__km, PI / 2, &result_v);
 
-		result->A_a__db = terminal_1.A_a__db + terminal_2.A_a__db + 2 * A_a_v__db;
+		result->A_a__db = terminal_1.A_a__db + terminal_2.A_a__db + 2 * result_v.A_gas__db;
 
 		//
 		// Atmospheric absorption for transhorizon path
@@ -217,7 +218,7 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		// Compute free-space loss
 		//
 
-		double r_fs__km = terminal_1.a__km + terminal_2.a__km + a_v__km;				// [Eqn 3-17]
+		double r_fs__km = terminal_1.a__km + terminal_2.a__km + result_v.a__km;				// [Eqn 3-17]
 		result->A_fs__db = 20.0 * log10(f__mhz) + 20.0 * log10(r_fs__km) + 32.45;		// [Eqn 3-18]
 
 		//
