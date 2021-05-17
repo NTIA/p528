@@ -10,7 +10,7 @@
  +-----------------------------------------------------------------------------
  |
  |  Description:  This file computes Step 6 in Annex 2, Section 3 of
- |                Recommendation ITU-R P.528-4, "Propagation curves for
+ |                Recommendation ITU-R P.528-5, "Propagation curves for
  |                aeronautical mobile and radionavigation services using
  |                the VHF, UHF and SHF bands"
  |
@@ -21,7 +21,6 @@
  |                terminal_2        - Structure containing parameters dealing
  |                                    with the geometry of the high terminal
  |                f__mhz            - Frequency, in MHz
- |                N_s               - Surface refractivity, in N-Units
  |                A_dML__db         - Diffraction loss at d_ML, in dB
  |
  |      Outputs:  M_d               - Slope of the diffraction line
@@ -111,7 +110,7 @@ int TranshorizonSearch(Path* path, Terminal terminal_1, Terminal terminal_2, dou
 		d_search__km[0]++;
 	}
 
-	// M_d was always greater than M_d.  Default to diffraction-only transhorizon model
+	// M_s was always greater than M_d.  Default to diffraction-only transhorizon model
 	*CASE = CONST_MODE__DIFFRACTION;
 	*d_crx__km = d_search__km[1];
 

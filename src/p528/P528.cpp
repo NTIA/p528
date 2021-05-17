@@ -13,7 +13,7 @@
  |
  |  Description:  This is the main entry point to this software.
  |                It describes Annex 2, Section 3 of Recommendation ITU-R
- |                P.528-4, "Propagation curves for aeronautical mobile and
+ |                P.528-5, "Propagation curves for aeronautical mobile and
  |                radionavigation services using the VHF, UHF and SHF bands"
  |
  |        Input:  d__km             - Path distance, in km
@@ -22,13 +22,10 @@
  |                f__mhz            - Frequency, in MHz
  |                p                 - Time percentage
  |
- |      Outputs:  A__db             - Total path loss, in dB
- |                A_fs__db          - Free space path loss, in dB
- |                d__km             - Path distance used, in km
- |                mode              - Mode of propagation:
- |                                      + 1 : Line-of-Sight
- |                                      + 2 : Diffraction
- |                                      + 3 : Troposcatter
+ |      Outputs:  result            - Result structure containing various
+ |                                    computed parameters
+ |
+ |      Returns:  rtn				- SUCCESS or error code
  |
  *===========================================================================*/
 int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol, double p, Result *result)
@@ -78,27 +75,27 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 	/////////////////////////////////////////////
 
 	// Step 2
-	path.d_ML__km = terminal_1.d_r__km + terminal_2.d_r__km;                                // [Eqn 4]
+	path.d_ML__km = terminal_1.d_r__km + terminal_2.d_r__km;                                // [Eqn 3-1]
 
 	/////////////////////////////////////////////
 	// Smooth earth diffraction line calculations
 	//
 
 	// Step 3.1
-	double d_3__km = path.d_ML__km + 0.5 * pow(pow(a_e__km, 2) / f__mhz, THIRD);   // [Eqn 5]
-	double d_4__km = path.d_ML__km + 1.5 * pow(pow(a_e__km, 2) / f__mhz, THIRD);   // [Eqn 6]
+	double d_3__km = path.d_ML__km + 0.5 * pow(pow(a_e__km, 2) / f__mhz, THIRD);   // [Eqn 3-2]
+	double d_4__km = path.d_ML__km + 1.5 * pow(pow(a_e__km, 2) / f__mhz, THIRD);   // [Eqn 3-3]
 
 	// Step 3.2
 	double A_3__db = SmoothEarthDiffraction(terminal_1.d_r__km, terminal_2.d_r__km, f__mhz, d_3__km, T_pol);
 	double A_4__db = SmoothEarthDiffraction(terminal_1.d_r__km, terminal_2.d_r__km, f__mhz, d_4__km, T_pol);
 
 	// Step 3.3
-	double M_d = (A_4__db - A_3__db) / (d_4__km - d_3__km);                             // [Eqn 7]
-	double A_d0 = A_4__db - M_d * d_4__km;                                              // [Eqn 8]
+	double M_d = (A_4__db - A_3__db) / (d_4__km - d_3__km);                             // [Eqn 3-4]
+	double A_d0 = A_4__db - M_d * d_4__km;                                              // [Eqn 3-5]
 
 	// Step 3.4
-	double A_dML__db = (M_d * path.d_ML__km) + A_d0;                                    // [Eqn 9]
-	path.d_d__km = -(A_d0 / M_d);                                                       // [Eqn 10]
+	double A_dML__db = (M_d * path.d_ML__km) + A_d0;                                    // [Eqn 3-6]
+	path.d_d__km = -(A_d0 / M_d);                                                       // [Eqn 3-7]
 
 	//
 	// End smooth earth diffraction line calculations
@@ -208,7 +205,7 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		SlantPathAttenuationResult result_v;
 		SlantPathAttenuation(f__mhz / 1000, 0, tropo.h_v__km, PI / 2, &result_v);
 
-		result->A_a__db = terminal_1.A_a__db + terminal_2.A_a__db + 2 * result_v.A_gas__db;
+		result->A_a__db = terminal_1.A_a__db + terminal_2.A_a__db + 2 * result_v.A_gas__db;	// [Eqn 3-17]
 
 		//
 		// Atmospheric absorption for transhorizon path
@@ -218,15 +215,15 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		// Compute free-space loss
 		//
 
-		double r_fs__km = terminal_1.a__km + terminal_2.a__km + result_v.a__km;				// [Eqn 3-17]
-		result->A_fs__db = 20.0 * log10(f__mhz) + 20.0 * log10(r_fs__km) + 32.45;		// [Eqn 3-18]
+		double r_fs__km = terminal_1.a__km + terminal_2.a__km + 2 * result_v.a__km;				// [Eqn 3-18]
+		result->A_fs__db = 20.0 * log10(f__mhz) + 20.0 * log10(r_fs__km) + 32.45;		// [Eqn 3-19]
 
 		//
 		// Compute free-space loss
 		/////////////////////////////////////////////
 
 		result->d__km = d__km;
-		result->A__db = result->A_fs__db + result->A_a__db + A_T__db - Y_total__db;     // [Eqn 23]
+		result->A__db = result->A_fs__db + result->A_a__db + A_T__db - Y_total__db;     // [Eqn 3-20]
 
 		return rtn;
 	}

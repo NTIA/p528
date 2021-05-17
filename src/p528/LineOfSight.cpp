@@ -88,7 +88,7 @@ double FindDistanceAtDeltaR(double delta_r, Path path, Terminal terminal_1, Term
  |
  |  Description:  This function computes the total loss in the line-of
  |                sight region as described in Annex 2, Section 6 of
- |                Recommendation ITU-R P.528-4, "Propagation curves for
+ |                Recommendation ITU-R P.528-5, "Propagation curves for
  |                aeronautical mobile and radionavigation services using
  |                the VHF, UHF and SHF bands"
  |
@@ -97,7 +97,7 @@ double FindDistanceAtDeltaR(double delta_r, Path path, Terminal terminal_1, Term
  |                terminal_2    - Struct containing high terminal parameters
  |                f__mhz        - Frequency, in MHz
  |                A_dML__db     - Diffraction loss at d_ML, in dB
- |                q             - Time percentage
+ |                p             - Time percentage
  |                d__km         - Path length, in km
  |                T_pol         - Code indicating either polarization
  |                                  + 0 : POLARIZATION__HORIZONTAL
@@ -117,7 +117,7 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
     double R_Tg;
 
 	// 0.2997925 = speed of light, gigameters per sec
-    double lambda__km = 0.2997925 / f__mhz;                             // [Eqn 49]
+    double lambda__km = 0.2997925 / f__mhz;                             // [Eqn 6-1]
 	double terminate = lambda__km / 1e6;
 
 	// determine psi_limit, where you switch from free space to 2-ray model

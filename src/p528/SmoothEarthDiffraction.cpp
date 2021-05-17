@@ -16,7 +16,7 @@
  |
  |  Description:  This file computes the smooth earth diffraction loss
  |                as described in Annex 2, Section 10 of
- |                Recommendation ITU-R P.528-4, "Propagation curves for
+ |                Recommendation ITU-R P.528-5, "Propagation curves for
  |                aeronautical mobile and radionavigation services using
  |                the VHF, UHF and SHF bands"
  |
@@ -86,7 +86,7 @@ double HeightFunction(double x__km, double K)
 
 double SmoothEarthDiffraction(double d_1__km, double d_2__km, double f__mhz, double d_0__km, int T_pol)
 {
-	double s = 18000 * sigma / f__mhz;						// [Eqn 101]
+	double s = 18000 * sigma / f__mhz;
 
 	// [Eqn 102]
 	double K;

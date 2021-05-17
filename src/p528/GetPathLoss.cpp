@@ -13,7 +13,7 @@
  |
  |  Description:  This function computes the line of sight loss
  |                as described in Annex 2, Section 8 of
- |                Recommendation ITU-R P.528-4, "Propagation curves for
+ |                Recommendation ITU-R P.528-5, "Propagation curves for
  |                aeronautical mobile and radionavigation services using
  |                the VHF, UHF and SHF bands"
  |
@@ -42,7 +42,7 @@ void GetPathLoss(double psi, Path path, Terminal terminal_1, Terminal terminal_2
 	double R_g, phi_g;
 	ReflectionCoefficients(psi, f__mhz, T_pol, &R_g, &phi_g);
 
-	double D_v;             // Divergence factor, [Eqn 81]
+	double D_v;
 	if (tan(psi) >= 0.1)
 		D_v = 1.0;
 	else

@@ -12,7 +12,7 @@
  |
  |  Description:  This function computes the long term variability
  |                as described in Annex 2, Section 17 of
- |                Recommendation ITU-R P.528-4, "Propagation curves for
+ |                Recommendation ITU-R P.528-5, "Propagation curves for
  |                aeronautical mobile and radionavigation services using
  |                the VHF, UHF and SHF bands"
  |

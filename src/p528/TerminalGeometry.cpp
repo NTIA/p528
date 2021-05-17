@@ -12,7 +12,7 @@
  +-----------------------------------------------------------------------------
  |
  |  Description:  This file computes the terminal geometry as described
- |                in Annex 2, Section 4 of Recommendation ITU-R P.528-4,
+ |                in Annex 2, Section 4 of Recommendation ITU-R P.528-5,
  |                "Propagation curves for aeronautical mobile and
  |                radionavigation services using the VHF, UHF and SHF bands"
  |
@@ -20,6 +20,8 @@
  |
  |      Outputs:  terminal  - Structure containing parameters dealing
  |                            with the geometry of the terminal
+ |
+ |      Returns:  [void]
  |
  *===========================================================================*/
 void TerminalGeometry(double f__mhz, Terminal *terminal)
@@ -37,11 +39,9 @@ void TerminalGeometry(double f__mhz, Terminal *terminal)
 	terminal->d_r__km = a_0__km * central_angle;
 
 	// Step 2
-	terminal->phi__rad = terminal->d_r__km / a_e__km;       // [Eqn 24]
-
-	// Step 3
-	terminal->h_e__km = (a_e__km / cos(terminal->phi__rad)) - a_e__km;
+	terminal->phi__rad = terminal->d_r__km / a_e__km;					// [Eqn 4-1]
+	terminal->h_e__km = (a_e__km / cos(terminal->phi__rad)) - a_e__km;	// [Eqn 4-2]
 
 	// Step 4
-	terminal->delta_h__km = terminal->h_r__km - terminal->h_e__km;    // [Eqn 29]
+	terminal->delta_h__km = terminal->h_r__km - terminal->h_e__km;		// [Eqn 4-3]
 }
