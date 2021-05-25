@@ -1,6 +1,15 @@
 #include "..\..\include\p676.h"
 #include "..\..\include\p835.h"
 
+/*=============================================================================
+ |
+ |       Author:  William Kozma Jr
+ |                wkozma@ntia.gov
+ |                US Dept of Commerce, NTIA/ITS
+ |                June 2021 : Geneva Study Group 3 Meetings
+ |
+ *===========================================================================*/
+
 double GlobalWetPressure(double h__km)
 {
     double T__kelvin = GlobalTemperature(h__km);

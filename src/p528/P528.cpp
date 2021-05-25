@@ -28,7 +28,8 @@
  |      Returns:  rtn				- SUCCESS or error code
  |
  *===========================================================================*/
-int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol, double p, Result *result)
+int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, 
+	int T_pol, double p, Result *result)
 {
 	Terminal terminal_1;
 	Terminal terminal_2;
@@ -75,7 +76,7 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 	/////////////////////////////////////////////
 
 	// Step 2
-	path.d_ML__km = terminal_1.d_r__km + terminal_2.d_r__km;                                // [Eqn 3-1]
+	path.d_ML__km = terminal_1.d_r__km + terminal_2.d_r__km;                       // [Eqn 3-1]
 
 	/////////////////////////////////////////////
 	// Smooth earth diffraction line calculations
@@ -215,7 +216,7 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int 
 		// Compute free-space loss
 		//
 
-		double r_fs__km = terminal_1.a__km + terminal_2.a__km + 2 * result_v.a__km;				// [Eqn 3-18]
+		double r_fs__km = terminal_1.a__km + terminal_2.a__km + 2 * result_v.a__km;		// [Eqn 3-18]
 		result->A_fs__db = 20.0 * log10(f__mhz) + 20.0 * log10(r_fs__km) + 32.45;		// [Eqn 3-19]
 
 		//

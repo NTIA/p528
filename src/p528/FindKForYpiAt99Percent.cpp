@@ -12,28 +12,22 @@
  |  Description:  This function returns the K-value of the Nakagami-Rice
  |                distribution for the given value of Y_pi(99)
  |
- |        Input:  Y_pi_99__db   - Y_pi(0.99), in dB
+ |        Input:  Y_pi_99__db   - Y_pi(99), in dB
  |
  |       Returns: K             - K-value
  |
  *===========================================================================*/
 double FindKForYpiAt99Percent(double Y_pi_99__db)
 {
-    int i = -1;
+    // is Y_pi_99__db smaller than the smallest value in the distribution data
+    if (Y_pi_99__db < data::NakagamiRiceCurves.front()[Y_pi_99_INDEX])
+        return data::K.front();
 
-    do
-    {
-        i++;
+    // search the distribution data and interpolate to find K (dependent variable)
+    for (int i = 0; i < data::K.size(); i++)
+        if (Y_pi_99__db - data::NakagamiRiceCurves[i][Y_pi_99_INDEX] < 0)
+            return (data::K[i] * (Y_pi_99__db - data::NakagamiRiceCurves[i - 1][Y_pi_99_INDEX]) - data::K[i - 1] * (Y_pi_99__db - data::NakagamiRiceCurves[i][Y_pi_99_INDEX])) / (data::NakagamiRiceCurves[i][Y_pi_99_INDEX] - data::NakagamiRiceCurves[i - 1][Y_pi_99_INDEX]);
 
-        if (Y_pi_99__db - data::NR_Data[i][17] < 0)
-            break;
-        else if (Y_pi_99__db - data::NR_Data[i][17] == 0)
-            return data::NR_Data[i][0];
-    } while (i < 16);
-
-    if (i == 0)
-        return data::NR_Data[0][0];
-    
-    // Interpolate to find K (dependent variable)
-    return (data::NR_Data[i][0] * (Y_pi_99__db - data::NR_Data[i - 1][17]) - data::NR_Data[i - 1][0] * (Y_pi_99__db - data::NR_Data[i][17])) / (data::NR_Data[i][17] - data::NR_Data[i - 1][17]);
+    // no match.  Y_pi_99__db is greater than the data contains.  Return largest K
+    return data::K.back();
 }

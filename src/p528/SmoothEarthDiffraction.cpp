@@ -88,7 +88,6 @@ double SmoothEarthDiffraction(double d_1__km, double d_2__km, double f__mhz, dou
 {
 	double s = 18000 * sigma / f__mhz;
 
-	// [Eqn 102]
 	double K;
 	if (T_pol == POLARIZATION__HORIZONTAL)
 		K = 0.01778 * pow(f__mhz, -THIRD) * pow(pow(epsilon - 1, 2) + pow(s, 2), -0.25);

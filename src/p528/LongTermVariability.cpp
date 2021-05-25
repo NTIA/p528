@@ -11,7 +11,7 @@
  +-----------------------------------------------------------------------------
  |
  |  Description:  This function computes the long term variability
- |                as described in Annex 2, Section 17 of
+ |                as described in Annex 2, Section 14 of
  |                Recommendation ITU-R P.528-5, "Propagation curves for
  |                aeronautical mobile and radionavigation services using
  |                the VHF, UHF and SHF bands"
@@ -29,19 +29,18 @@
 void LongTermVariability(double d_r1__km, double d_r2__km, double d__km, double f__mhz,
 	double p, double f_theta_h, double A_T, double *Y_e__db, double *A_Y) 
 {
-	// Step 2
-	double d_qs__km = 65.0 * pow((100.0 / f__mhz), THIRD);              // [Eqn 187]
-	double d_Lq__km = d_r1__km + d_r2__km;                              // [Eqn 188]
-	double d_q__km = d_Lq__km + d_qs__km;								// [Eqn 189]
+	double d_qs__km = 65.0 * pow((100.0 / f__mhz), THIRD);              // [Eqn 14-1]
+	double d_Lq__km = d_r1__km + d_r2__km;                              // [Eqn 14-2]
+	double d_q__km = d_Lq__km + d_qs__km;								// [Eqn 14-3]
 
-	// [Eqn 190]
+	// [Eqn 14-4]
 	double d_e__km;
 	if (d__km <= d_q__km)
 		d_e__km = (130.0 * d__km) / d_q__km;
 	else
 		d_e__km = 130.0 + d__km - d_q__km;
 
-	// Step 3
+	// [Eqns 14-5 and 14-6]
 	double g_10, g_90;
 	if (f__mhz > 1600.0)
 	{
@@ -54,7 +53,6 @@ void LongTermVariability(double d_r1__km, double d_r2__km, double d__km, double 
 		g_90 = (0.18 * sin(5.22 * log10(f__mhz / 200.0))) + 1.23;
 	}
 
-	// Step 4
 	// Data Source for Below Consts: Tech Note 101, Vol 2
 	// Column 1: Table III.4, Row A* (Page III-50)
 	// Column 2: Table III.3, Row A* (Page III-49)
@@ -84,8 +82,8 @@ void LongTermVariability(double d_r1__km, double d_r2__km, double d__km, double 
 		Y_p__db = Z__db[2];
 	else if (p > 50)
 	{
-		double z_90 = InverseComplementaryCumulativeDistributionFunction(90);
-		double z_p = InverseComplementaryCumulativeDistributionFunction(p);
+		double z_90 = InverseComplementaryCumulativeDistributionFunction(90.0 / 100.0);
+		double z_p = InverseComplementaryCumulativeDistributionFunction(p / 100.0);
 		double c_p = z_p / z_90;
 
 		double Y = c_p * (-Z__db[0] * g_90);
@@ -96,8 +94,8 @@ void LongTermVariability(double d_r1__km, double d_r2__km, double d__km, double 
 		double c_p;
 		if (p >= 10)
 		{
-			double z_10 = InverseComplementaryCumulativeDistributionFunction(10);
-			double z_p = InverseComplementaryCumulativeDistributionFunction(p);
+			double z_10 = InverseComplementaryCumulativeDistributionFunction(10.0 / 100.0);
+			double z_p = InverseComplementaryCumulativeDistributionFunction(p / 100.0);
 			c_p = z_p / z_10;
 		}
 		else
@@ -115,21 +113,16 @@ void LongTermVariability(double d_r1__km, double d_r2__km, double d__km, double 
 		Y_p__db = Y + Z__db[2];
 	}
 
-	// Step 6
-	double Y_10__db = (Z__db[1] * g_10) + Z__db[2];
-
-	// Step 7
-	double Y_eI__db = f_theta_h * Y_p__db;
-	double Y_eI_10__db = f_theta_h * Y_10__db;
+	double Y_10__db = (Z__db[1] * g_10) + Z__db[2];	// [Eqn 14-20]
+	double Y_eI__db = f_theta_h * Y_p__db;			// [Eqn 14-21]
+	double Y_eI_10__db = f_theta_h * Y_10__db;		// [Eqn 14-22]
 
 	// A_Y "is used to prevent available signal powers from exceeding levels expected for free-space propagation by an unrealistic
 	//      amount when the variability about L_b(50) is large and L_b(50) is near its free-space level" [ES-83-3, p3-4]
 
-	double A_YI = (A_T + Y_eI_10__db) - 3.0;
-
-	*A_Y = MAX(A_YI, 0);
-
-	*Y_e__db = Y_eI__db - *A_Y;
+	double A_YI = (A_T + Y_eI_10__db) - 3.0;		// [Eqn 14-23]
+	*A_Y = MAX(A_YI, 0);							// [Eqn 14-24]
+	*Y_e__db = Y_eI__db - *A_Y;						// [Eqn 14-25]
 
 	// For percentanges less than 10%, do a correction check to, 
 	//    "prevent available signal powers from exceeding levels expected from free-space levels

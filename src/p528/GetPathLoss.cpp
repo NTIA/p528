@@ -47,48 +47,52 @@ void GetPathLoss(double psi, Path path, Terminal terminal_1, Terminal terminal_2
 		D_v = 1.0;
 	else
 	{
-		double r_1 = params->D__km[0] / cos(psi);
-		double r_2 = params->D__km[1] / cos(psi);
-		double R_r = (r_1 * r_2) / params->r_12__km;
+		double r_1 = params->D__km[0] / cos(psi);		// [Eqn 8-3]
+		double r_2 = params->D__km[1] / cos(psi);		// [Eqn 8-3]
+		double R_r = (r_1 * r_2) / params->r_12__km;	// [Eqn 8-4]
 
 		double term_1 = (2 * R_r * (1 + pow(sin(psi), 2))) / (params->a_a__km * sin(psi));
 		double term_2 = pow(2 * R_r / params->a_a__km, 2);
-		D_v = pow(1.0 + term_1 + term_2, -0.5);
+		D_v = pow(1.0 + term_1 + term_2, -0.5);			// [Eqn 8-5]
 	}
 
-	double TD3 = params->r_0__km / params->r_12__km;
-	if (TD3 > 1.0)
-		TD3 = 1.0;
+	// Ray-length factor, [Eqn 8-6]
+	double F_r = MIN(params->r_0__km / params->r_12__km, 1);
 
-	*R_Tg = R_g * D_v * TD3;
+	*R_Tg = R_g * D_v * F_r;							// [Eqn 8-7]
 
 	if (params->d__km > path.d_0__km)
 	{
+		// [Eqn 8-1]
 		params->A_LOS__db = ((params->d__km - path.d_0__km) * (A_dML__db - A_d_0__db) / (path.d_ML__km - path.d_0__km)) + A_d_0__db;
 	}
 	else
 	{
-		double lambda = 0.2997925 / f__mhz;
+		double lambda__km = 0.2997925 / f__mhz;	// [Eqn 8-2]
 
-		double F_r = MIN(params->r_0__km / params->r_12__km, 1);    // Ray-length factor, [Eqn 81]
-
-		double R_Tg = R_g * D_v * F_r;                              // [Eqn 83]
-
-		double WRL;
 		if (psi > psi_limit)
-			WRL = 1.0;          // ignore the phase lag
+		{
+			// ignore the phase lag; Step 8-2
+			params->A_LOS__db = 0;
+		}
 		else
 		{
 			// Total phase lag of the ground reflected ray relative to the direct ray
-			double phi_Tg = (2 * PI * params->delta_r / lambda) + phi_g;     // [Eqn 84]
 
-			std::complex<double> cplx = std::complex<double>(R_Tg * cos(phi_Tg), -R_Tg * sin(phi_Tg));
-			WRL = MIN(abs(1.0 + cplx), 1.0);
+			// [Eqn 8-8]
+			double phi_Tg = (2 * PI * params->delta_r / lambda__km) + phi_g;
+
+			// [Eqn 8-9]
+			std::complex<double> cplx = std::complex<double>(*R_Tg * cos(phi_Tg), -*R_Tg * sin(phi_Tg));
+
+			// [Eqn 8-10]
+			double W_RL = MIN(abs(1.0 + cplx), 1.0);
+
+			// [Eqn 8-11]
+			double W_R0 = pow(W_RL, 2);
+
+			// [Eqn 8-12]
+			params->A_LOS__db = 10.0 * log10(W_R0);
 		}
-
-		double W_R0 = pow(WRL, 2) + 0.0001;
-
-		// A_LOS__db = A_R0__db up to d_0__km, [Eqn 88]
-		params->A_LOS__db = 10.0 * log10(W_R0);
 	}
 }

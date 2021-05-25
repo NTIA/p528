@@ -18,13 +18,13 @@
  |                T_pol             - Code indicating either polarization
  |                                      + 0 : POLARIZATION__HORIZONTAL
  |                                      + 1 : POLARIZATION__VERTICAL
- |                time_percentage   - Time percentage
+ |                p					- Time percentage
  |
  |      Returns:  SUCCESS, or validation error code
  |
  *===========================================================================*/
 int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, 
-	double f__mhz, int T_pol, double time_percentage)
+	double f__mhz, int T_pol, double p)
 {
 	if (d__km < 0)
 		return ERROR_VALIDATION__D_KM;
@@ -48,10 +48,10 @@ int ValidateInputs(double d__km, double h_1__meter, double h_2__meter,
 		T_pol != POLARIZATION__VERTICAL)
 		return ERROR_VALIDATION__POLARIZATION;
 
-	if (time_percentage < 1)
+	if (p < 1)
 		return ERROR_VALIDATION__PERCENT_LOW;
 
-	if (time_percentage > 99)
+	if (p > 99)
 		return ERROR_VALIDATION__PERCENT_HIGH;
 
 	if (h_1__meter == h_2__meter && d__km == 0)

@@ -2,6 +2,13 @@
 
 /*=============================================================================
  |
+ |       Author:  William Kozma Jr
+ |                wkozma@ntia.gov
+ |                US Dept of Commerce, NTIA/ITS
+ |                June 2021 : Geneva Study Group 3 Meetings
+ |
+ +-----------------------------------------------------------------------------
+ |
  |  Description:  Line-shape factor.  See Equation (5).
  |
  |        Input:  f__ghz        - Frequency, in GHz

@@ -26,7 +26,6 @@
  *===========================================================================*/
 void TerminalGeometry(double f__mhz, Terminal *terminal)
 {
-	// Step 1
 	double theta_tx__rad = 0;
 	SlantPathAttenuationResult result;
 	SlantPathAttenuation(f__mhz / 1000, 0, terminal->h_r__km, PI / 2 - theta_tx__rad, &result);
@@ -38,10 +37,8 @@ void TerminalGeometry(double f__mhz, Terminal *terminal)
 	double central_angle = ((PI / 2 - result.angle__rad) - theta_tx__rad + result.bending__rad);            // [Thayer, Equ 2], rearranged
 	terminal->d_r__km = a_0__km * central_angle;
 
-	// Step 2
 	terminal->phi__rad = terminal->d_r__km / a_e__km;					// [Eqn 4-1]
 	terminal->h_e__km = (a_e__km / cos(terminal->phi__rad)) - a_e__km;	// [Eqn 4-2]
 
-	// Step 4
 	terminal->delta_h__km = terminal->h_r__km - terminal->h_e__km;		// [Eqn 4-3]
 }

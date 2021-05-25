@@ -47,11 +47,11 @@ void Troposcatter(Path path, Terminal terminal_1, Terminal terminal_2, double d_
 		// Compute the geometric parameters
 		//
 
-		tropo->d_z__km = 0.5 * tropo->d_s__km;                                      // [Eqn 11-6]
+		tropo->d_z__km = 0.5 * tropo->d_s__km;                                // [Eqn 11-6]
 
-		double A_m = 1 / a_0__km;                                                   // [Eqn 11-7]
-		double dN = A_m - (1.0 / a_e__km);											// [Eqn 11-8]
-		double gamma_e__km = (N_s * 1e-6) / dN;                                     // [Eqn 11-9]
+		double A_m = 1 / a_0__km;                                             // [Eqn 11-7]
+		double dN = A_m - (1.0 / a_e__km);									  // [Eqn 11-8]
+		double gamma_e__km = (N_s * 1e-6) / dN;                               // [Eqn 11-9]
 
 		z_a__km = 1.0 / (2 * a_e__km) * pow(tropo->d_z__km / 2, 2);            // [Eqn 11-10]
 		z_b__km = 1.0 / (2 * a_e__km) * pow(tropo->d_z__km, 2);                // [Eqn 11-11]

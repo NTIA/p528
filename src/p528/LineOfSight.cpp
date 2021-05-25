@@ -111,7 +111,7 @@ double FindDistanceAtDeltaR(double delta_r, Path path, Terminal terminal_1, Term
  |
  *===========================================================================*/
 void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSightParams *los_params, 
-    double f__mhz, double A_dML__db, double q, double d__km, int T_pol, Result *result, double *K_LOS)
+    double f__mhz, double A_dML__db, double p, double d__km, int T_pol, Result *result, double *K_LOS)
 {
     double psi;
     double R_Tg;
@@ -134,7 +134,7 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 
 	// In IF-73, the values for d_0 (d_d in IF-77) were found to be too small when both antennas are low,
 	// so this "heuristic" was developed to fix that
-	// [ES-83-3, Eqn 172]
+	// [Eqns 8-2 and 8-3]
 	if (terminal_1.d_r__km >= path->d_d__km || path->d_d__km >= path->d_ML__km)
 	{
 		if (terminal_1.d_r__km > d_y6__km || d_y6__km > path->d_ML__km)
@@ -218,15 +218,7 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	// Compute free-space loss
 	//
 
-	double theta_fs = ((los_params->theta[0] + los_params->theta[1]) * los_params->a_a__km) / a_0__km;
-
-	double z_1__km = a_0__km + terminal_1.h_r__km;                          // [Eqn 57]
-	double z_2__km = a_0__km + terminal_2.h_r__km;                          // [Eqn 57]
-
-	double r_fs__km = MAX(sqrt(pow(z_2__km - z_1__km, 2) + (4.0 * z_1__km * z_2__km * pow(sin(theta_fs * 0.5), 2))), fabs(z_2__km - z_1__km));   // [Eqn 58]
-
-	double L_bf__db = 32.45 + 20.0 * log10(f__mhz);                        // [Eqn 59]
-	result->A_fs__db = L_bf__db + 20.0 * log10(r_fs__km);                   // [Eqn 60]
+	result->A_fs__db = 20.0 * log10(result_slant.a__km) + 20.0 * log10(f__mhz) + 32.45; // [Eqn 6-4]
 
 	//
 	// Compute free-space loss
@@ -236,18 +228,20 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	// Compute variability
 	//
 
+	// [Eqn 13-1]
 	double f_theta_h;
 	if (los_params->theta_h1__rad <= 0.0)
 		f_theta_h = 1.0;
 	else if (los_params->theta_h1__rad >= 1.0)
 		f_theta_h = 0.0;
 	else
-		f_theta_h = MAX(0.5 - 0.3183098862 * (atan(20.0 * log10(32.0 * los_params->theta_h1__rad))), 0);
+		f_theta_h = MAX(0.5 - (1 / PI) * (atan(20.0 * log10(32.0 * los_params->theta_h1__rad))), 0);
 
 	double Y_e__db, Y_e_50__db, A_Y;
-	LongTermVariability(terminal_1.d_r__km, terminal_2.d_r__km, d__km, f__mhz, q, f_theta_h, los_params->A_LOS__db, &Y_e__db, &A_Y);
+	LongTermVariability(terminal_1.d_r__km, terminal_2.d_r__km, d__km, f__mhz, p, f_theta_h, los_params->A_LOS__db, &Y_e__db, &A_Y);
 	LongTermVariability(terminal_1.d_r__km, terminal_2.d_r__km, d__km, f__mhz, 50, f_theta_h, los_params->A_LOS__db, &Y_e_50__db, &A_Y);
 
+	// [Eqn 13-2]
 	double F_AY;
 	if (A_Y <= 0.0)
 		F_AY = 1.0;
@@ -265,18 +259,16 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	else
 		F_delta_r = 0.5 * (1.1 - (0.9 * cos(((3.0 * PI) / lambda__km) * (los_params->delta_r - (lambda__km / 6.0)))));
 
-	double R_s = R_Tg * F_delta_r * F_AY;       // [Eqn 178]
+	double R_s = R_Tg * F_delta_r * F_AY;       // [Eqn 13-4]
 
-	double Y_pi_99__db = 10.0 * log10(f__mhz * pow(result_slant.a__km, 3)) - 84.26;
+	double Y_pi_99__db = 10.0 * log10(f__mhz * pow(result_slant.a__km, 3)) - 84.26;	// [Eqn 13-5]
 	double K_t = FindKForYpiAt99Percent(Y_pi_99__db);
 
-	double W_a = pow(10.0, K_t / 10.0);
+	double W_a = pow(10.0, K_t / 10.0);			// [Eqn 13-6]
+	double W_R = pow(R_s, 2) + pow(0.01, 2);    // [Eqn 13-7]
+	double W = W_R + W_a;                       // [Eqn 13-8]
 
-	double W_R = pow(R_s, 2) + pow(0.01, 2);        // [Eqn 180]
-
-	double W = W_R + W_a;                           // [Eqn 181]
-
-    // [Eqn 183]
+    // [Eqn 13-9]
 	if (W <= 0.0)
 		*K_LOS = -40.0;
 	else
@@ -288,9 +280,9 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	}
 
 	double Y_pi_50__db = 0.0;   //  zero mean
-	double Y_pi__db = NakagamiRice(*K_LOS, q);
+	double Y_pi__db = NakagamiRice(*K_LOS, p);
 
-	double Y_total__db = -CombineDistributions(Y_e_50__db, Y_e__db, Y_pi_50__db, Y_pi__db, q);
+	double Y_total__db = -CombineDistributions(Y_e_50__db, Y_e__db, Y_pi_50__db, Y_pi__db, p);
 
 	//
 	// Compute variability

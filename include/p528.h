@@ -45,6 +45,8 @@ using namespace std;
 #define POLARIZATION__HORIZONTAL            0
 #define POLARIZATION__VERTICAL              1
 
+#define Y_pi_99_INDEX						16
+
 //
 // RETURN CODES
 ///////////////////////////////////////////////
@@ -69,11 +71,12 @@ using namespace std;
 class data
 {
 public:
-	const static int NUM_OF_PROBS = 17;
 	const static int K_ROWS = 17;
 
-	const static double NR_Data[17][18];    // Data table with K-values and corresponding Nakagami-Rice distributions
 	const static vector<double> P;			// Percentages for interpolation and data tables
+
+	const static vector<vector<double>> NakagamiRiceCurves;
+	const static vector<int> K;
 };
 
 //
@@ -175,16 +178,16 @@ int TranshorizonSearch(Path* path, Terminal terminal_1, Terminal terminal_2, dou
 double LinearInterpolation(double x1, double y1, double x2, double y2, double x);
 void ReflectionCoefficients(double psi, double f__mhz, int T_pol, double* R_g, double* phi_g);
 void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSightParams *los_params, double f__mhz, double A_dML__db,
-	double time_percentage, double d__km, int T_pol, Result *result, double *K_LOS);
+	double p, double d__km, int T_pol, Result *result, double *K_LOS);
 double SmoothEarthDiffraction(double d_1__km, double d_2__km, double f__mhz, double d_0__km, int T_pol);
 double InverseComplementaryCumulativeDistributionFunction(double q);
 void LongTermVariability(double d_r1__km, double d_r2__km, double d__km, double f__mhz, double time_percentage, 
 	double f_theta_h, double PL, double *Y_e__db, double *A_Y);
-double FindKForYpiAt99Percent(double Y_pi__db);
-double CombineDistributions(double A_M, double A_i, double B_M, double B_i, double q);
-int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol, double time_percentage);
-double NakagamiRice(double K, double q);
+double CombineDistributions(double A_M, double A_i, double B_M, double B_i, double p);
+int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol, double p);
+
 
 // Public Functions
 DLLEXPORT int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol, double time_percentage, Result *result);
-
+DLLEXPORT double FindKForYpiAt99Percent(double Y_pi_99__db);
+DLLEXPORT double NakagamiRice(double K, double q);

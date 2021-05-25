@@ -59,12 +59,46 @@ namespace Manual
         public static extern void RayTrace(double f__mhz, double h_tx__km, double h_rx__km, double theta_tx,
             out double d_arc__km, out double theta_rx, out double A_a__db, out double a__km);
 
+        [DllImport("p528.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi, EntryPoint = "NakagamiRice")]
+        public static extern double NakagamiRice(double K, double p);
+
+        [DllImport("p528.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi, EntryPoint = "NakagamiRice2")]
+        public static extern double NakagamiRice2(double K, double p);
+
         const string NEW_DATA_TABLES_DIR = "DataTables-v5";
         const string OLD_DATA_TABLES_DIR = "DataTables-v4";
         const string DIFF_DATA_TABLES_DIR = "DiffDataTables";
 
+        //static void CheckNRData()
+        //{
+        //    double K = -40;
+
+        //    do
+        //    {
+        //        double p = 1;
+        //        do
+        //        {
+        //            double v1 = NakagamiRice(K, p);
+        //            double v2 = NakagamiRice2(K, p);
+
+        //            if (v1 != v2)
+        //                Console.WriteLine($"DIFF! :: K = {K} :: p = {p} :: {v1} != {v2}");
+
+        //            p += 0.5;
+        //        } while (p <= 99);
+
+        //        K += 0.1;
+        //    } while (K < 21);
+
+        //    Console.WriteLine("Done.");
+        //    Console.ReadKey();
+        //}
+
         static void Main(string[] args)
         {
+            //CheckNRData();
+            //return;
+
             //ExtractThayerValues();
             //return;
 
