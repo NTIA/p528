@@ -40,28 +40,3 @@ DLLEXPORT double GlobalPressure_Regime1(double h_prime__km);
 DLLEXPORT double GlobalPressure_Regime2(double h__km);
 DLLEXPORT double GlobalWaterVapourDensity(double h__km, double rho_0);
 DLLEXPORT double GlobalWaterVapourPressure(double h__km, double rho_0);
-
-DLLEXPORT double LowLatitudeTemperature(double h__km);
-DLLEXPORT double LowLatitudePressure(double h__km);
-DLLEXPORT double LowLatitudeWaterVapourDensity(double h__km);
-DLLEXPORT double LowLatitudeWaterVapourPressure(double h__km);
-
-DLLEXPORT double MidLatitudeSummerTemperature(double h__km);
-DLLEXPORT double MidLatitudeSummerPressure(double h__km);
-DLLEXPORT double MidLatitudeSummerWaterVapourDensity(double h__km);
-DLLEXPORT double MidLatitudeSummerWaterVapourPressure(double h__km);
-
-DLLEXPORT double MidLatitudeWinterTemperature(double h__km);
-DLLEXPORT double MidLatitudeWinterPressure(double h__km);
-DLLEXPORT double MidLatitudeWinterWaterVapourDensity(double h__km);
-DLLEXPORT double MidLatitudeWinterWaterVapourPressure(double h__km);
-
-DLLEXPORT double HighLatitudeSummerTemperature(double h__km);
-DLLEXPORT double HighLatitudeSummerPressure(double h__km);
-DLLEXPORT double HighLatitudeSummerWaterVapourDensity(double h__km);
-DLLEXPORT double HighLatitudeSummerWaterVapourPressure(double h__km);
-
-DLLEXPORT double HighLatitudeWinterTemperature(double h__km);
-DLLEXPORT double HighLatitudeWinterPressure(double h__km);
-DLLEXPORT double HighLatitudeWinterWaterVapourDensity(double h__km);
-DLLEXPORT double HighLatitudeWinterWaterVapourPressure(double h__km);

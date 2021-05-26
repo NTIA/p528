@@ -160,6 +160,8 @@ struct Result {
 	double A__db;               // Total loss
 	double A_fs__db;            // Free space path loss
 	double A_a__db;				// Atmospheric absorption loss, in dB
+
+	double theta_h1__rad;	    // Elevation angle of the ray at the low terminal, in rad
 };
 
 //
@@ -188,6 +190,6 @@ int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, double f_
 
 
 // Public Functions
-DLLEXPORT int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol, double time_percentage, Result *result);
+DLLEXPORT int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol, double p, Result *result);
 DLLEXPORT double FindKForYpiAt99Percent(double Y_pi_99__db);
 DLLEXPORT double NakagamiRice(double K, double q);

@@ -225,6 +225,7 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
 
 		result->d__km = d__km;
 		result->A__db = result->A_fs__db + result->A_a__db + A_T__db - Y_total__db;     // [Eqn 3-20]
+		result->theta_h1__rad = terminal_1.theta__rad;
 
 		return rtn;
 	}

@@ -29,10 +29,10 @@ int ValidateInputs(double d__km, double h_1__meter, double h_2__meter,
 	if (d__km < 0)
 		return ERROR_VALIDATION__D_KM;
 
-	if (h_1__meter < 1.5)
+	if (h_1__meter < 1.5 || h_1__meter > 20000)
 		return ERROR_VALIDATION__H_1;
 
-	if (h_2__meter < 1.5)
+	if (h_2__meter < 1.5 || h_2__meter > 20000)
 		return ERROR_VALIDATION__H_2;
 
 	if (h_1__meter > h_2__meter)

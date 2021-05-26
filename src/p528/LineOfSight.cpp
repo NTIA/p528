@@ -206,7 +206,7 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	//
 
 	SlantPathAttenuationResult result_slant;
-	SlantPathAttenuation(f__mhz / 1000, terminal_1.h_e__km, terminal_2.h_e__km, PI / 2 - los_params->theta_h1__rad, &result_slant);
+	SlantPathAttenuation(f__mhz / 1000, terminal_1.h_r__km, terminal_2.h_r__km, PI / 2 - los_params->theta_h1__rad, &result_slant);
 
 	result->A_a__db = result_slant.A_gas__db;
 
@@ -290,4 +290,5 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 
 	result->d__km = los_params->d__km;
 	result->A__db = result->A_fs__db + result->A_a__db - los_params->A_LOS__db + Y_total__db;
+	result->theta_h1__rad = los_params->theta_h1__rad;
 }

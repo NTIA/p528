@@ -38,6 +38,11 @@ namespace Manual
         /// Atmospheric absorption loss, in dB
         /// </summary>
         public double A_a__db;
+
+        /// <summary>
+        /// Elevation angle of the ray at the low terminal, in rad
+        /// </summary>
+        public double theta_h1__rad;
     }
 
     enum Polarization : int
@@ -102,13 +107,13 @@ namespace Manual
             //ExtractThayerValues();
             //return;
 
-            //double d__km = 0;
-            //double h_1__meter = 1.5;
-            //double h_2__meter = 20e3;
-            //double f__mhz = 20e3;
-            //double time_percentage = 50;
-            //Result result = new Result();
-            //P528(d__km, h_1__meter, h_2__meter, f__mhz, (int)Polarization.Horizontal, time_percentage, ref result);
+            double d__km = 0;
+            double h_1__meter = 100.5;
+            double h_2__meter = 20e3;
+            double f__mhz = 30e3;
+            double time_percentage = 50;
+            Result result = new Result();
+            P528(d__km, h_1__meter, h_2__meter, f__mhz, (int)Polarization.Horizontal, time_percentage, ref result);
 
             ////using (var fs = new StreamWriter("ray_len.csv") { AutoFlush = true })
             ////{
@@ -124,11 +129,11 @@ namespace Manual
 
             //////int rtn = P528(d__km, h_1__meter, h_2__meter, f__mhz, (int)Polarization.Horizontal, time_percentage, ref result);
 
-            //Console.WriteLine($"BTL: {result.A__db}");
-            //Console.WriteLine($"Free Space: {result.A_fs__db}");
-            //Console.WriteLine($"Absorption: {result.A_a__db}");
-            //Console.ReadKey();
-            //return;
+            Console.WriteLine($"BTL: {result.A__db}");
+            Console.WriteLine($"Free Space: {result.A_fs__db}");
+            Console.WriteLine($"Absorption: {result.A_a__db}");
+            Console.ReadKey();
+            return;
 
             GenerateDataFiles();
             DiffDataTables();
