@@ -3,7 +3,7 @@
 namespace ITS.Propagation
 {
     /// <summary>
-    /// Recommendation ITU-R P.528-4
+    /// Recommendation ITU-R P.528-5
     /// </summary>
     public static partial class P528
     {
@@ -43,12 +43,12 @@ namespace ITS.Propagation
             /// <summary>
             /// Internal LOS param.  See Recommendation text.
             /// </summary>
-            public double theta_h1;
+            public double theta_h1__rad;
 
             /// <summary>
             /// Internal LOS param.  See Recommendation text.
             /// </summary>
-            public double theta_h2;
+            public double theta_h2__rad;
 
             /// <summary>
             /// Internal LOS param.  See Recommendation text.

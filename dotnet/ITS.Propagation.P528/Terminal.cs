@@ -3,7 +3,7 @@
 namespace ITS.Propagation
 {
     /// <summary>
-    /// Recommendation ITU-R P.528-4
+    /// Recommendation ITU-R P.528-5
     /// </summary>
     public static partial class P528
     {
@@ -14,34 +14,29 @@ namespace ITS.Propagation
         public struct Terminal
         {
             /// <summary>
-            /// Real terminal height
+            /// Real terminal height, in km
             /// </summary>
             public double h_r__km;
 
             /// <summary>
-            /// Effective terminal height
+            /// Effective terminal height, in km
             /// </summary>
             public double h_e__km;
 
             /// <summary>
-            /// Terminal height used in model
-            /// </summary>
-            public double h__km;
-
-            /// <summary>
-            /// Internal terminal param.  See Recommendation text.
+            /// Internal terminal param.  See Recommendation text
             /// </summary>
             public double delta_h__km;
 
             /// <summary>
-            /// Ray traced horizon distance
+            /// Ray traced horizon distance, in km
             /// </summary>
             public double d_r__km;
 
             /// <summary>
-            /// Horizon distance used in model
+            /// Total ray path length to horizon, in km
             /// </summary>
-            public double d__km;
+            public double a__km;
 
             /// <summary>
             /// Central angle between the terminal and its smooth earth horizon
@@ -52,6 +47,11 @@ namespace ITS.Propagation
             /// Incident angle of the grazing ray at the terminal
             /// </summary>
             public double theta__rad;
+
+            /// <summary>
+            /// Median atmospheric absorption loss, in dB
+            /// </summary>
+            public double A_a__db;
         };
     }
 }

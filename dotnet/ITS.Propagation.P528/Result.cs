@@ -3,12 +3,12 @@
 namespace ITS.Propagation
 {
     /// <summary>
-    /// Recommendation ITU-R P.528-4
+    /// Recommendation ITU-R P.528-5
     /// </summary>
     public static partial class P528
     {
         /// <summary>
-        /// Recommendation ITU-R P.528 Results Data Structure
+        /// Results Data Structure
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
         public struct Result
@@ -32,6 +32,16 @@ namespace ITS.Propagation
             /// Free space basic transmission loss, in dB
             /// </summary>
             public double A_fs__db;
+
+            /// <summary>
+            /// Median atmospheric absorption loss, in dB
+            /// </summary>
+            public double A_a__db;
+
+            /// <summary>
+            /// Elevation angle of the ray at the low terminal, in rad
+            /// </summary>
+            public double theta_h1__rad;
         }
     }
 }

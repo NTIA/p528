@@ -3,7 +3,7 @@
 namespace ITS.Propagation
 {
     /// <summary>
-    /// Recommendation ITU-R P.528-4
+    /// Recommendation ITU-R P.528-5
     /// </summary>
     public static partial class P528
     {

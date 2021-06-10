@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace ITS.Propagation
 {
     /// <summary>
-    /// Recommendation ITU-R P.528-4
+    /// Recommendation ITU-R P.528-5
     /// </summary>
     public static partial class P528
     {
@@ -14,28 +14,34 @@ namespace ITS.Propagation
         #region 32-Bit P/Invoke Definitions
 
         [DllImport(P528_x86_DLL_NAME, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi, EntryPoint = "P528")]
-        private static extern int P528_x86(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, ref Result result);
+        private static extern int P528_x86(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol,
+            double p, out Result result);
 
         [DllImport(P528_x86_DLL_NAME, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi, EntryPoint = "P528_Ex")]
-        private static extern int P528Ex_x86(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, ref Result result,
-            ref Terminal terminal_1, ref Terminal terminal_2, ref TroposcatterParams tropo, ref Path path, ref LineOfSightParams los_params);
+        private static extern int P528Ex_x86(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol,
+            double p, out Result result, out Terminal terminal_1, out Terminal terminal_2,
+            out TroposcatterParams tropo, out Path path, out LineOfSightParams los_params);
 
         #endregion
 
         #region 64-Bit P/Invoke Definitions
 
         [DllImport(P528_x64_DLL_NAME, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi, EntryPoint = "P528")]
-        private static extern int P528_x64(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, ref Result result);
+        private static extern int P528_x64(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol,
+            double p, out Result result);
 
         [DllImport(P528_x64_DLL_NAME, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi, EntryPoint = "P528_Ex")]
-        private static extern int P528Ex_x64(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, ref Result result,
-            ref Terminal terminal_1, ref Terminal terminal_2, ref TroposcatterParams tropo, ref Path path, ref LineOfSightParams los_params);
+        private static extern int P528Ex_x64(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol,
+            double p, out Result result, out Terminal terminal_1, out Terminal terminal_2,
+            out TroposcatterParams tropo, out Path path, out LineOfSightParams los_params);
 
         #endregion
 
-        private delegate int P528Delegate(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, ref Result result);
-        private delegate int P528ExDelegate(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, ref Result result,
-            ref Terminal terminal_1, ref Terminal terminal_2, ref TroposcatterParams tropo, ref Path path, ref LineOfSightParams los_params);
+        private delegate int P528Delegate(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol,
+            double p, out Result result);
+        private delegate int P528ExDelegate(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol,
+            double p, out Result result, out Terminal terminal_1, out Terminal terminal_2,
+            out TroposcatterParams tropo, out Path path, out LineOfSightParams los_params);
 
         private static P528Delegate P528_Invoke;
         private static P528ExDelegate P528Ex_Invoke;
@@ -60,30 +66,31 @@ namespace ITS.Propagation
         }
 
         /// <summary>
-        /// Recommendation ITU-R P.528-4
+        /// Recommendation ITU-R P.528-5
         /// </summary>
         /// <param name="d__km">Path distance, in km</param>
         /// <param name="h_1__meter">Height of the low terminal, in meters</param>
         /// <param name="h_2__meter">Height of the high terminal, in meters</param>
         /// <param name="f__mhz">Frequency, in MHz</param>
-        /// <param name="time_percentage">Time percentage (0 &lt; q &lt; 1)</param>
+        /// <param name="T_pol">Polarization</param>
+        /// <param name="p">Time percentage (0 &lt; q &lt; 1)</param>
         /// <param name="result">Result data structure</param>
         /// <returns>Return code</returns>
-        public static int Invoke(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, out Result result)
+        public static int Invoke(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol,
+            double p, out Result result)
         {
-            result = new Result();
-
-            return P528_Invoke(d__km, h_1__meter, h_2__meter, f__mhz, time_percentage, ref result);
+            return P528_Invoke(d__km, h_1__meter, h_2__meter, f__mhz, T_pol, p, out result);
         }
 
         /// <summary>
-        /// Recommendation ITU-R P.528-4
+        /// Recommendation ITU-R P.528-5
         /// </summary>
         /// <param name="d__km">Path distance, in km</param>
         /// <param name="h_1__meter">Height of the low terminal, in meters</param>
         /// <param name="h_2__meter">Height of the high terminal, in meters</param>
         /// <param name="f__mhz">Frequency, in MHz</param>
-        /// <param name="time_percentage">Time percentage (0 &lt; q &lt; 1)</param>
+        /// <param name="T_pol">Polarization</param>
+        /// <param name="p">Time percentage (0 &lt; q &lt; 1)</param>
         /// <param name="result">Result data structure</param>
         /// <param name="terminal_1">Intermediate values for terminal 1 geometry</param>
         /// <param name="terminal_2">Intermediate values for terminal 2 geometry</param>
@@ -91,17 +98,11 @@ namespace ITS.Propagation
         /// <param name="path">Intermediate values for propagation path</param>
         /// <param name="los_params">Intermediate values for Line-of-Sight calculations</param>
         /// <returns>Return code</returns>
-        public static int InvokeEx(double d__km, double h_1__meter, double h_2__meter, double f__mhz, double time_percentage, out Result result,
+        public static int InvokeEx(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol, double p, out Result result,
             out Terminal terminal_1, out Terminal terminal_2, out TroposcatterParams tropo, out Path path, out LineOfSightParams los_params)
         {
-            result = new Result();
-            terminal_1 = new Terminal();
-            terminal_2 = new Terminal();
-            tropo = new TroposcatterParams();
-            path = new Path();
-            los_params = new LineOfSightParams();
-
-            return P528Ex_Invoke(d__km, h_1__meter, h_2__meter, f__mhz, time_percentage, ref result, ref terminal_1, ref terminal_2, ref tropo, ref path, ref los_params);
+            return P528Ex_Invoke(d__km, h_1__meter, h_2__meter, f__mhz, T_pol, p, out result, out terminal_1, 
+                out terminal_2, out tropo, out path, out los_params);
         }
     }
 }

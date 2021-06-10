@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Recommendation ITU-R P.528-4")]
-[assembly: AssemblyDescription("Recommendation ITU-R P.528-4")]
+[assembly: AssemblyTitle("Recommendation ITU-R P.528-5")]
+[assembly: AssemblyDescription("Recommendation ITU-R P.528-5")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("The Institute for Telecommunication Sciences")]
-[assembly: AssemblyProduct("Recommendation ITU-R P.528-4")]
+[assembly: AssemblyProduct("Recommendation ITU-R P.528-5")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.4.0")]
-[assembly: AssemblyFileVersion("4.4.0")]
+[assembly: AssemblyVersion("5.0.0")]
+[assembly: AssemblyFileVersion("5.0.0")]

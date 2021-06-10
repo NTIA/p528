@@ -3,7 +3,7 @@
 namespace ITS.Propagation
 {
     /// <summary>
-    /// Recommendation ITU-R P.528-4
+    /// Recommendation ITU-R P.528-5
     /// </summary>
     public static partial class P528
     {
@@ -19,7 +19,7 @@ namespace ITS.Propagation
             public double d_ML__km;
 
             /// <summary>
-            /// Internal param.  See Recommendation text.
+            /// Internal param.  See Recommendation text
             /// </summary>
             public double d_0__km;
 
@@ -27,11 +27,6 @@ namespace ITS.Propagation
             /// Distance where smooth earth diffraction is 0 dB
             /// </summary>
             public double d_d__km;
-
-            /// <summary>
-            /// Effective earth radius, in km
-            /// </summary>
-            public double a_e__km;
         };
     }
 }
