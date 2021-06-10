@@ -2,7 +2,7 @@
 #include "..\..\include\p528.h"
 #include "..\..\include\p676.h"
 
-double FindPsiAtDistance(double d__km, Path path, Terminal terminal_1, Terminal terminal_2)
+double FindPsiAtDistance(double d__km, Path *path, Terminal *terminal_1, Terminal *terminal_2)
 {
 	if (d__km == 0)
 		return PI / 2;
@@ -33,7 +33,7 @@ double FindPsiAtDistance(double d__km, Path path, Terminal terminal_1, Terminal 
 	return psi;
 }
 
-double FindPsiAtDeltaR(double delta_r, Path path, Terminal terminal_1, Terminal terminal_2, double terminate)
+double FindPsiAtDeltaR(double delta_r, Path *path, Terminal *terminal_1, Terminal *terminal_2, double terminate)
 {
 	double psi = PI / 2;
 	double delta_psi = -PI / 4;
@@ -55,7 +55,7 @@ double FindPsiAtDeltaR(double delta_r, Path path, Terminal terminal_1, Terminal 
 	return psi;
 }
 
-double FindDistanceAtDeltaR(double delta_r, Path path, Terminal terminal_1, Terminal terminal_2, double terminate)
+double FindDistanceAtDeltaR(double delta_r, Path *path, Terminal *terminal_1, Terminal *terminal_2, double terminate)
 {
 	double psi = PI / 2;
 	double delta_psi = -PI / 4;
@@ -110,7 +110,7 @@ double FindDistanceAtDeltaR(double delta_r, Path path, Terminal terminal_1, Term
  |      Returns:  [void]
  |
  *===========================================================================*/
-void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSightParams *los_params, 
+void LineOfSight(Path *path, Terminal *terminal_1, Terminal *terminal_2, LineOfSightParams *los_params, 
     double f__mhz, double A_dML__db, double p, double d__km, int T_pol, Result *result, double *K_LOS)
 {
     double psi;
@@ -122,11 +122,11 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 
 	// determine psi_limit, where you switch from free space to 2-ray model
 	// lambda / 2 is the start of the lobe closest to d_ML
-	double psi_limit = FindPsiAtDeltaR(lambda__km / 2, *path, terminal_1, terminal_2, terminate);
+	double psi_limit = FindPsiAtDeltaR(lambda__km / 2, path, terminal_1, terminal_2, terminate);
 
 	// "[d_y6__km] is the largest distance at which a free-space value is obtained in a two-ray model
 	//   of reflection from a smooth earth with a reflection coefficient of -1" [ES-83-3, page 44]
-	double d_y6__km = FindDistanceAtDeltaR(lambda__km / 6, *path, terminal_1, terminal_2, terminate);
+	double d_y6__km = FindDistanceAtDeltaR(lambda__km / 6, path, terminal_1, terminal_2, terminate);
 
     /////////////////////////////////////////////
     // Determine d_0__km distance
@@ -135,10 +135,10 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	// In IF-73, the values for d_0 (d_d in IF-77) were found to be too small when both antennas are low,
 	// so this "heuristic" was developed to fix that
 	// [Eqns 8-2 and 8-3]
-	if (terminal_1.d_r__km >= path->d_d__km || path->d_d__km >= path->d_ML__km)
+	if (terminal_1->d_r__km >= path->d_d__km || path->d_d__km >= path->d_ML__km)
 	{
-		if (terminal_1.d_r__km > d_y6__km || d_y6__km > path->d_ML__km)
-			path->d_0__km = terminal_1.d_r__km;
+		if (terminal_1->d_r__km > d_y6__km || d_y6__km > path->d_ML__km)
+			path->d_0__km = terminal_1->d_r__km;
 		else
 			path->d_0__km = d_y6__km;
 	}
@@ -160,10 +160,10 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
     double d_temp__km = path->d_0__km;
     while (true)
     {
-        psi = FindPsiAtDistance(d_temp__km, *path, terminal_1, terminal_2);
+        psi = FindPsiAtDistance(d_temp__km, path, terminal_1, terminal_2);
 
         LineOfSightParams result;
-        RayOptics(*path, terminal_1, terminal_2, psi, &result);
+        RayOptics(path, terminal_1, terminal_2, psi, &result);
 
         // if the resulting distance is beyond d_0 OR if we incremented again we'd be outside of LOS...
         if (result.d__km >= path->d_0__km || (d_temp__km + 0.001) >= path->d_ML__km)
@@ -184,29 +184,29 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 	// Compute loss at d_0__km
 	//
 
-	double psi_d0 = FindPsiAtDistance(path->d_0__km, *path, terminal_1, terminal_2);
+	double psi_d0 = FindPsiAtDistance(path->d_0__km, path, terminal_1, terminal_2);
 
-	RayOptics(*path, terminal_1, terminal_2, psi_d0, los_params);
+	RayOptics(path, terminal_1, terminal_2, psi_d0, los_params);
 
-	GetPathLoss(psi_d0, *path, terminal_1, terminal_2, f__mhz, psi_limit, A_dML__db, 0, T_pol, los_params, &R_Tg);
+	GetPathLoss(psi_d0, path, terminal_1, terminal_2, f__mhz, psi_limit, A_dML__db, 0, T_pol, los_params, &R_Tg);
 
 	//
 	// Compute loss at d_0__km
 	/////////////////////////////////////////////
 
 	// tune psi for the desired distance
-	psi = FindPsiAtDistance(d__km, *path, terminal_1, terminal_2);
+	psi = FindPsiAtDistance(d__km, path, terminal_1, terminal_2);
 
-	RayOptics(*path, terminal_1, terminal_2, psi, los_params);
+	RayOptics(path, terminal_1, terminal_2, psi, los_params);
 
-	GetPathLoss(psi, *path, terminal_1, terminal_2, f__mhz, psi_limit, A_dML__db, los_params->A_LOS__db, T_pol, los_params, &R_Tg);
+	GetPathLoss(psi, path, terminal_1, terminal_2, f__mhz, psi_limit, A_dML__db, los_params->A_LOS__db, T_pol, los_params, &R_Tg);
 
 	/////////////////////////////////////////////
 	// Compute atmospheric absorption
 	//
 
 	SlantPathAttenuationResult result_slant;
-	SlantPathAttenuation(f__mhz / 1000, terminal_1.h_r__km, terminal_2.h_r__km, PI / 2 - los_params->theta_h1__rad, &result_slant);
+	SlantPathAttenuation(f__mhz / 1000, terminal_1->h_r__km, terminal_2->h_r__km, PI / 2 - los_params->theta_h1__rad, &result_slant);
 
 	result->A_a__db = result_slant.A_gas__db;
 
@@ -238,8 +238,8 @@ void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSig
 		f_theta_h = MAX(0.5 - (1 / PI) * (atan(20.0 * log10(32.0 * los_params->theta_h1__rad))), 0);
 
 	double Y_e__db, Y_e_50__db, A_Y;
-	LongTermVariability(terminal_1.d_r__km, terminal_2.d_r__km, d__km, f__mhz, p, f_theta_h, los_params->A_LOS__db, &Y_e__db, &A_Y);
-	LongTermVariability(terminal_1.d_r__km, terminal_2.d_r__km, d__km, f__mhz, 50, f_theta_h, los_params->A_LOS__db, &Y_e_50__db, &A_Y);
+	LongTermVariability(terminal_1->d_r__km, terminal_2->d_r__km, d__km, f__mhz, p, f_theta_h, los_params->A_LOS__db, &Y_e__db, &A_Y);
+	LongTermVariability(terminal_1->d_r__km, terminal_2->d_r__km, d__km, f__mhz, 50, f_theta_h, los_params->A_LOS__db, &Y_e_50__db, &A_Y);
 
 	// [Eqn 13-2]
 	double F_AY;

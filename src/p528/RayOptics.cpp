@@ -26,18 +26,18 @@
  |      Returns:  [void]
  |
  *===========================================================================*/
-void RayOptics(Path path, Terminal terminal_1, Terminal terminal_2, double psi, LineOfSightParams *params)
+void RayOptics(Path *path, Terminal *terminal_1, Terminal *terminal_2, double psi, LineOfSightParams *params)
 {
 	double z = (a_0__km / a_e__km) - 1;       // [Eqn 7-1]
 	double k_a = 1 / (1 + z * cos(psi));      // [Eqn 7-2]
 	params->a_a__km = a_0__km * k_a;          // [Eqn 7-3]
 
-	double delta_h_a1__km = terminal_1.delta_h__km * (params->a_a__km - a_0__km) / (a_e__km - a_0__km);  // [Eqn 7-4]
-	double delta_h_a2__km = terminal_2.delta_h__km * (params->a_a__km - a_0__km) / (a_e__km - a_0__km);  // [Eqn 7-4]
+	double delta_h_a1__km = terminal_1->delta_h__km * (params->a_a__km - a_0__km) / (a_e__km - a_0__km);  // [Eqn 7-4]
+	double delta_h_a2__km = terminal_2->delta_h__km * (params->a_a__km - a_0__km) / (a_e__km - a_0__km);  // [Eqn 7-4]
 
 	double H__km[2] = { 0 };
-	H__km[0] = terminal_1.h_r__km - delta_h_a1__km;    // [Eqn 7-5]
-	H__km[1] = terminal_2.h_r__km - delta_h_a2__km;    // [Eqn 7-5]
+	H__km[0] = terminal_1->h_r__km - delta_h_a1__km;    // [Eqn 7-5]
+	H__km[1] = terminal_2->h_r__km - delta_h_a2__km;    // [Eqn 7-5]
 
 	double Hprime__km[2] = { 0 };
 	for (int i = 0; i < 2; i++)

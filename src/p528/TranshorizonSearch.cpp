@@ -29,7 +29,7 @@
  |                CASE              - Case as defined in Step 6.5
  |
  *===========================================================================*/
-int TranshorizonSearch(Path* path, Terminal terminal_1, Terminal terminal_2, double f__mhz,
+int TranshorizonSearch(Path* path, Terminal *terminal_1, Terminal *terminal_2, double f__mhz,
 	double A_dML__db, double *M_d, double *A_d0, double* d_crx__km, int *CASE)
 {
 	*CASE = CONST_MODE__SEARCH;
@@ -53,7 +53,7 @@ int TranshorizonSearch(Path* path, Terminal terminal_1, Terminal terminal_2, dou
 		A_s__db[1] = A_s__db[0];
 
 		// Step 6.2
-		Troposcatter(*path, terminal_1, terminal_2, d_search__km[0], f__mhz, &tropo);
+		Troposcatter(path, terminal_1, terminal_2, d_search__km[0], f__mhz, &tropo);
 		A_s__db[0] = tropo.A_s__db;
 
 		// if loss is less than 20 dB, the result is not within valid part of model

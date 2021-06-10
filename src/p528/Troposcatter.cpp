@@ -25,12 +25,12 @@
  |      Outputs:  tropo         - Struct containing resulting parameters
  |
  *===========================================================================*/
-void Troposcatter(Path path, Terminal terminal_1, Terminal terminal_2, double d__km, double f__mhz, TroposcatterParams *tropo)
+void Troposcatter(Path *path, Terminal *terminal_1, Terminal *terminal_2, double d__km, double f__mhz, TroposcatterParams *tropo)
 {
 	double Q_o, Q_a, Q_b, Q_A, Q_B;
 	double z_a__km, z_b__km, Z_a__km, Z_b__km;
 
-	tropo->d_s__km = d__km - terminal_1.d_r__km - terminal_2.d_r__km;		// [Eqn 11-2]
+	tropo->d_s__km = d__km - terminal_1->d_r__km - terminal_2->d_r__km;		// [Eqn 11-2]
 
 	if (tropo->d_s__km <= 0.0)
 	{
@@ -95,8 +95,8 @@ void Troposcatter(Path path, Terminal terminal_1, Terminal terminal_2, double d_
 		// Compute the scattering volume term
 		// 
 
-		double X_A1__km2 = pow(terminal_1.h_e__km, 2) + 4.0 * (a_e__km + terminal_1.h_e__km) * a_e__km * pow(sin(terminal_1.d_r__km / (a_e__km * 2)), 2);      // [Eqn 11-24]
-		double X_A2__km2 = pow(terminal_2.h_e__km, 2) + 4.0 * (a_e__km + terminal_2.h_e__km) * a_e__km * pow(sin(terminal_2.d_r__km / (a_e__km * 2)), 2);      // [Eqn 11-24]
+		double X_A1__km2 = pow(terminal_1->h_e__km, 2) + 4.0 * (a_e__km + terminal_1->h_e__km) * a_e__km * pow(sin(terminal_1->d_r__km / (a_e__km * 2)), 2);      // [Eqn 11-24]
+		double X_A2__km2 = pow(terminal_2->h_e__km, 2) + 4.0 * (a_e__km + terminal_2->h_e__km) * a_e__km * pow(sin(terminal_2->d_r__km / (a_e__km * 2)), 2);      // [Eqn 11-24]
 
 		double ell_1__km = sqrt(X_A1__km2) + tropo->d_z__km;                        // [Eqn 11-25]
 		double ell_2__km = sqrt(X_A2__km2) + tropo->d_z__km;                        // [Eqn 11-25]
@@ -107,8 +107,8 @@ void Troposcatter(Path path, Terminal terminal_1, Terminal terminal_2, double d_
 
 		double kappa = f__mhz / 0.0477;                                             // [Eqn 11-29]
 
-		double rho_1__km = 2.0 * kappa * tropo->theta_s * terminal_1.h_e__km;         // [Eqn 11-30]
-		double rho_2__km = 2.0 * kappa * tropo->theta_s * terminal_2.h_e__km;         // [Eqn 11-30]
+		double rho_1__km = 2.0 * kappa * tropo->theta_s * terminal_1->h_e__km;         // [Eqn 11-30]
+		double rho_2__km = 2.0 * kappa * tropo->theta_s * terminal_2->h_e__km;         // [Eqn 11-30]
 
 		double SQRT2 = sqrt(2);
 

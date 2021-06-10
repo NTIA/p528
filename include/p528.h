@@ -19,8 +19,6 @@ using namespace std;
 #define PI                                  3.1415926535897932384
 #define a_0__km                             6371.0
 #define a_e__km                             9257.0
-#define T_eo__km                            3.25
-#define T_ew__km                            1.36
 #define N_s                                 341
 #define epsilon                             15.0
 #define sigma                               0.005
@@ -167,17 +165,17 @@ struct Result {
 ///////////////////////////////////////////////
 
 // Private Functions
-void GetPathLoss(double psi, Path path, Terminal terminal_1, Terminal terminal_2,
+void GetPathLoss(double psi, Path *path, Terminal *terminal_1, Terminal *terminal_2,
 	double f__mhz, double psi_limit, double A_dML__db, double A_d_0__db, 
 	int T_pol, LineOfSightParams* params, double *R_Tg);
-void RayOptics(Path path, Terminal terminal_1, Terminal terminal_2, double psi, LineOfSightParams *result);
+void RayOptics(Path *path, Terminal *terminal_1, Terminal *terminal_2, double psi, LineOfSightParams *result);
 void TerminalGeometry(double f__mhz, Terminal *terminal);
-void Troposcatter(Path path, Terminal terminal_1, Terminal terminal_2, double d__km, double f__mhz, TroposcatterParams *tropo_params);
-int TranshorizonSearch(Path* path, Terminal terminal_1, Terminal terminal_2, double f__mhz,
+void Troposcatter(Path *path, Terminal *terminal_1, Terminal *terminal_2, double d__km, double f__mhz, TroposcatterParams *tropo_params);
+int TranshorizonSearch(Path* path, Terminal *terminal_1, Terminal *terminal_2, double f__mhz,
 	double A_dML__db, double *M_d, double *A_d0, double* d_crx__km, int* MODE);
 double LinearInterpolation(double x1, double y1, double x2, double y2, double x);
 void ReflectionCoefficients(double psi, double f__mhz, int T_pol, double* R_g, double* phi_g);
-void LineOfSight(Path *path, Terminal terminal_1, Terminal terminal_2, LineOfSightParams *los_params, double f__mhz, double A_dML__db,
+void LineOfSight(Path* path, Terminal* terminal_1, Terminal* terminal_2, LineOfSightParams* los_params, double f__mhz, double A_dML__db,
 	double p, double d__km, int T_pol, Result *result, double *K_LOS);
 double SmoothEarthDiffraction(double d_1__km, double d_2__km, double f__mhz, double d_0__km, int T_pol);
 double InverseComplementaryCumulativeDistributionFunction(double q);
@@ -188,6 +186,10 @@ int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, double f_
 
 
 // Public Functions
-DLLEXPORT int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol, double p, Result *result);
+DLLEXPORT int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, 
+	int T_pol, double p, Result *result);
+DLLEXPORT int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
+	int T_pol, double p, Result* result, Terminal* terminal_1, Terminal* terminal_2,
+	TroposcatterParams* tropo, Path* path, LineOfSightParams* los_params);
 DLLEXPORT double FindKForYpiAt99Percent(double Y_pi_99__db);
 DLLEXPORT double NakagamiRice(double K, double q);

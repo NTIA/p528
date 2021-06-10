@@ -35,7 +35,7 @@
  |      Returns:  [void]
  |
  *===========================================================================*/
-void GetPathLoss(double psi, Path path, Terminal terminal_1, Terminal terminal_2,
+void GetPathLoss(double psi, Path *path, Terminal *terminal_1, Terminal *terminal_2,
 	double f__mhz, double psi_limit, double A_dML__db, double A_d_0__db, 
 	int T_pol, LineOfSightParams* params, double *R_Tg)
 {
@@ -61,10 +61,10 @@ void GetPathLoss(double psi, Path path, Terminal terminal_1, Terminal terminal_2
 
 	*R_Tg = R_g * D_v * F_r;							// [Eqn 8-7]
 
-	if (params->d__km > path.d_0__km)
+	if (params->d__km > path->d_0__km)
 	{
 		// [Eqn 8-1]
-		params->A_LOS__db = ((params->d__km - path.d_0__km) * (A_dML__db - A_d_0__db) / (path.d_ML__km - path.d_0__km)) + A_d_0__db;
+		params->A_LOS__db = ((params->d__km - path->d_0__km) * (A_dML__db - A_d_0__db) / (path->d_ML__km - path->d_0__km)) + A_d_0__db;
 	}
 	else
 	{
