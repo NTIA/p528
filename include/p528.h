@@ -71,8 +71,6 @@ using namespace std;
 class data
 {
 public:
-	const static int K_ROWS = 17;
-
 	const static vector<double> P;			// Percentages for interpolation and data tables
 
 	const static vector<vector<double>> NakagamiRiceCurves;
@@ -87,7 +85,7 @@ struct Path
 {
 	// Distances
 	double d_ML__km;            // Maximum line of sight distance
-	double d_0__km;             //
+	double d_0__km;             // Internal param.  See Recommendation text
 	double d_d__km;             // Distance where smooth earth diffraction is 0 dB
 };
 
@@ -96,7 +94,7 @@ struct Terminal
 	// Heights
 	double h_r__km;             // Real terminal height
 	double h_e__km;             // Effective terminal height
-	double delta_h__km;         //
+	double delta_h__km;         // Internal terminal param.  See Recommendation text
 
 	// Distances
 	double d_r__km;             // Ray traced horizon distance
@@ -107,7 +105,7 @@ struct Terminal
 	double theta__rad;          // Incident angle of the grazing ray at the terminal
 
 	// Losses
-	double A_a__db;				// 
+	double A_a__db;				// Median atmospheric absorption loss, in dB
 };
 
 struct LineOfSightParams

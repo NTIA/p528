@@ -70,17 +70,17 @@ double RefractiveIndex(double p__hPa, double T__kelvin, double e__hPa);
 void GetLayerProperties(double f__ghz, double h_i__km, RayTraceConfig config,
 	double* n, double* gamma);
 
-DLLEXPORT double SpecificAttenuation(double f__ghz, double T__kelvin, double e__hPa, double p__hPa);
-DLLEXPORT double OxygenRefractivity(double f__ghz, double T__kelvin, double e__hPa, double p__hPa);
-DLLEXPORT double WaterVapourRefractivity(double f__ghz, double T__kelvin, double e__hPa, double p__hPa);
-DLLEXPORT double OxygenSpecificAttenuation(double f__ghz, double T__kelvin, double e__hPa, double P__hPa);
-DLLEXPORT double WaterVapourSpecificAttenuation(double f__ghz, double T__kelvin, double e__hPa, double p__hPa);
-DLLEXPORT double WaterVapourDensityToPartialPressure(double rho__g_m3, double T__kelvin);
+double SpecificAttenuation(double f__ghz, double T__kelvin, double e__hPa, double p__hPa);
+double OxygenRefractivity(double f__ghz, double T__kelvin, double e__hPa, double p__hPa);
+double WaterVapourRefractivity(double f__ghz, double T__kelvin, double e__hPa, double p__hPa);
+double OxygenSpecificAttenuation(double f__ghz, double T__kelvin, double e__hPa, double P__hPa);
+double WaterVapourSpecificAttenuation(double f__ghz, double T__kelvin, double e__hPa, double p__hPa);
+double WaterVapourDensityToPartialPressure(double rho__g_m3, double T__kelvin);
 
 void RayTrace(double f__ghz, double h_1__km, double h_2__km, double beta_1__rad,
 	RayTraceConfig config, SlantPathAttenuationResult* result);
 
-DLLEXPORT int SlantPathAttenuation(double f__ghz, double h_1__km, double h_2__km, double beta_1__rad,
+int SlantPathAttenuation(double f__ghz, double h_1__km, double h_2__km, double beta_1__rad,
 	SlantPathAttenuationResult* result);
 
 double GlobalWetPressure(double h__km);
