@@ -18,7 +18,7 @@
 #define T_ew__km                            1.36
 #define N_0                                 301
 #define N_9000                              329
-#define epsilon                             15.0
+#define EPSILON                             15.0
 #define sigma                               0.005
 #define LOS_EPSILON                         0.0001
 #define LOS_ITERATION                       25

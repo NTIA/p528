@@ -38,7 +38,7 @@ void ReflectionCoefficients(double psi, double f__mhz, double *R_g, double *phi_
     }
 
     double X = (18000.0 * sigma) / f__mhz;
-    double Y = epsilon - pow(cos_psi, 2);
+    double Y = EPSILON - pow(cos_psi, 2);
 
     double T = sqrt(pow(Y, 2) + pow(X, 2)) + Y;
 
