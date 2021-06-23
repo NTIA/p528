@@ -48,7 +48,6 @@
     <ClCompile Include="..\src\p528\TranshorizonSearch.cpp" />
     <ClCompile Include="..\src\p528\Troposcatter.cpp" />
     <ClCompile Include="..\src\p528\ValidateInputs.cpp" />
-    <ClCompile Include="..\src\p676\GaseousAttenuation.cpp" />
     <ClCompile Include="..\src\p676\GlobalWetPressure.cpp" />
     <ClCompile Include="..\src\p676\LineShapeFactor.cpp" />
     <ClCompile Include="..\src\p676\NonresonantDebyeAttenuation.cpp" />

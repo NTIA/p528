@@ -18,7 +18,7 @@
  |        Input:  h__km         - Geometric height, in km
  |
  |      Returns:  T__kelvin     - Temperature, in Kelvin.
- |                                Or error (negative number).
+ |                                Or error code (negative number).
  |
  *===========================================================================*/
 double GlobalTemperature(double h__km)
@@ -46,7 +46,7 @@ double GlobalTemperature(double h__km)
  |        Input:  h_prime__km   - Geopotential height, in km'
  |
  |      Returns:  T__kelvin     - Temperature, in Kelvin.
- |                                Or error (negative number).
+ |                                Or error code (negative number).
  |
  *===========================================================================*/
 double GlobalTemperature_Regime1(double h_prime__km)
@@ -80,7 +80,7 @@ double GlobalTemperature_Regime1(double h_prime__km)
  |        Input:  h__km         - Geometric height, in km
  |
  |      Returns:  T__kelvin     - Temperature, in Kelvin.
- |                                Or error (negative number).
+ |                                Or error code (negative number).
  |
  *===========================================================================*/
 double GlobalTemperature_Regime2(double h__km)
@@ -103,7 +103,7 @@ double GlobalTemperature_Regime2(double h__km)
  |        Input:  h__km         - Geometric height, in km
  |
  |      Returns:  p__hPa        - Dry air pressure, in hPa.
- |                                Or error (negative number).
+ |                                Or error code (negative number).
  |
  *===========================================================================*/
 double GlobalPressure(double h__km)
@@ -130,7 +130,7 @@ double GlobalPressure(double h__km)
  |        Input:  h_prime__km   - Geopotential height, in km'
  |
  |      Returns:  p__hPa        - Dry air pressure, in hPa.
- |                                Or error (negative number).
+ |                                Or error code (negative number).
  |
  *===========================================================================*/
 double GlobalPressure_Regime1(double h_prime__km)
@@ -163,7 +163,7 @@ double GlobalPressure_Regime1(double h_prime__km)
  |        Input:  h__km         - Geometric height, in km
  |
  |      Returns:  p__hPa        - Dry air pressure, in hPa.
- |                                Or error (negative number).
+ |                                Or error code (negative number).
  |
  *===========================================================================*/
 double GlobalPressure_Regime2(double h__km)
@@ -191,7 +191,7 @@ double GlobalPressure_Regime2(double h__km)
  |                rho_0         - Ground-level water vapour density, in g/m^3
  |
  |      Returns:  rho           - Water vapour density, in g/m^3.
- |                                Or error (negative number).
+ |                                Or error code (negative number).
  |
  *===========================================================================*/
 double GlobalWaterVapourDensity(double h__km, double rho_0)
@@ -215,7 +215,7 @@ double GlobalWaterVapourDensity(double h__km, double rho_0)
  |                rho_0         - Ground-level water vapour density, in g/m^3
  |
  |      Returns:  e__hPa        - Water vapour pressure, e(h), in hPa
- |                                Or error (negative number).
+ |                                Or error code (negative number).
  |
  *===========================================================================*/
 double GlobalWaterVapourPressure(double h__km, double rho_0)

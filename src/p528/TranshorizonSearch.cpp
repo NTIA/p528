@@ -28,6 +28,8 @@
  |                d_crx__km         - Final search distance, in km
  |                CASE              - Case as defined in Step 6.5
  |
+ |      Returns:  rtn               - SUCCESS or warning code
+ |
  *===========================================================================*/
 int TranshorizonSearch(Path* path, Terminal *terminal_1, Terminal *terminal_2, double f__mhz,
     double A_dML__db, double *M_d, double *A_d0, double* d_crx__km, int *CASE)

@@ -17,12 +17,10 @@
  |                aeronautical mobile and radionavigation services using
  |                the VHF, UHF and SHF bands"
  |
- |        Input:  psi           - Reflection angle
+ |        Input:  psi__rad      - Reflection angle, in rad
  |                path          - Struct containing path parameters
- |                terminal_1    - Struct for low terminal parameters
- |                terminal_2    - Struct for high terminal parameters
  |                f__mhz        - Frequency, in MHz
- |                psi_limit     - Angular limit seperating FS and 2-Ray
+ |                psi_limit     - Angular limit separating FS and 2-Ray, in rad
  |                A_dML__db     - Diffraction loss at d_ML, in dB
  |                A_d_0__db     - Loss at d_0, in dB
  |                T_pol         - Code indicating either polarization
@@ -35,23 +33,23 @@
  |      Returns:  [void]
  |
  *===========================================================================*/
-void GetPathLoss(double psi, Path *path, Terminal *terminal_1, Terminal *terminal_2,
-    double f__mhz, double psi_limit, double A_dML__db, double A_d_0__db, 
-    int T_pol, LineOfSightParams* params, double *R_Tg)
+void GetPathLoss(double psi__rad, Path *path, double f__mhz, double psi_limit, 
+    double A_dML__db, double A_d_0__db, int T_pol, 
+    LineOfSightParams* params, double *R_Tg)
 {
     double R_g, phi_g;
-    ReflectionCoefficients(psi, f__mhz, T_pol, &R_g, &phi_g);
+    ReflectionCoefficients(psi__rad, f__mhz, T_pol, &R_g, &phi_g);
 
     double D_v;
-    if (tan(psi) >= 0.1)
+    if (tan(psi__rad) >= 0.1)
         D_v = 1.0;
     else
     {
-        double r_1 = params->D__km[0] / cos(psi);       // [Eqn 8-3]
-        double r_2 = params->D__km[1] / cos(psi);       // [Eqn 8-3]
+        double r_1 = params->D__km[0] / cos(psi__rad);       // [Eqn 8-3]
+        double r_2 = params->D__km[1] / cos(psi__rad);       // [Eqn 8-3]
         double R_r = (r_1 * r_2) / params->r_12__km;    // [Eqn 8-4]
 
-        double term_1 = (2 * R_r * (1 + pow(sin(psi), 2))) / (params->a_a__km * sin(psi));
+        double term_1 = (2 * R_r * (1 + pow(sin(psi__rad), 2))) / (params->a_a__km * sin(psi__rad));
         double term_2 = pow(2 * R_r / params->a_a__km, 2);
         D_v = pow(1.0 + term_1 + term_2, -0.5);         // [Eqn 8-5]
     }
@@ -70,7 +68,7 @@ void GetPathLoss(double psi, Path *path, Terminal *terminal_1, Terminal *termina
     {
         double lambda__km = 0.2997925 / f__mhz;	// [Eqn 8-2]
 
-        if (psi > psi_limit)
+        if (psi__rad > psi_limit)
         {
             // ignore the phase lag; Step 8-2
             params->A_LOS__db = 0;

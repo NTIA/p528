@@ -20,8 +20,8 @@
  |                aeronautical mobile and radionavigation services using
  |                the VHF, UHF and SHF bands"
  |
- |        Input:  d_1__km   - Horizon distance of terminal 1
- |                d_2__km   - Horizon distance of terminal 2
+ |        Input:  d_1__km   - Horizon distance of terminal 1, in km
+ |                d_2__km   - Horizon distance of terminal 2, in km
  |                a_e__km   - Effective earth radius, in km
  |                f__mhz    - Frequency, in MHz
  |                d_0__km   - Path length of interest, in km
@@ -97,9 +97,9 @@ double SmoothEarthDiffraction(double d_1__km, double d_2__km, double f__mhz, dou
     double B_0 = 1.607;
 
     // [Vogler 1964, Equ 2] with C_0 = 1 due to "4/3" Earth assumption
-    double x_0__km = (1.607 - K) * pow(f__mhz, THIRD) * d_0__km;
-    double x_1__km = (1.607 - K) * pow(f__mhz, THIRD) * d_1__km;
-    double x_2__km = (1.607 - K) * pow(f__mhz, THIRD) * d_2__km;
+    double x_0__km = (B_0 - K) * pow(f__mhz, THIRD) * d_0__km;
+    double x_1__km = (B_0 - K) * pow(f__mhz, THIRD) * d_1__km;
+    double x_2__km = (B_0 - K) * pow(f__mhz, THIRD) * d_2__km;
 
     // Compute the distance function for the path
     double G_x__db = DistanceFunction(x_0__km);

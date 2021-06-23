@@ -8,6 +8,17 @@
  |                US Dept of Commerce, NTIA/ITS
  |                June 2021 : Geneva Study Group 3 Meetings
  |
+ +-----------------------------------------------------------------------------
+ |
+ |  Description:  This file computes Step 6 in Annex 2, Section 3 of
+ |                Recommendation ITU-R P.528-5, "Propagation curves for
+ |                aeronautical mobile and radionavigation services using
+ |                the VHF, UHF and SHF bands"
+ |
+ |        Input:  h__km             - Geometric height, in km
+ |
+ |      Returns:  e__hPa            - Water vapour pressure, in hPa
+ |
  *===========================================================================*/
 
 double GlobalWetPressure(double h__km)

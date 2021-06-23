@@ -16,8 +16,7 @@
  |                aeronautical mobile and radionavigation services using
  |                the VHF, UHF and SHF bands"
  |
- |        Input:  path          - Structure holding path parameters
- |                terminal_1    - Structure holding low terminal parameters
+ |        Input:  terminal_1    - Structure holding low terminal parameters
  |                terminal_2    - Structure holding high terminal parameters
  |                psi           - Reflection angle, in radians
  |
@@ -26,7 +25,7 @@
  |      Returns:  [void]
  |
  *===========================================================================*/
-void RayOptics(Path *path, Terminal *terminal_1, Terminal *terminal_2, double psi, LineOfSightParams *params)
+void RayOptics(Terminal *terminal_1, Terminal *terminal_2, double psi, LineOfSightParams *params)
 {
     double z = (a_0__km / a_e__km) - 1;       // [Eqn 7-1]
     double k_a = 1 / (1 + z * cos(psi));      // [Eqn 7-2]

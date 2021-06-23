@@ -1,5 +1,16 @@
 #include "..\..\include\p676.h"
 
+/*=============================================================================
+ |
+ |  Description:  Compute the refractive index.
+ |
+ |        Input:  p__hPa        - Dry pressure, in hPa
+ |                T__kelvin     - Temperature, in Kelvin
+ |                e__hPa        - Water vapour pressure, in hPa
+ |
+ |      Returns:  n             - Refractive index
+ |
+ *===========================================================================*/
 double RefractiveIndex(double p__hPa, double T__kelvin, double e__hPa)
 {
     // dry term of refractivity

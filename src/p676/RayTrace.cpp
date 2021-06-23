@@ -8,7 +8,9 @@
  |                US Dept of Commerce, NTIA/ITS
  |                June 2021 : Geneva Study Group 3 Meetings
  |
- +-----------------------------------------------------------------------------
+  *===========================================================================*/
+
+/*=============================================================================
  |
  |  Description:  Thickness of the ith layer.
  |
@@ -26,6 +28,23 @@ double LayerThickness(double m, int i)
     return delta_i__km;
 }
 
+/*=============================================================================
+ |
+ |  Description:  Traces the ray from terminal h_1 to terminal h_2 and
+ |                computes results such as atmospheric absorption loss and
+ |                ray path length.
+ |
+ |        Input:  f__ghz        - Frequency, in GHz
+ |                h_1__km       - Height of the low terminal, in km
+ |                h_2__km       - Height of the high terminal, in km
+ |                beta_1__rad   - Elevation angle (from zenith), in rad
+ |                config        - Structure containing atmospheric params
+ |
+ |       Output:  result        - Ray trace result structure
+ |
+ |      Returns:  [void]
+ |
+ *===========================================================================*/
 void RayTrace(double f__ghz, double h_1__km, double h_2__km, double beta_1__rad,
     RayTraceConfig config, SlantPathAttenuationResult* result)
 {
@@ -83,7 +102,7 @@ void RayTrace(double f__ghz, double h_1__km, double h_2__km, double beta_1__rad,
         // entry angle into the layer interface, Equation 18a
         alpha_i__rad = asin(MIN(1, (n_1 * r_1__km) / (n_i * r_ii__km) * sin(beta_1__rad)));
 
-        // path lenth through ith layer, Equation 17
+        // path length through ith layer, Equation 17
         a_i__km = -r_i__km * cos(beta_i__rad) + sqrt(pow(r_i__km, 2) * pow(cos(beta_i__rad), 2) + 2 * r_i__km * delta_i__km + pow(delta_i__km, 2));
 
         result->a__km += a_i__km;
@@ -107,6 +126,20 @@ void RayTrace(double f__ghz, double h_1__km, double h_2__km, double beta_1__rad,
     result->angle__rad = alpha_i__rad;
 }
 
+/*=============================================================================
+ |
+ |  Description:  Determine the parameters for the ith layer
+ |
+ |        Input:  f__ghz        - Frequency, in GHz
+ |                h_i__km       - Height of the ith layer, in km
+ |                config        - Structure containing atmospheric params
+ |
+ |       Output:  n             - Refractive index
+ |                gamma         - Specific attenuation, in dB/km
+ |
+ |      Returns:  [void]
+ |
+ *===========================================================================*/
 void GetLayerProperties(double f__ghz, double h_i__km, RayTraceConfig config,
     double* n, double* gamma)
 {

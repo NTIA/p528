@@ -18,7 +18,7 @@ double FindPsiAtDistance(double d__km, Path *path, Terminal *terminal_1, Termina
         psi += delta_psi; // new psi
 
         LineOfSightParams params_temp;
-        RayOptics(path, terminal_1, terminal_2, psi, &params_temp);
+        RayOptics(terminal_1, terminal_2, psi, &params_temp);
 
         d_psi__km = params_temp.d__km;
 
@@ -43,7 +43,7 @@ double FindPsiAtDeltaR(double delta_r, Path *path, Terminal *terminal_1, Termina
     {
         psi += delta_psi;
 
-        RayOptics(path, terminal_1, terminal_2, psi, &params_temp);
+        RayOptics(terminal_1, terminal_2, psi, &params_temp);
 
         if (params_temp.delta_r > delta_r)
             delta_psi = -abs(delta_psi) / 2;
@@ -65,7 +65,7 @@ double FindDistanceAtDeltaR(double delta_r, Path *path, Terminal *terminal_1, Te
     {
         psi += delta_psi;
 
-        RayOptics(path, terminal_1, terminal_2, psi, &params_temp);
+        RayOptics(terminal_1, terminal_2, psi, &params_temp);
 
         if (params_temp.delta_r > delta_r)
             delta_psi = -abs(delta_psi) / 2;
@@ -86,8 +86,8 @@ double FindDistanceAtDeltaR(double delta_r, Path *path, Terminal *terminal_1, Te
  |
  +-----------------------------------------------------------------------------
  |
- |  Description:  This function computes the total loss in the line-of
- |                sight region as described in Annex 2, Section 6 of
+ |  Description:  This function computes the total loss in the line-of-sight
+ |                region as described in Annex 2, Section 6 of
  |                Recommendation ITU-R P.528-5, "Propagation curves for
  |                aeronautical mobile and radionavigation services using
  |                the VHF, UHF and SHF bands"
@@ -103,8 +103,8 @@ double FindDistanceAtDeltaR(double delta_r, Path *path, Terminal *terminal_1, Te
  |                                  + 0 : POLARIZATION__HORIZONTAL
  |                                  + 1 : POLARIZATION__VERTICAL
  |
- |      Outputs:  los_params    - Struct contianing LOS parameters
- |                result        - Struct contianing P.528 results
+ |      Outputs:  los_params    - Struct containing LOS parameters
+ |                result        - Struct containing P.528 results
  |                K_LOS         - K-value
  |
  |      Returns:  [void]
@@ -162,14 +162,14 @@ void LineOfSight(Path *path, Terminal *terminal_1, Terminal *terminal_2, LineOfS
     {
         psi = FindPsiAtDistance(d_temp__km, path, terminal_1, terminal_2);
 
-        LineOfSightParams result;
-        RayOptics(path, terminal_1, terminal_2, psi, &result);
+        LineOfSightParams los_result;
+        RayOptics(terminal_1, terminal_2, psi, &los_result);
 
         // if the resulting distance is beyond d_0 OR if we incremented again we'd be outside of LOS...
-        if (result.d__km >= path->d_0__km || (d_temp__km + 0.001) >= path->d_ML__km)
+        if (los_result.d__km >= path->d_0__km || (d_temp__km + 0.001) >= path->d_ML__km)
         {
             // use the resulting distance as d_0
-            path->d_0__km = result.d__km;
+            path->d_0__km = los_result.d__km;
             break;
         }
 
@@ -186,9 +186,9 @@ void LineOfSight(Path *path, Terminal *terminal_1, Terminal *terminal_2, LineOfS
 
     double psi_d0 = FindPsiAtDistance(path->d_0__km, path, terminal_1, terminal_2);
 
-    RayOptics(path, terminal_1, terminal_2, psi_d0, los_params);
+    RayOptics(terminal_1, terminal_2, psi_d0, los_params);
 
-    GetPathLoss(psi_d0, path, terminal_1, terminal_2, f__mhz, psi_limit, A_dML__db, 0, T_pol, los_params, &R_Tg);
+    GetPathLoss(psi_d0, path, f__mhz, psi_limit, A_dML__db, 0, T_pol, los_params, &R_Tg);
 
     //
     // Compute loss at d_0__km
@@ -197,9 +197,9 @@ void LineOfSight(Path *path, Terminal *terminal_1, Terminal *terminal_2, LineOfS
     // tune psi for the desired distance
     psi = FindPsiAtDistance(d__km, path, terminal_1, terminal_2);
 
-    RayOptics(path, terminal_1, terminal_2, psi, los_params);
+    RayOptics(terminal_1, terminal_2, psi, los_params);
 
-    GetPathLoss(psi, path, terminal_1, terminal_2, f__mhz, psi_limit, A_dML__db, los_params->A_LOS__db, T_pol, los_params, &R_Tg);
+    GetPathLoss(psi, path, f__mhz, psi_limit, A_dML__db, los_params->A_LOS__db, T_pol, los_params, &R_Tg);
 
     /////////////////////////////////////////////
     // Compute atmospheric absorption

@@ -26,10 +26,10 @@ using WetPressure = double(*)(double);
 
 struct SlantPathAttenuationResult
 {
-    double A_gas__db;                       // 
-    double bending__rad;                    // 
-    double a__km;                           // 
-    double angle__rad;                      // 
+    double A_gas__db;                       // Median gaseous absorption, in dB
+    double bending__rad;                    // Bending angle, in rad
+    double a__km;                           // Ray length, in km
+    double angle__rad;                      // Incident angle, in rad
     double delta_L__km;                     // Excess atmospheric path length, in km
 };
 
@@ -43,25 +43,25 @@ struct RayTraceConfig
 class OxygenData
 {
 public:
-    const static vector<double> f_0;        // 
-    const static vector<double> a_1;        //
-    const static vector<double> a_2;        //
-    const static vector<double> a_3;        //
-    const static vector<double> a_4;        //
-    const static vector<double> a_5;        //
-    const static vector<double> a_6;        //
+    const static vector<double> f_0;
+    const static vector<double> a_1;
+    const static vector<double> a_2;
+    const static vector<double> a_3;
+    const static vector<double> a_4;
+    const static vector<double> a_5;
+    const static vector<double> a_6;
 };
 
 class WaterVapourData
 {
 public:
-    const static vector<double> f_0;        // 
-    const static vector<double> b_1;        //
-    const static vector<double> b_2;        //
-    const static vector<double> b_3;        //
-    const static vector<double> b_4;        //
-    const static vector<double> b_5;        //
-    const static vector<double> b_6;        //
+    const static vector<double> f_0; 
+    const static vector<double> b_1;
+    const static vector<double> b_2;
+    const static vector<double> b_3;
+    const static vector<double> b_4;
+    const static vector<double> b_5;
+    const static vector<double> b_6;
 };
 
 double LineShapeFactor(double f__ghz, double f_i__ghz, double delta_f__ghz, double delta);

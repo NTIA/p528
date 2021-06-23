@@ -16,8 +16,8 @@
  |                aeronautical mobile and radionavigation services using
  |                the VHF, UHF and SHF bands"
  |
- |        Input:  psi       - Reflection angle
- |                f__mhz    - Frequency
+ |        Input:  psi__rad  - Reflection angle, in rad
+ |                f__mhz    - Frequency, in MHz
  |                T_pol     - Code indicating either polarization
  |                              + 0 : POLARIZATION__HORIZONTAL
  |                              + 1 : POLARIZATION__VERTICAL
@@ -28,25 +28,25 @@
  |      Returns:  [void]
  |
  *===========================================================================*/
-void ReflectionCoefficients(double psi, double f__mhz, int T_pol, double *R_g, double *phi_g)
+void ReflectionCoefficients(double psi__rad, double f__mhz, int T_pol, double *R_g, double *phi_g)
 {
     double sin_psi, cos_psi;
-    if (psi <= 0.0)
+    if (psi__rad <= 0.0)
     {
-        psi = 0.0;
+        psi__rad = 0.0;
         sin_psi = 0.0;
         cos_psi = 1.0;
     }
-    else if (psi >= PI / 2)
+    else if (psi__rad >= PI / 2)
     {
-        psi = PI / 2;
+        psi__rad = PI / 2;
         sin_psi = 1.0;
         cos_psi = 0.0;
     }
     else
     {
-        sin_psi = sin(psi);
-        cos_psi = cos(psi);
+        sin_psi = sin(psi__rad);
+        cos_psi = cos(psi__rad);
     }
 
     double X = (18000.0 * sigma) / f__mhz;              // [Eqn 9-1]

@@ -16,8 +16,8 @@
  |                aeronautical mobile and radionavigation services using
  |                the VHF, UHF and SHF bands"
  |
- |        Input:  d_r1__km          - Actual height of low terminal
- |                d_r2__km          - Actual height of high terminal
+ |        Input:  d_r1__km          - Actual height of low terminal, in km
+ |                d_r2__km          - Actual height of high terminal, in km
  |                d__km             - Path distance, in km
  |                f__mhz            - Frequency, in MHz
  |                p                 - Time percentage
@@ -124,7 +124,7 @@ void LongTermVariability(double d_r1__km, double d_r2__km, double d__km, double 
     *A_Y = MAX(A_YI, 0);                            // [Eqn 14-24]
     *Y_e__db = Y_eI__db - *A_Y;                     // [Eqn 14-25]
 
-    // For percentanges less than 10%, do a correction check to, 
+    // For percentages less than 10%, do a correction check to, 
     //    "prevent available signal powers from exceeding levels expected from free-space levels
     //     by unrealistic amounts" [Gierhart 1970]
     if (p < 10)

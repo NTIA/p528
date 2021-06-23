@@ -76,12 +76,12 @@ int main(int argc, char** argv) {
         rtn = CallP528_TABLE(&params);
         break;
     case MODE_VERSION:
-        printf_s("******************************************************\n");
-        printf_s("Institute for Telecommuncations Sciences - Boulder, CO\n");
+        printf_s("*******************************************************\n");
+        printf_s("Institute for Telecommunications Sciences - Boulder, CO\n");
         printf_s("\tP.528 Driver Version: %i.%i\n", drvrVerMajor, drvrVerMinor);
         printf_s("\tP.528 DLL Version: %i.%i\n", dllVerMajor, dllVerMinor);
         wprintf_s(L"Time: %s", buf);
-        printf_s("******************************************************\n");
+        printf_s("*******************************************************\n");
         break;
     default:
         Help();
@@ -371,14 +371,11 @@ void GetDLLVersionInfo() {
         {
             if (VerQueryValue(verData, TEXT("\\"), (VOID FAR * FAR*) & lpBuffer, &size))
             {
-                if (size)
+                VS_FIXEDFILEINFO* verInfo = (VS_FIXEDFILEINFO*)lpBuffer;
+                if (verInfo->dwSignature == 0xfeef04bd)
                 {
-                    VS_FIXEDFILEINFO* verInfo = (VS_FIXEDFILEINFO*)lpBuffer;
-                    if (verInfo->dwSignature == 0xfeef04bd)
-                    {
-                        dllVerMajor = (verInfo->dwFileVersionMS >> 16) & 0xffff;
-                        dllVerMinor = (verInfo->dwFileVersionMS >> 0) & 0xffff;
-                    }
+                    dllVerMajor = (verInfo->dwFileVersionMS >> 16) & 0xffff;
+                    dllVerMinor = (verInfo->dwFileVersionMS >> 0) & 0xffff;
                 }
             }
         }
@@ -458,7 +455,7 @@ int ParseErrorMsgHelper(const char* opt, int err) {
  |                argv      - Command line arguments
  |
  |       Output:
- |                params    - Structure with user input parames
+ |                params    - Structure with user input parameters
  |
  |      Returns:  SUCCESS, or error code encountered
  |
