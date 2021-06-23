@@ -63,22 +63,22 @@ struct Result {
     double d__km;               // Path distance used in calculations
     double A__db;               // Total loss
     double A_fs__db;            // Free space path loss
-    double A_a__db;				// Atmospheric absorption loss, in dB
+    double A_a__db;             // Atmospheric absorption loss, in dB
 
-    double theta_h1__rad;	    // Elevation angle of the ray at the low terminal, in rad
+    double theta_h1__rad;       // Elevation angle of the ray at the low terminal, in rad
 };
 
 struct DrvrParams {
     double h_1__meter = NOT_SET;  // Low terminal height (meter), 1.5 <= h_1__meter <= 20 000 AND h_1__meter <= h2__meter
     double h_2__meter = NOT_SET;  // High terminal height (meter), 1.5 <= h_2__meter <= 20 000 AND h_1__meter <= h2__meter
     double f__mhz = NOT_SET;      // Frequency (MHz), 100 <= f___mhz <= 30 000
-    double p = NOT_SET;	          // Time percentage, 1 <= p <= 99
+    double p = NOT_SET;           // Time percentage, 1 <= p <= 99
     double d__km = NOT_SET;       // Path distance (km), 0 <= d__km
     int T_pol = NOT_SET;          // Polarization
 
-    int mode = NOT_SET;  // Mode (POINT, CURVE, TABLE)
+    int mode = NOT_SET;           // Mode (POINT, CURVE, TABLE)
 
-    char out_file[256] = { 0 };      // Output file
+    char out_file[256] = { 0 };   // Output file
 };
 
 //
