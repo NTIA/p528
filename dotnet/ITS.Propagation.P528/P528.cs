@@ -43,25 +43,22 @@ namespace ITS.Propagation
             double p, out Result result, out Terminal terminal_1, out Terminal terminal_2,
             out TroposcatterParams tropo, out Path path, out LineOfSightParams los_params);
 
-        private static P528Delegate P528_Invoke;
-        private static P528ExDelegate P528Ex_Invoke;
+        private static readonly P528Delegate P528_Invoke;
+        private static readonly P528ExDelegate P528Ex_Invoke;
 
         static P528()
         {
-            if (P528_Invoke == null)
-            {
-                // set the binding to the correct native DLL architecture
+            // set the binding to the correct native DLL architecture
 
-                if (Environment.Is64BitProcess)
-                {
-                    P528_Invoke = P528_x64;
-                    P528Ex_Invoke = P528Ex_x64;
-                }
-                else
-                {
-                    P528_Invoke = P528_x86;
-                    P528Ex_Invoke = P528Ex_x86;
-                }
+            if (Environment.Is64BitProcess)
+            {
+                P528_Invoke = P528_x64;
+                P528Ex_Invoke = P528Ex_x64;
+            }
+            else
+            {
+                P528_Invoke = P528_x86;
+                P528Ex_Invoke = P528Ex_x86;
             }
         }
 
