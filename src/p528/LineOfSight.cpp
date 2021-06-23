@@ -4,77 +4,77 @@
 
 double FindPsiAtDistance(double d__km, Path *path, Terminal *terminal_1, Terminal *terminal_2)
 {
-	if (d__km == 0)
-		return PI / 2;
+    if (d__km == 0)
+        return PI / 2;
 
-	// initialize to start at mid-point
-	double psi = PI / 2; 
-	double delta_psi = -PI / 4;
+    // initialize to start at mid-point
+    double psi = PI / 2; 
+    double delta_psi = -PI / 4;
 
-	double d_psi__km;
+    double d_psi__km;
 
-	do
-	{
-		psi += delta_psi; // new psi
+    do
+    {
+        psi += delta_psi; // new psi
 
-		LineOfSightParams params_temp;
-		RayOptics(path, terminal_1, terminal_2, psi, &params_temp);
+        LineOfSightParams params_temp;
+        RayOptics(path, terminal_1, terminal_2, psi, &params_temp);
 
-		d_psi__km = params_temp.d__km;
+        d_psi__km = params_temp.d__km;
 
-		// compute delta
-		if (d_psi__km > d__km)
-			delta_psi = abs(delta_psi) / 2;
-		else
-			delta_psi = -abs(delta_psi) / 2;
+        // compute delta
+        if (d_psi__km > d__km)
+            delta_psi = abs(delta_psi) / 2;
+        else
+            delta_psi = -abs(delta_psi) / 2;
 
-	} while (abs(d__km - d_psi__km) > 1e-3 && (abs(delta_psi) > 1e-12));  // get within 1 meter of desired delta_r value
+    } while (abs(d__km - d_psi__km) > 1e-3 && (abs(delta_psi) > 1e-12));  // get within 1 meter of desired delta_r value
 
-	return psi;
+    return psi;
 }
 
 double FindPsiAtDeltaR(double delta_r, Path *path, Terminal *terminal_1, Terminal *terminal_2, double terminate)
 {
-	double psi = PI / 2;
-	double delta_psi = -PI / 4;
+    double psi = PI / 2;
+    double delta_psi = -PI / 4;
 
-	LineOfSightParams params_temp;
-	do
-	{
-		psi += delta_psi;
+    LineOfSightParams params_temp;
+    do
+    {
+        psi += delta_psi;
 
-		RayOptics(path, terminal_1, terminal_2, psi, &params_temp);
+        RayOptics(path, terminal_1, terminal_2, psi, &params_temp);
 
-		if (params_temp.delta_r > delta_r)
-			delta_psi = -abs(delta_psi) / 2;
-		else
-			delta_psi = abs(delta_psi) / 2;
+        if (params_temp.delta_r > delta_r)
+            delta_psi = -abs(delta_psi) / 2;
+        else
+            delta_psi = abs(delta_psi) / 2;
 
-	} while (abs(params_temp.delta_r - delta_r) > terminate);
+    } while (abs(params_temp.delta_r - delta_r) > terminate);
 
-	return psi;
+    return psi;
 }
 
 double FindDistanceAtDeltaR(double delta_r, Path *path, Terminal *terminal_1, Terminal *terminal_2, double terminate)
 {
-	double psi = PI / 2;
-	double delta_psi = -PI / 4;
+    double psi = PI / 2;
+    double delta_psi = -PI / 4;
 
-	LineOfSightParams params_temp;
-	do
-	{
-		psi += delta_psi;
+    LineOfSightParams params_temp;
+    do
+    {
+        psi += delta_psi;
 
-		RayOptics(path, terminal_1, terminal_2, psi, &params_temp);
+        RayOptics(path, terminal_1, terminal_2, psi, &params_temp);
 
-		if (params_temp.delta_r > delta_r)
-			delta_psi = -abs(delta_psi) / 2;
-		else
-			delta_psi = abs(delta_psi) / 2;
+        if (params_temp.delta_r > delta_r)
+            delta_psi = -abs(delta_psi) / 2;
+        else
+            delta_psi = abs(delta_psi) / 2;
 
-	} while (abs(params_temp.delta_r - delta_r) > terminate);
+    } while (abs(params_temp.delta_r - delta_r) > terminate);
 
-	return params_temp.d__km;
+    return params_temp.d__km;
 }
 
 /*=============================================================================
@@ -116,36 +116,36 @@ void LineOfSight(Path *path, Terminal *terminal_1, Terminal *terminal_2, LineOfS
     double psi;
     double R_Tg;
 
-	// 0.2997925 = speed of light, gigameters per sec
+    // 0.2997925 = speed of light, gigameters per sec
     double lambda__km = 0.2997925 / f__mhz;                             // [Eqn 6-1]
-	double terminate = lambda__km / 1e6;
+    double terminate = lambda__km / 1e6;
 
-	// determine psi_limit, where you switch from free space to 2-ray model
-	// lambda / 2 is the start of the lobe closest to d_ML
-	double psi_limit = FindPsiAtDeltaR(lambda__km / 2, path, terminal_1, terminal_2, terminate);
+    // determine psi_limit, where you switch from free space to 2-ray model
+    // lambda / 2 is the start of the lobe closest to d_ML
+    double psi_limit = FindPsiAtDeltaR(lambda__km / 2, path, terminal_1, terminal_2, terminate);
 
-	// "[d_y6__km] is the largest distance at which a free-space value is obtained in a two-ray model
-	//   of reflection from a smooth earth with a reflection coefficient of -1" [ES-83-3, page 44]
-	double d_y6__km = FindDistanceAtDeltaR(lambda__km / 6, path, terminal_1, terminal_2, terminate);
+    // "[d_y6__km] is the largest distance at which a free-space value is obtained in a two-ray model
+    //   of reflection from a smooth earth with a reflection coefficient of -1" [ES-83-3, page 44]
+    double d_y6__km = FindDistanceAtDeltaR(lambda__km / 6, path, terminal_1, terminal_2, terminate);
 
     /////////////////////////////////////////////
     // Determine d_0__km distance
     //
 
-	// In IF-73, the values for d_0 (d_d in IF-77) were found to be too small when both antennas are low,
-	// so this "heuristic" was developed to fix that
-	// [Eqns 8-2 and 8-3]
-	if (terminal_1->d_r__km >= path->d_d__km || path->d_d__km >= path->d_ML__km)
-	{
-		if (terminal_1->d_r__km > d_y6__km || d_y6__km > path->d_ML__km)
-			path->d_0__km = terminal_1->d_r__km;
-		else
-			path->d_0__km = d_y6__km;
-	}
-	else if (path->d_d__km < d_y6__km && d_y6__km < path->d_ML__km)
-		path->d_0__km = d_y6__km;
-	else
-		path->d_0__km = path->d_d__km;
+    // In IF-73, the values for d_0 (d_d in IF-77) were found to be too small when both antennas are low,
+    // so this "heuristic" was developed to fix that
+    // [Eqns 8-2 and 8-3]
+    if (terminal_1->d_r__km >= path->d_d__km || path->d_d__km >= path->d_ML__km)
+    {
+        if (terminal_1->d_r__km > d_y6__km || d_y6__km > path->d_ML__km)
+            path->d_0__km = terminal_1->d_r__km;
+        else
+            path->d_0__km = d_y6__km;
+    }
+    else if (path->d_d__km < d_y6__km && d_y6__km < path->d_ML__km)
+        path->d_0__km = d_y6__km;
+    else
+        path->d_0__km = path->d_d__km;
 
     //
     // Determine d_0__km distance
@@ -180,115 +180,115 @@ void LineOfSight(Path *path, Terminal *terminal_1, Terminal *terminal_2, LineOfS
     // Tune d_0__km distance
     /////////////////////////////////////////////
     
-	/////////////////////////////////////////////
-	// Compute loss at d_0__km
-	//
+    /////////////////////////////////////////////
+    // Compute loss at d_0__km
+    //
 
-	double psi_d0 = FindPsiAtDistance(path->d_0__km, path, terminal_1, terminal_2);
+    double psi_d0 = FindPsiAtDistance(path->d_0__km, path, terminal_1, terminal_2);
 
-	RayOptics(path, terminal_1, terminal_2, psi_d0, los_params);
+    RayOptics(path, terminal_1, terminal_2, psi_d0, los_params);
 
-	GetPathLoss(psi_d0, path, terminal_1, terminal_2, f__mhz, psi_limit, A_dML__db, 0, T_pol, los_params, &R_Tg);
+    GetPathLoss(psi_d0, path, terminal_1, terminal_2, f__mhz, psi_limit, A_dML__db, 0, T_pol, los_params, &R_Tg);
 
-	//
-	// Compute loss at d_0__km
-	/////////////////////////////////////////////
+    //
+    // Compute loss at d_0__km
+    /////////////////////////////////////////////
 
-	// tune psi for the desired distance
-	psi = FindPsiAtDistance(d__km, path, terminal_1, terminal_2);
+    // tune psi for the desired distance
+    psi = FindPsiAtDistance(d__km, path, terminal_1, terminal_2);
 
-	RayOptics(path, terminal_1, terminal_2, psi, los_params);
+    RayOptics(path, terminal_1, terminal_2, psi, los_params);
 
-	GetPathLoss(psi, path, terminal_1, terminal_2, f__mhz, psi_limit, A_dML__db, los_params->A_LOS__db, T_pol, los_params, &R_Tg);
+    GetPathLoss(psi, path, terminal_1, terminal_2, f__mhz, psi_limit, A_dML__db, los_params->A_LOS__db, T_pol, los_params, &R_Tg);
 
-	/////////////////////////////////////////////
-	// Compute atmospheric absorption
-	//
+    /////////////////////////////////////////////
+    // Compute atmospheric absorption
+    //
 
-	SlantPathAttenuationResult result_slant;
-	SlantPathAttenuation(f__mhz / 1000, terminal_1->h_r__km, terminal_2->h_r__km, PI / 2 - los_params->theta_h1__rad, &result_slant);
+    SlantPathAttenuationResult result_slant;
+    SlantPathAttenuation(f__mhz / 1000, terminal_1->h_r__km, terminal_2->h_r__km, PI / 2 - los_params->theta_h1__rad, &result_slant);
 
-	result->A_a__db = result_slant.A_gas__db;
+    result->A_a__db = result_slant.A_gas__db;
 
-	//
-	// Compute atmospheric absorption
-	/////////////////////////////////////////////
+    //
+    // Compute atmospheric absorption
+    /////////////////////////////////////////////
 
-	/////////////////////////////////////////////
-	// Compute free-space loss
-	//
+    /////////////////////////////////////////////
+    // Compute free-space loss
+    //
 
-	result->A_fs__db = 20.0 * log10(result_slant.a__km) + 20.0 * log10(f__mhz) + 32.45; // [Eqn 6-4]
+    result->A_fs__db = 20.0 * log10(result_slant.a__km) + 20.0 * log10(f__mhz) + 32.45; // [Eqn 6-4]
 
-	//
-	// Compute free-space loss
-	/////////////////////////////////////////////
+    //
+    // Compute free-space loss
+    /////////////////////////////////////////////
 
-	/////////////////////////////////////////////
-	// Compute variability
-	//
+    /////////////////////////////////////////////
+    // Compute variability
+    //
 
-	// [Eqn 13-1]
-	double f_theta_h;
-	if (los_params->theta_h1__rad <= 0.0)
-		f_theta_h = 1.0;
-	else if (los_params->theta_h1__rad >= 1.0)
-		f_theta_h = 0.0;
-	else
-		f_theta_h = MAX(0.5 - (1 / PI) * (atan(20.0 * log10(32.0 * los_params->theta_h1__rad))), 0);
+    // [Eqn 13-1]
+    double f_theta_h;
+    if (los_params->theta_h1__rad <= 0.0)
+        f_theta_h = 1.0;
+    else if (los_params->theta_h1__rad >= 1.0)
+        f_theta_h = 0.0;
+    else
+        f_theta_h = MAX(0.5 - (1 / PI) * (atan(20.0 * log10(32.0 * los_params->theta_h1__rad))), 0);
 
-	double Y_e__db, Y_e_50__db, A_Y;
-	LongTermVariability(terminal_1->d_r__km, terminal_2->d_r__km, d__km, f__mhz, p, f_theta_h, los_params->A_LOS__db, &Y_e__db, &A_Y);
-	LongTermVariability(terminal_1->d_r__km, terminal_2->d_r__km, d__km, f__mhz, 50, f_theta_h, los_params->A_LOS__db, &Y_e_50__db, &A_Y);
+    double Y_e__db, Y_e_50__db, A_Y;
+    LongTermVariability(terminal_1->d_r__km, terminal_2->d_r__km, d__km, f__mhz, p, f_theta_h, los_params->A_LOS__db, &Y_e__db, &A_Y);
+    LongTermVariability(terminal_1->d_r__km, terminal_2->d_r__km, d__km, f__mhz, 50, f_theta_h, los_params->A_LOS__db, &Y_e_50__db, &A_Y);
 
-	// [Eqn 13-2]
-	double F_AY;
-	if (A_Y <= 0.0)
-		F_AY = 1.0;
-	else if (A_Y >= 9.0)
-		F_AY = 0.1;
-	else
-		F_AY = (1.1 + (0.9 * cos((A_Y / 9.0) * PI))) / 2.0;
+    // [Eqn 13-2]
+    double F_AY;
+    if (A_Y <= 0.0)
+        F_AY = 1.0;
+    else if (A_Y >= 9.0)
+        F_AY = 0.1;
+    else
+        F_AY = (1.1 + (0.9 * cos((A_Y / 9.0) * PI))) / 2.0;
 
     // [Eqn 175]
-	double F_delta_r;
-	if (los_params->delta_r >= (lambda__km / 2.0))
-		F_delta_r = 1.0;
-	else if (los_params->delta_r <= lambda__km / 6.0)
-		F_delta_r = 0.1;
-	else
-		F_delta_r = 0.5 * (1.1 - (0.9 * cos(((3.0 * PI) / lambda__km) * (los_params->delta_r - (lambda__km / 6.0)))));
+    double F_delta_r;
+    if (los_params->delta_r >= (lambda__km / 2.0))
+        F_delta_r = 1.0;
+    else if (los_params->delta_r <= lambda__km / 6.0)
+        F_delta_r = 0.1;
+    else
+        F_delta_r = 0.5 * (1.1 - (0.9 * cos(((3.0 * PI) / lambda__km) * (los_params->delta_r - (lambda__km / 6.0)))));
 
-	double R_s = R_Tg * F_delta_r * F_AY;       // [Eqn 13-4]
+    double R_s = R_Tg * F_delta_r * F_AY;       // [Eqn 13-4]
 
-	double Y_pi_99__db = 10.0 * log10(f__mhz * pow(result_slant.a__km, 3)) - 84.26;	// [Eqn 13-5]
-	double K_t = FindKForYpiAt99Percent(Y_pi_99__db);
+    double Y_pi_99__db = 10.0 * log10(f__mhz * pow(result_slant.a__km, 3)) - 84.26;	// [Eqn 13-5]
+    double K_t = FindKForYpiAt99Percent(Y_pi_99__db);
 
-	double W_a = pow(10.0, K_t / 10.0);			// [Eqn 13-6]
-	double W_R = pow(R_s, 2) + pow(0.01, 2);    // [Eqn 13-7]
-	double W = W_R + W_a;                       // [Eqn 13-8]
+    double W_a = pow(10.0, K_t / 10.0);         // [Eqn 13-6]
+    double W_R = pow(R_s, 2) + pow(0.01, 2);    // [Eqn 13-7]
+    double W = W_R + W_a;                       // [Eqn 13-8]
 
     // [Eqn 13-9]
-	if (W <= 0.0)
-		*K_LOS = -40.0;
-	else
-	{
-		*K_LOS = 10.0 * log10(W);
+    if (W <= 0.0)
+        *K_LOS = -40.0;
+    else
+    {
+        *K_LOS = 10.0 * log10(W);
 
-		if (*K_LOS < -40.0)
-			*K_LOS = -40.0;
-	}
+    if (*K_LOS < -40.0)
+        *K_LOS = -40.0;
+    }
 
-	double Y_pi_50__db = 0.0;   //  zero mean
-	double Y_pi__db = NakagamiRice(*K_LOS, p);
+    double Y_pi_50__db = 0.0;   //  zero mean
+    double Y_pi__db = NakagamiRice(*K_LOS, p);
 
-	double Y_total__db = -CombineDistributions(Y_e_50__db, Y_e__db, Y_pi_50__db, Y_pi__db, p);
+    double Y_total__db = -CombineDistributions(Y_e_50__db, Y_e__db, Y_pi_50__db, Y_pi__db, p);
 
-	//
-	// Compute variability
-	/////////////////////////////////////////////
+    //
+    // Compute variability
+    /////////////////////////////////////////////
 
-	result->d__km = los_params->d__km;
-	result->A__db = result->A_fs__db + result->A_a__db - los_params->A_LOS__db + Y_total__db;
-	result->theta_h1__rad = los_params->theta_h1__rad;
+    result->d__km = los_params->d__km;
+    result->A__db = result->A_fs__db + result->A_a__db - los_params->A_LOS__db + Y_total__db;
+    result->theta_h1__rad = los_params->theta_h1__rad;
 }
