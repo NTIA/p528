@@ -1,5 +1,6 @@
 LIBRARY
 EXPORTS
     P528
+    P528_Ex
     NakagamiRice
     FindKForYpiAt99Percent

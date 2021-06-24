@@ -23,7 +23,6 @@ using namespace std;
 #define epsilon                             15.0
 #define sigma                               0.005
 #define LOS_EPSILON                         0.00001
-#define LOS_ITERATION                       25
 #define THIRD                               1.0 / 3.0
 
 // Consts
