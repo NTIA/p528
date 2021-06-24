@@ -33,7 +33,7 @@ double FindPsiAtDistance(double d__km, Path *path, Terminal *terminal_1, Termina
     return psi;
 }
 
-double FindPsiAtDeltaR(double delta_r, Path *path, Terminal *terminal_1, Terminal *terminal_2, double terminate)
+double FindPsiAtDeltaR(double delta_r__km, Path *path, Terminal *terminal_1, Terminal *terminal_2, double terminate)
 {
     double psi = PI / 2;
     double delta_psi = -PI / 4;
@@ -45,17 +45,17 @@ double FindPsiAtDeltaR(double delta_r, Path *path, Terminal *terminal_1, Termina
 
         RayOptics(terminal_1, terminal_2, psi, &params_temp);
 
-        if (params_temp.delta_r > delta_r)
+        if (params_temp.delta_r__km > delta_r__km)
             delta_psi = -abs(delta_psi) / 2;
         else
             delta_psi = abs(delta_psi) / 2;
 
-    } while (abs(params_temp.delta_r - delta_r) > terminate);
+    } while (abs(params_temp.delta_r__km - delta_r__km) > terminate);
 
     return psi;
 }
 
-double FindDistanceAtDeltaR(double delta_r, Path *path, Terminal *terminal_1, Terminal *terminal_2, double terminate)
+double FindDistanceAtDeltaR(double delta_r__km, Path *path, Terminal *terminal_1, Terminal *terminal_2, double terminate)
 {
     double psi = PI / 2;
     double delta_psi = -PI / 4;
@@ -67,12 +67,12 @@ double FindDistanceAtDeltaR(double delta_r, Path *path, Terminal *terminal_1, Te
 
         RayOptics(terminal_1, terminal_2, psi, &params_temp);
 
-        if (params_temp.delta_r > delta_r)
+        if (params_temp.delta_r__km > delta_r__km)
             delta_psi = -abs(delta_psi) / 2;
         else
             delta_psi = abs(delta_psi) / 2;
 
-    } while (abs(params_temp.delta_r - delta_r) > terminate);
+    } while (abs(params_temp.delta_r__km - delta_r__km) > terminate);
 
     return params_temp.d__km;
 }
@@ -218,7 +218,7 @@ void LineOfSight(Path *path, Terminal *terminal_1, Terminal *terminal_2, LineOfS
     // Compute free-space loss
     //
 
-    result->A_fs__db = 20.0 * log10(result_slant.a__km) + 20.0 * log10(f__mhz) + 32.45; // [Eqn 6-4]
+    result->A_fs__db = 20.0 * log10(los_params->r_0__km) + 20.0 * log10(f__mhz) + 32.45; // [Eqn 6-4]
 
     //
     // Compute free-space loss
@@ -252,12 +252,12 @@ void LineOfSight(Path *path, Terminal *terminal_1, Terminal *terminal_2, LineOfS
 
     // [Eqn 175]
     double F_delta_r;
-    if (los_params->delta_r >= (lambda__km / 2.0))
+    if (los_params->delta_r__km >= (lambda__km / 2.0))
         F_delta_r = 1.0;
-    else if (los_params->delta_r <= lambda__km / 6.0)
+    else if (los_params->delta_r__km <= lambda__km / 6.0)
         F_delta_r = 0.1;
     else
-        F_delta_r = 0.5 * (1.1 - (0.9 * cos(((3.0 * PI) / lambda__km) * (los_params->delta_r - (lambda__km / 6.0)))));
+        F_delta_r = 0.5 * (1.1 - (0.9 * cos(((3.0 * PI) / lambda__km) * (los_params->delta_r__km - (lambda__km / 6.0)))));
 
     double R_s = R_Tg * F_delta_r * F_AY;       // [Eqn 13-4]
 

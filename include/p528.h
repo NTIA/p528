@@ -123,7 +123,7 @@ struct LineOfSightParams
 
     // Misc
     double a_a__km;             // Adjusted earth radius
-    double delta_r;             // Ray length path difference
+    double delta_r__km;         // Ray length path difference
     double A_LOS__db;           // Loss due to LOS path
 };
 

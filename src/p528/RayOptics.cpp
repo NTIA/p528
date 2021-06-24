@@ -60,7 +60,7 @@ void RayOptics(Terminal *terminal_1, Terminal *terminal_2, double psi, LineOfSig
     params->r_0__km = MAX(delta_z, (params->D__km[0] + params->D__km[1]) / cos(alpha));            // [Eqn 7-13]
     params->r_12__km = (params->D__km[0] + params->D__km[1]) / cos(psi);                           // [Eqn 7-14]
 
-    params->delta_r = 4.0 * Hprime__km[0] * Hprime__km[1] / (params->r_0__km + params->r_12__km);  // [Eqn 7-15]
+    params->delta_r__km = 4.0 * Hprime__km[0] * Hprime__km[1] / (params->r_0__km + params->r_12__km);  // [Eqn 7-15]
 
     params->theta_h1__rad = alpha - params->theta[0];                // [Eqn 7-16]
     params->theta_h2__rad = -(alpha + params->theta[1]);             // [Eqn 7-17]

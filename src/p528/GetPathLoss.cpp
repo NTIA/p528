@@ -78,7 +78,7 @@ void GetPathLoss(double psi__rad, Path *path, double f__mhz, double psi_limit,
             // Total phase lag of the ground reflected ray relative to the direct ray
 
             // [Eqn 8-8]
-            double phi_Tg = (2 * PI * params->delta_r / lambda__km) + phi_g;
+            double phi_Tg = (2 * PI * params->delta_r__km / lambda__km) + phi_g;
 
             // [Eqn 8-9]
             std::complex<double> cplx = std::complex<double>(*R_Tg * cos(phi_Tg), -*R_Tg * sin(phi_Tg));
