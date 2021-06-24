@@ -14,17 +14,17 @@ namespace ITS.Propagation
         public struct TroposcatterParams
         {
             /// <summary>
-            /// Scattering distance 
+            /// Scattering distance, in km
             /// </summary>
             public double d_s__km;
 
             /// <summary>
-            /// Half the scattering distance
+            /// Half the scattering distance, in km
             /// </summary>
             public double d_z__km;
 
             /// <summary>
-            /// Height of the common volume cross-over point
+            /// Height of the common volume cross-over point, in km
             /// </summary>
             public double h_v__km;
 
@@ -39,17 +39,17 @@ namespace ITS.Propagation
             public double theta_A__rad;
 
             /// <summary>
-            /// Troposcatter Loss
+            /// Troposcatter Loss, in dB
             /// </summary>
             public double A_s__db;
 
             /// <summary>
-            /// Troposcatter Loss of Previous Test Point
+            /// Troposcatter Loss of previous test point, in dB
             /// </summary>
             public double A_s_prev__db;
 
             /// <summary>
-            /// Troposcatter Line Slope, in dB/km
+            /// Troposcatter line slope, in dB/km
             /// </summary>
             public double M_s;
         };

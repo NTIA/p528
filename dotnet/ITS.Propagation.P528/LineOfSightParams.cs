@@ -20,17 +20,17 @@ namespace ITS.Propagation
             public double[] z__km;
 
             /// <summary>
-            /// Path distance between terminals
+            /// Path distance between terminals, in km
             /// </summary>
             public double d__km;
 
             /// <summary>
-            /// Direct ray length
+            /// Direct ray length, in km
             /// </summary>
             public double r_0__km;
 
             /// <summary>
-            /// Indirect ray length
+            /// Indirect ray length, in km
             /// </summary>
             public double r_12__km;
 
@@ -57,17 +57,17 @@ namespace ITS.Propagation
             public double[] theta;
 
             /// <summary>
-            /// Adjusted earth radius
+            /// Adjusted earth radius, in km
             /// </summary>
             public double a_a__km;
 
             /// <summary>
-            /// Ray length path difference
+            /// Ray length path difference, in km
             /// </summary>
-            public double delta_r;
+            public double delta_r__km;
 
             /// <summary>
-            /// Loss due to LOS path
+            /// Loss due to LOS path, in dB
             /// </summary>
             public double A_LOS__db;
         };

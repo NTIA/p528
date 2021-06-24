@@ -39,12 +39,12 @@ namespace ITS.Propagation
             public double a__km;
 
             /// <summary>
-            /// Central angle between the terminal and its smooth earth horizon
+            /// Central angle between the terminal and its smooth earth horizon, in rad
             /// </summary>
             public double phi__rad;
 
             /// <summary>
-            /// Incident angle of the grazing ray at the terminal
+            /// Incident angle of the grazing ray at the terminal, in rad
             /// </summary>
             public double theta__rad;
 

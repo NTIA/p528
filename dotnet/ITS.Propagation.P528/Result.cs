@@ -8,6 +8,32 @@ namespace ITS.Propagation
     public static partial class P528
     {
         /// <summary>
+        /// Mode of Propagation
+        /// </summary>
+        public enum ModeOfPropagation : int
+        {
+            /// <summary>
+            /// Value not set
+            /// </summary>
+            NotSet = 0,
+
+            /// <summary>
+            /// Line of Sight
+            /// </summary>
+            LineOfSight = 1,
+
+            /// <summary>
+            /// Diffraction
+            /// </summary>
+            Diffraction = 2,
+
+            /// <summary>
+            /// Troposcatter
+            /// </summary>
+            Troposcatter = 3
+        }
+
+        /// <summary>
         /// Results Data Structure
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
@@ -16,7 +42,7 @@ namespace ITS.Propagation
             /// <summary>
             /// Mode of propagation
             /// </summary>
-            public int propagation_mode;
+            public ModeOfPropagation ModeOfPropagation;
 
             /// <summary>
             /// Path distance used in calculations, in km

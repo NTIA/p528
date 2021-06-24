@@ -86,7 +86,7 @@ namespace ITS.Propagation
         /// <param name="h_2__meter">Height of the high terminal, in meters</param>
         /// <param name="f__mhz">Frequency, in MHz</param>
         /// <param name="T_pol">Polarization</param>
-        /// <param name="p">Time percentage (0 &lt; q &lt; 1)</param>
+        /// <param name="p">Time percentage</param>
         /// <param name="result">Result data structure</param>
         /// <returns>Return code</returns>
         public static int Invoke(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol,
@@ -103,7 +103,7 @@ namespace ITS.Propagation
         /// <param name="h_2__meter">Height of the high terminal, in meters</param>
         /// <param name="f__mhz">Frequency, in MHz</param>
         /// <param name="T_pol">Polarization</param>
-        /// <param name="p">Time percentage (0 &lt; q &lt; 1)</param>
+        /// <param name="p">Time percentage</param>
         /// <param name="result">Result data structure</param>
         /// <returns>Return code</returns>
         public static int Invoke(double d__km, double h_1__meter, double h_2__meter, double f__mhz, Polarization T_pol,
@@ -120,7 +120,7 @@ namespace ITS.Propagation
         /// <param name="h_2__meter">Height of the high terminal, in meters</param>
         /// <param name="f__mhz">Frequency, in MHz</param>
         /// <param name="T_pol">Polarization</param>
-        /// <param name="p">Time percentage (0 &lt; q &lt; 1)</param>
+        /// <param name="p">Time percentage</param>
         /// <param name="result">Result data structure</param>
         /// <param name="terminal_1">Intermediate values for terminal 1 geometry</param>
         /// <param name="terminal_2">Intermediate values for terminal 2 geometry</param>
@@ -143,7 +143,7 @@ namespace ITS.Propagation
         /// <param name="h_2__meter">Height of the high terminal, in meters</param>
         /// <param name="f__mhz">Frequency, in MHz</param>
         /// <param name="T_pol">Polarization</param>
-        /// <param name="p">Time percentage (0 &lt; q &lt; 1)</param>
+        /// <param name="p">Time percentage</param>
         /// <param name="result">Result data structure</param>
         /// <param name="terminal_1">Intermediate values for terminal 1 geometry</param>
         /// <param name="terminal_2">Intermediate values for terminal 2 geometry</param>

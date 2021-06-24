@@ -24,7 +24,7 @@ namespace ITS.Propagation
             public double d_0__km;
 
             /// <summary>
-            /// Distance where smooth earth diffraction is 0 dB
+            /// Distance where smooth earth diffraction is 0 dB, in km
             /// </summary>
             public double d_d__km;
         };
