@@ -12,8 +12,6 @@ int SlantPathAttenuation(double f__ghz, double h_1__km, double h_2__km, double b
 
     if (beta_1__rad > PI / 2)
     {
-        // TODO: special error case if h_1 is on surface of Earth
-
         // negative elevation angle
         // find h_G and then trace in each direction
         // see Section 2.2.2
@@ -41,10 +39,6 @@ int SlantPathAttenuation(double f__ghz, double h_1__km, double h_2__km, double b
             else
                 h_G__km += delta;
             delta /= 2;
-
-            // TODO: add check of h_G gets too small (ie, approaches surface of the Earth but doesn't converge
-            if (h_G__km < pow(10, -12))
-                return -1;
 
             p__hPa = config.dry_pressure(h_G__km);
             T__kelvin = config.temperature(h_G__km);

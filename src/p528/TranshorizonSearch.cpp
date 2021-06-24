@@ -77,16 +77,6 @@ int TranshorizonSearch(Path* path, Terminal *terminal_1, Terminal *terminal_2, d
         // Step 6.3
         M_s = (A_s__db[0] - A_s__db[1]) / (d_search__km[0] - d_search__km[1]);      // [Eqn 3-10]
 
-        // TODO: I dont believe this is needed anymore.  commenting it out for now
-        // Verify the tropo line is sloping to increase loss with distance (inverted sign)
-        //if (M_s <= -0.01)
-        //{
-        //    k = 0;
-        //    d_search__km[1] = d_search__km[0];
-        //    d_search__km[0]++;
-        //    continue;
-        //}
-
         if (M_s <= *M_d)
         {
             *d_crx__km = d_search__km[0];
