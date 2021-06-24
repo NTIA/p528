@@ -20,7 +20,7 @@ using namespace std;
 #define a_0__km                             6371.0
 #define a_e__km                             9257.0
 #define N_s                                 341
-#define epsilon                             15.0
+#define epsilon_r                           15.0
 #define sigma                               0.005
 #define LOS_EPSILON                         0.00001
 #define THIRD                               1.0 / 3.0
