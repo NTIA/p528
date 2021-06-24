@@ -29,7 +29,7 @@ void TerminalGeometry(double f__mhz, Terminal *terminal)
     double theta_tx__rad = 0;
     SlantPathAttenuationResult result;
     SlantPathAttenuation(f__mhz / 1000, 0, terminal->h_r__km, PI / 2 - theta_tx__rad, &result);
-    terminal->theta__rad = result.angle__rad;
+    terminal->theta__rad = PI / 2 - result.angle__rad;
     terminal->A_a__db = result.A_gas__db;
     terminal->a__km = result.a__km;
 
