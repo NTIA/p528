@@ -1,6 +1,6 @@
 #include <math.h>
-#include "..\..\include\p528.h"
-#include "..\..\include\p676.h"
+#include "../../include/p528.h"
+#include "../../include/p676.h"
 
 double FindPsiAtDistance(double d__km, Path *path, Terminal *terminal_1, Terminal *terminal_2)
 {
