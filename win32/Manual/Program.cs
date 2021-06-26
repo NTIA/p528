@@ -101,42 +101,10 @@ namespace Manual
 
         static void Main(string[] args)
         {
-            //CheckNRData();
-            //return;
+            double f__mhz = Convert.ToDouble(args[0]);
 
-            //ExtractThayerValues();
-            //return;
-
-            double d__km = 0;
-            double h_1__meter = 100.5;
-            double h_2__meter = 20e3;
-            double f__mhz = 30e3;
-            double time_percentage = 50;
-            Result result = new Result();
-            P528(d__km, h_1__meter, h_2__meter, f__mhz, (int)Polarization.Horizontal, time_percentage, ref result);
-
-            ////using (var fs = new StreamWriter("ray_len.csv") { AutoFlush = true })
-            ////{
-            ////    fs.WriteLine("h_1,r_1,a_1");
-
-            ////    for (int h1 = 5; h1 < 10000; h1 += 10)
-            ////    {
-            ////        P528(d__km, h1, h_2__meter, f__mhz, (int)Polarization.Horizontal, 50, ref result);
-
-            ////        fs.WriteLine($"{h1},{result.r_1__meter},{result.a_1__meter}");
-            ////    }
-            ////}
-
-            //////int rtn = P528(d__km, h_1__meter, h_2__meter, f__mhz, (int)Polarization.Horizontal, time_percentage, ref result);
-
-            Console.WriteLine($"BTL: {result.A__db}");
-            Console.WriteLine($"Free Space: {result.A_fs__db}");
-            Console.WriteLine($"Absorption: {result.A_a__db}");
-            Console.ReadKey();
-            return;
-
-            GenerateDataFiles();
-            DiffDataTables();
+            GenerateDataFiles(f__mhz);
+            //DiffDataTables();
 
             Console.WriteLine();
             Console.WriteLine("Done.");
@@ -146,18 +114,18 @@ namespace Manual
         /// <summary>
         /// Generate a new set of CSV data table files
         /// </summary>
-        static void GenerateDataFiles()
+        static void GenerateDataFiles(double f__mhz)
         {
             // Generate data file format
-            var freqs = new List<double> { 125 };//, 300, 600, 1200, 2400, 5100, 9400, 15500 };
-            var ps = new List<double> { 1 };//, 5, 10, 50, 95 };
+            //var freqs = new List<double> { 15500 };//, 300, 600, 1200, 2400, 5100, 9400, 15500 };
+            var ps = new List<double> { 1, 5, 10, 50, 95 };
 
             string dir = Path.Combine(Environment.CurrentDirectory, NEW_DATA_TABLES_DIR);
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
 
-            foreach (var f__mhz in freqs)
-            {
+            //foreach (var f__mhz in freqs)
+            //{
                 foreach (var p in ps)
                 {
                     var filename = $"{f__mhz.ToString("0,0")} MHz - Lb({(p / 100).ToString("0.00")})_P528.csv";
@@ -202,7 +170,7 @@ namespace Manual
 
                     Console.WriteLine("done.");
                 }
-            }
+            //}
         }
 
         /// <summary>
