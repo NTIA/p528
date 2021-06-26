@@ -1,12 +1,3 @@
-/*=============================================================================
- |
- |       Author:  William Kozma Jr
- |                wkozma@ntia.gov
- |                US Dept of Commerce, NTIA/ITS
- |                June 2021 : Geneva Study Group 3 Meetings
- |
- *===========================================================================*/
-
 #include <vector>
 #include <algorithm>
 

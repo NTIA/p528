@@ -2,13 +2,6 @@
 
 /*=============================================================================
  |
- |       Author:  William Kozma Jr
- |                wkozma@ntia.gov
- |                US Dept of Commerce, NTIA/ITS
- |                June 2021 : Geneva Study Group 3 Meetings
- |
- +-----------------------------------------------------------------------------
- |
  |  Description:  This function performs linear interpolation between the
  |                points (x1, y1) and (x2, y2).
  |

@@ -1,0 +1,335 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ITS.Propagation.P528</name>
+    </assembly>
+    <members>
+        <member name="T:ITS.Propagation.P528">
+            <summary>
+            Recommendation ITU-R P.528-5
+            </summary>
+            <summary>
+            Recommendation ITU-R P.528-5
+            </summary>
+            <summary>
+            Recommendation ITU-R P.528-5
+            </summary>
+            <summary>
+            Recommendation ITU-R P.528-5
+            </summary>
+            <summary>
+            Recommendation ITU-R P.528-5
+            </summary>
+            <summary>
+            Recommendation ITU-R P.528-5
+            </summary>
+        </member>
+        <member name="T:ITS.Propagation.P528.Polarization">
+            <summary>
+            Polarization
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.Polarization.Horizontal">
+            <summary>
+            Horizontal polarization
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.Polarization.Vertical">
+            <summary>
+            Vertical polarization
+            </summary>
+        </member>
+        <member name="M:ITS.Propagation.P528.Invoke(System.Double,System.Double,System.Double,System.Double,System.Int32,System.Double,ITS.Propagation.P528.Result@)">
+            <summary>
+            Recommendation ITU-R P.528-5
+            </summary>
+            <param name="d__km">Path distance, in km</param>
+            <param name="h_1__meter">Height of the low terminal, in meters</param>
+            <param name="h_2__meter">Height of the high terminal, in meters</param>
+            <param name="f__mhz">Frequency, in MHz</param>
+            <param name="T_pol">Polarization</param>
+            <param name="p">Time percentage</param>
+            <param name="result">Result data structure</param>
+            <returns>Return code</returns>
+        </member>
+        <member name="M:ITS.Propagation.P528.Invoke(System.Double,System.Double,System.Double,System.Double,ITS.Propagation.P528.Polarization,System.Double,ITS.Propagation.P528.Result@)">
+            <summary>
+            Recommendation ITU-R P.528-5
+            </summary>
+            <param name="d__km">Path distance, in km</param>
+            <param name="h_1__meter">Height of the low terminal, in meters</param>
+            <param name="h_2__meter">Height of the high terminal, in meters</param>
+            <param name="f__mhz">Frequency, in MHz</param>
+            <param name="T_pol">Polarization</param>
+            <param name="p">Time percentage</param>
+            <param name="result">Result data structure</param>
+            <returns>Return code</returns>
+        </member>
+        <member name="M:ITS.Propagation.P528.InvokeEx(System.Double,System.Double,System.Double,System.Double,System.Int32,System.Double,ITS.Propagation.P528.Result@,ITS.Propagation.P528.Terminal@,ITS.Propagation.P528.Terminal@,ITS.Propagation.P528.TroposcatterParams@,ITS.Propagation.P528.Path@,ITS.Propagation.P528.LineOfSightParams@)">
+            <summary>
+            Recommendation ITU-R P.528-5
+            </summary>
+            <param name="d__km">Path distance, in km</param>
+            <param name="h_1__meter">Height of the low terminal, in meters</param>
+            <param name="h_2__meter">Height of the high terminal, in meters</param>
+            <param name="f__mhz">Frequency, in MHz</param>
+            <param name="T_pol">Polarization</param>
+            <param name="p">Time percentage</param>
+            <param name="result">Result data structure</param>
+            <param name="terminal_1">Intermediate values for terminal 1 geometry</param>
+            <param name="terminal_2">Intermediate values for terminal 2 geometry</param>
+            <param name="tropo">Intermediate values for troposcatter calculations</param>
+            <param name="path">Intermediate values for propagation path</param>
+            <param name="los_params">Intermediate values for Line-of-Sight calculations</param>
+            <returns>Return code</returns>
+        </member>
+        <member name="M:ITS.Propagation.P528.InvokeEx(System.Double,System.Double,System.Double,System.Double,ITS.Propagation.P528.Polarization,System.Double,ITS.Propagation.P528.Result@,ITS.Propagation.P528.Terminal@,ITS.Propagation.P528.Terminal@,ITS.Propagation.P528.TroposcatterParams@,ITS.Propagation.P528.Path@,ITS.Propagation.P528.LineOfSightParams@)">
+            <summary>
+            Recommendation ITU-R P.528-5
+            </summary>
+            <param name="d__km">Path distance, in km</param>
+            <param name="h_1__meter">Height of the low terminal, in meters</param>
+            <param name="h_2__meter">Height of the high terminal, in meters</param>
+            <param name="f__mhz">Frequency, in MHz</param>
+            <param name="T_pol">Polarization</param>
+            <param name="p">Time percentage</param>
+            <param name="result">Result data structure</param>
+            <param name="terminal_1">Intermediate values for terminal 1 geometry</param>
+            <param name="terminal_2">Intermediate values for terminal 2 geometry</param>
+            <param name="tropo">Intermediate values for troposcatter calculations</param>
+            <param name="path">Intermediate values for propagation path</param>
+            <param name="los_params">Intermediate values for Line-of-Sight calculations</param>
+            <returns>Return code</returns>
+        </member>
+        <member name="T:ITS.Propagation.P528.LineOfSightParams">
+            <summary>
+            Intermediate values for Line-of-Sight calculations
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.LineOfSightParams.z__km">
+            <summary>
+            Internal LOS param.  See Recommendation text.
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.LineOfSightParams.d__km">
+            <summary>
+            Path distance between terminals, in km
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.LineOfSightParams.r_0__km">
+            <summary>
+            Direct ray length, in km
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.LineOfSightParams.r_12__km">
+            <summary>
+            Indirect ray length, in km
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.LineOfSightParams.D__km">
+            <summary>
+            Internal LOS param.  See Recommendation text.
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.LineOfSightParams.theta_h1__rad">
+            <summary>
+            Internal LOS param.  See Recommendation text.
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.LineOfSightParams.theta_h2__rad">
+            <summary>
+            Internal LOS param.  See Recommendation text.
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.LineOfSightParams.theta">
+            <summary>
+            Internal LOS param.  See Recommendation text.
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.LineOfSightParams.a_a__km">
+            <summary>
+            Adjusted earth radius, in km
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.LineOfSightParams.delta_r__km">
+            <summary>
+            Ray length path difference, in km
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.LineOfSightParams.A_LOS__db">
+            <summary>
+            Loss due to LOS path, in dB
+            </summary>
+        </member>
+        <member name="T:ITS.Propagation.P528.Path">
+            <summary>
+            Intermediate values for propagation path
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.Path.d_ML__km">
+            <summary>
+            Maximum line-of-sight distance, in km
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.Path.d_0__km">
+            <summary>
+            Internal param.  See Recommendation text
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.Path.d_d__km">
+            <summary>
+            Distance where smooth earth diffraction is 0 dB, in km
+            </summary>
+        </member>
+        <member name="T:ITS.Propagation.P528.ModeOfPropagation">
+            <summary>
+            Mode of Propagation
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.ModeOfPropagation.NotSet">
+            <summary>
+            Value not set
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.ModeOfPropagation.LineOfSight">
+            <summary>
+            Line of Sight
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.ModeOfPropagation.Diffraction">
+            <summary>
+            Diffraction
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.ModeOfPropagation.Troposcatter">
+            <summary>
+            Troposcatter
+            </summary>
+        </member>
+        <member name="T:ITS.Propagation.P528.Result">
+            <summary>
+            Results Data Structure
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.Result.ModeOfPropagation">
+            <summary>
+            Mode of propagation
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.Result.d__km">
+            <summary>
+            Path distance used in calculations, in km
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.Result.A__db">
+            <summary>
+            Basic transmission loss, in dB
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.Result.A_fs__db">
+            <summary>
+            Free space basic transmission loss, in dB
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.Result.A_a__db">
+            <summary>
+            Median atmospheric absorption loss, in dB
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.Result.theta_h1__rad">
+            <summary>
+            Elevation angle of the ray at the low terminal, in rad
+            </summary>
+        </member>
+        <member name="T:ITS.Propagation.P528.Terminal">
+            <summary>
+            Intermediate values for terminal geometry
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.Terminal.h_r__km">
+            <summary>
+            Real terminal height, in km
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.Terminal.h_e__km">
+            <summary>
+            Effective terminal height, in km
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.Terminal.delta_h__km">
+            <summary>
+            Internal terminal param.  See Recommendation text
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.Terminal.d_r__km">
+            <summary>
+            Ray traced horizon distance, in km
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.Terminal.a__km">
+            <summary>
+            Total ray path length to horizon, in km
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.Terminal.phi__rad">
+            <summary>
+            Central angle between the terminal and its smooth earth horizon, in rad
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.Terminal.theta__rad">
+            <summary>
+            Incident angle of the grazing ray at the terminal, in rad
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.Terminal.A_a__db">
+            <summary>
+            Median atmospheric absorption loss, in dB
+            </summary>
+        </member>
+        <member name="T:ITS.Propagation.P528.TroposcatterParams">
+            <summary>
+            Intermediate values for troposcatter calculations
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.TroposcatterParams.d_s__km">
+            <summary>
+            Scattering distance, in km
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.TroposcatterParams.d_z__km">
+            <summary>
+            Half the scattering distance, in km
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.TroposcatterParams.h_v__km">
+            <summary>
+            Height of the common volume cross-over point, in km
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.TroposcatterParams.theta_s__rad">
+            <summary>
+            Scattering angle, in radians
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.TroposcatterParams.theta_A__rad">
+            <summary>
+            Cross-over angle, in radians
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.TroposcatterParams.A_s__db">
+            <summary>
+            Troposcatter Loss, in dB
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.TroposcatterParams.A_s_prev__db">
+            <summary>
+            Troposcatter Loss of previous test point, in dB
+            </summary>
+        </member>
+        <member name="F:ITS.Propagation.P528.TroposcatterParams.M_s">
+            <summary>
+            Troposcatter line slope, in dB/km
+            </summary>
+        </member>
+    </members>
+</doc>

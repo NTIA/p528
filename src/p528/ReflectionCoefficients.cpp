@@ -3,13 +3,6 @@
 
 /*=============================================================================
  |
- |       Author:  William Kozma Jr
- |                wkozma@ntia.gov
- |                US Dept of Commerce, NTIA/ITS
- |                June 2021 : Geneva Study Group 3 Meetings
- |
- +-----------------------------------------------------------------------------
- |
  |  Description:  This function computes the reflection coefficients
  |                as described in Annex 2, Section 9 of
  |                Recommendation ITU-R P.528-5, "Propagation curves for

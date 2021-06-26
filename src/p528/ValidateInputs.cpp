@@ -2,13 +2,6 @@
 
 /*=============================================================================
  |
- |       Author:  William Kozma Jr
- |                wkozma@ntia.gov
- |                US Dept of Commerce, NTIA/ITS
- |                June 2021 : Geneva Study Group 3 Meetings
- |
- +-----------------------------------------------------------------------------
- |
  |  Description:  Validate the model input values
  |
  |        Input:  d__km             - Path distance, in km

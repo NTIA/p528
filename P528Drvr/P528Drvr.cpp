@@ -6,13 +6,6 @@
 
 /*=============================================================================
  |
- |       Author:  William Kozma Jr
- |                wkozma@ntia.gov
- |                US Dept of Commerce, NTIA/ITS
- |                June 2021 : Geneva Study Group 3 Meetings
- |
- +-----------------------------------------------------------------------------
- |
  |  Description:  This driver allows the user to execute the P.528 model
  |                DLL and generate results.  For full details and examples
  |                on how to use it, please see the readme.txt file.

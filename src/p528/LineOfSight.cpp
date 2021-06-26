@@ -79,13 +79,6 @@ double FindDistanceAtDeltaR(double delta_r__km, Path *path, Terminal *terminal_1
 
 /*=============================================================================
  |
- |       Author:  William Kozma Jr
- |                wkozma@ntia.gov
- |                US Dept of Commerce, NTIA/ITS
- |                June 2021 : Geneva Study Group 3 Meetings
- |
- +-----------------------------------------------------------------------------
- |
  |  Description:  This function computes the total loss in the line-of-sight
  |                region as described in Annex 2, Section 6 of
  |                Recommendation ITU-R P.528-5, "Propagation curves for
