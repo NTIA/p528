@@ -20,7 +20,6 @@ Thumbs.db
 *.tlog
 *.obj
 *.log
-*.filters
 *.lastbuildstate
 *.manifest
 *.users
