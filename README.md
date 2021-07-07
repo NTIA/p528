@@ -41,8 +41,8 @@ Possible return codes, including the corresponding defined constant name as defi
 |     4 | `ERROR_VALIDATION__TERM_GEO`     | Low terminal must be <= high terminal height |
 |     5 | `ERROR_VALIDATION__F_MHZ_LOW`    | Frequency must be >= 100 MHz |
 |     6 | `ERROR_VALIDATION__F_MHZ_HIGH`   | Frequency must be <= 30 000 MHz |
-|     7 | `ERROR_VALIDATION__PERCENT_LOW`  | Time percentage must be >= 0.01 |
-|     8 | `ERROR_VALIDATION__PERCENT_HIGH` | Time percentage must be <= 0.99 |
+|     7 | `ERROR_VALIDATION__PERCENT_LOW`  | Time percentage must be >= 1 |
+|     8 | `ERROR_VALIDATION__PERCENT_HIGH` | Time percentage must be <= 99 |
 |    10 | `ERROR_HEIGHT_AND_DISTANCE`      | Terminals are occupying the same point in space (they are the same height and 0 km apart) |
 | 0xFF1 | `WARNING__DFRAC_TROPO_REGION`    | Warning that the diffraction and troposcatter model may not be physically consistent with each other. Caution should be taken when using the result |
 
@@ -69,7 +69,7 @@ The below table includes a select set of example inputs and outputs for testing 
 
 ### C++ Software
 
-The software is designed to be built into a DLL (or corresponding library for non-Windows systems).  The source code can be built for any OS that supports the standard C++ libraries.  A Visual Studio 2017 project file is provided for Windows users to support the build process and configuration.
+The software is designed to be built into a DLL (or corresponding library for non-Windows systems).  The source code can be built for any OS that supports the standard C++ libraries.  A Visual Studio 2019 project file is provided for Windows users to support the build process and configuration.
 
 ### C#/.NET Wrapper Software
 
