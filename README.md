@@ -12,7 +12,7 @@ Companion software ([p528-gui](https://github.com/NTIA/p528-gui)) provides a Gra
 | `h_1__meter`      | double | meter | 1.5 <= `h_1__meter` <= 20 000 | Height of the low terminal |
 | `h_2__meter`      | double | meter | 1.5 <= `h_2__meter` <= 20 000 | Height of the high terminal |
 | `f__mhz`          | double | MHz   | 100 <= `f__mhz` <= 30 000 | Frequency |
-| `T_pol`           | int    |       |              | Polarization. <ul><li>0 = Horizontal</li><li>1 = Vertical</li></ul> |
+| `T_pol`           | int    |       |              | Polarization <ul><li>0 = Horizontal</li><li>1 = Vertical</li></ul> |
 | `time`            | double |       | 1 <= `time` <= 99 | Time percentage |
  
 ## Outputs ##
@@ -25,8 +25,8 @@ Outputs to P.528 are contained within a defined `Results` structure.
 | `A__db`    | double | dB    | Basic transmission loss |
 | `A_fs__db` | double | dB    | Free space basic transmission loss |
 | `A_a__db`  | double | dB    | Median atmospheric absorption loss |
-| `theta_h1__rad | double | rad | Elevation angle of the ray at the low terminal |
-| `propagation_mode` | int |  | Mode of propagation. <ul><li>1 = Line of Sight</li><li>2 = Diffraction</li><li>3 = Troposcatter</li></ul> |
+| `theta_h1__rad` | double | rad | Elevation angle of the ray at the low terminal |
+| `propagation_mode` | int |  | Mode of propagation <ul><li>1 = Line of Sight</li><li>2 = Diffraction</li><li>3 = Troposcatter</li></ul> |
 
 ## Return Codes ##
 
@@ -52,12 +52,12 @@ Note: Return codes over 0xFF0 signify warnings occured in the calculation.  Use 
 
 The below table includes a select set of example inputs and outputs for testing purposes. The [P.528 CSV data files](https://www.itu.int/rec/R-REC-P.528/en) contain an extensive set of validation example values.
 
-| `d__km` | `h_1__meter` | `h_2__meter` | `f__mhz` | T_pol | `time` | `A__db` |
-| --------|--------------|--------------|----------|-------|--------|---------|
-|      15 |           10 |        1 000 |      500 |     0 |     50 |   110.0 |
-|     100 |          100 |       15 000 |    3 600 |     0 |     90 |   151.6 |
-|   1 500 |           15 |       10 000 |    5 700 |     0 |     10 |   293.4 |
-|      30 |            8 |       20 000 |   22 000 |     1 |     50 |   151.1 |
+| `d__km` | `h_1__meter` | `h_2__meter` | `f__mhz` | `T_pol` | `time` | `A__db` |
+| --------|--------------|--------------|----------|---------|--------|---------|
+|      15 |           10 |        1 000 |      500 |       0 |     50 |   110.0 |
+|     100 |          100 |       15 000 |    3 600 |       0 |     90 |   151.6 |
+|   1 500 |           15 |       10 000 |    5 700 |       0 |     10 |   293.4 |
+|      30 |            8 |       20 000 |   22 000 |       1 |     50 |   151.1 |
 
 ## Notes on Code Style ##
 
