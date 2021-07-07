@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/NTIA/p528</projectUrl>
     <icon>images\itslogo.png</icon>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>Recommendation ITU-R P.528: A propagation prediction method for aeronautical mobile and radionavigation services using the VHF, UHF and SHF bands.  This Recommendation contains a method for predicting basic transmission loss in the frequency range 125-15 500 MHz for aeronautical and satellite services. The software implements Annex 2 of Rec P.528, the Step-by-Step method to computing propagation loss for air-to-ground paths.</description>
+    <description>Recommendation ITU-R P.528: A propagation prediction method for aeronautical mobile and radionavigation services using the VHF, UHF and SHF bands.  This Recommendation contains a method for predicting basic transmission loss in the frequency range 100-30 000 MHz for aeronautical services. The software implements Annex 2 of Rec P.528, the Step-by-Step method to computing propagation loss for air-to-ground paths.</description>
     <releaseNotes>None</releaseNotes>
     <tags>ITU SG3 Propagation P528 P.528</tags>
     <repository type="git" url="https://github.com/NTIA/p528.git" branch="master"/>
