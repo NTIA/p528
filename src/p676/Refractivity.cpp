@@ -19,7 +19,7 @@ double OxygenRefractivity(double f__ghz, double T__kelvin, double e__hPa, double
 
     double N = 0;
 
-    for (int i = 0; i < OxygenData::f_0.size(); i++)
+    for (size_t i = 0; i < OxygenData::f_0.size(); i++)
     {
         // Equation 3, for oxygen
         double S_i = OxygenData::a_1[i] * 1e-7 * p__hPa * pow(theta, 3) * exp(OxygenData::a_2[i] * (1 - theta));
@@ -67,7 +67,7 @@ double WaterVapourRefractivity(double f__ghz, double T__kelvin, double e__hPa, d
 
     double N_w = 0;
 
-    for (int i = 0; i < WaterVapourData::f_0.size(); i++)
+    for (size_t i = 0; i < WaterVapourData::f_0.size(); i++)
     {
         // Equation 3, for water vapour
         double S_i = 0.1 * WaterVapourData::b_1[i] * e__hPa * pow(theta, 3.5) * exp(WaterVapourData::b_2[i] * (1 - theta));

@@ -3,7 +3,7 @@
 // Spectroscopic data for water vapor attenuation (Table 2)
 
 // 
-const vector<double> WaterVapourData::f_0 =
+const std::vector<double> WaterVapourData::f_0 =
 {
      22.235080,  67.803960, 119.995940, 183.310087, 321.225630, 325.152888,  336.227764,
     380.197353, 390.134508, 437.346667, 439.150807, 443.018343, 448.001085,  470.888999,
@@ -12,7 +12,7 @@ const vector<double> WaterVapourData::f_0 =
     902.611085, 906.205957, 916.171582, 923.112692, 970.315022, 987.926764, 1780.000000
 };
 
-const vector<double> WaterVapourData::b_1 =
+const std::vector<double> WaterVapourData::b_1 =
 {
     0.1079, 0.0011,   0.0007,  2.273, 0.0470, 1.514,    0.0010, 11.67,   0.0045,
     0.0632, 0.9098,   0.1920, 10.41,  0.3254, 1.260,    0.2529,  0.0372, 0.0124,
@@ -20,7 +20,7 @@ const vector<double> WaterVapourData::b_1 =
     0.0547, 0.0386,   0.1836,  8.400, 0.0079, 9.009,  134.6,     17506.0
 };
 
-const vector<double> WaterVapourData::b_2 =
+const std::vector<double> WaterVapourData::b_2 =
 {
     2.144, 8.732, 8.353, .668, 6.179, 1.541, 9.825, 1.048, 7.347, 5.048,
     3.595, 5.048, 1.405, 3.597, 2.379, 2.852, 6.731, 6.731, .158, .158,
@@ -28,7 +28,7 @@ const vector<double> WaterVapourData::b_2 =
     1.441, 10.293, 1.919, .257, .952
 };
 
-const vector<double> WaterVapourData::b_3 =
+const std::vector<double> WaterVapourData::b_3 =
 {
     26.38, 28.58, 29.48, 29.06, 24.04, 28.23, 26.93, 28.11, 21.52, 18.45, 20.07,
     15.55, 25.64, 21.34, 23.20, 25.86, 16.12, 16.12, 26.00, 26.00, 30.86, 24.38,
@@ -36,14 +36,14 @@ const vector<double> WaterVapourData::b_3 =
     29.85, 196.3
 };
 
-const vector<double> WaterVapourData::b_4 =
+const std::vector<double> WaterVapourData::b_4 =
 {
     .76, .69, .70, .77, .67, .64, .69, .54, .63, .60, .63, .60, .66, .66,
     .65, .69, .61, .61, .70, .70, .69, .71, .60, .69, .68, .33, .68, .68,
     .70, .70, .70, .70, .64, .68, 2.00
 };
 
-const vector<double> WaterVapourData::b_5 =
+const std::vector<double> WaterVapourData::b_5 =
 {
     5.087, 4.930, 4.780, 5.022, 4.398, 4.893, 4.740, 5.063, 4.810, 4.230, 4.483,
     5.083, 5.028, 4.506, 4.804, 5.201, 3.980, 4.010, 4.500, 4.500, 4.552, 4.856,
@@ -51,7 +51,7 @@ const vector<double> WaterVapourData::b_5 =
     4.550, 24.15
 };
 
-const vector<double> WaterVapourData::b_6 =
+const std::vector<double> WaterVapourData::b_6 =
 {
     1.00, .82, .79, .85, .54, .74, .61, .89, .55, .48, .52, .50, .67, .65,
     .64, .72, .43, .45, 1.00, 1.00, 1.00, .68, .50, 1.00, .84, .45, .84,

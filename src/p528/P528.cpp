@@ -1,4 +1,3 @@
-#include <math.h>
 #include "../../include/p528.h"
 #include "../../include/p676.h"
 

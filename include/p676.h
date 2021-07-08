@@ -1,11 +1,16 @@
+#pragma once
+
 #include <vector>
 #include <algorithm>
+#include <math.h>
 
-using namespace std;
+// Define DLLEXPORT for any platform
+#ifdef _WIN32
+    #define DLLEXPORT extern "C" __declspec(dllexport)
+#else
+    #define DLLEXPORT
+#endif
 
-#define DLLEXPORT extern "C" __declspec(dllexport)
-#define MAX(x, y) (((x) > (y)) ? (x) : (y))
-#define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
 #define PI                                  3.1415926535897932384
 #define a_0__km                             6371.0
@@ -34,25 +39,25 @@ struct RayTraceConfig
 class OxygenData
 {
 public:
-    const static vector<double> f_0;
-    const static vector<double> a_1;
-    const static vector<double> a_2;
-    const static vector<double> a_3;
-    const static vector<double> a_4;
-    const static vector<double> a_5;
-    const static vector<double> a_6;
+    const static std::vector<double> f_0;
+    const static std::vector<double> a_1;
+    const static std::vector<double> a_2;
+    const static std::vector<double> a_3;
+    const static std::vector<double> a_4;
+    const static std::vector<double> a_5;
+    const static std::vector<double> a_6;
 };
 
 class WaterVapourData
 {
 public:
-    const static vector<double> f_0; 
-    const static vector<double> b_1;
-    const static vector<double> b_2;
-    const static vector<double> b_3;
-    const static vector<double> b_4;
-    const static vector<double> b_5;
-    const static vector<double> b_6;
+    const static std::vector<double> f_0; 
+    const static std::vector<double> b_1;
+    const static std::vector<double> b_2;
+    const static std::vector<double> b_3;
+    const static std::vector<double> b_4;
+    const static std::vector<double> b_5;
+    const static std::vector<double> b_6;
 };
 
 double LineShapeFactor(double f__ghz, double f_i__ghz, double delta_f__ghz, double delta);
