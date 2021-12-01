@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+title: 'Recommendation ITU-R P.528-5'
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: William
+    family-names: Kozma
+    name-suffix: Jr
+    email: wkozma@ntia.gov
+    affiliation: The Institute for Telecommunication Sciences
+    orcid: 'https://orcid.org/0000-0002-7417-4009'
+doi: 10.5281/zenodo.5081072
+url: https://github.com/NTIA/p528
+version: 5.0.0

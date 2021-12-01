@@ -2,13 +2,6 @@
 
 /*=============================================================================
  |
- |       Author:  William Kozma Jr
- |                wkozma@ntia.gov
- |                US Dept of Commerce, NTIA/ITS
- |                June 2021 : Geneva Study Group 3 Meetings
- |
- +-----------------------------------------------------------------------------
- |
  |  Description:  This file computes Step 6 in Annex 2, Section 3 of
  |                Recommendation ITU-R P.528-5, "Propagation curves for
  |                aeronautical mobile and radionavigation services using

@@ -7,13 +7,6 @@
 
 /*=============================================================================
  |
- |       Author:  William Kozma Jr
- |                wkozma@ntia.gov
- |                US Dept of Commerce, NTIA/ITS
- |                June 2021 : Geneva Study Group 3 Meetings
- |
- +-----------------------------------------------------------------------------
- |
  |  Description:  This file computes the smooth earth diffraction loss
  |                as described in Annex 2, Section 10 of
  |                Recommendation ITU-R P.528-5, "Propagation curves for

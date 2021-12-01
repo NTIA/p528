@@ -1,11 +1,3 @@
-/*=============================================================================
- |
- |       Author:  William Kozma Jr
- |                wkozma@ntia.gov
- |                US Dept of Commerce, NTIA/ITS
- |                June 2021 : Geneva Study Group 3 Meetings
- |
- *===========================================================================*/
 
 typedef int(__stdcall *p528func)(double d__km, double h_1__meter, double h_2__meter, 
     double f__mhz, int T_pol, double p, struct Result* result);

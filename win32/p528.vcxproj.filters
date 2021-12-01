@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\include\p528.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\p835.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\p676.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="p835">
+      <UniqueIdentifier>{ecc6479b-c9c3-4358-9c1f-e0bcf9a78ba7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="p676">
+      <UniqueIdentifier>{3289e0c4-47b1-47b1-951f-649d93c42c32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="p528">
+      <UniqueIdentifier>{c2028c2e-7b5e-4d32-9700-642d89628e34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{48fe9700-8a6b-4119-9d6f-5c1992648682}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{d21526ec-9c74-44e0-8362-8449e6e4a3e9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="p528.def">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="p528.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\p528\CombineDistributions.cpp">
+      <Filter>p528</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p528\data.cpp">
+      <Filter>p528</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p528\FindKForYpiAt99Percent.cpp">
+      <Filter>p528</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p528\GetPathLoss.cpp">
+      <Filter>p528</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p528\InverseComplementaryCumulativeDistributionFunction.cpp">
+      <Filter>p528</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p528\LinearInterpolation.cpp">
+      <Filter>p528</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p528\LineOfSight.cpp">
+      <Filter>p528</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p528\LongTermVariability.cpp">
+      <Filter>p528</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p528\NakagamiRice.cpp">
+      <Filter>p528</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p528\P528.cpp">
+      <Filter>p528</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p528\RayOptics.cpp">
+      <Filter>p528</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p528\ReflectionCoefficients.cpp">
+      <Filter>p528</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p528\SmoothEarthDiffraction.cpp">
+      <Filter>p528</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p528\TerminalGeometry.cpp">
+      <Filter>p528</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p528\TranshorizonSearch.cpp">
+      <Filter>p528</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p528\Troposcatter.cpp">
+      <Filter>p528</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p528\ValidateInputs.cpp">
+      <Filter>p528</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p835\Conversions.cpp">
+      <Filter>p835</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p835\MeanAnnualGlobalReferenceAtmosphere.cpp">
+      <Filter>p835</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p676\GlobalWetPressure.cpp">
+      <Filter>p676</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p676\LineShapeFactor.cpp">
+      <Filter>p676</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p676\NonresonantDebyeAttenuation.cpp">
+      <Filter>p676</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p676\OxygenData.cpp">
+      <Filter>p676</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p676\RayTrace.cpp">
+      <Filter>p676</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p676\RefractiveIndex.cpp">
+      <Filter>p676</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p676\Refractivity.cpp">
+      <Filter>p676</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p676\SlantPath.cpp">
+      <Filter>p676</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p676\SpecificAttenuation.cpp">
+      <Filter>p676</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p676\TerrestrialPath.cpp">
+      <Filter>p676</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p676\WaterVapourData.cpp">
+      <Filter>p676</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\p676\WaterVapourDensityToPartialPressure.cpp">
+      <Filter>p676</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

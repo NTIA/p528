@@ -1,14 +1,5 @@
 #include "../../include/p676.h"
 
-/*=============================================================================
- |
- |       Author:  William Kozma Jr
- |                wkozma@ntia.gov
- |                US Dept of Commerce, NTIA/ITS
- |                June 2021 : Geneva Study Group 3 Meetings
- |
- *===========================================================================*/
-
 // Spectroscopic data for oxygen attenuation (Table 1)
 
 // 
