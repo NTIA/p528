@@ -20,12 +20,14 @@
  |                A_d0              - Intercept of the diffraction line
  |                d_crx__km         - Final search distance, in km
  |                CASE              - Case as defined in Step 6.5
+ |                warnings          - Warning codes
  |
- |      Returns:  rtn               - SUCCESS or warning code
+ |      Returns:  [void]
  |
  *===========================================================================*/
-int TranshorizonSearch(Path* path, Terminal *terminal_1, Terminal *terminal_2, double f__mhz,
-    double A_dML__db, double *M_d, double *A_d0, double* d_crx__km, int *CASE)
+void TranshorizonSearch(Path* path, Terminal *terminal_1, Terminal *terminal_2, 
+    double f__mhz, double A_dML__db, double *M_d, double *A_d0, 
+    double* d_crx__km, int *CASE, int *warnings)
 {
     *CASE = CONST_MODE__SEARCH;
     int k = 0;
@@ -88,7 +90,7 @@ int TranshorizonSearch(Path* path, Terminal *terminal_1, Terminal *terminal_2, d
                 *CASE = CASE_2;
             }
 
-            return SUCCESS;
+            return;
         }
 
         d_search__km[1] = d_search__km[0];
@@ -99,5 +101,5 @@ int TranshorizonSearch(Path* path, Terminal *terminal_1, Terminal *terminal_2, d
     *CASE = CONST_MODE__DIFFRACTION;
     *d_crx__km = d_search__km[1];
 
-    return WARNING__DFRAC_TROPO_REGION;
+    *warnings |= WARNING__DFRAC_TROPO_REGION;
 }

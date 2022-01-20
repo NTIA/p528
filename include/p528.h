@@ -50,7 +50,16 @@ using namespace std;
 #define ERROR_VALIDATION__PERCENT_HIGH      8
 #define ERROR_VALIDATION__POLARIZATION      9
 #define ERROR_HEIGHT_AND_DISTANCE           10
-#define WARNING__DFRAC_TROPO_REGION         20
+#define SUCCESS_WITH_WARNINGS               11
+
+//
+// WARNINGS
+///////////////////////////////////////////////
+
+#define WARNING__NO_WARNINGS                0x00
+#define WARNING__DFRAC_TROPO_REGION         0x01
+#define WARNING__HEIGHT_LIMIT_H_1           0x02
+#define WARNING__HEIGHT_LIMIT_H_2           0x04
 
 //
 // CLASSES
@@ -141,6 +150,7 @@ struct TroposcatterParams
 
 struct Result {
     int propagation_mode;       // Mode of propagation
+    int warnings;               // Warning messages
 
     double d__km;               // Path distance used in calculations
     double A__db;               // Total loss
@@ -159,9 +169,11 @@ void GetPathLoss(double psi, Path *path, double f__mhz, double psi_limit,
     double A_dML__db, double A_d_0__db, int T_pol, LineOfSightParams* params, double *R_Tg);
 void RayOptics(Terminal *terminal_1, Terminal *terminal_2, double psi, LineOfSightParams *result);
 void TerminalGeometry(double f__mhz, Terminal *terminal);
-void Troposcatter(Path *path, Terminal *terminal_1, Terminal *terminal_2, double d__km, double f__mhz, TroposcatterParams *tropo_params);
-int TranshorizonSearch(Path* path, Terminal *terminal_1, Terminal *terminal_2, double f__mhz,
-    double A_dML__db, double *M_d, double *A_d0, double* d_crx__km, int* MODE);
+void Troposcatter(Path *path, Terminal *terminal_1, Terminal *terminal_2, 
+    double d__km, double f__mhz, TroposcatterParams *tropo_params);
+void TranshorizonSearch(Path* path, Terminal *terminal_1, Terminal *terminal_2, 
+    double f__mhz, double A_dML__db, double *M_d, double *A_d0, 
+    double* d_crx__km, int* MODE, int* warnings);
 double LinearInterpolation(double x1, double y1, double x2, double y2, double x);
 void ReflectionCoefficients(double psi, double f__mhz, int T_pol, double* R_g, double* phi_g);
 void LineOfSight(Path* path, Terminal* terminal_1, Terminal* terminal_2, LineOfSightParams* los_params, double f__mhz, double A_dML__db,
@@ -171,7 +183,8 @@ double InverseComplementaryCumulativeDistributionFunction(double q);
 void LongTermVariability(double d_r1__km, double d_r2__km, double d__km, double f__mhz, double time_percentage, 
     double f_theta_h, double PL, double *Y_e__db, double *A_Y);
 double CombineDistributions(double A_M, double A_i, double B_M, double B_i, double p);
-int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, double f__mhz, int T_pol, double p);
+int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, double f__mhz, 
+    int T_pol, double p, int* warnings);
 
 
 // Public Functions
