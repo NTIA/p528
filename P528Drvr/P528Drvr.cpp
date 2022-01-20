@@ -279,7 +279,7 @@ int CallP528_POINT(DrvrParams* params) {
         else {
             printf_s("Free Space Loss (dB): %.3f\n", result.A_fs__db);
             printf_s("Basic Transmission Loss (dB): %.3f\n", result.A__db);
-            printf_s("Warning Code: 0x%x\n", result.warnings);
+            printf_s("Warning Flags: 0x%x\n", result.warnings);
         }
     }
     else {
@@ -312,7 +312,7 @@ int CallP528_POINT(DrvrParams* params) {
                 fprintf_s(fp, "Free Space Loss (dB),%.3f\n", result.A_fs__db);
                 fprintf_s(fp, "Basic Transmission Loss (dB),%.3f\n", result.A__db);
                 fprintf_s(fp, "DLL Return Code,%i\n", rtn);
-                fprintf_s(fp, "Warning Code,0x%x\n", result.warnings);
+                fprintf_s(fp, "Warning Flags,0x%x\n", result.warnings);
             }
 
             fclose(fp);

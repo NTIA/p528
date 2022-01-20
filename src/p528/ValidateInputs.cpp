@@ -13,7 +13,7 @@
  |                                      + 1 : POLARIZATION__VERTICAL
  |                p	                - Time percentage
  |
- |       Output:  warnings          - Warning codes
+ |       Output:  warnings          - Warning flags
  |
  |      Returns:  SUCCESS, or validation error code
  |

@@ -20,7 +20,7 @@
  |                A_d0              - Intercept of the diffraction line
  |                d_crx__km         - Final search distance, in km
  |                CASE              - Case as defined in Step 6.5
- |                warnings          - Warning codes
+ |                warnings          - Warning flags
  |
  |      Returns:  [void]
  |
