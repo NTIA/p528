@@ -189,6 +189,7 @@ int CallP528_CURVE(DrvrParams* params) {
 
     double A__dbs[CURVE_POINTS];
     double A_fs__dbs[CURVE_POINTS];
+    int warnings[CURVE_POINTS];
 
     // Gather data points
     for (int d__km = 0; d__km < CURVE_POINTS; d__km++) {
@@ -196,8 +197,9 @@ int CallP528_CURVE(DrvrParams* params) {
 
         A__dbs[d__km] = result.A__db;
         A_fs__dbs[d__km] = result.A_fs__db;
+        warnings[d__km] = result.warnings;
 
-        if (rtn != SUCCESS && rtn != WARNING__DFRAC_TROPO_REGION)
+        if (rtn != SUCCESS && rtn != SUCCESS_WITH_WARNINGS)
             break;
     }
 
@@ -221,7 +223,7 @@ int CallP528_CURVE(DrvrParams* params) {
         fprintf_s(fp, "T_pol,%i\n", params->T_pol);
         fprintf_s(fp, "\n");
 
-        if (rtn != SUCCESS && rtn != WARNING__DFRAC_TROPO_REGION) {
+        if (rtn != SUCCESS && rtn != SUCCESS_WITH_WARNINGS) {
             fprintf_s(fp, "P.528 returned error,%i\n", rtn);
         }
         else {
@@ -240,6 +242,11 @@ int CallP528_CURVE(DrvrParams* params) {
             fprintf_s(fp, "Basic Transmission Loss (dB),%.3f", A__dbs[0]);
             for (int i = 1; i < CURVE_POINTS; i++)
                 fprintf_s(fp, ",%.3f", A__dbs[i]);
+            fprintf_s(fp, "\n");
+
+            fprintf_s(fp, "Warnings,0x%x", warnings[0]);
+            for (int i = 1; i < CURVE_POINTS; i++)
+                fprintf_s(fp, ",0x%x", warnings[i]);
             fprintf_s(fp, "\n");
         }
 
@@ -266,12 +273,13 @@ int CallP528_POINT(DrvrParams* params) {
     if (params->mode == MODE_POINT && strlen(params->out_file) == 0)
     {
         // Don't write to a file - print to screen instead
-        if (rtn != SUCCESS && rtn != WARNING__DFRAC_TROPO_REGION) {
+        if (rtn != SUCCESS && rtn != SUCCESS_WITH_WARNINGS) {
             printf_s("P.528 Returned Error Code: %i\n", rtn);
         }
         else {
             printf_s("Free Space Loss (dB): %.3f\n", result.A_fs__db);
             printf_s("Basic Transmission Loss (dB): %.3f\n", result.A__db);
+            printf_s("Warning Code: 0x%x\n", result.warnings);
         }
     }
     else {
@@ -296,7 +304,7 @@ int CallP528_POINT(DrvrParams* params) {
             fprintf_s(fp, "T_pol,%i\n", params->T_pol);
             fprintf_s(fp, "\n");
 
-            if (rtn != SUCCESS && rtn != WARNING__DFRAC_TROPO_REGION) {
+            if (rtn != SUCCESS && rtn != SUCCESS_WITH_WARNINGS) {
                 fprintf_s(fp, "P.528 returned error,%i\n", rtn);
             }
             else {
@@ -304,6 +312,7 @@ int CallP528_POINT(DrvrParams* params) {
                 fprintf_s(fp, "Free Space Loss (dB),%.3f\n", result.A_fs__db);
                 fprintf_s(fp, "Basic Transmission Loss (dB),%.3f\n", result.A__db);
                 fprintf_s(fp, "DLL Return Code,%i\n", rtn);
+                fprintf_s(fp, "Warning Code,0x%x\n", result.warnings);
             }
 
             fclose(fp);
