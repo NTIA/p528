@@ -68,6 +68,11 @@ namespace ITS.Propagation
             /// Elevation angle of the ray at the low terminal, in rad
             /// </summary>
             public double theta_h1__rad;
+
+            /// <summary>
+            /// Warning flags
+            /// </summary>
+            public int warnings;
         }
     }
 }
