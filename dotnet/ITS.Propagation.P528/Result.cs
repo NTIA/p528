@@ -45,6 +45,11 @@ namespace ITS.Propagation
             public ModeOfPropagation ModeOfPropagation;
 
             /// <summary>
+            /// Warning flags
+            /// </summary>
+            public int warnings;
+
+            /// <summary>
             /// Path distance used in calculations, in km
             /// </summary>
             public double d__km;
