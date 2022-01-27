@@ -33,7 +33,7 @@ Outputs to P.528 are contained within a defined `Results` structure.
 
 ## Error Codes and Warning Flags ##
 
-P.528 supports a defined list of error codes and warning flags.  A complete list can be found [here](ERRORS_AND_WARNINGS).
+P.528 supports a defined list of error codes and warning flags.  A complete list can be found [here](ERRORS_AND_WARNINGS.md).
 
 ## Example Values ##
 
