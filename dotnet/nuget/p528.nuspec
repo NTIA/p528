@@ -14,17 +14,17 @@
     <tags>ITU SG3 Propagation P528 P.528</tags>
     <repository type="git" url="https://github.com/NTIA/p528.git" branch="master"/>
     <dependencies>
-      <group targetFramework=".NETFramework4.7.2" />
+      <group targetFramework=".NETFramework4.8" />
     </dependencies>
   </metadata>
   <files>
     <file src="..\..\LICENSE.md" target=""/>
     <file src="build\native\p528_x64.dll" target="build\native\p528_x64.dll"/>
     <file src="build\native\p528_x86.dll" target="build\native\p528_x86.dll"/>
-    <file src="build\net472\p528.targets" target="build\net472\p528.targets"/>
-    <file src="lib\net472\ITS.Propagation.P528.dll" target="lib\net472\ITS.Propagation.P528.dll"/>
-    <file src="lib\net472\ITS.Propagation.P528.pdb" target="lib\net472\ITS.Propagation.P528.pdb"/>
-    <file src="lib\net472\ITS.Propagation.P528.xml" target="lib\net472\ITS.Propagation.P528.xml"/>
+    <file src="build\net48\p528.targets" target="build\net48\p528.targets"/>
+    <file src="lib\net48\ITS.Propagation.P528.dll" target="lib\net48\ITS.Propagation.P528.dll"/>
+    <file src="lib\net48\ITS.Propagation.P528.pdb" target="lib\net48\ITS.Propagation.P528.pdb"/>
+    <file src="lib\net48\ITS.Propagation.P528.xml" target="lib\net48\ITS.Propagation.P528.xml"/>
 	<file src="images\itslogo.png" target="images\itslogo.png"/>
   </files>
 </package>
