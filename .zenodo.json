@@ -1,0 +1,17 @@
+{
+    "creators": [
+        {   
+            "orcid": "0000-0002-7417-4009",
+            "affiliation": "The Institute for Telecommunication Sciences",
+            "name": "Kozma Jr, William"
+        }
+    ],
+
+    "title": "Recommendation ITU-R P.528-5, Release 5.1",
+
+    "upload_type": "software",
+
+    "version": "5.1.0",
+
+    "keywords": ["Study Group 3", "ITU-R", "P528"]
+}
