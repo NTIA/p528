@@ -29,26 +29,11 @@ Outputs to P.528 are contained within a defined `Results` structure.
 | `A_a__db`  | double | dB    | Median atmospheric absorption loss |
 | `theta_h1__rad` | double | rad | Elevation angle of the ray at the low terminal |
 | `propagation_mode` | int |  | Mode of propagation <ul><li>1 = Line of Sight</li><li>2 = Diffraction</li><li>3 = Troposcatter</li></ul> |
+| `warnings` | int    |       | Warning flags |
 
-## Return Codes ##
+## Error Codes and Warning Flags ##
 
-Possible return codes, including the corresponding defined constant name as defined in `p528.h`:
-
-| Value | Const Name                       | Description  |
-| ------|----------------------------------|--------------|
-|     0 | `SUCCESS`                        | Successful execution |
-|     1 | `ERROR_VALIDATION__D_KM`         | Path distance must be >= 0 km |
-|     2 | `ERROR_VALIDATION__H_1`          | Low terminal height must be >= 1.5 meters |
-|     3 | `ERROR_VALIDATION__H_2`          | High terminal height must be >= 1.5 meters |
-|     4 | `ERROR_VALIDATION__TERM_GEO`     | Low terminal must be <= high terminal height |
-|     5 | `ERROR_VALIDATION__F_MHZ_LOW`    | Frequency must be >= 100 MHz |
-|     6 | `ERROR_VALIDATION__F_MHZ_HIGH`   | Frequency must be <= 30 000 MHz |
-|     7 | `ERROR_VALIDATION__PERCENT_LOW`  | Time percentage must be >= 1 |
-|     8 | `ERROR_VALIDATION__PERCENT_HIGH` | Time percentage must be <= 99 |
-|    10 | `ERROR_HEIGHT_AND_DISTANCE`      | Terminals are occupying the same point in space (they are the same height and 0 km apart) |
-| 0xFF1 | `WARNING__DFRAC_TROPO_REGION`    | Warning that the diffraction and troposcatter model may not be physically consistent with each other. Caution should be taken when using the result |
-
-Note: Return codes over 0xFF0 signify warnings occured in the calculation.  Use bitwise OR operations to diagnosis, as more than one warning could be possible.
+P.528 supports a defined list of error codes and warning flags.  A complete list can be found [here](ERRORS_AND_WARNINGS.md).
 
 ## Example Values ##
 
@@ -75,7 +60,7 @@ The software is designed to be built into a DLL (or corresponding library for no
 
 ### C#/.NET Wrapper Software
 
-The .NET support of P.528 consists of a simple pass-through wrapper around the native DLL.  It is compiled to target .NET Framework 4.7.2.  Distribution and updates are provided through the published [NuGet package](https://github.com/NTIA/p528/packages).
+The .NET support of P.528 consists of a simple pass-through wrapper around the native DLL.  It is compiled to target .NET Framework 4.8.  Distribution and updates are provided through the published [NuGet package](https://github.com/NTIA/p528/packages).
 
 ## References ##
 

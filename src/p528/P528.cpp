@@ -45,8 +45,9 @@ int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
     result->d__km = 0;
     result->theta_h1__rad = 0;
     result->propagation_mode = PROP_MODE__NOT_SET;
+    result->warnings = WARNING__NO_WARNINGS;
 
-    int err = ValidateInputs(d__km, h_1__meter, h_2__meter, f__mhz, T_pol, p);
+    int err = ValidateInputs(d__km, h_1__meter, h_2__meter, f__mhz, T_pol, p, &result->warnings);
     if (err != SUCCESS)
     {
         if (err == ERROR_HEIGHT_AND_DISTANCE)
@@ -112,7 +113,10 @@ int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
         result->propagation_mode = PROP_MODE__LOS;
         LineOfSight(path, terminal_1, terminal_2, los_params, f__mhz, -A_dML__db, p, d__km, T_pol, result, &K_LOS);
 
-        return SUCCESS;
+        if (result->warnings == WARNING__NO_WARNINGS)
+            return SUCCESS;
+        else
+            return SUCCESS_WITH_WARNINGS;
     }
     else
     {
@@ -122,7 +126,7 @@ int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
         // Step 6.  Search past horizon to find crossover point between Diffraction and Troposcatter models
         int CASE;
         double d_crx__km;
-        int rtn = TranshorizonSearch(path, terminal_1, terminal_2, f__mhz, A_dML__db, &M_d, &A_d0, &d_crx__km, &CASE);
+        TranshorizonSearch(path, terminal_1, terminal_2, f__mhz, A_dML__db, &M_d, &A_d0, &d_crx__km, &CASE, &result->warnings);
 
         /////////////////////////////////////////////
         // Compute terrain attenuation, A_T__db
@@ -229,6 +233,9 @@ int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
         result->A__db = result->A_fs__db + result->A_a__db + A_T__db - Y_total__db;     // [Eqn 3-20]
         result->theta_h1__rad = -terminal_1->theta__rad;
 
-        return rtn;
+        if (result->warnings == WARNING__NO_WARNINGS)
+            return SUCCESS;
+        else
+            return SUCCESS_WITH_WARNINGS;
     }
 }

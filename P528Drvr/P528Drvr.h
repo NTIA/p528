@@ -19,7 +19,7 @@ typedef int(__stdcall *p528func)(double d__km, double h_1__meter, double h_2__me
 
 #define     NOT_SET                                 -1
 #define     SUCCESS                                 0
-#define     WARNING__DFRAC_TROPO_REGION             20
+#define     SUCCESS_WITH_WARNINGS                   11
 #define     DRVR__RETURN_SUCCESS                    1000
 
 #define     DRVRERR__UNKNOWN                        1001
@@ -46,11 +46,21 @@ typedef int(__stdcall *p528func)(double d__km, double h_1__meter, double h_2__me
 #define     DRVRERR__VALIDATION_TPOL                1107
 
 //
+// WARNINGS
+///////////////////////////////////////////////
+
+#define WARNING__NO_WARNINGS                0x00
+#define WARNING__DFRAC_TROPO_REGION         0x01
+#define WARNING__HEIGHT_LIMIT_H_1           0x02
+#define WARNING__HEIGHT_LIMIT_H_2           0x04
+
+//
 // DATA STRUCTURES
 ///////////////////////////////////////////////
 
 struct Result {
     int propagation_mode;       // Mode of propagation
+    int warnings;               // Warning messages
 
     double d__km;               // Path distance used in calculations
     double A__db;               // Total loss
