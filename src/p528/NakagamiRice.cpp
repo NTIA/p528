@@ -44,7 +44,7 @@ double NakagamiRice(double K, double p)
             double v1 = LinearInterpolation(data::K[d_K], data::NakagamiRiceCurves[d_K][d_p],
                 data::K[d_K - 1], data::NakagamiRiceCurves[d_K - 1][d_p], K);
             double v2 = LinearInterpolation(data::K[d_K], data::NakagamiRiceCurves[d_K][d_p - 1],
-                data::K[d_K - 1], data::NakagamiRiceCurves[d_K - 1][d_p] - 1, K);
+                data::K[d_K - 1], data::NakagamiRiceCurves[d_K - 1][d_p - 1], K);
 
             return LinearInterpolation(data::P[d_p], v1, data::P[d_p - 1], v2, p);
         }
