@@ -3,8 +3,14 @@
 
 using namespace std;
 
+#ifdef __linux__
+#include <math.h>
+#define DLLEXPORT __attribute__((visibility("default")))
+#else
 #define DLLEXPORT extern "C" __declspec(dllexport)
-#define MAX(x, y) (((x) > (y)) ? (x) : (y))
+#endif 
+
+#define MAX(x, y)(((x) > (y)) ? (x) : (y))
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
 #define PI                                  3.1415926535897932384

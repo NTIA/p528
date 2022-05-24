@@ -1,5 +1,10 @@
+#ifdef __linux__
+#define DLLEXPORT __attribute__((visibility("default")))
+#else
 #define DLLEXPORT extern "C" __declspec(dllexport)
-#define MAX(x, y) (((x) > (y)) ? (x) : (y))
+#endif 
+
+#define MAX(x, y)(((x) > (y)) ? (x) : (y))
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
 //
