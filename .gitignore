@@ -47,3 +47,4 @@ Thumbs.db
 [Bb]uild_[Rr]elease_lib/
 libs/
 wasm/dist/
+node_modules/
