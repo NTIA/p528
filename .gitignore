@@ -42,5 +42,8 @@ Thumbs.db
 **/x64
 **/x86
 [Bb]uild_[Dd]ebug/
+[Bb]uild_[Dd]ebug_lib/
 [Bb]uild_[Rr]elease/
+[Bb]uild_[Rr]elease_lib/
 libs/
+wasm/dist/
