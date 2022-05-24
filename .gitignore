@@ -41,3 +41,6 @@ Thumbs.db
 **/obj
 **/x64
 **/x86
+[Bb]uild_[Dd]ebug/
+[Bb]uild_[Rr]elease/
+libs/
