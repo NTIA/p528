@@ -21,10 +21,10 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 message(STATUS "EMSCRIPTEN_VERSION: " ${EMSCRIPTEN_VERSION})
 add_definitions(-std=gnu++17)
 if(USE_DEBUG)
-  add_definitions(-DDEBUG -gsource-map -O0 -fdeclspec)
+  add_definitions(-pthread -DDEBUG -gsource-map -O0 -fdeclspec)
   set(BUILD_OUTPUT_DIRECTORY "debug")
 else()
-  add_definitions(-O3 -s DISABLE_EXCEPTION_CATCHING=1 -fdeclspec)
+  add_definitions(-pthread -O3 -s DISABLE_EXCEPTION_CATCHING=1 -fdeclspec)
   set(BUILD_OUTPUT_DIRECTORY "release")
 endif()
 
@@ -49,6 +49,11 @@ if(USE_DEBUG)
     PROPERTIES
       LINK_FLAGS
       "-L../../libs/debug/wasm \
+      -s ENVIRONMENT=worker,web,node \
+      -s USE_PTHREADS=1 \
+      -s EXIT_RUNTIME=1 \
+      -s PTHREAD_POOL_SIZE=\"_emscripten_num_logical_cores() + 3\" \
+      -s INITIAL_MEMORY=100mb \
        -s EXPORTED_RUNTIME_METHODS='[ccall]'"
   )
 else()
@@ -58,6 +63,11 @@ else()
     PROPERTIES
       LINK_FLAGS
       "-L../../libs/release/wasm \
+      -s ENVIRONMENT=worker,web,node \
+      -s USE_PTHREADS=1 \
+      -s EXIT_RUNTIME=1 \
+      -s PTHREAD_POOL_SIZE=\"_emscripten_num_logical_cores() + 3\" \
+      -s INITIAL_MEMORY=100mb \
        -s EXPORTED_RUNTIME_METHODS='[ccall]'"
   )
 endif()
