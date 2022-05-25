@@ -1,8 +1,10 @@
-#ifdef __linux__
-#define DLLEXPORT __attribute__((visibility("default")))
+#if defined(__linux__)
+#  define DLLEXPORT __attribute__((visibility("default")))
+#elif defined(__EMSCRIPTEN__)
+#  define DLLEXPORT
 #else
-#define DLLEXPORT extern "C" __declspec(dllexport)
-#endif 
+#  define DLLEXPORT extern "C" __declspec(dllexport)
+#endif
 
 #define MAX(x, y)(((x) > (y)) ? (x) : (y))
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
