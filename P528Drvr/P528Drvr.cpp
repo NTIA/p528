@@ -70,7 +70,7 @@ int main(int argc, char** argv) {
         break;
     case MODE_VERSION:
         printf_s("*******************************************************\n");
-        printf_s("Institute for Telecommunications Sciences - Boulder, CO\n");
+        printf_s("Institute for Telecommunication Sciences - Boulder, CO\n");
         printf_s("\tP.528 Driver Version: %i.%i\n", drvrVerMajor, drvrVerMinor);
         printf_s("\tP.528 DLL Version: %i.%i\n", dllVerMajor, dllVerMinor);
         wprintf_s(L"Time: %s", buf);
