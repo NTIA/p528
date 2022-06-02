@@ -7,11 +7,11 @@
         }
     ],
 
-    "title": "Recommendation ITU-R P.528-5, Release 5.1",
+    "title": "Recommendation ITU-R P.528-5, Release 5.2",
 
     "upload_type": "software",
 
-    "version": "5.1.0",
+    "version": "5.2.0",
 
     "keywords": ["Study Group 3", "ITU-R", "P528"]
 }
