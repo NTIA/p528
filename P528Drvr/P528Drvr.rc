@@ -51,8 +51,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 5,1,0,0
- PRODUCTVERSION 5,1,0,0
+ FILEVERSION 5,2,0,0
+ PRODUCTVERSION 5,2,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -69,11 +69,11 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "The Institute for Telecommunication Sciences"
             VALUE "FileDescription", "Recommendation ITU-R P.528-5 Driver"
-            VALUE "FileVersion", "5.1.0.0"
+            VALUE "FileVersion", "5.2.0.0"
             VALUE "InternalName", "P528Drvr.exe"
             VALUE "OriginalFilename", "P528Drvr.exe"
             VALUE "ProductName", "Recommendation ITU-R P.528-5 Driver"
-            VALUE "ProductVersion", "5.1.0.0"
+            VALUE "ProductVersion", "5.2.0.0"
         END
     END
     BLOCK "VarFileInfo"
