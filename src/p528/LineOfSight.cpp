@@ -1,8 +1,7 @@
-#include <math.h>
 #include "../../include/p528.h"
 #include "../../include/p676.h"
 
-double FindPsiAtDistance(double d__km, Path *path, Terminal *terminal_1, Terminal *terminal_2)
+double FindPsiAtDistance(double d__km, Path * /*path*/, Terminal *terminal_1, Terminal *terminal_2)
 {
     if (d__km == 0)
         return PI / 2;
@@ -33,7 +32,7 @@ double FindPsiAtDistance(double d__km, Path *path, Terminal *terminal_1, Termina
     return psi;
 }
 
-double FindPsiAtDeltaR(double delta_r__km, Path *path, Terminal *terminal_1, Terminal *terminal_2, double terminate)
+double FindPsiAtDeltaR(double delta_r__km, Path * /*path*/, Terminal *terminal_1, Terminal *terminal_2, double terminate)
 {
     double psi = PI / 2;
     double delta_psi = -PI / 4;
@@ -55,7 +54,7 @@ double FindPsiAtDeltaR(double delta_r__km, Path *path, Terminal *terminal_1, Ter
     return psi;
 }
 
-double FindDistanceAtDeltaR(double delta_r__km, Path *path, Terminal *terminal_1, Terminal *terminal_2, double terminate)
+double FindDistanceAtDeltaR(double delta_r__km, Path * /*path*/, Terminal *terminal_1, Terminal *terminal_2, double terminate)
 {
     double psi = PI / 2;
     double delta_psi = -PI / 4;
@@ -228,7 +227,7 @@ void LineOfSight(Path *path, Terminal *terminal_1, Terminal *terminal_2, LineOfS
     else if (los_params->theta_h1__rad >= 1.0)
         f_theta_h = 0.0;
     else
-        f_theta_h = MAX(0.5 - (1 / PI) * (atan(20.0 * log10(32.0 * los_params->theta_h1__rad))), 0);
+        f_theta_h = std::max(0.5 - (1 / PI) * (atan(20.0 * log10(32.0 * los_params->theta_h1__rad))), 0.0);
 
     double Y_e__db, Y_e_50__db, A_Y;
     LongTermVariability(terminal_1->d_r__km, terminal_2->d_r__km, d__km, f__mhz, p, f_theta_h, los_params->A_LOS__db, &Y_e__db, &A_Y);

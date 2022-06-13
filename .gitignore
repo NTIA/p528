@@ -44,3 +44,7 @@ Thumbs.db
 **/obj
 **/x64
 **/x86
+
+[Bb]uild/
+CMakeSettings.json
+settings.json

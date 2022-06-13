@@ -1,4 +1,3 @@
-#include <math.h>
 #include "../../include/p528.h"
 
 /*=============================================================================
@@ -47,10 +46,10 @@ void RayOptics(Terminal *terminal_1, Terminal *terminal_2, double psi, LineOfSig
 
     double delta_z = abs(params->z__km[0] - params->z__km[1]);   // [Eqn 7-10]
 
-    params->d__km = MAX(params->a_a__km * (params->theta[0] + params->theta[1]), 0);  // [Eqn 7-11]
+    params->d__km = std::max(params->a_a__km * (params->theta[0] + params->theta[1]), 0.0);  // [Eqn 7-11]
 
     double alpha = atan((Hprime__km[1] - Hprime__km[0]) / (params->D__km[0] + params->D__km[1]));  // [Eqn 7-12]
-    params->r_0__km = MAX(delta_z, (params->D__km[0] + params->D__km[1]) / cos(alpha));            // [Eqn 7-13]
+    params->r_0__km = std::max(delta_z, (params->D__km[0] + params->D__km[1]) / cos(alpha));            // [Eqn 7-13]
     params->r_12__km = (params->D__km[0] + params->D__km[1]) / cos(psi);                           // [Eqn 7-14]
 
     params->delta_r__km = 4.0 * Hprime__km[0] * Hprime__km[1] / (params->r_0__km + params->r_12__km);  // [Eqn 7-15]

@@ -1,6 +1,14 @@
-#define DLLEXPORT extern "C" __declspec(dllexport)
-#define MAX(x, y) (((x) > (y)) ? (x) : (y))
-#define MIN(x, y) (((x) < (y)) ? (x) : (y))
+#pragma once
+
+#include <math.h>
+
+// Define DLLEXPORT for any platform
+#ifdef _WIN32
+    #define DLLEXPORT extern "C" __declspec(dllexport)
+#else
+    #define DLLEXPORT
+#endif
+
 
 //
 // CONSTANTS

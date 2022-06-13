@@ -1,4 +1,3 @@
-#include <math.h>
 #include "../../include/p528.h"
 
 /*=============================================================================
@@ -94,8 +93,8 @@ void LongTermVariability(double d_r1__km, double d_r2__km, double d__km, double 
         else
         {
             // Source for values p < 10: [15], Table 10, Page 34, Climate 6
-            vector<double> ps = { 1, 2, 5, 10 };
-            vector<double> c_ps = { 1.9507, 1.7166, 1.3265, 1.0000 };
+            std::vector<double> ps = { 1, 2, 5, 10 };
+            std::vector<double> c_ps = { 1.9507, 1.7166, 1.3265, 1.0000 };
 
             auto upper = upper_bound(data::P.begin(), data::P.end(), p);
             auto dist = distance(data::P.begin(), upper);
@@ -114,7 +113,7 @@ void LongTermVariability(double d_r1__km, double d_r2__km, double d__km, double 
     //      amount when the variability about L_b(50) is large and L_b(50) is near its free-space level" [ES-83-3, p3-4]
 
     double A_YI = (A_T + Y_eI_10__db) - 3.0;        // [Eqn 14-23]
-    *A_Y = MAX(A_YI, 0);                            // [Eqn 14-24]
+    *A_Y = std::max(A_YI, 0.0);                            // [Eqn 14-24]
     *Y_e__db = Y_eI__db - *A_Y;                     // [Eqn 14-25]
 
     // For percentages less than 10%, do a correction check to, 
@@ -122,7 +121,7 @@ void LongTermVariability(double d_r1__km, double d_r2__km, double d__km, double 
     //     by unrealistic amounts" [Gierhart 1970]
     if (p < 10)
     {
-        vector<double> c_Y = { -5.0, -4.5, -3.7, 0.0 };
+        std::vector<double> c_Y = { -5.0, -4.5, -3.7, 0.0 };
 
         auto upper = upper_bound(data::P.begin(), data::P.end(), p);
         auto dist = distance(data::P.begin(), upper);

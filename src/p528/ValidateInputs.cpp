@@ -21,8 +21,6 @@
 int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, 
     double f__mhz, int T_pol, double p, int* warnings)
 {
-    int rtn = SUCCESS;
-
     if (d__km < 0)
         return ERROR_VALIDATION__D_KM;
 

@@ -3,7 +3,7 @@
 // Spectroscopic data for oxygen attenuation (Table 1)
 
 // 
-const vector<double> OxygenData::f_0 =
+const std::vector<double> OxygenData::f_0 =
 {
      50.474214,  50.987745,  51.503360,  52.021429,  52.542418,  53.066934,  53.595775,
      54.130025,  54.671180,  55.221384,  55.783815,  56.264774,  56.363399,  56.968211,
@@ -14,7 +14,7 @@ const vector<double> OxygenData::f_0 =
     715.392902, 773.839490, 834.145546
 };
 
-const vector<double> OxygenData::a_1 =
+const std::vector<double> OxygenData::a_1 =
 {
        0.975,    2.529,    6.193,   14.320,   31.240,   64.290,  124.600,  227.300,
      389.700,  627.100,  945.300,  543.400, 1331.800, 1746.600, 2120.100, 2363.700,
@@ -24,7 +24,7 @@ const vector<double> OxygenData::a_1 =
      237.400,   98.100,  572.300,  183.100
 };
 
-const vector<double> OxygenData::a_2 =
+const std::vector<double> OxygenData::a_2 =
 {
     9.651, 8.653, 7.709, 6.819, 5.983, 5.201, 4.474, 3.800, 3.182, 2.618, 2.109,
     0.014, 1.654, 1.255, 0.910, 0.621, 0.083, 0.387, 0.207, 0.207, 0.386, 0.621,
@@ -32,7 +32,7 @@ const vector<double> OxygenData::a_2 =
     6.818, 7.708, 8.652, 9.650, 0.010, 0.048, 0.044, 0.049, 0.145, 0.141, 0.145
 };
 
-const vector<double> OxygenData::a_3 =
+const std::vector<double> OxygenData::a_3 =
 {
      6.690,  7.170,  7.640,  8.110,  8.580,  9.060,  9.550,  9.960, 10.370,
     10.890, 11.340, 17.030, 11.890, 12.230, 12.620, 12.950, 14.910, 13.530,
@@ -41,7 +41,7 @@ const vector<double> OxygenData::a_3 =
      6.690, 16.640, 16.400, 16.400, 16.000, 16.000, 16.200, 14.700
 };
 
-const vector<double> OxygenData::a_4 =
+const std::vector<double> OxygenData::a_4 =
 {
     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -49,7 +49,7 @@ const vector<double> OxygenData::a_4 =
     0.0, 0.0
 };
 
-const vector<double> OxygenData::a_5 =
+const std::vector<double> OxygenData::a_5 =
 {
      2.566,  2.246,  1.947,  1.667,  1.388,  1.349,  2.227,  3.170,  3.558,  2.560,
     -1.172,  3.525, -2.378, -3.545, -5.416, -1.932,  6.768, -6.561,  6.957, -6.395,
@@ -58,7 +58,7 @@ const vector<double> OxygenData::a_5 =
      0.000,  0.000,  0.000,  0.000
 };
 
-const vector<double> OxygenData::a_6 =
+const std::vector<double> OxygenData::a_6 =
 {
      6.850,  6.800,  6.729,  6.640,  6.526,  6.206,  5.085,  3.750,  2.654,  2.952,
      6.135, -0.978,  6.547,  6.451,  6.056,  0.436, -1.273,  2.309, -0.776,  0.699,

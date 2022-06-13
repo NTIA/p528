@@ -37,11 +37,11 @@ double LayerThickness(double m, int i)
  |
  *===========================================================================*/
 void RayTrace(double f__ghz, double h_1__km, double h_2__km, double beta_1__rad,
-    RayTraceConfig config, SlantPathAttenuationResult* result)
+    const RayTraceConfig& config, SlantPathAttenuationResult* result)
 {
     // Equations 16(a)-(c)
-    int i_lower = floor(100 * log(1e4 * h_1__km * (exp(1. / 100.) - 1) + 1) + 1);
-    int i_upper = ceil(100 * log(1e4 * h_2__km * (exp(1. / 100.) - 1) + 1) + 1);
+    int i_lower = static_cast<int>(floor(100 * log(1e4 * h_1__km * (exp(1. / 100.) - 1) + 1) + 1));
+    int i_upper = static_cast<int>(ceil(100 * log(1e4 * h_2__km * (exp(1. / 100.) - 1) + 1) + 1));
     double m = ((exp(2. / 100.) - exp(1. / 100.)) / (exp(i_upper / 100.) - exp(i_lower / 100.))) * (h_2__km - h_1__km);
 
     double gamma_i;
@@ -88,10 +88,10 @@ void RayTrace(double f__ghz, double h_1__km, double h_2__km, double beta_1__rad,
         delta_i__km = LayerThickness(m, i);
 
         // Equation 19b
-        beta_i__rad = asin(MIN(1, (n_1 * r_1__km) / (n_i * r_i__km) * sin(beta_1__rad)));
+        beta_i__rad = asin(std::min(1.0, (n_1 * r_1__km) / (n_i * r_i__km) * sin(beta_1__rad)));
 
         // entry angle into the layer interface, Equation 18a
-        alpha_i__rad = asin(MIN(1, (n_1 * r_1__km) / (n_i * r_ii__km) * sin(beta_1__rad)));
+        alpha_i__rad = asin(std::min(1.0, (n_1 * r_1__km) / (n_i * r_ii__km) * sin(beta_1__rad)));
 
         // path length through ith layer, Equation 17
         a_i__km = -r_i__km * cos(beta_i__rad) + sqrt(pow(r_i__km, 2) * pow(cos(beta_i__rad), 2) + 2 * r_i__km * delta_i__km + pow(delta_i__km, 2));
@@ -131,7 +131,7 @@ void RayTrace(double f__ghz, double h_1__km, double h_2__km, double beta_1__rad,
  |      Returns:  [void]
  |
  *===========================================================================*/
-void GetLayerProperties(double f__ghz, double h_i__km, RayTraceConfig config,
+void GetLayerProperties(double f__ghz, double h_i__km, const RayTraceConfig& config,
     double* n, double* gamma)
 {
     // use function pointers to get atmospheric parameters

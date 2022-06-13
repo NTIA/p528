@@ -1,11 +1,16 @@
+#pragma once
+
 #include <vector>
 #include <algorithm>
+#include <math.h>
 
-using namespace std;
+// Define DLLEXPORT for any platform
+#ifdef _WIN32
+    #define DLLEXPORT extern "C" __declspec(dllexport)
+#else
+    #define DLLEXPORT
+#endif
 
-#define DLLEXPORT extern "C" __declspec(dllexport)
-#define MAX(x, y) (((x) > (y)) ? (x) : (y))
-#define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
 #define PI                                  3.1415926535897932384
 #define a_0__km                             6371.0
@@ -68,10 +73,10 @@ using namespace std;
 class data
 {
 public:
-    const static vector<double> P;          // Percentages for interpolation and data tables
+    const static std::vector<double> P;          // Percentages for interpolation and data tables
 
-    const static vector<vector<double>> NakagamiRiceCurves;
-    const static vector<int> K;
+    const static std::vector<std::vector<double>> NakagamiRiceCurves;
+    const static std::vector<int> K;
 };
 
 //
