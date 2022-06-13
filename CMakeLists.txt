@@ -49,3 +49,9 @@ set(Sources
 
 # Add source to this project's executable.
 add_library(${PROJECT_NAME} STATIC ${Sources} ${Headers})
+
+if(MSVC)
+    target_compile_options(${PROJECT_NAME} PRIVATE /W4 /WX)
+else()
+    target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic -Werror)
+endif()
