@@ -113,7 +113,7 @@ void LongTermVariability(double d_r1__km, double d_r2__km, double d__km, double 
     //      amount when the variability about L_b(50) is large and L_b(50) is near its free-space level" [ES-83-3, p3-4]
 
     double A_YI = (A_T + Y_eI_10__db) - 3.0;        // [Eqn 14-23]
-    *A_Y = MAX(A_YI, 0);                            // [Eqn 14-24]
+    *A_Y = std::max(A_YI, 0.0);                            // [Eqn 14-24]
     *Y_e__db = Y_eI__db - *A_Y;                     // [Eqn 14-25]
 
     // For percentages less than 10%, do a correction check to, 

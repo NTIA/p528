@@ -50,14 +50,14 @@ void Troposcatter(Path *path, Terminal *terminal_1, Terminal *terminal_2, double
 
         Q_o = A_m - dN;                                                             // [Eqn 11-12]
 
-        Q_a = A_m - dN / exp(MIN(35.0, z_a__km / gamma_e__km));                     // [Eqn 11-13]
-        Q_b = A_m - dN / exp(MIN(35.0, z_b__km / gamma_e__km));                     // [Eqn 11-13]
+        Q_a = A_m - dN / exp(std::min(35.0, z_a__km / gamma_e__km));                     // [Eqn 11-13]
+        Q_b = A_m - dN / exp(std::min(35.0, z_b__km / gamma_e__km));                     // [Eqn 11-13]
 
         Z_a__km = (7.0 * Q_o + 6.0 * Q_a - Q_b) * (pow(tropo->d_z__km, 2) / 96.0);  // [Eqn 11-14]
         Z_b__km = (Q_o + 2.0 * Q_a) * (pow(tropo->d_z__km, 2) / 6.0);               // [Eqn 11-15]
 
-        Q_A = A_m - dN / exp(MIN(35.0, Z_a__km / gamma_e__km));                     // [Eqn 11-16]
-        Q_B = A_m - dN / exp(MIN(35.0, Z_b__km / gamma_e__km));                     // [Eqn 11-16]
+        Q_A = A_m - dN / exp(std::min(35.0, Z_a__km / gamma_e__km));                     // [Eqn 11-16]
+        Q_B = A_m - dN / exp(std::min(35.0, Z_b__km / gamma_e__km));                     // [Eqn 11-16]
 
         tropo->h_v__km = (Q_o + 2.0 * Q_A) * (pow(tropo->d_z__km, 2) / 6.0);        // [Eqn 11-17]
 
@@ -75,7 +75,7 @@ void Troposcatter(Path *path, Terminal *terminal_1, Terminal *terminal_2, double
         double epsilon_1 = 5.67e-6 * pow(N_s, 2) - 0.00232 * N_s + 0.031;           // [Eqn 11-20]
         double epsilon_2 = 0.0002 * pow(N_s, 2) - 0.06 * N_s + 6.6;                 // [Eqn 11-21]
 
-        double gamma = 0.1424 * (1.0 + epsilon_1 / exp(MIN(35.0, pow(tropo->h_v__km / 4.0, 6))));   // [Eqn 11-22]
+        double gamma = 0.1424 * (1.0 + epsilon_1 / exp(std::min(35.0, pow(tropo->h_v__km / 4.0, 6))));   // [Eqn 11-22]
 
         double S_e__db = 83.1 - epsilon_2 / (1.0 + 0.07716 * pow(tropo->h_v__km, 2)) + 20 * log10(pow(0.1424 / gamma, 2) * exp(gamma * tropo->h_v__km));    // [Eqn 11-23]
 

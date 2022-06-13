@@ -49,7 +49,7 @@ void GetPathLoss(double psi__rad, Path *path, double f__mhz, double psi_limit,
     }
 
     // Ray-length factor, [Eqn 8-6]
-    double F_r = MIN(params->r_0__km / params->r_12__km, 1);
+    double F_r = std::min(params->r_0__km / params->r_12__km, 1.0);
 
     *R_Tg = R_g * D_v * F_r;                            // [Eqn 8-7]
 
@@ -78,7 +78,7 @@ void GetPathLoss(double psi__rad, Path *path, double f__mhz, double psi_limit,
             std::complex<double> cplx = std::complex<double>(*R_Tg * cos(phi_Tg), -*R_Tg * sin(phi_Tg));
 
             // [Eqn 8-10]
-            double W_RL = MIN(abs(1.0 + cplx), 1.0);
+            double W_RL = std::min(abs(1.0 + cplx), 1.0);
 
             // [Eqn 8-11]
             double W_R0 = pow(W_RL, 2);

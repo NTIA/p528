@@ -88,10 +88,10 @@ void RayTrace(double f__ghz, double h_1__km, double h_2__km, double beta_1__rad,
         delta_i__km = LayerThickness(m, i);
 
         // Equation 19b
-        beta_i__rad = asin(MIN(1, (n_1 * r_1__km) / (n_i * r_i__km) * sin(beta_1__rad)));
+        beta_i__rad = asin(std::min(1.0, (n_1 * r_1__km) / (n_i * r_i__km) * sin(beta_1__rad)));
 
         // entry angle into the layer interface, Equation 18a
-        alpha_i__rad = asin(MIN(1, (n_1 * r_1__km) / (n_i * r_ii__km) * sin(beta_1__rad)));
+        alpha_i__rad = asin(std::min(1.0, (n_1 * r_1__km) / (n_i * r_ii__km) * sin(beta_1__rad)));
 
         // path length through ith layer, Equation 17
         a_i__km = -r_i__km * cos(beta_i__rad) + sqrt(pow(r_i__km, 2) * pow(cos(beta_i__rad), 2) + 2 * r_i__km * delta_i__km + pow(delta_i__km, 2));
