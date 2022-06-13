@@ -93,8 +93,8 @@ void LongTermVariability(double d_r1__km, double d_r2__km, double d__km, double 
         else
         {
             // Source for values p < 10: [15], Table 10, Page 34, Climate 6
-            vector<double> ps = { 1, 2, 5, 10 };
-            vector<double> c_ps = { 1.9507, 1.7166, 1.3265, 1.0000 };
+            std::vector<double> ps = { 1, 2, 5, 10 };
+            std::vector<double> c_ps = { 1.9507, 1.7166, 1.3265, 1.0000 };
 
             auto upper = upper_bound(data::P.begin(), data::P.end(), p);
             auto dist = distance(data::P.begin(), upper);
@@ -121,7 +121,7 @@ void LongTermVariability(double d_r1__km, double d_r2__km, double d__km, double 
     //     by unrealistic amounts" [Gierhart 1970]
     if (p < 10)
     {
-        vector<double> c_Y = { -5.0, -4.5, -3.7, 0.0 };
+        std::vector<double> c_Y = { -5.0, -4.5, -3.7, 0.0 };
 
         auto upper = upper_bound(data::P.begin(), data::P.end(), p);
         auto dist = distance(data::P.begin(), upper);
