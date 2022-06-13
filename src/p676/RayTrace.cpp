@@ -40,8 +40,8 @@ void RayTrace(double f__ghz, double h_1__km, double h_2__km, double beta_1__rad,
     RayTraceConfig config, SlantPathAttenuationResult* result)
 {
     // Equations 16(a)-(c)
-    int i_lower = floor(100 * log(1e4 * h_1__km * (exp(1. / 100.) - 1) + 1) + 1);
-    int i_upper = ceil(100 * log(1e4 * h_2__km * (exp(1. / 100.) - 1) + 1) + 1);
+    int i_lower = static_cast<int>(floor(100 * log(1e4 * h_1__km * (exp(1. / 100.) - 1) + 1) + 1));
+    int i_upper = static_cast<int>(ceil(100 * log(1e4 * h_2__km * (exp(1. / 100.) - 1) + 1) + 1));
     double m = ((exp(2. / 100.) - exp(1. / 100.)) / (exp(i_upper / 100.) - exp(i_lower / 100.))) * (h_2__km - h_1__km);
 
     double gamma_i;
