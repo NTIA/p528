@@ -1,5 +1,7 @@
 #pragma once
 
+#include <math.h>
+
 // Define DLLEXPORT for any platform
 #ifdef _WIN32
     #define DLLEXPORT extern "C" __declspec(dllexport)
