@@ -63,7 +63,7 @@ public:
 double LineShapeFactor(double f__ghz, double f_i__ghz, double delta_f__ghz, double delta);
 double NonresonantDebyeAttenuation(double f__ghz, double e__hPa, double p__hPa, double theta);
 double RefractiveIndex(double p__hPa, double T__kelvin, double e__hPa);
-void GetLayerProperties(double f__ghz, double h_i__km, RayTraceConfig config,
+void GetLayerProperties(double f__ghz, double h_i__km, const RayTraceConfig& config,
     double* n, double* gamma);
 
 double SpecificAttenuation(double f__ghz, double T__kelvin, double e__hPa, double p__hPa);
@@ -74,7 +74,7 @@ double WaterVapourSpecificAttenuation(double f__ghz, double T__kelvin, double e_
 double WaterVapourDensityToPartialPressure(double rho__g_m3, double T__kelvin);
 
 void RayTrace(double f__ghz, double h_1__km, double h_2__km, double beta_1__rad,
-    RayTraceConfig config, SlantPathAttenuationResult* result);
+    const RayTraceConfig& config, SlantPathAttenuationResult* result);
 
 int SlantPathAttenuation(double f__ghz, double h_1__km, double h_2__km, double beta_1__rad,
     SlantPathAttenuationResult* result);

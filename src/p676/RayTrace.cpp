@@ -37,7 +37,7 @@ double LayerThickness(double m, int i)
  |
  *===========================================================================*/
 void RayTrace(double f__ghz, double h_1__km, double h_2__km, double beta_1__rad,
-    RayTraceConfig config, SlantPathAttenuationResult* result)
+    const RayTraceConfig& config, SlantPathAttenuationResult* result)
 {
     // Equations 16(a)-(c)
     int i_lower = static_cast<int>(floor(100 * log(1e4 * h_1__km * (exp(1. / 100.) - 1) + 1) + 1));
@@ -131,7 +131,7 @@ void RayTrace(double f__ghz, double h_1__km, double h_2__km, double beta_1__rad,
  |      Returns:  [void]
  |
  *===========================================================================*/
-void GetLayerProperties(double f__ghz, double h_i__km, RayTraceConfig config,
+void GetLayerProperties(double f__ghz, double h_i__km, const RayTraceConfig& config,
     double* n, double* gamma)
 {
     // use function pointers to get atmospheric parameters
