@@ -1,7 +1,7 @@
 #include "../../include/p528.h"
 #include "../../include/p676.h"
 
-double FindPsiAtDistance(double d__km, Path *path, Terminal *terminal_1, Terminal *terminal_2)
+double FindPsiAtDistance(double d__km, Path * /*path*/, Terminal *terminal_1, Terminal *terminal_2)
 {
     if (d__km == 0)
         return PI / 2;
@@ -32,7 +32,7 @@ double FindPsiAtDistance(double d__km, Path *path, Terminal *terminal_1, Termina
     return psi;
 }
 
-double FindPsiAtDeltaR(double delta_r__km, Path *path, Terminal *terminal_1, Terminal *terminal_2, double terminate)
+double FindPsiAtDeltaR(double delta_r__km, Path * /*path*/, Terminal *terminal_1, Terminal *terminal_2, double terminate)
 {
     double psi = PI / 2;
     double delta_psi = -PI / 4;
@@ -54,7 +54,7 @@ double FindPsiAtDeltaR(double delta_r__km, Path *path, Terminal *terminal_1, Ter
     return psi;
 }
 
-double FindDistanceAtDeltaR(double delta_r__km, Path *path, Terminal *terminal_1, Terminal *terminal_2, double terminate)
+double FindDistanceAtDeltaR(double delta_r__km, Path * /*path*/, Terminal *terminal_1, Terminal *terminal_2, double terminate)
 {
     double psi = PI / 2;
     double delta_psi = -PI / 4;
