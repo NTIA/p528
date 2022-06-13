@@ -17,7 +17,7 @@ double FindKForYpiAt99Percent(double Y_pi_99__db)
         return data::K.front();
 
     // search the distribution data and interpolate to find K (dependent variable)
-    for (int i = 0; i < data::K.size(); i++)
+    for (size_t i = 0; i < data::K.size(); i++)
         if (Y_pi_99__db - data::NakagamiRiceCurves[i][Y_pi_99_INDEX] < 0)
             return (data::K[i] * (Y_pi_99__db - data::NakagamiRiceCurves[i - 1][Y_pi_99_INDEX]) - data::K[i - 1] * (Y_pi_99__db - data::NakagamiRiceCurves[i][Y_pi_99_INDEX])) / (data::NakagamiRiceCurves[i][Y_pi_99_INDEX] - data::NakagamiRiceCurves[i - 1][Y_pi_99_INDEX]);
 
