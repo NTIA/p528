@@ -69,4 +69,4 @@ The .NET support of P.528 consists of a simple pass-through wrapper around the n
 
 ## Contact ##
 
-For questions, contact Billy Kozma, (303) 497-6082, wkozma@ntia.gov
+For questions, contact Billy Kozma, wkozma@ntia.gov
