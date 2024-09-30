@@ -1,9 +1,18 @@
+#pragma once
+#ifndef ITS_ITU_PSERIES_P528_H
+#define ITS_ITU_PSERIES_P528_H
+
 #include <vector>
 #include <algorithm>
 
 using namespace std;
 
-#define DLLEXPORT extern "C" __declspec(dllexport)
+#ifdef _WIN32   // windows
+#   define DLLEXPORT extern "C" __declspec(dllexport)
+#else           // non windows
+#   define DLLEXPORT extern "C"
+#endif
+
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
@@ -195,3 +204,4 @@ DLLEXPORT int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double
     TroposcatterParams* tropo, Path* path, LineOfSightParams* los_params);
 DLLEXPORT double FindKForYpiAt99Percent(double Y_pi_99__db);
 DLLEXPORT double NakagamiRice(double K, double q);
+#endif
