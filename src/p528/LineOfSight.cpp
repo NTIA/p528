@@ -77,32 +77,30 @@ double FindDistanceAtDeltaR(double delta_r__km, Path *path, Terminal *terminal_1
     return params_temp.d__km;
 }
 
-/*=============================================================================
- |
- |  Description:  This function computes the total loss in the line-of-sight
- |                region as described in Annex 2, Section 6 of
- |                Recommendation ITU-R P.528-5, "Propagation curves for
- |                aeronautical mobile and radionavigation services using
- |                the VHF, UHF and SHF bands"
- |
- |        Input:  path          - Struct containing path parameters
- |                terminal_1    - Struct containing low terminal parameters
- |                terminal_2    - Struct containing high terminal parameters
- |                f__mhz        - Frequency, in MHz
- |                A_dML__db     - Diffraction loss at d_ML, in dB
- |                p             - Time percentage
- |                d__km         - Path length, in km
- |                T_pol         - Code indicating either polarization
- |                                  + 0 : POLARIZATION__HORIZONTAL
- |                                  + 1 : POLARIZATION__VERTICAL
- |
- |      Outputs:  los_params    - Struct containing LOS parameters
- |                result        - Struct containing P.528 results
- |                K_LOS         - K-value
- |
- |      Returns:  [void]
- |
- *===========================================================================*/
+/*******************************************************************************
+ * Computes the total loss in the line-of-sight region
+ *
+ * References:
+ *     - Recommendation ITU‑R P.528‑5 "Propagation curves for aeronautical mobile
+ * and radionavigation services using the VHF, UHF and SHF bands", 
+ * Annex 2, Section 6.
+ *
+ * @param[in] path        Struct containing path parameters
+ * @param[in] terminal_1  Struct containing low terminal parameters
+ * @param[in] terminal_2  Struct containing high terminal parameters
+ * @param[in] f__mhz      Frequency, in MHz
+ * @param[in] A_dML__db   Diffraction loss at d_ML, in dB
+ * @param[in] p           Time percentage
+ * @param[in] d__km       Path length, in km
+ * @param[in] T_pol       Code indicating either polarization
+ *                          + 0 : POLARIZATION__HORIZONTAL
+ *                          + 1 : POLARIZATION__VERTICAL
+ * @param[out] los_params  Struct containing LOS parameters
+ * @param[out] result      Struct containing P.528 results
+ * @param[out] K_LOS       K-value
+ * @par Returns
+ *    Nothing.
+ ******************************************************************************/
 void LineOfSight(Path *path, Terminal *terminal_1, Terminal *terminal_2, LineOfSightParams *los_params, 
     double f__mhz, double A_dML__db, double p, double d__km, int T_pol, Result *result, double *K_LOS)
 {
