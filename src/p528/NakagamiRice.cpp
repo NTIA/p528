@@ -1,15 +1,17 @@
+/** @file FlatEarthCurveCorrection.cpp
+ * C computes the value of the Nakagami-Rice distribution for K and p%.
+ */
+
 #include "p528.h"
 
-/*=============================================================================
- |
- |  Description:  This function computes the value of the Nakagami-Rice
- |                distribution for K and p%
- |
- |        Input:  K         - K-value
- |                p         - Time percentage
- |
- |      Outputs:  Y_pi__db  - Variability, in dB
- |
+/*******************************************************************************
+ * Computes the value of the Nakagami-Rice distribution for K and p%
+ *
+ * @param[in]  K          K-value
+ * @param[in]  p          Time percentage
+ * @param[out] Y_pi__db   Variability, in dB
+ * @par Returns
+ *      Nothing.
  *===========================================================================*/
 double NakagamiRice(double K, double p)
 {
