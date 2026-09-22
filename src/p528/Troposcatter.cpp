@@ -1,23 +1,27 @@
+/** @file Troposcatter.cpp
+ * Computes the troposcatter loss.
+ */
 #include <math.h>
 #include "p528.h"
 
-/*=============================================================================
- |
- |  Description:  This file computes the Troposcatter loss
- |                as described in Annex 2, Section 11 of
- |                Recommendation ITU-R P.528-5, "Propagation curves for
- |                aeronautical mobile and radionavigation services using
- |                the VHF, UHF and SHF bands"
- |
- |        Input:  path          - Struct containing path parameters
- |                terminal_1    - Struct containing low terminal parameters
- |                terminal_2    - Struct containing high terminal parameters
- |                d__km         - Path distance, in km
- |                f__mhz        - Frequency, in MHz
- |
- |      Outputs:  tropo         - Struct containing resulting parameters
- |
- *===========================================================================*/
+
+/*******************************************************************************
+ * Computes the troposcatter loss.
+ *
+ * References:
+ *     - Recommendation ITU‑R P.528‑5 "Propagation curves for aeronautical mobile
+ * and radionavigation services using the VHF, UHF and SHF bands", 
+ * Annex 2, Section 11.
+ *
+ * @param[in]  path         Struct containing path parameters
+ * @param[in]  terminal_1   Struct containing low terminal parameters
+ * @param[in]  terminal_2   Struct containing high terminal parameters
+ * @param[in]  d__km        Path distance, in km
+ * @param[in]  f__mhz       Frequency, in MHz
+ * @param[out] tropo        Struct containing resulting parameters
+ * @par Returns
+ *      Nothing.
+ ******************************************************************************/
 void Troposcatter(Path *path, Terminal *terminal_1, Terminal *terminal_2, double d__km, double f__mhz, TroposcatterParams *tropo)
 {
     double Q_o, Q_a, Q_b, Q_A, Q_B;
