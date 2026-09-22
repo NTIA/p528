@@ -1,6 +1,15 @@
+/** @file FlatEarthCurveCorrection.cpp
+ * Data curves corresponding Nakagami-Rice distributions for computing the contribution to the total variability due to tropospheric 
+multipath. 
+ * 
+ * References:
+ *     - Recommendation ITU‑R P.528‑5 "Propagation curves for aeronautical mobile
+ * and radionavigation services using the VHF, UHF and SHF bands", 
+ * Annex 2, Section 15.
+ */
 #include "p528.h"
 
-// Data curves corresponding Nakagami-Rice distributions
+//! Values for the  Nakagami-Rice distributions. Contribution of tropospheric multipath at time percentage 𝑝, in dB. 
 const vector<vector<double>> data::NakagamiRiceCurves =
 {
     // K = -40 distribution
@@ -91,11 +100,12 @@ const vector<vector<double>> data::NakagamiRiceCurves =
     }
 };
 
+//! Row parameter for Nakagami-Rice distributions table. 
 const vector<int> data::K =
 {
     -40, -25, -20, -18, -16, -14, -12, -10, -8, -6, -4, -2, 0, 2, 4, 6, 20
 };
 
-// Percentages for interpolation and data tables
+//! Time Percentage. Column parameter for Nakagami-Rice distributions table.
 const vector<double> data::P = { 1, 2, 5, 10, 15, 20, 30, 40, 50,
     60, 70, 80, 85, 90, 95, 98, 99 };
