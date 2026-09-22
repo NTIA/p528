@@ -1,22 +1,24 @@
+/** @file TerminalGeomentry.cpp
+ * Computes the terminal geometry 
+ */
 #include <math.h>
 #include "p528.h"
 #include "p676.h"
 
-/*=============================================================================
- |
- |  Description:  This file computes the terminal geometry as described
- |                in Annex 2, Section 4 of Recommendation ITU-R P.528-5,
- |                "Propagation curves for aeronautical mobile and
- |                radionavigation services using the VHF, UHF and SHF bands"
- |
- |        Input:  f__mhz    - Frequency, in MHz
- |
- |      Outputs:  terminal  - Structure containing parameters dealing
- |                            with the geometry of the terminal
- |
- |      Returns:  [void]
- |
- *===========================================================================*/
+/*******************************************************************************
+ * Computes the terminal geometry as described
+ *
+ * References:
+ *     - Recommendation ITU‑R P.528‑5 "Propagation curves for aeronautical mobile
+ * and radionavigation services using the VHF, UHF and SHF bands", Annex 2, 
+ * Section 4.
+ *
+ * @param[in] f__mhz    Frequency, in MHz
+ * @param[in] terminal  Structure containing parameters dealing with the geometry 
+ *                      of the terminal
+ * @par Returns
+ *      Nothing.
+ ******************************************************************************/
 void TerminalGeometry(double f__mhz, Terminal *terminal)
 {
     double theta_tx__rad = 0;
