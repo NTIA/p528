@@ -1,4 +1,4 @@
-/** @file FlatEarthCurveCorrection.cpp
+/** @file data.cpp
  * Data curves corresponding Nakagami-Rice distributions for computing the contribution to the total variability due to tropospheric 
 multipath. 
  * 
