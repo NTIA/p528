@@ -5,7 +5,7 @@
 #include "p528.h"
 #include "p676.h"
 
-/*******************************************************************************
+/**
  * Computes the terminal geometry as described
  *
  * References:
