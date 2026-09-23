@@ -4,7 +4,7 @@
 #include <math.h>
 #include "p528.h"
 
-/*******************************************************************************
+/**
  * Computes the reflection coefficients
  *
  * References:
