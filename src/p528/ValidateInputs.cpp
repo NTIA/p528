@@ -6,7 +6,7 @@
 /**
  * Validate the model input values
  *
- * @param[in]   d__km       Path distance, in km
+ * @param[in]   d__km       %Path distance, in km
  * @param[in]   h_1__meter  Height of the low terminal, in meters
  * @param[in]   h_2__meter  Height of the high terminal, in meters
  * @param[in]   f__mhz      Frequency, in MHz
@@ -15,7 +15,7 @@
  *                              + 1 : POLARIZATION__VERTICAL
  * @param[in]   p	          Time percentage
  * @param[in]  warnings     Warning flags
- * @return                  *See*@ref returncodes for possible return codes.
+ * @return                  See @ref returncodes for possible return codes.
  ******************************************************************************/
 
 int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, 

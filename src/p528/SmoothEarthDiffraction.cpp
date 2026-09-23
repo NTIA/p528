@@ -19,7 +19,7 @@
  * @param[in] d_2__km   Horizon distance of terminal 2, in km
  * @param[in] a_e__km   Effective earth radius, in km
  * @param[in] f__mhz    Frequency, in MHz
- * @param[in] d_0__km   Path length of interest, in km
+ * @param[in] d_0__km   %Path length of interest, in km
  * @param[in] T_pol     Code indicating either polarization
  *                          + 0 : POLARIZATION__HORIZONTAL
  *                          + 1 : POLARIZATION__VERTICAL

@@ -94,7 +94,7 @@ double FindDistanceAtDeltaR(double delta_r__km, Path *path, Terminal *terminal_1
  * @param[in] f__mhz      Frequency, in MHz
  * @param[in] A_dML__db   Diffraction loss at d_ML, in dB
  * @param[in] p           Time percentage
- * @param[in] d__km       Path length, in km
+ * @param[in] d__km       %Path length, in km
  * @param[in] T_pol       Code indicating either polarization
  *                          + 0 : POLARIZATION__HORIZONTAL
  *                          + 1 : POLARIZATION__VERTICAL

@@ -15,7 +15,7 @@
  * and radionavigation services using the VHF, UHF and SHF bands", Annex 2, 
  * Section 3.
  *
- * @param[in]  d__km       Path distance, in km
+ * @param[in]  d__km       %Path distance, in km
  * @param[in]  h_1__meter  Height of the low terminal, in meters
  * @param[in]  h_2__meter  Height of the high terminal, in meters
  * @param[in]  f__mhz      Frequency, in MHz

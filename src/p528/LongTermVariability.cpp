@@ -13,7 +13,7 @@
  * Annex 2, Section 14.
  * @param[in] d_r1__km  Actual height of low terminal, in km
  * @param[in] d_r2__km  Actual height of high terminal, in km
- * @param[in] d__km     Path distance, in km
+ * @param[in] d__km     %Path distance, in km
  * @param[in] f__mhz    Frequency, in MHz
  * @param[in] p         Time percentage
  * @param[out] Y_e__db  Variability, in dB

@@ -16,7 +16,7 @@
  * @param[in]  path         Struct containing path parameters
  * @param[in]  terminal_1   Struct containing low terminal parameters
  * @param[in]  terminal_2   Struct containing high terminal parameters
- * @param[in]  d__km        Path distance, in km
+ * @param[in]  d__km        %Path distance, in km
  * @param[in]  f__mhz       Frequency, in MHz
  * @param[out] tropo        Struct containing resulting parameters
  * @par Returns
