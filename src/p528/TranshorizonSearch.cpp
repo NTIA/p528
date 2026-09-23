@@ -1,9 +1,9 @@
-/** @file HeightGainTerminalCorrectionModel.cpp
+/** @fileTranshorizonSearch.cpp
  * Implements step 6: Line of Sight Region from ITU-R P.528-5.
  */
 #include "p528.h"
 
-/*******************************************************************************
+/**
  * Computes the propagation loss for a line-of-sight path
  * References:
  *     - Recommendation ITU‑R P.528‑5 "Propagation curves for aeronautical mobile
