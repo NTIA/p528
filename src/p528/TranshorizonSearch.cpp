@@ -1,4 +1,4 @@
-/** @fileTranshorizonSearch.cpp
+/** @file TranshorizonSearch.cpp
  * Implements step 6: Line of Sight Region from ITU-R P.528-5.
  */
 #include "p528.h"

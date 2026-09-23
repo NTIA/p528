@@ -1,4 +1,4 @@
-/** @file TerminalGeomentry.cpp
+/** @file TerminalGeometry.cpp
  * Computes the terminal geometry 
  */
 #include <math.h>

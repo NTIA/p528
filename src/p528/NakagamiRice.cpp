@@ -1,5 +1,5 @@
 /** @file NakagamiRice.cpp
- * C computes the value of the Nakagami-Rice distribution for K and p%.
+ * Computes the value of the Nakagami-Rice distribution for K and percentage p.
  */
 
 #include "p528.h"
