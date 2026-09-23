@@ -1,9 +1,9 @@
-/** @file HeightGainTerminalCorrectionModel.cpp
+/** @file ValidateInputs.cpp
  * Validates the model's input values
  */
 #include "p528.h"
 
-/*******************************************************************************
+/**
  * Validate the model input values
  *
  * @param[in]   d__km       Path distance, in km
