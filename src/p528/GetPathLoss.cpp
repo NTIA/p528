@@ -1,31 +1,32 @@
+/** @file GetPathLoss.cpp
+ * Computes the line of sight loss
+ */
 #include <math.h>
 #include <complex>
 #include "p528.h"
 
-/*=============================================================================
- |
- |  Description:  This function computes the line of sight loss
- |                as described in Annex 2, Section 8 of
- |                Recommendation ITU-R P.528-5, "Propagation curves for
- |                aeronautical mobile and radionavigation services using
- |                the VHF, UHF and SHF bands"
- |
- |        Input:  psi__rad      - Reflection angle, in rad
- |                path          - Struct containing path parameters
- |                f__mhz        - Frequency, in MHz
- |                psi_limit     - Angular limit separating FS and 2-Ray, in rad
- |                A_dML__db     - Diffraction loss at d_ML, in dB
- |                A_d_0__db     - Loss at d_0, in dB
- |                T_pol         - Code indicating either polarization
- |                                  + 0 : POLARIZATION__HORIZONTAL
- |                                  + 1 : POLARIZATION__VERTICAL
- |
- |      Outputs:  params        - Line of sight loss params
- |                R_Tg          - Reflection parameter
- |
- |      Returns:  [void]
- |
- *===========================================================================*/
+/**
+ * Computes the line of sight loss
+ * 
+ * References:
+ *     - Recommendation ITU‑R P.528‑5 "Propagation curves for aeronautical 
+ * mobile and radionavigation services using the VHF, UHF and SHF bands", 
+ * Annex 2, Section 8.
+ *
+ * @param[in] psi__rad      - Reflection angle, in rad
+ * @param[in] path          - Struct containing path parameters
+ * @param[in] f__mhz        - Frequency, in MHz
+ * @param[in] psi_limit     - Angular limit separating FS and 2-Ray, in rad
+ * @param[in] A_dML__db     - Diffraction loss at d_ML, in dB
+ * @param[in] A_d_0__db     - Loss at d_0, in dB
+ * @param[in] T_pol         - Code indicating either polarization
+ *                               + 0 : POLARIZATION__HORIZONTAL
+ *                               + 1 : POLARIZATION__VERTICAL
+ * @param[out] params        - Line of sight loss params
+ * @param[out] R_Tg          - Reflection parameter
+ * @par Returns
+ *      Nothing.
+ ******************************************************************************/
 void GetPathLoss(double psi__rad, Path *path, double f__mhz, double psi_limit, 
     double A_dML__db, double A_d_0__db, int T_pol, 
     LineOfSightParams* params, double *R_Tg)

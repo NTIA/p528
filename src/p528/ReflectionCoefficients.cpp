@@ -1,26 +1,27 @@
+/** @file ReflectionCoefficients.cpp
+ * Computes the reflection coefficients
+ */
 #include <math.h>
 #include "p528.h"
 
-/*=============================================================================
- |
- |  Description:  This function computes the reflection coefficients
- |                as described in Annex 2, Section 9 of
- |                Recommendation ITU-R P.528-5, "Propagation curves for
- |                aeronautical mobile and radionavigation services using
- |                the VHF, UHF and SHF bands"
- |
- |        Input:  psi__rad  - Reflection angle, in rad
- |                f__mhz    - Frequency, in MHz
- |                T_pol     - Code indicating either polarization
- |                              + 0 : POLARIZATION__HORIZONTAL
- |                              + 1 : POLARIZATION__VERTICAL
- |
- |      Outputs:  R_g       - Real part
- |                phi_g     - Imaginary part
- |
- |      Returns:  [void]
- |
- *===========================================================================*/
+/**
+ * Computes the reflection coefficients
+ *
+ * References:
+ *     - Recommendation ITU‑R P.528‑5 "Propagation curves for aeronautical mobile
+ * and radionavigation services using the VHF, UHF and SHF bands", 
+ * Annex 2, Section 8.
+ *
+ * @param[in]   psi__rad  Reflection angle, in rad
+ * @param[in]   f__mhz    Frequency, in MHz
+ * @param[in]   T_pol     Code indicating either polarization
+ *                          + 0 : POLARIZATION__HORIZONTAL
+ *                          + 1 : POLARIZATION__VERTICAL
+ * @param[out]  R_g       Real part
+ * @param[out]  phi_g     Imaginary part
+ * @par Returns
+ *      Nothing.
+ ******************************************************************************/
 void ReflectionCoefficients(double psi__rad, double f__mhz, int T_pol, double *R_g, double *phi_g)
 {
     double sin_psi, cos_psi;

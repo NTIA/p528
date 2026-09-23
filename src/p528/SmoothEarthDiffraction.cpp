@@ -1,31 +1,30 @@
+/** @file SmoothEarthDiffraction.cpp
+ * Computes the smooth earth diffraction loss
+ */
 #include <math.h>
 #include "p528.h"
 
-// References:
-//  - [Vogler 1964]   Calculation of Groundwave Attenuation in the Far Diffraction Region.  L. Vogler.  1964
-//  - [FAA-ES-83-3]   The IF-77 Electromagnetic Wave Propagation Model.  Gierhart and Johnson.  1983
-
-/*=============================================================================
- |
- |  Description:  This file computes the smooth earth diffraction loss
- |                as described in Annex 2, Section 10 of
- |                Recommendation ITU-R P.528-5, "Propagation curves for
- |                aeronautical mobile and radionavigation services using
- |                the VHF, UHF and SHF bands"
- |
- |        Input:  d_1__km   - Horizon distance of terminal 1, in km
- |                d_2__km   - Horizon distance of terminal 2, in km
- |                a_e__km   - Effective earth radius, in km
- |                f__mhz    - Frequency, in MHz
- |                d_0__km   - Path length of interest, in km
- |                T_pol     - Code indicating either polarization
- |                              + 0 : POLARIZATION__HORIZONTAL
- |                              + 1 : POLARIZATION__VERTICAL
- |
- |      Returns:  A_d__db   - Diffraction loss, in dB
- |
- *===========================================================================*/
-
+/**
+ * Computes the smooth earth diffraction loss
+ *
+ * References:
+ *     - Recommendation ITU‑R P.528‑5 "Propagation curves for aeronautical mobile
+ * and radionavigation services using the VHF, UHF and SHF bands", 
+ * Annex 2, Section 10.
+ *     - Calculation of Groundwave Attenuation in the Far Diffraction Region. 
+ * L. Vogler. 1964
+ *     - The IF-77 Electromagnetic Wave Propagation Model. Gierhart and Johnson. 1983
+ *
+ * @param[in] d_1__km   Horizon distance of terminal 1, in km
+ * @param[in] d_2__km   Horizon distance of terminal 2, in km
+ * @param[in] a_e__km   Effective earth radius, in km
+ * @param[in] f__mhz    Frequency, in MHz
+ * @param[in] d_0__km   %Path length of interest, in km
+ * @param[in] T_pol     Code indicating either polarization
+ *                          + 0 : POLARIZATION__HORIZONTAL
+ *                          + 1 : POLARIZATION__VERTICAL
+ * @return              Diffraction loss, in dB
+ ******************************************************************************/
 
 double DistanceFunction(double x__km)
 {

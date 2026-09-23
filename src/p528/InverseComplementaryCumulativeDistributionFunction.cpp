@@ -1,20 +1,23 @@
+/** @file InverseComplementaryCumulativeDistributionFunction.cpp
+ * Computes the inverse complementary cumulative distribution function approximation
+ */
 #include <math.h>
 #include "p528.h"
 
-/*=============================================================================
- |
- |  Description:  This function computes the inverse complementary
- |                cumulative distribution function approximation as
- |                described in Recommendation ITU-R P.1057.  This
- |                approximation is sourced from Formula 26.2.23 in
- |                Abramowitz & Stegun.  This approximation has an error
- |                of abs(epsilon(p)) < 4.5e-4
- |
- |        Input:  q     - Probability, 0.0 < q < 1.0
- |
- |      Returns:  Q_q   - Q(q)^-1
- |
- *===========================================================================*/
+/**
+ * Computes the inverse complementary cumulative distribution function 
+ * approximation. The approximation has an error of abs(epsilon(p)) < 4.5e-4
+ * 
+ * References:
+ *     - Recommendation ITU‑R P.1057. "Probability distributions relevant to 
+ * radiowave propagation modelling"
+ *     - Abramowitz, M. (Ed.), & Stegun, I. A. (Ed.). (1965). Handbook of 
+ * mathematical functions with formulas, graphs, and mathematical tables. Dover 
+ * Publications. Formula 26.2.23.
+ *
+ * @param[in]     q     - Probability, 0.0 < q < 1.0
+ * @return        Q(q)^-1
+ ******************************************************************************/
 double InverseComplementaryCumulativeDistributionFunction(double q)
 {
     double C_0 = 2.515516;
