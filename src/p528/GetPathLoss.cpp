@@ -1,8 +1,11 @@
+/** @file GetPathLoss.cpp
+ * Computes the line of sight loss
+ */
 #include <math.h>
 #include <complex>
 #include "p528.h"
 
-/*******************************************************************************
+/**
  * Computes the line of sight loss
  * 
  * References:
