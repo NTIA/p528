@@ -1,7 +1,10 @@
+/** @file InverseComplementaryCumulativeDistributionFunction.cpp
+ * Computes the inverse complementary cumulative distribution function approximation
+ */
 #include <math.h>
 #include "p528.h"
 
-/*******************************************************************************
+/**
  * Computes the inverse complementary cumulative distribution function 
  * approximation. The approximation has an error of abs(epsilon(p)) < 4.5e-4
  * 
