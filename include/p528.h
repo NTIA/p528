@@ -99,131 +99,117 @@ public:
 //** Path variables */
 struct Path
     {
-    /**
-     * \\defgroup pathdistance Distance
+    /**@name Distance
      */
-    /*@{*/
+    ///@{
     double d_ML__km;       /**< Maximum line of sight distance */
     double d_0__km;        /**< Internal param.  See Recommendation text */
     double d_d__km;        /**< Distance where smooth earth diffraction is 0 dB */
-    /*@}*/
+    ///@}
 };
 
 //** Terminal variables */
 struct Terminal
 {
-    /**
-     * \\defgroup terminalheight Height
+    /** @name Height
      */
-    /*@{*/
+    ///@{
     double h_r__km;         /**< Real terminal height */
     double h_e__km;         /**< Effective terminal height */
     double delta_h__km;     /**< Internal terminal param.  See Recommendation text */
-    /*@}*/
+    ///@}
 
-    /**
-     * \\defgroup terminaldistances Distances
+    /** @name Distances
      */
-    /*@{*/
+    ///@{
     double d_r__km;         /**< Ray traced horizon distance */
     double a__km;           /**< Total ray path length to horizon */
-    /*@}*/
+    ///@}
 
-    /**
-     * \\defgroup terminalangles Angles
+    /** @name Angles
      */
-    /*@{*/
+    ///@{
     double phi__rad;        /**< Central angle between the terminal and its smooth earth horizon */
     double theta__rad;      /**< Incident angle of the grazing ray at the terminal */
-    /*@}*/
+    ///@}
 
-    /**
-     * \\defgroup terminallosses Losses
+    /** @name Losses
      */
-    /*@{*/
+    ///@{
     double A_a__db;         /**< Median atmospheric absorption loss, in dB */
-    /*@}*/
+    ///@}
 };
 
 //* Line of Sight parameters */
 struct LineOfSightParams
 {
-    /**
-     * \\defgroup losheights Heights
+    /** @name Heights
      */
-    /*@{*/
+    ///@{
     double z__km[2];       /**< A terminal geometric parameter */ 
-    /*@}*/
+    ///@}
 
-    /**
-     * \\defgroup losdistances Distances
+    /** @name Distances
      */
-    /*@{*/
+    ///@{
     double d__km;          /**< Path distance between terminals */
     double r_0__km;        /**< Direct ray length */
     double r_12__km;       /**< Indirect ray length */
     double D__km[2];       /**< A terminal geometric parameter */
-    /*@}*/
+    ///@}
 
-    /**
-     * \\defgroup losangles Angles
+    /** @name Angles
      */
-    /*@{*/
+    ///@{
     double theta_h1__rad;  /**< Take-off angle from low terminal to high terminal, in rad */
     double theta_h2__rad;  /**< Take-off angle from high terminal to low terminal, in rad */
     double theta[2];       /**< A terminal geometric parameter */
-    /*@}*/
+    ///@}
 
-    /**
-     * \\defgroup losmisc Misc
+    /** @name Misc
      */
-    /*@{*/
+    ///@{
     double a_a__km;        /**< Adjusted earth radius */
     double delta_r__km;    /**< Ray length path difference */
     double A_LOS__db;      /**< Loss due to LOS path */
-    /*@}*/
+    ///@}
 };
 
 //** Troposcatter parameters */
 struct TroposcatterParams
 {
-    /**
-     * \\defgroup troposcatterdistances Distances
+    /** @name Distances
      */
-    /*@{*/
+    ///@{
     double d_s__km;        /**< Scattering distance */
     double d_z__km;        /**< Half the scattering distance */
-    /*@}*/
+    ///@}
 
-     /**
-     * \\defgroup troposcatterheights Heights
+     /** @name Heights
      */
-    /*@{*/
+    ///@{
     double h_v__km;        /**< Height of the common volume cross-over point */
-    /*@}*/
+    ///@}
 
-    /**
-     * \\defgroup troposcatterangles Angles
+    /** @name Angles
      */
-    /*@{*/
+    ///@{
     double theta_s;        /**< Scattering angle */
     double theta_A;        /**< cross-over angle */
-    /*@}*/
+    ///@}
 
-    /**
-     * \\defgroup troposcatterlosses Losses
+    /** @name Losses
      */
-    /*@{*/
+    ///@{
     double A_s__db;        /**< Troposcattter Loss */
     double A_s_prev__db;   /**< Troposcatter Loss of Previous Test Point */
-    /*@}*/
+    ///@}
 
-    /**
-     * \\defgroup troposcattermisc Misc
+    /** @name Misc
      */
-    /*@{*/
+    ///@{
     double M_s;            /**< Troposcatter Line Slope */
-    /*@}*/
+    ///@}
 };
 
 //** Result variables */

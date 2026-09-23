@@ -1,3 +1,6 @@
+/** @file LineOfSight.cpp
+ * Computes the total loss in the line-of-sight region
+ */
 #include <math.h>
 #include "p528.h"
 #include "p676.h"
@@ -77,7 +80,7 @@ double FindDistanceAtDeltaR(double delta_r__km, Path *path, Terminal *terminal_1
     return params_temp.d__km;
 }
 
-/*******************************************************************************
+/**
  * Computes the total loss in the line-of-sight region
  *
  * References:

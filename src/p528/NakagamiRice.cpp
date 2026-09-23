@@ -1,10 +1,10 @@
-/** @file FlatEarthCurveCorrection.cpp
+/** @file NakagamiRice.cpp
  * C computes the value of the Nakagami-Rice distribution for K and p%.
  */
 
 #include "p528.h"
 
-/*******************************************************************************
+/**
  * Computes the value of the Nakagami-Rice distribution for K and p%
  *
  * @param[in]  K          K-value
@@ -12,7 +12,7 @@
  * @param[out] Y_pi__db   Variability, in dB
  * @par Returns
  *      Nothing.
- *===========================================================================*/
+ ****************************************************************************/
 double NakagamiRice(double K, double p)
 {
     auto lower_K = lower_bound(data::K.begin(), data::K.end(), K);

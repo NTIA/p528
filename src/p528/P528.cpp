@@ -6,7 +6,7 @@
 #include "p528.h"
 #include "p676.h"
 
-/*=============================================================================
+/**
  * This is the main entry point to this software. It calculates the basic
  * transmission loss for a user-specified path using Recommendation ITU-R P.528-5
  *
@@ -21,7 +21,7 @@
  * @param[in]  f__mhz      Frequency, in MHz
  * @param[in]  p           Time percentage
  * @param[out] result      Result structure containing various
- *===========================================================================*/
+ ****************************************************************************/
 int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
     int T_pol, double p, Result* result)
 {
