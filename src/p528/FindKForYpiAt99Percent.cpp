@@ -1,6 +1,9 @@
+/** @file FindKForYpiAt99Percent.cpp
+ * Returns the K-value of the Nakagami-Rice distribution for the given value of Y_pi(99)
+ */
 #include "p528.h"
 
-/*******************************************************************************
+/**
  * Returns the K-value of the Nakagami-Rice distribution for the given value 
  * of Y_pi(99)
  *
