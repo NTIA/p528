@@ -5,7 +5,7 @@
 #include <math.h>
 #include "p528.h"
 
-/*=============================================================================
+/**
  * Computes the line-of-sight ray optics
  * References:
  *     - Recommendation ITU‑R P.528‑5 "Propagation curves for aeronautical mobile
@@ -18,7 +18,7 @@
  * @param[out] params      Structure holding resulting parameters
  * @par Returns
  *      Nothing.
- *===========================================================================*/
+ ******************************************************************************/
 void RayOptics(Terminal *terminal_1, Terminal *terminal_2, double psi, LineOfSightParams *params)
 {
     double z = (a_0__km / a_e__km) - 1;       // [Eqn 7-1]
