@@ -1,7 +1,10 @@
+/** @file CombineDistributions.cpp
+ * Combines two distributions and returns the resulting percentile 
+ */
 #include <math.h>
 #include "p528.h"
 
-/********************************************************************************
+/**
  * Combines two distributions A and B, returning the resulting percentile.
  *
  * @param[in] A_M   Mean of distribution A
