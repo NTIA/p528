@@ -1,26 +1,27 @@
-#include <math.h>
-#include "../../include/p528.h"
-#include "../../include/p676.h"
+/** @file P528.cpp
+ *  Implements the model from ITU-R P.528-5. ANnex 2, Section 3.
+ */
 
-/*=============================================================================
- |
- |  Description:  This is the main entry point to this software.
- |                It describes Annex 2, Section 3 of Recommendation ITU-R
- |                P.528-5, "Propagation curves for aeronautical mobile and
- |                radionavigation services using the VHF, UHF and SHF bands"
- |
- |        Input:  d__km             - Path distance, in km
- |                h_1__meter        - Height of the low terminal, in meters
- |                h_2__meter        - Height of the high terminal, in meters
- |                f__mhz            - Frequency, in MHz
- |                p                 - Time percentage
- |
- |      Outputs:  result            - Result structure containing various
- |                                    computed parameters
- |
- |      Returns:  rtn               - SUCCESS or error code
- |
- *===========================================================================*/
+#include <math.h>
+#include "p528.h"
+#include "p676.h"
+
+/**
+ * This is the main entry point to this software. It calculates the basic
+ * transmission loss for a user-specified path using Recommendation ITU-R P.528-5
+ *
+ * References:
+ *     - Recommendation ITU‑R P.528‑5 "Propagation curves for aeronautical mobile
+ * and radionavigation services using the VHF, UHF and SHF bands", Annex 2, 
+ * Section 3.
+ *
+ * @param[in]  d__km       %Path distance, in km
+ * @param[in]  h_1__meter  Height of the low terminal, in meters
+ * @param[in]  h_2__meter  Height of the high terminal, in meters
+ * @param[in]  f__mhz      Frequency, in MHz
+ * @param[in]  p           Time percentage
+ * @param[out] result      Result structure containing various
+ ****************************************************************************/
 int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
     int T_pol, double p, Result* result)
 {

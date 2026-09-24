@@ -1,23 +1,25 @@
+/** @file LongTermVariability.cpp
+ * Computes long term variability from Recommendation ITU-R P.528-5, Annex 2, section 14.
+ */
 #include <math.h>
-#include "../../include/p528.h"
+#include "p528.h"
 
-/*=============================================================================
- |
- |  Description:  This function computes the long term variability
- |                as described in Annex 2, Section 14 of
- |                Recommendation ITU-R P.528-5, "Propagation curves for
- |                aeronautical mobile and radionavigation services using
- |                the VHF, UHF and SHF bands"
- |
- |        Input:  d_r1__km          - Actual height of low terminal, in km
- |                d_r2__km          - Actual height of high terminal, in km
- |                d__km             - Path distance, in km
- |                f__mhz            - Frequency, in MHz
- |                p                 - Time percentage
- |
- |      Outputs:  Y_e__db           - Variability, in dB
- |                A_Y               - Conditional adjustment factor, in dB
- |
+/**
+ * Computes the long term variability
+ * 
+ * References:
+ *     - Recommendation ITU‑R P.528‑5 "Propagation curves for aeronautical mobile
+ * and radionavigation services using the VHF, UHF and SHF bands", 
+ * Annex 2, Section 14.
+ * @param[in] d_r1__km  Actual height of low terminal, in km
+ * @param[in] d_r2__km  Actual height of high terminal, in km
+ * @param[in] d__km     %Path distance, in km
+ * @param[in] f__mhz    Frequency, in MHz
+ * @param[in] p         Time percentage
+ * @param[out] Y_e__db  Variability, in dB
+ * @param[out] A_Y      Conditional adjustment factor, in dB
+ * @par Returns
+ *      Nothing.
  *===========================================================================*/
 void LongTermVariability(double d_r1__km, double d_r2__km, double d__km, double f__mhz,
     double p, double f_theta_h, double A_T, double *Y_e__db, double *A_Y) 
