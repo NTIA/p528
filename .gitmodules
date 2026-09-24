@@ -10,3 +10,7 @@
 	path = extern/googletest
 	url = https://github.com/google/googletest
 	branch = v1.12.x
+[submodule "extern/test-data"]
+	path = extern/test-data
+	url = https://github.com/NTIA/p528-test-data.git
+	branch = AddData
