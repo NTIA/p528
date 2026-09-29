@@ -2,7 +2,7 @@
 #ifndef ITS_ITU_PSERIES_P528GTEST_H
 #define ITS_ITU_PSERIES_P528GTEST_H
 
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 #include <p528.h>
 
