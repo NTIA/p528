@@ -64,11 +64,15 @@ endfunction()
 ###########################################
 set(LIB_NAME "P528")                 # Name of library/target
 set(LIB_NAMESPACE "ITS.ITU.PSeries")  # Namespace for the named library
+set(PROPLIB_VERSION_MAJOR 1)
+set(PROPLIB_VERSION_MINOR 0)
+set(PROPLIB_VERSION "${PROPLIB_VERSION_MAJOR}.${PROPLIB_VERSION_MINOR}")
+set(PROPLIB_SOVERSION "${PROPLIB_VERSION_MAJOR}")
 project(
     "${LIB_NAMESPACE}.${LIB_NAME}"
     VERSION 1.1
-    DESCRIPTION "Recommendation ITU-R P.2108"
-    HOMEPAGE_URL "https://ntia.github.io/propagation-library-wiki/models/P2108"
+    DESCRIPTION "Recommendation ITU-R P.528"
+    HOMEPAGE_URL "https://ntia.github.io/propagation-library-wiki/models/P528"
     LANGUAGES "CXX"
 )
 
@@ -145,8 +149,8 @@ proplib_message(
 ## BUILD/RUN
 ##########################################
 if (NOT DOCS_ONLY)
-   set(extern_alg_names p676 p835)
-   foreach (extern_alg IN LIST extern_alg_names) 
+    set(extern_alg_names p676 ) #p835 is only needed by p676. It is necested.
+   foreach (extern_alg IN LISTS extern_alg_names) 
     if (EXISTS "${PROJECT_SOURCE_DIR}/extern/${extern_alg}/CMakeLists.txt")
             # Ensure external algorithm module is built as a static library
             set(BUILD_SHARED_LIBS_${extern_alg} ${BUILD_SHARED_LIBS})
@@ -209,12 +213,9 @@ if (NOT DOCS_ONLY)
     if (RUN_TESTS)         # Build and run unit tests
         add_subdirectory(tests)
     endif ()
-    if (BUILD_DRIVER OR RUN_DRIVER_TESTS)
-        add_subdirectory(app)
-    endif ()
 endif ()
 
 # Generate documentation
-if (BUILD_DOCS OR DOCS_ONLY)
-    add_subdirectory(docs)
-endif ()
+#if (BUILD_DOCS OR DOCS_ONLY)
+#    add_subdirectory(docs)
+#endif ()
