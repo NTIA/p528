@@ -1,23 +1,24 @@
-#include <math.h>
-#include "../../include/p528.h"
+/** @file RayOptics.cpp
+ * Calculates the line of sight ray optics
+ */
 
-/*=============================================================================
- |
- |  Description:  This function computes the line-of-sight ray optics
- |                as described in Annex 2, Section 7 of
- |                Recommendation ITU-R P.528-5, "Propagation curves for
- |                aeronautical mobile and radionavigation services using
- |                the VHF, UHF and SHF bands"
- |
- |        Input:  terminal_1    - Structure holding low terminal parameters
- |                terminal_2    - Structure holding high terminal parameters
- |                psi           - Reflection angle, in radians
- |
- |      Outputs:  params        - Structure holding resulting parameters
- |
- |      Returns:  [void]
- |
- *===========================================================================*/
+#include <math.h>
+#include "p528.h"
+
+/**
+ * Computes the line-of-sight ray optics
+ * References:
+ *     - Recommendation ITU‑R P.528‑5 "Propagation curves for aeronautical mobile
+ * and radionavigation services using the VHF, UHF and SHF bands", 
+ * Annex 2, Section 7.
+ *
+ * @param[in]  terminal_1  Structure holding low terminal parameters
+ * @param[in]  terminal_2  Structure holding high terminal parameters
+ * @param[in]  psi         Reflection angle, in radians
+ * @param[out] params      Structure holding resulting parameters
+ * @par Returns
+ *      Nothing.
+ ******************************************************************************/
 void RayOptics(Terminal *terminal_1, Terminal *terminal_2, double psi, LineOfSightParams *params)
 {
     double z = (a_0__km / a_e__km) - 1;       // [Eqn 7-1]

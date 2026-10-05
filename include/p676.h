@@ -1,9 +1,12 @@
+#pragma once
+#ifndef ITS_ITU_PSERIES_P676_H
+#define ITS_ITU_PSERIES_P676_H
+
 #include <vector>
 #include <algorithm>
 
 using namespace std;
 
-#define DLLEXPORT extern "C" __declspec(dllexport)
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
@@ -75,3 +78,4 @@ int SlantPathAttenuation(double f__ghz, double h_1__km, double h_2__km, double b
     SlantPathAttenuationResult* result);
 
 double GlobalWetPressure(double h__km);
+#endif

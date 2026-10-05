@@ -1,4 +1,7 @@
-#define DLLEXPORT extern "C" __declspec(dllexport)
+#pragma once
+#ifndef ITS_ITU_PSERIES_P835_H
+#define ITS_ITU_PSERIES_P835_H
+
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
@@ -31,3 +34,4 @@ double GlobalPressure_Regime1(double h_prime__km);
 double GlobalPressure_Regime2(double h__km);
 double GlobalWaterVapourDensity(double h__km, double rho_0);
 double GlobalWaterVapourPressure(double h__km, double rho_0);
+#endif

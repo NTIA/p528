@@ -1,4 +1,4 @@
-#include "../../include/p676.h"
+#include "p676.h"
 
 // Spectroscopic data for water vapor attenuation (Table 2)
 
