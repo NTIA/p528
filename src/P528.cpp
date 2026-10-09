@@ -3,8 +3,13 @@
  */
 
 #include <math.h>
-#include "p528.h"
-#include "p676.h"
+#include "P528.h"
+#include "P676.h"
+
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace P528 {
 
 /**
  * This is the main entry point to this software. It calculates the basic
@@ -210,8 +215,8 @@ int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
         // Atmospheric absorption for transhorizon path
         //
 
-        SlantPathAttenuationResult result_v;
-        SlantPathAttenuation(f__mhz / 1000, 0, tropo->h_v__km, PI / 2, &result_v);
+        P676::SlantPathAttenuationResult result_v;
+        P676::SlantPathAttenuation(f__mhz / 1000, 0, tropo->h_v__km, PI / 2, P676::Atmosphere::ATMOSPHERE__MAGRA, result_v);
 
         result->A_a__db = terminal_1->A_a__db + terminal_2->A_a__db + 2 * result_v.A_gas__db;   // [Eqn 3-17]
 
@@ -240,3 +245,8 @@ int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
             return SUCCESS_WITH_WARNINGS;
     }
 }
+
+}  // namespace P528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

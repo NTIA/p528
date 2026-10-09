@@ -1,7 +1,12 @@
 /** @file FindKForYpiAt99Percent.cpp
  * Returns the K-value of the Nakagami-Rice distribution for the given value of Y_pi(99)
  */
-#include "p528.h"
+#include "P528.h"
+
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace P528 {
 
 /**
  * Returns the K-value of the Nakagami-Rice distribution for the given value 
@@ -24,3 +29,8 @@ double FindKForYpiAt99Percent(double Y_pi_99__db)
     // no match.  Y_pi_99__db is greater than the data contains.  Return largest K
     return data::K.back();
 }
+
+}  // namespace P528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

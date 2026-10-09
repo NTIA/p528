@@ -1,7 +1,12 @@
 /** @file LinearInterpolation.cpp
  * Performs linear interpolation
  */
-#include "p528.h"
+#include "P528.h"
+
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace P528 {
 
 /**
  * Performs linear interpolation between the points (x1, y1) and (x2, y2).
@@ -16,3 +21,8 @@ double LinearInterpolation(double x1, double y1, double x2, double y2, double x)
 {
     return (y1 * (x2 - x) + y2 * (x - x1)) / (x2 - x1);
 }
+
+}  // namespace P528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

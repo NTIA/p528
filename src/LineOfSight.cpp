@@ -2,8 +2,13 @@
  * Computes the total loss in the line-of-sight region
  */
 #include <math.h>
-#include "p528.h"
-#include "p676.h"
+#include "P528.h"
+#include "P676.h"
+
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace P528 {
 
 double FindPsiAtDistance(double d__km, Path *path, Terminal *terminal_1, Terminal *terminal_2)
 {
@@ -199,8 +204,8 @@ void LineOfSight(Path *path, Terminal *terminal_1, Terminal *terminal_2, LineOfS
     // Compute atmospheric absorption
     //
 
-    SlantPathAttenuationResult result_slant;
-    SlantPathAttenuation(f__mhz / 1000, terminal_1->h_r__km, terminal_2->h_r__km, PI / 2 - los_params->theta_h1__rad, &result_slant);
+    P676::SlantPathAttenuationResult result_slant;
+    P676::SlantPathAttenuation(f__mhz / 1000, terminal_1->h_r__km, terminal_2->h_r__km, PI / 2 - los_params->theta_h1__rad, P676::Atmosphere::ATMOSPHERE__MAGRA, result_slant);
 
     result->A_a__db = result_slant.A_gas__db;
 
@@ -286,3 +291,8 @@ void LineOfSight(Path *path, Terminal *terminal_1, Terminal *terminal_2, LineOfS
     result->A__db = result->A_fs__db + result->A_a__db - los_params->A_LOS__db + Y_total__db;
     result->theta_h1__rad = los_params->theta_h1__rad;
 }
+
+}  // namespace P528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

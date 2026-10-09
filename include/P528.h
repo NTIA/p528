@@ -16,17 +16,23 @@ using namespace std;
 #   define DLLEXPORT extern "C"
 #endif
 
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace P528 {
+
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
-#define PI                                  3.1415926535897932384
-#define a_0__km                             6371.0
-#define a_e__km                             9257.0
-#define N_s                                 341
-#define epsilon_r                           15.0
-#define sigma                               0.005
-#define LOS_EPSILON                         0.00001
-#define THIRD                               1.0 / 3.0
+
+constexpr double PI          = 3.1415926535897932384;
+constexpr double a_0__km     = 6371.0;
+constexpr double a_e__km     = 9257.0;
+constexpr double N_s         = 341;
+constexpr double epsilon_r   = 15.0;
+constexpr double sigma       = 0.005;
+constexpr double LOS_EPSILON = 0.00001;
+constexpr double THIRD       = 1.0 / 3.0;
 
 // Consts
 #define CONST_MODE__SEARCH                  0
@@ -47,37 +53,33 @@ using namespace std;
 
 #define Y_pi_99_INDEX                       16
 
-
-/** @defgroup returncodes Return codes
- *  @{
+/**
+ * @brief return codes
  */
+enum ReturnCodes{
+    SUCCESS                           =  0,
+    ERROR_VALIDATION__D_KM            =  1,
+    ERROR_VALIDATION__H_1             =  2,
+    ERROR_VALIDATION__H_2             =  3,
+    ERROR_VALIDATION__TERM_GEO        =  4,
+    ERROR_VALIDATION__F_MHZ_LOW       =  5,
+    ERROR_VALIDATION__F_MHZ_HIGH      =  6,
+    ERROR_VALIDATION__PERCENT_LOW     =  7,
+    ERROR_VALIDATION__PERCENT_HIGH    =  8,
+    ERROR_VALIDATION__POLARIZATION    =  9,
+    ERROR_HEIGHT_AND_DISTANCE         =  10,
+    SUCCESS_WITH_WARNINGS             =  11,
+};
 
-#define	SUCCESS                             0 
-#define ERROR_VALIDATION__D_KM              1
-#define ERROR_VALIDATION__H_1               2 
-#define ERROR_VALIDATION__H_2               3
-#define ERROR_VALIDATION__TERM_GEO          4
-#define ERROR_VALIDATION__F_MHZ_LOW         5
-#define ERROR_VALIDATION__F_MHZ_HIGH        6
-#define ERROR_VALIDATION__PERCENT_LOW       7
-#define ERROR_VALIDATION__PERCENT_HIGH      8
-#define ERROR_VALIDATION__POLARIZATION      9
-#define ERROR_HEIGHT_AND_DISTANCE           10
-#define SUCCESS_WITH_WARNINGS               11
-
-/** @} */  // end of returncodes
-
-
-/** @defgroup warnings WARNINGS
- *  @{
+/**
+ * @brief warnings
  */
-
-#define WARNING__NO_WARNINGS                0x00
-#define WARNING__DFRAC_TROPO_REGION         0x01
-#define WARNING__HEIGHT_LIMIT_H_1           0x02
-#define WARNING__HEIGHT_LIMIT_H_2           0x04
-
-/** @} */  // end of warnings
+enum Warnings {
+    WARNING__NO_WARNINGS              =  0x00,
+    WARNING__DFRAC_TROPO_REGION       =  0x01,
+    WARNING__HEIGHT_LIMIT_H_1         =  0x02,
+    WARNING__HEIGHT_LIMIT_H_2         =  0x04,
+};
 
 //
 // CLASSES
@@ -98,8 +100,8 @@ public:
 
 //** Path variables */
 struct Path
-    {
-    /**@name Distance
+{
+    /** @name Distance
      */
     ///@{
     double d_ML__km;       /**< Maximum line of sight distance */
@@ -261,3 +263,8 @@ DLLEXPORT int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double
 DLLEXPORT double FindKForYpiAt99Percent(double Y_pi_99__db);
 DLLEXPORT double NakagamiRice(double K, double q);
 #endif
+
+}  // namespace P528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

@@ -2,7 +2,11 @@
 #include <fstream>
 #include <sstream>
 #include <filesystem>
+#include <cmath>
+#include <cfloat>
+#include "P528.h"
 
+using namespace ITS::ITU::PSeries::P528;
 
 /*=============================================================================
  |
@@ -85,8 +89,10 @@ std::vector<std::string> GetDataTablesFileList()
 {
     std::vector<std::string> ret;
     std::string dataTableDir = GetDirectory("Data Tables");
-    for (const auto& entry : std::filesystem::directory_iterator(dataTableDir)) {
-        ret.push_back(entry.path().filename().string());
+    if (std::filesystem::exists(dataTableDir)){
+        for (const auto& entry : std::filesystem::directory_iterator(dataTableDir)) {
+            ret.push_back(entry.path().filename().string());
+        }
     }
     return ret;
 }
@@ -258,3 +264,4 @@ std::vector<std::vector<std::string>> readCSV(std::istream& in) {
     }
     return table;
 }
+

@@ -1,7 +1,12 @@
 /** @file ValidateInputs.cpp
  * Validates the model's input values
  */
-#include "p528.h"
+#include "P528.h"
+
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace P528 {
 
 /**
  * Validate the model input values
@@ -62,3 +67,8 @@ int ValidateInputs(double d__km, double h_1__meter, double h_2__meter,
 
     return SUCCESS;
 }
+
+}  // namespace P528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

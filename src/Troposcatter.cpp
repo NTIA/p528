@@ -2,7 +2,12 @@
  * Computes the troposcatter loss.
  */
 #include <math.h>
-#include "p528.h"
+#include "P528.h"
+
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace P528 {
 
 
 /**
@@ -140,3 +145,8 @@ void Troposcatter(Path *path, Terminal *terminal_1, Terminal *terminal_2, double
         tropo->A_s__db = S_e__db + S_v__db + 10.0 * log10(kappa * pow(tropo->theta_s, 3) / ell__km);
     }
 }
+
+}  // namespace P528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

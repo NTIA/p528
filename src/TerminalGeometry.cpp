@@ -2,8 +2,13 @@
  * Computes the terminal geometry 
  */
 #include <math.h>
-#include "p528.h"
-#include "p676.h"
+#include "P528.h"
+#include "P676.h"
+
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace P528 {
 
 /**
  * Computes the terminal geometry as described
@@ -22,14 +27,14 @@
 void TerminalGeometry(double f__mhz, Terminal *terminal)
 {
     double theta_tx__rad = 0;
-    SlantPathAttenuationResult result;
-    SlantPathAttenuation(f__mhz / 1000, 0, terminal->h_r__km, PI / 2 - theta_tx__rad, &result);
-    terminal->theta__rad = PI / 2 - result.angle__rad;
+    P676::SlantPathAttenuationResult result;
+    P676::SlantPathAttenuation(f__mhz / 1000, 0, terminal->h_r__km, PI / 2 - theta_tx__rad, P676::Atmosphere::ATMOSPHERE__MAGRA, result);
+    terminal->theta__rad = PI / 2 - result.incident__rad;
     terminal->A_a__db = result.A_gas__db;
     terminal->a__km = result.a__km;
 
     // compute arc distance
-    double central_angle = ((PI / 2 - result.angle__rad) - theta_tx__rad + result.bending__rad);            // [Thayer, Equ 2], rearranged
+    double central_angle = ((PI / 2 - result.incident__rad) - theta_tx__rad + result.bending__rad);            // [Thayer, Equ 2], rearranged
     terminal->d_r__km = a_0__km * central_angle;
 
     terminal->phi__rad = terminal->d_r__km / a_e__km;                   // [Eqn 4-1]
@@ -37,3 +42,8 @@ void TerminalGeometry(double f__mhz, Terminal *terminal)
 
     terminal->delta_h__km = terminal->h_r__km - terminal->h_e__km;      // [Eqn 4-3]
 }
+
+}  // namespace P528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

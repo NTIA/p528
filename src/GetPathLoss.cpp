@@ -3,7 +3,12 @@
  */
 #include <math.h>
 #include <complex>
-#include "p528.h"
+#include "P528.h"
+
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace P528 {
 
 /**
  * Computes the line of sight loss
@@ -88,3 +93,8 @@ void GetPathLoss(double psi__rad, Path *path, double f__mhz, double psi_limit,
         }
     }
 }
+
+}  // namespace P528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

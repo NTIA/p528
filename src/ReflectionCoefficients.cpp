@@ -2,7 +2,12 @@
  * Computes the reflection coefficients
  */
 #include <math.h>
-#include "p528.h"
+#include "P528.h"
+
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace P528 {
 
 /**
  * Computes the reflection coefficients
@@ -83,3 +88,8 @@ void ReflectionCoefficients(double psi__rad, double f__mhz, int T_pol, double *R
     // [Eqn 9-11]
     *phi_g = alpha - beta;
 }
+
+}  // namespace P528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

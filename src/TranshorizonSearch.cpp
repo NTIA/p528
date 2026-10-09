@@ -1,7 +1,12 @@
 /** @file TranshorizonSearch.cpp
  * Implements step 6: Line of Sight Region from ITU-R P.528-5.
  */
-#include "p528.h"
+#include "P528.h"
+
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace P528 {
 
 /**
  * Computes the propagation loss for a line-of-sight path
@@ -104,3 +109,8 @@ void TranshorizonSearch(Path* path, Terminal *terminal_1, Terminal *terminal_2,
 
     *warnings |= WARNING__DFRAC_TROPO_REGION;
 }
+
+}  // namespace P528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

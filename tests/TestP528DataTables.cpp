@@ -2,7 +2,10 @@
 #include <cctype>
 #include <string>
 #include <functional>
+#include <math.h>
+#include "P528.h"
 
+using namespace ITS::ITU::PSeries::P528;
 
 /*=============================================================================
  |
@@ -61,3 +64,4 @@ INSTANTIATE_TEST_CASE_P(
     TestP528, 
     TestP528DataTables, 
     ::testing::ValuesIn(GetDataTablesFileList()));
+

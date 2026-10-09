@@ -36,9 +36,9 @@ endif ()
 
 # Add the include directory
 target_include_directories(${LIB_NAME} PUBLIC "${LIB_HEADERS}"
-    "${PROJECT_SOURCE_DIR}/extern/p835/include")
+    "${PROJECT_SOURCE_DIR}/extern/p676/include")
 
-target_link_libraries(${LIB_NAME} PRIVATE P835)
+target_link_libraries(${LIB_NAME} PRIVATE P676)
 
 # Set PropLib compiler option defaults
 configure_proplib_target(${LIB_NAME})

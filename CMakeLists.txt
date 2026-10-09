@@ -90,8 +90,12 @@ option(BUILD_32BIT "Build project for x86/32-bit instead of x64/64-bit" OFF)
 ###########################################
 ## SETUP
 ###########################################
+
+#make static shared libraries work
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 # C++11 and some extensions (e.g., for `auto`) are the minimum required
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
 

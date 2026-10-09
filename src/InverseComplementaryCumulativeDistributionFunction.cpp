@@ -2,7 +2,12 @@
  * Computes the inverse complementary cumulative distribution function approximation
  */
 #include <math.h>
-#include "p528.h"
+#include "P528.h"
+
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace P528 {
 
 /**
  * Computes the inverse complementary cumulative distribution function 
@@ -42,3 +47,8 @@ double InverseComplementaryCumulativeDistributionFunction(double q)
 
     return Q_q;
 }
+
+}  // namespace P528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

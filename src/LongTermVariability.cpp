@@ -2,7 +2,12 @@
  * Computes long term variability from Recommendation ITU-R P.528-5, Annex 2, section 14.
  */
 #include <math.h>
-#include "p528.h"
+#include "P528.h"
+
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace P528 {
 
 /**
  * Computes the long term variability
@@ -138,3 +143,8 @@ void LongTermVariability(double d_r1__km, double d_r2__km, double d__km, double 
         *Y_e__db -= A_T;
     }
 }
+
+}  // namespace P528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

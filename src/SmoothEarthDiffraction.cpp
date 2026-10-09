@@ -2,7 +2,12 @@
  * Computes the smooth earth diffraction loss
  */
 #include <math.h>
-#include "p528.h"
+#include "P528.h"
+
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace P528 {
 
 /**
  * Computes the smooth earth diffraction loss
@@ -103,3 +108,8 @@ double SmoothEarthDiffraction(double d_1__km, double d_2__km, double f__mhz, dou
     // [Vogler 1964, Equ 1] with C_1(K, b^0) = 20, which is the approximate value for all K (see Figure 5)
     return G_x__db - F_x1__db - F_x2__db - 20.0;
 }
+
+}  // namespace P528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

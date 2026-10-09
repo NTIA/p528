@@ -4,7 +4,9 @@
 
 #include <gtest/gtest.h>
 
-#include <p528.h>
+#include "P528.h"
+
+using namespace ITS::ITU::PSeries::P528;
 
 struct InputsAndResult {
     double d__km;

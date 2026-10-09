@@ -1,4 +1,7 @@
 #include "P528GTest.h"
+#include "P528.h"
+
+using namespace ITS::ITU::PSeries::P528;
 
 
 /*=============================================================================
@@ -43,3 +46,4 @@ TEST_F(TestP528, TestP528Success) {
         EXPECT_NEAR(result.theta_h1__rad, data.expectedResult.theta_h1__rad, TOLERANCE);
     }
 }
+
