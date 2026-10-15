@@ -220,6 +220,6 @@ if (NOT DOCS_ONLY)
 endif ()
 
 # Generate documentation
-#if (BUILD_DOCS OR DOCS_ONLY)
-#    add_subdirectory(docs)
-#endif ()
+if (BUILD_DOCS OR DOCS_ONLY)
+    add_subdirectory(docs)
+endif ()

@@ -10,6 +10,14 @@ namespace ITU {
 namespace PSeries {
 namespace P528 {
 
+/**
+ * Determine reflection angle for line of sight distance (d__km).
+ * @param[in] d__km       %Path distance of interest.
+ * @param[in] path        Struct containing path parameters
+ * @param[in] terminal_1  Struct containing low terminal parameters
+ * @param[in] terminal_2  Struct containing high terminal parameters
+ * @return                Ray reflection angle, in radians
+ ******************************************************************************/
 double FindPsiAtDistance(double d__km, Path *path, Terminal *terminal_1, Terminal *terminal_2)
 {
     if (d__km == 0)
@@ -41,7 +49,22 @@ double FindPsiAtDistance(double d__km, Path *path, Terminal *terminal_1, Termina
     return psi;
 }
 
-double FindPsiAtDeltaR(double delta_r__km, Path *path, Terminal *terminal_1, Terminal *terminal_2, double terminate)
+/**
+ * Determine the psi_limit, where you switch from free space to 2-ray model.
+ * This is the reflecting angle corresponding to the distance at which
+ * delta_r__km = lambda__km / 2
+ *
+ * @param[in] delta_r__km Desired difference in ray length between the direct
+                          and indirect ray
+ * @param[in] path        Struct containing path parameters
+ * @param[in] terminal_1  Struct containing low terminal parameters
+ * @param[in] terminal_2  Struct containing high terminal parameters
+ * @param[in] terminate   Stopping condition. How close do we want the
+ *                        calculated value of delta_r to be to the desired value
+ * @return                Ray reflection angle, in radians
+ ******************************************************************************/
+double FindPsiAtDeltaR(double delta_r__km, Path *path, Terminal *terminal_1,
+                       Terminal *terminal_2, double terminate)
 {
     double psi = PI / 2;
     double delta_psi = -PI / 4;
@@ -63,7 +86,22 @@ double FindPsiAtDeltaR(double delta_r__km, Path *path, Terminal *terminal_1, Ter
     return psi;
 }
 
-double FindDistanceAtDeltaR(double delta_r__km, Path *path, Terminal *terminal_1, Terminal *terminal_2, double terminate)
+/**
+ * Determine the psi_limit, where you switch from free space to 2-ray model.
+ * This is the reflecting angle corresponding to the distance at which
+ * delta_r__km = lambda__km / 6
+ *
+ * @param[in] delta_r__km Desired difference in ray length between the direct
+ *                        and indirect ray
+ * @param[in] path        Struct containing path parameters
+ * @param[in] terminal_1  Struct containing low terminal parameters
+ * @param[in] terminal_2  Struct containing high terminal parameters
+ * @param[in] terminate   Stopping condition. How close do we want the
+ *                        calculated value of delta_r to be to the desired value
+ * @return                Ray reflection angle, in radians
+ ******************************************************************************/
+double FindDistanceAtDeltaR(double delta_r__km, Path *path, Terminal *terminal_1,
+                            Terminal *terminal_2, double terminate)
 {
     double psi = PI / 2;
     double delta_psi = -PI / 4;
@@ -106,8 +144,6 @@ double FindDistanceAtDeltaR(double delta_r__km, Path *path, Terminal *terminal_1
  * @param[out] los_params  Struct containing LOS parameters
  * @param[out] result      Struct containing P.528 results
  * @param[out] K_LOS       K-value
- * @par Returns
- *    Nothing.
  ******************************************************************************/
 void LineOfSight(Path *path, Terminal *terminal_1, Terminal *terminal_2, LineOfSightParams *los_params, 
     double f__mhz, double A_dML__db, double p, double d__km, int T_pol, Result *result, double *K_LOS)

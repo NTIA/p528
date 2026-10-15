@@ -2,86 +2,179 @@
  * Interface header for this library
  */
 #pragma once
-#ifndef ITS_ITU_PSERIES_P528_H
-#define ITS_ITU_PSERIES_P528_H
 
 #include <vector>
 #include <algorithm>
 
 using namespace std;
 
-#ifdef _WIN32   // windows
-#   define DLLEXPORT extern "C" __declspec(dllexport)
-#else           // non windows
-#   define DLLEXPORT extern "C"
+
+#ifndef DOXYGEN_SHOULD_SKIP
+    #ifndef PROPLIB_API
+        #ifdef _WIN32
+            #define PROPLIB_API extern "C" __declspec(dllexport)
+        #else
+            #define PROPLIB_API extern "C"
+        #endif
+    #endif
 #endif
+
 
 namespace ITS {
 namespace ITU {
 namespace PSeries {
 namespace P528 {
 
+/**
+ * @brief
+ * max(x,y). Returns y if x=y
+ */
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
+/**
+ * @brief
+ * min(x,y). Returns y if x=y
+ */
+
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
+/**
+ * @brief
+ * Approximate value of @f$ \pi @f$.
+ */
+constexpr double PI = 3.1415926535897932384;
 
-constexpr double PI          = 3.1415926535897932384;
-constexpr double a_0__km     = 6371.0;
-constexpr double a_e__km     = 9257.0;
-constexpr double N_s         = 341;
-constexpr double epsilon_r   = 15.0;
-constexpr double sigma       = 0.005;
+/**
+ * @brief
+ * The average Earth radius, in km.
+ * @note
+ * References:
+ *     - Recommendation ITU‑R P.528‑5 "A propagation prediction method for
+ * aeronautical mobile and radionavigation services using the VHF, UHF and SHF
+ * bands", Annex 2, Section 2.
+ */
+constexpr double a_0__km = 6371.0;
+
+/**
+ * @brief
+ * The effective Earth radius, in km
+ * @note
+ * References:
+ *     - Recommendation ITU‑R P.528‑5 "A propagation prediction method for
+ * aeronautical mobile and radionavigation services using the VHF, UHF and SHF
+ * bands", Annex 2, Section 2.
+ */
+constexpr double a_e__km = 9257.0;
+
+/**
+ * @brief
+ * Surface index of refractivity
+ *
+ * @note
+ * References:
+ *     - Recommendation ITU‑R P.528‑4 "A propagation prediction method for
+ * aeronautical mobile and radionavigation services using the VHF, UHF and SHF
+ * bands", Annex 2, Section 2.
+ */
+constexpr double N_s = 341;
+
+/**
+ * @brief
+ * The relative dieletric constant (set corresponding to average ground)
+ * @note
+ * References:
+ *     - Recommendation ITU‑R P.528‑5 "A propagation prediction method for
+ * aeronautical mobile and radionavigation services using the VHF, UHF and SHF
+ * bands", Annex 2, Section 2.
+ */
+constexpr double epsilon_r = 15.0;
+
+/**
+ * @brief
+ * Conductivity, in S/m (set corresponding to average ground)
+ * @note
+ * References:
+ *     - Recommendation ITU‑R P.528‑5 "A propagation prediction method for
+ * aeronautical mobile and radionavigation services using the VHF, UHF and SHF
+ * bands", Annex 2, Section 2.
+ */
+constexpr double sigma = 0.005;
+
+/**
+ * @brief
+ * Line of sight epsilon. Unused
+ */
 constexpr double LOS_EPSILON = 0.00001;
-constexpr double THIRD       = 1.0 / 3.0;
 
-// Consts
-#define CONST_MODE__SEARCH                  0
-#define CONST_MODE__DIFFRACTION             1
-#define CONST_MODE__SCATTERING              2
+/**
+ * @brief
+ * computer approx for 1/3
+ */
+constexpr double THIRD = 1.0 / 3.0;
 
-#define CASE_1                              1
-#define CASE_2                              2
 
-#define PROP_MODE__NOT_SET                  0
-#define PROP_MODE__LOS                      1
-#define PROP_MODE__DIFFRACTION              2
-#define PROP_MODE__SCATTERING               3
+/**
+ * @brief modes and cases used as options in algorithm.
+ */
+enum MODES_AND_CASES{
+    CONST_MODE__SEARCH        = 0, ///< Code is currnetly running TranshorizonSearch.
+    CONST_MODE__DIFFRACTION   = 1, ///< Code returned TranshorizonSearch with CASE_1.
+    CONST_MODE__SCATTERING    = 2, ///< Code returned TranshorizonSearch with CASE_2.
+/** Smooth Earth diffraction losses are predicted to be less than the losses
+ * due to troposcatter, and the diffraction model is guaranteed to intersect the
+ * troposcatter model at some distance ≥ 𝑑′. The transhorizon region propagation
+ * loss is physically consistent.*/
+    CASE_1    = 1,
+    CASE_2    = 2, /**< he diffraction line is parallel to the tangent of the troposcatter model.
+However, the transhorizon region propagation loss could be not physically consistent,
+i.e., there is a potential discontinuity*/
+
+    PROP_MODE__NOT_SET= 0, ///< Program did not finish running.
+    PROP_MODE__LOS    = 1, ///< Path is in the Line-of-Sight range.
+    PROP_MODE__DIFFRACTION    = 2, ///< Diffraction propagation dominates
+    PROP_MODE__SCATTERING     = 3, ///< Scattering propagation dominates
 
 // List of valid polarizations
-#define POLARIZATION__HORIZONTAL            0
-#define POLARIZATION__VERTICAL              1
+    POLARIZATION__HORIZONTAL  = 0, ///< antenna has horizontal polarization
+    POLARIZATION__VERTICAL    = 1, ///< antenna has vertical polarization
+};
 
-#define Y_pi_99_INDEX                       16
+
+/**
+ * @brief
+ * y value (second index) for NakagamiRiceCurves
+ */
+#define Y_pi_99_INDEX  16
+
 
 /**
  * @brief return codes
  */
 enum ReturnCodes{
-    SUCCESS                           =  0,
-    ERROR_VALIDATION__D_KM            =  1,
-    ERROR_VALIDATION__H_1             =  2,
-    ERROR_VALIDATION__H_2             =  3,
-    ERROR_VALIDATION__TERM_GEO        =  4,
-    ERROR_VALIDATION__F_MHZ_LOW       =  5,
-    ERROR_VALIDATION__F_MHZ_HIGH      =  6,
-    ERROR_VALIDATION__PERCENT_LOW     =  7,
-    ERROR_VALIDATION__PERCENT_HIGH    =  8,
-    ERROR_VALIDATION__POLARIZATION    =  9,
-    ERROR_HEIGHT_AND_DISTANCE         =  10,
-    SUCCESS_WITH_WARNINGS             =  11,
+    SUCCESS   =  0, ///< Successful execution
+    ERROR_VALIDATION__D_KM    =  1, ///< Path distance must be >= 0 km
+    ERROR_VALIDATION__H_1     =  2, ///< Low terminal height must be >= 1.5 meters
+    ERROR_VALIDATION__H_2     =  3, ///< High terminal height must be >= 1.5 meters
+    ERROR_VALIDATION__TERM_GEO=  4, ///< Low terminal must be <= high terminal height
+    ERROR_VALIDATION__F_MHZ_LOW       =  5, ///< Frequency must be >= 100 MHz
+    ERROR_VALIDATION__F_MHZ_HIGH      =  6, ///< Frequency must be <= 30,000 MHz
+    ERROR_VALIDATION__PERCENT_LOW     =  7, ///< Time percentage must be >= 1
+    ERROR_VALIDATION__PERCENT_HIGH    =  8, ///< Time percentage must be <= 99
+    ERROR_VALIDATION__POLARIZATION    =  9, ///< T_pol must equal POLARIZATION__HORIZONTAL or POLARIZATION__VERTICAL
+    ERROR_HEIGHT_AND_DISTANCE =  10,///< Terminals are occupying the same point in space (they are the same height and 0 km apart)
+    SUCCESS_WITH_WARNINGS     =  11,///< Successful execution, but there were warnings triggered.
 };
 
 /**
  * @brief warnings
  */
 enum Warnings {
-    WARNING__NO_WARNINGS              =  0x00,
-    WARNING__DFRAC_TROPO_REGION       =  0x01,
-    WARNING__HEIGHT_LIMIT_H_1         =  0x02,
-    WARNING__HEIGHT_LIMIT_H_2         =  0x04,
+    WARNING__NO_WARNINGS      =  0x00, ///< No warning flags
+    WARNING__DFRAC_TROPO_REGION       =  0x01, ///< Warning that the diffraction and troposcatter model may not be physically consistent with each other. Caution should be taken when using the result
+    WARNING__HEIGHT_LIMIT_H_1 =  0x02, ///< Terminal 1 height above limit defined within in-force Recommendation text. Results should not be intepreted as an official prediction of Recommendation ITU-R P.528, but instead treated as informative
+    WARNING__HEIGHT_LIMIT_H_2 =  0x04, ///< Terminal 2 height above limit defined within in-force Recommendation text. Results should not be intepreted as an official prediction of Recommendation ITU-R P.528, but instead treated as informative
 };
 
-//
+//P
 // CLASSES
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -98,7 +191,8 @@ public:
 // DATA STRUCTURES
 ///////////////////////////////////////////////
 
-//** Path variables */
+
+/** Structure to hold Path Variables. */
 struct Path
 {
     /** @name Distance
@@ -110,7 +204,7 @@ struct Path
     ///@}
 };
 
-//** Terminal variables */
+/** Terminal variables */
 struct Terminal
 {
     /** @name Height
@@ -142,13 +236,13 @@ struct Terminal
     ///@}
 };
 
-//* Line of Sight parameters */
+/** Structure to hold Line of outputs. */
 struct LineOfSightParams
 {
     /** @name Heights
      */
     ///@{
-    double z__km[2];       /**< A terminal geometric parameter */ 
+    double z__km[2];       /**< A terminal geometric parameter */
     ///@}
 
     /** @name Distances
@@ -177,7 +271,7 @@ struct LineOfSightParams
     ///@}
 };
 
-//** Troposcatter parameters */
+/** Troposcatter parameters. */
 struct TroposcatterParams
 {
     /** @name Distances
@@ -185,11 +279,7 @@ struct TroposcatterParams
     ///@{
     double d_s__km;        /**< Scattering distance */
     double d_z__km;        /**< Half the scattering distance */
-    ///@}
 
-     /** @name Heights
-     */
-    ///@{
     double h_v__km;        /**< Height of the common volume cross-over point */
     ///@}
 
@@ -214,16 +304,14 @@ struct TroposcatterParams
     ///@}
 };
 
-//** Result variables */
+/** Structure to hold  outputs. */
 struct Result {
     int propagation_mode;  /**< Mode of propagation */
     int warnings;          /**< Warning messages */
-
     double d__km;          /**< Path distance used in calculations */
     double A__db;          /**< Total loss */
     double A_fs__db;       /**< Free space path loss */
     double A_a__db;        /**< Atmospheric absorption loss, in dB */
-
     double theta_h1__rad;  /**< Elevation angle of the ray at the low terminal, in rad */
 };
 
@@ -255,14 +343,13 @@ int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, double f_
 
 
 // Public Functions
-DLLEXPORT int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz, 
+PROPLIB_API int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
     int T_pol, double p, Result *result);
-DLLEXPORT int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
+PROPLIB_API int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
     int T_pol, double p, Result* result, Terminal* terminal_1, Terminal* terminal_2,
     TroposcatterParams* tropo, Path* path, LineOfSightParams* los_params);
-DLLEXPORT double FindKForYpiAt99Percent(double Y_pi_99__db);
-DLLEXPORT double NakagamiRice(double K, double q);
-#endif
+PROPLIB_API double FindKForYpiAt99Percent(double Y_pi_99__db);
+PROPLIB_API double NakagamiRice(double K, double q);
 
 }  // namespace P528
 }  // namespace PSeries

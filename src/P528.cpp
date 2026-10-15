@@ -24,8 +24,11 @@ namespace P528 {
  * @param[in]  h_1__meter  Height of the low terminal, in meters
  * @param[in]  h_2__meter  Height of the high terminal, in meters
  * @param[in]  f__mhz      Frequency, in MHz
+ * @param[in]  T_pol       Polarization type (POLARIZATION__HORIZONTAL or
+ *                         POLARIZATION__VERTICAL)
  * @param[in]  p           Time percentage
  * @param[out] result      Result structure containing various
+ * @return                 RETURNCODES value explaining success of code run
  ****************************************************************************/
 int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
     int T_pol, double p, Result* result)
@@ -40,6 +43,32 @@ int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
         &terminal_1, &terminal_2, &tropo, &path, &los_params);
 }
 
+/**
+ * This is the main entry point to this software. It calculates the basic
+ * transmission loss for a user-specified path using Recommendation ITU-R P.528-5
+ *
+ * References:
+ *     - Recommendation ITU‑R P.528‑5 "Propagation curves for aeronautical mobile
+ * and radionavigation services using the VHF, UHF and SHF bands", Annex 2,
+ * Section 3.
+ *
+ * @param[in]  d__km       %Path distance, in km
+ * @param[in]  h_1__meter  Height of the low terminal, in meters
+ * @param[in]  h_2__meter  Height of the high terminal, in meters
+ * @param[in]  f__mhz      Frequency, in MHz
+ * @param[in]  p           Time percentage
+ * @param[in]  T_pol       Polarization type (POLARIZATION__HORIZONTAL or
+ *                         POLARIZATION__VERTICAL)
+ * @param[out] result      Result structure containing various
+ * @param[out] terminal_1  Structure containing parameters dealing with the geometry
+ *                         of terminal 1
+ * @param[out] terminal_2  Structure containing parameters dealing with the geometry
+ *                         of terminal 2
+ * @param[out] tropo       Structure containing troposcatter parameters
+ * @param[out] path        Structure containing propagation path parameters
+ * @param[out] los_params  Structure containing line of sight parameters
+ * @return                 RETURNCODES value explaining success of code run
+ ****************************************************************************/
 int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
     int T_pol, double p, Result* result, Terminal* terminal_1, Terminal* terminal_2,
     TroposcatterParams* tropo, Path* path, LineOfSightParams* los_params)

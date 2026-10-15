@@ -15,7 +15,7 @@ namespace P528 {
  * @param[in] x2    x coordinate of Point 2
  * @param[in] y2    y coordinate of Point 2
  * @param[in] x     Value of the dependent variable
- * returns          Linearly interpolated value
+ * @return          Linearly interpolated value
  ******************************************************************************/
 double LinearInterpolation(double x1, double y1, double x2, double y2, double x)
 {

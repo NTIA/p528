@@ -9,28 +9,20 @@ namespace ITU {
 namespace PSeries {
 namespace P528 {
 
+
 /**
- * Computes the smooth earth diffraction loss
+ * Computes the height of the terminal
  *
  * References:
  *     - Recommendation ITU‑R P.528‑5 "Propagation curves for aeronautical mobile
- * and radionavigation services using the VHF, UHF and SHF bands", 
- * Annex 2, Section 10.
- *     - Calculation of Groundwave Attenuation in the Far Diffraction Region. 
+ * and radionavigation services using the VHF, UHF and SHF bands",
+ * Annex 2, Section 10, step 10-3.
+ *     - Calculation of Groundwave Attenuation in the Far Diffraction Region.
  * L. Vogler. 1964
- *     - The IF-77 Electromagnetic Wave Propagation Model. Gierhart and Johnson. 1983
  *
- * @param[in] d_1__km   Horizon distance of terminal 1, in km
- * @param[in] d_2__km   Horizon distance of terminal 2, in km
- * @param[in] a_e__km   Effective earth radius, in km
- * @param[in] f__mhz    Frequency, in MHz
- * @param[in] d_0__km   %Path length of interest, in km
- * @param[in] T_pol     Code indicating either polarization
- *                          + 0 : POLARIZATION__HORIZONTAL
- *                          + 1 : POLARIZATION__VERTICAL
- * @return              Diffraction loss, in dB
+ * @param[in] x__km    Normalized distance
+ * @returns            Distance function, G(x), in db.
  ******************************************************************************/
-
 double DistanceFunction(double x__km)
 {
     // [Vogler 1964, Equ 13]
@@ -39,6 +31,21 @@ double DistanceFunction(double x__km)
     return G_x__db;
 }
 
+/**
+ * Computes the height of the terminal
+ *
+ * References:
+ *     - Recommendation ITU‑R P.528‑5 "Propagation curves for aeronautical mobile
+ * and radionavigation services using the VHF, UHF and SHF bands",
+ * Annex 2, Section 10.
+ *     - Calculation of Groundwave Attenuation in the Far Diffraction Region.
+ * L. Vogler. 1964
+ *     - The IF-77 Electromagnetic Wave Propagation Model. Gierhart and Johnson. 1983
+ *
+ * @param[in] x__km    Normalized distance
+ * @param[in] K        Smooth earth diffraction term. Step 10.1
+ * @returns            height function, F(x), in db.
+ ******************************************************************************/
 double HeightFunction(double x__km, double K)
 {
     double F_x__db;
@@ -81,6 +88,26 @@ double HeightFunction(double x__km, double K)
     return F_x__db;
 }
 
+/**
+ * Computes the smooth earth diffraction loss
+ *
+ * References:
+ *     - Recommendation ITU‑R P.528‑5 "Propagation curves for aeronautical mobile
+ * and radionavigation services using the VHF, UHF and SHF bands",
+ * Annex 2, Section 10.
+ *     - Calculation of Groundwave Attenuation in the Far Diffraction Region.
+ * L. Vogler. 1964
+ *     - The IF-77 Electromagnetic Wave Propagation Model. Gierhart and Johnson. 1983
+ *
+ * @param[in] d_1__km   Horizon distance of terminal 1, in km
+ * @param[in] d_2__km   Horizon distance of terminal 2, in km
+ * @param[in] f__mhz    Frequency, in MHz
+ * @param[in] d_0__km   %Path length of interest, in km
+ * @param[in] T_pol     Code indicating either polarization
+ *                          + 0 : POLARIZATION__HORIZONTAL
+ *                          + 1 : POLARIZATION__VERTICAL
+ * @return              Diffraction loss, in dB
+ ******************************************************************************/
 double SmoothEarthDiffraction(double d_1__km, double d_2__km, double f__mhz, double d_0__km, int T_pol)
 {
     double s = 18000 * sigma / f__mhz;

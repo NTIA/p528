@@ -18,9 +18,9 @@ namespace P528 {
  * @param[in]   T_pol       Code indicating either polarization
  *                              + 0 : POLARIZATION__HORIZONTAL
  *                              + 1 : POLARIZATION__VERTICAL
- * @param[in]   p	          Time percentage
- * @param[in]  warnings     Warning flags
- * @return                  See @ref returncodes for possible return codes.
+ * @param[in]   p	        Time percentage
+ * @param[in]   warnings    Warning flags
+ * @return                  ReturnCodes object.
  ******************************************************************************/
 
 int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, 

@@ -11,16 +11,16 @@ namespace P528 {
 /**
  * Computes the propagation loss for a line-of-sight path
  * References:
- *     - Recommendation ITU‑R P.528‑5 "Propagation curves for aeronautical mobile
+ *     - Recommendation ITU‑R P.528‑4 "Propagation curves for aeronautical mobile
  * and radionavigation services using the VHF, UHF and SHF bands", 
  * Annex 2, Section 3.
  *
  * @param[in]  path        Structure containing parameters dealing
- * @param[in]                      with the propagation path
+ *                         with the propagation path
  * @param[in]  terminal_1  Structure containing parameters dealing
- * @param[in]                      with the geometry of the low terminal
+ *                         with the geometry of the low terminal
  * @param[in]  terminal_2  Structure containing parameters dealing
- * @param[in]                      with the geometry of the high terminal
+ *                         with the geometry of the high terminal
  * @param[in]  f__mhz      Frequency, in MHz
  * @param[in]  A_dML__db   Diffraction loss at d_ML, in dB
  * @param[out] M_d         Slope of the diffraction line
@@ -28,8 +28,6 @@ namespace P528 {
  * @param[out] d_crx__km   Final search distance, in km
  * @param[out] CASE        Case as defined in Step 6.5
  * @param[out] warnings    Warning flags
- * @par Returns
- *      Nothing. 
  ******************************************************************************/
 void TranshorizonSearch(Path* path, Terminal *terminal_1, Terminal *terminal_2, 
     double f__mhz, double A_dML__db, double *M_d, double *A_d0, 

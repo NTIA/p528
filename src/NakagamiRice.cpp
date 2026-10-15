@@ -10,13 +10,11 @@ namespace PSeries {
 namespace P528 {
 
 /**
- * Computes the value of the Nakagami-Rice distribution for K and p%
+ * Computes the value of the Nakagami-Rice distribution for K and p.
  *
  * @param[in]  K          K-value
  * @param[in]  p          Time percentage
- * @param[out] Y_pi__db   Variability, in dB
- * @par Returns
- *      Nothing.
+ * @return Y_pi__db: Variability, in dB
  ****************************************************************************/
 double NakagamiRice(double K, double p)
 {
