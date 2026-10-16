@@ -217,6 +217,9 @@ if (NOT DOCS_ONLY)
     if (RUN_TESTS)         # Build and run unit tests
         add_subdirectory(tests)
     endif ()
+    if (BUILD_DRIVER OR RUN_DRIVER_TESTS)
+        add_subdirectory(app)
+    endif ()
 endif ()
 
 # Generate documentation

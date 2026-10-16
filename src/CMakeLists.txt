@@ -22,6 +22,7 @@ set(LIB_FILES
     "Troposcatter.cpp"
     "ValidateInputs.cpp"
     "data.cpp"
+    "ReturnCodes.cpp"
     "${LIB_HEADERS}/P528.h"
 )
 

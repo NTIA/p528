@@ -3,7 +3,8 @@
  */
 #pragma once
 
-#include <vector>
+#include <string>  // for std::string
+#include <vector>  // for std::vector
 #include <algorithm>
 
 using namespace std;
@@ -132,8 +133,11 @@ i.e., there is a potential discontinuity*/
     PROP_MODE__LOS    = 1, ///< Path is in the Line-of-Sight range.
     PROP_MODE__DIFFRACTION    = 2, ///< Diffraction propagation dominates
     PROP_MODE__SCATTERING     = 3, ///< Scattering propagation dominates
+};
 
-// List of valid polarizations
+
+/** List of valid polarizations */
+enum Polarization {
     POLARIZATION__HORIZONTAL  = 0, ///< antenna has horizontal polarization
     POLARIZATION__VERTICAL    = 1, ///< antenna has vertical polarization
 };
@@ -340,7 +344,9 @@ void LongTermVariability(double d_r1__km, double d_r2__km, double d__km, double 
 double CombineDistributions(double A_M, double A_i, double B_M, double B_i, double p);
 int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, double f__mhz, 
     int T_pol, double p, int* warnings);
-
+std::string GetReturnStatus(const int code);
+std::string GetLibraryName();
+std::string GetLibraryVersion();
 
 // Public Functions
 PROPLIB_API int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
@@ -350,6 +356,10 @@ PROPLIB_API int P528_Ex(double d__km, double h_1__meter, double h_2__meter, doub
     TroposcatterParams* tropo, Path* path, LineOfSightParams* los_params);
 PROPLIB_API double FindKForYpiAt99Percent(double Y_pi_99__db);
 PROPLIB_API double NakagamiRice(double K, double q);
+PROPLIB_API char *GetReturnStatusCharArray(const int code);
+PROPLIB_API void FreeCharArray(char *c_msg);
+PROPLIB_API char *GetLibraryNameCharArray();
+PROPLIB_API char *GetLibraryVersionCharArray();
 
 }  // namespace P528
 }  // namespace PSeries
