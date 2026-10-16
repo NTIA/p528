@@ -47,10 +47,10 @@ int CallModel(
 }
 
 /*******************************************************************************
- * Parse input stream (file or string stream) to TerrestrialPath parameter struct.
+ * Parse input stream (file or string stream) to model parameter struct.
  * 
- * @param[in]  stream               Input stream containing TerrestrialPath parameters
- * @param[out] terr_path_params     TerrestrialPath input parameter struct
+ * @param[in]  stream               Input stream containing Model parameters
+ * @param[out] params               Model input parameter struct
  * @return                          Return code
  ******************************************************************************/
 DrvrReturnCode ParseModelInputStream(
@@ -86,7 +86,8 @@ DrvrReturnCode ParseModelInputStream(
                 if (polarization_int >= 0 && polarization_int < 2 ){
                     params.T_pol = static_cast<Polarization>(polarization_int);
                 } else {
-                    std::cerr << key << " is an invalid polarization value." << std::endl;
+                    std::cerr << key << " is an invalid polarization value."
+                              << std::endl;
                     rtn = DRVRERR__PARSE_POL;
                 }
             }
@@ -109,10 +110,10 @@ DrvrReturnCode ParseModelInputStream(
 }
 
 /*******************************************************************************
- * Parse Terrestrial Path Model input parameter file
+ * Parse Model input parameter file
  * 
- * @param[in]  in_file              Path to TerrestrialPath input parameter file
- * @param[out] terr_path_params     TerrestrialPath input parameter struct
+ * @param[in]  in_file              Path to input parameter file
+ * @param[out] params               Model parameter struct
  * @return                          Return code
  ******************************************************************************/
 DrvrReturnCode ParseInputFile(
@@ -127,10 +128,10 @@ DrvrReturnCode ParseInputFile(
 }
 
 /*******************************************************************************
- * Write Terrestrial Path Model inputs to the report file
+ * Write Model inputs to the report file
  * 
  * @param[in] fp      Output stream, a text file open for writing
- * @param[in] params  TerrestrialPath input parameter struct
+ * @param[in] params  Model parameter struct
  ******************************************************************************/
 void WriteInputs(
     std::ofstream &fp, const ModelParams &params
@@ -146,10 +147,10 @@ void WriteInputs(
 }
 
 /*******************************************************************************
- * Write Terrestrial Path Model outputs to the report file
+ * Write Model outputs to the report file
  * 
  * @param[in]  fp           Output stream, a text file open for writing
- * @param[in]  result       TerrestrialPath output result struct
+ * @param[in]  result       Model output result struct
  ******************************************************************************/
 void WriteModelOutputs(
     std::ofstream &fp, const Result &result

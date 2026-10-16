@@ -58,8 +58,8 @@ set(DOXYGEN_INTERNAL_DOCS "YES")
 
 doxygen_add_docs(
     "${LIB_NAME}Docs"
-    #"${PROJECT_SOURCE_DIR}/app/src"
-    #"${PROJECT_SOURCE_DIR}/app/include"
+    "${PROJECT_SOURCE_DIR}/app/src"
+    "${PROJECT_SOURCE_DIR}/app/include"
     "${PROJECT_SOURCE_DIR}/src"
     "${PROJECT_SOURCE_DIR}/include"
     "${DOCS_DIR}/doxy_mainpage.md"

@@ -324,41 +324,151 @@ struct Result {
 ///////////////////////////////////////////////
 
 // Private Functions
-void GetPathLoss(double psi, Path *path, double f__mhz, double psi_limit, 
-    double A_dML__db, double A_d_0__db, int T_pol, LineOfSightParams* params, double *R_Tg);
-void RayOptics(Terminal *terminal_1, Terminal *terminal_2, double psi, LineOfSightParams *result);
-void TerminalGeometry(double f__mhz, Terminal *terminal);
-void Troposcatter(Path *path, Terminal *terminal_1, Terminal *terminal_2, 
-    double d__km, double f__mhz, TroposcatterParams *tropo_params);
-void TranshorizonSearch(Path* path, Terminal *terminal_1, Terminal *terminal_2, 
-    double f__mhz, double A_dML__db, double *M_d, double *A_d0, 
-    double* d_crx__km, int* MODE, int* warnings);
-double LinearInterpolation(double x1, double y1, double x2, double y2, double x);
-void ReflectionCoefficients(double psi, double f__mhz, int T_pol, double* R_g, double* phi_g);
-void LineOfSight(Path* path, Terminal* terminal_1, Terminal* terminal_2, LineOfSightParams* los_params, double f__mhz, double A_dML__db,
-    double p, double d__km, int T_pol, Result *result, double *K_LOS);
-double SmoothEarthDiffraction(double d_1__km, double d_2__km, double f__mhz, double d_0__km, int T_pol);
+void GetPathLoss(
+    double psi,
+    Path *path,
+    double f__mhz,
+    double psi_limit,
+    double A_dML__db,
+    double A_d_0__db,
+    int T_pol,
+    LineOfSightParams* params,
+    double *R_Tg);
+
+void RayOptics(
+    Terminal *terminal_1,
+    Terminal *terminal_2,
+    double psi,
+    LineOfSightParams *result);
+
+void TerminalGeometry(
+    double f__mhz,
+    Terminal *terminal);
+
+void Troposcatter(
+    Path *path,
+    Terminal *terminal_1,
+    Terminal *terminal_2,
+    double d__km,
+    double f__mhz,
+    TroposcatterParams *tropo_params);
+
+void TranshorizonSearch(
+    Path* path,
+    Terminal *terminal_1,
+    Terminal *terminal_2,
+    double f__mhz,
+    double A_dML__db,
+    double *M_d,
+    double *A_d0,
+    double* d_crx__km,
+    int* MODE,
+    int* warnings);
+
+double LinearInterpolation(
+    double x1,
+    double y1,
+    double x2,
+    double y2,
+    double x);
+
+void ReflectionCoefficients(
+    double psi,
+    double f__mhz,
+    int T_pol,
+    double* R_g,
+    double* phi_g);
+
+void LineOfSight(
+    Path* path,
+    Terminal* terminal_1,
+    Terminal* terminal_2,
+    LineOfSightParams* los_params,
+    double f__mhz,
+    double A_dML__db,
+    double p,
+    double d__km,
+    int T_pol,
+    Result *result,
+    double *K_LOS);
+
+double SmoothEarthDiffraction(
+    double d_1__km,
+    double d_2__km,
+    double f__mhz,
+    double d_0__km,
+    int T_pol);
+
 double InverseComplementaryCumulativeDistributionFunction(double q);
-void LongTermVariability(double d_r1__km, double d_r2__km, double d__km, double f__mhz, double time_percentage, 
-    double f_theta_h, double PL, double *Y_e__db, double *A_Y);
-double CombineDistributions(double A_M, double A_i, double B_M, double B_i, double p);
-int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, double f__mhz, 
-    int T_pol, double p, int* warnings);
+
+void LongTermVariability(
+    double d_r1__km,
+    double d_r2__km,
+    double d__km,
+    double f__mhz,
+    double time_percentage,
+    double f_theta_h,
+    double PL,
+    double *Y_e__db,
+    double *A_Y);
+
+double CombineDistributions(
+    double A_M,
+    double A_i,
+    double B_M,
+    double B_i,
+    double p);
+
+int ValidateInputs(
+    double d__km,
+    double h_1__meter,
+    double h_2__meter,
+    double f__mhz,
+    int T_pol,
+    double p,
+    int* warnings);
+
 std::string GetReturnStatus(const int code);
+
 std::string GetLibraryName();
+
 std::string GetLibraryVersion();
 
+
 // Public Functions
-PROPLIB_API int P528(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
-    int T_pol, double p, Result *result);
-PROPLIB_API int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
-    int T_pol, double p, Result* result, Terminal* terminal_1, Terminal* terminal_2,
-    TroposcatterParams* tropo, Path* path, LineOfSightParams* los_params);
+PROPLIB_API int P528(
+    double d__km,
+    double h_1__meter,
+    double h_2__meter,
+    double f__mhz,
+    int T_pol,
+    double p,
+    Result *result);
+
+PROPLIB_API int P528_Ex(
+    double d__km,
+    double h_1__meter,
+    double h_2__meter,
+    double f__mhz,
+    int T_pol,
+    double p,
+    Result* result,
+    Terminal* terminal_1,
+    Terminal* terminal_2,
+    TroposcatterParams* tropo,
+    Path* path,
+    LineOfSightParams* los_params);
+
 PROPLIB_API double FindKForYpiAt99Percent(double Y_pi_99__db);
+
 PROPLIB_API double NakagamiRice(double K, double q);
+
 PROPLIB_API char *GetReturnStatusCharArray(const int code);
+
 PROPLIB_API void FreeCharArray(char *c_msg);
+
 PROPLIB_API char *GetLibraryNameCharArray();
+
 PROPLIB_API char *GetLibraryVersionCharArray();
 
 }  // namespace P528
