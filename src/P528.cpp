@@ -81,7 +81,7 @@ int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
     result->theta_h1__rad = 0;
     result->propagation_mode = PROP_MODE__NOT_SET;
     result->warnings = WARNING__NO_WARNINGS;
-
+    
     int err = ValidateInputs(d__km, h_1__meter, h_2__meter, f__mhz, T_pol, p, &result->warnings);
     if (err != SUCCESS)
     {
@@ -96,18 +96,24 @@ int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
         else
             return err;
     }
-
+    
+    int rtn = SUCCESS; //return code.
+    
     /////////////////////////////////////////////
     // Compute terminal geometries
     //
 
     // Step 1 for low terminal
     terminal_1->h_r__km = h_1__meter / 1000;
-    TerminalGeometry(f__mhz, terminal_1);
+    rtn = TerminalGeometry(f__mhz, terminal_1);
+    if (rtn != SUCCESS)
+        return rtn;
 
     // Step 1 for high terminal
     terminal_2->h_r__km = h_2__meter / 1000;
-    TerminalGeometry(f__mhz, terminal_2);
+    rtn = TerminalGeometry(f__mhz, terminal_2);
+    if (rtn != SUCCESS)
+        return rtn;
 
     //
     // Compute terminal geometries
@@ -146,8 +152,9 @@ int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
     if (path->d_ML__km - d__km > 0.001)
     {
         result->propagation_mode = PROP_MODE__LOS;
-        LineOfSight(path, terminal_1, terminal_2, los_params, f__mhz, -A_dML__db, p, d__km, T_pol, result, &K_LOS);
-
+        rtn = LineOfSight(path, terminal_1, terminal_2, los_params, f__mhz, -A_dML__db, p, d__km, T_pol, result, &K_LOS);
+        if (rtn != SUCCESS)
+            return rtn;
         if (result->warnings == WARNING__NO_WARNINGS)
             return SUCCESS;
         else
@@ -156,7 +163,9 @@ int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
     else
     {
         // get K_LOS
-        LineOfSight(path, terminal_1, terminal_2, los_params, f__mhz, -A_dML__db, p, path->d_ML__km - 1, T_pol, result, &K_LOS);
+        rtn = LineOfSight(path, terminal_1, terminal_2, los_params, f__mhz, -A_dML__db, p, path->d_ML__km - 1, T_pol, result, &K_LOS);
+        if (rtn != SUCCESS)
+            return rtn;
 
         // Step 6.  Search past horizon to find crossover point between Diffraction and Troposcatter models
         int CASE;
@@ -244,9 +253,21 @@ int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
         // Atmospheric absorption for transhorizon path
         //
 
-        P676::SlantPathAttenuationResult result_v;
-        P676::SlantPathAttenuation(f__mhz / 1000, 0, tropo->h_v__km, PI / 2, P676::Atmosphere::ATMOSPHERE__MAGRA, result_v);
 
+        P676::SlantPathAttenuationResult result_v;
+        P676::ReturnCode slant_rtn;
+        slant_rtn = P676::SlantPathAttenuation(
+            f__mhz / 1000, 
+            0, 
+            tropo->h_v__km,
+            PI / 2, 
+            P676::Atmosphere::ATMOSPHERE__MAGRA, 
+            result_v
+        );
+        if (slant_rtn != P676::SUCCESS) {
+            return ERROR__SLANT_PATH_ATTENUATION_FAILURE;
+        }
+        
         result->A_a__db = terminal_1->A_a__db + terminal_2->A_a__db + 2 * result_v.A_gas__db;   // [Eqn 3-17]
 
         //

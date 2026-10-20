@@ -117,34 +117,43 @@ constexpr double THIRD = 1.0 / 3.0;
  * @brief modes and cases used as options in algorithm.
  */
 enum MODES_AND_CASES{
-    CONST_MODE__SEARCH        = 0, ///< Code is currnetly running TranshorizonSearch.
-    CONST_MODE__DIFFRACTION   = 1, ///< Code returned TranshorizonSearch with CASE_1.
-    CONST_MODE__SCATTERING    = 2, ///< Code returned TranshorizonSearch with CASE_2.
-/** Smooth Earth diffraction losses are predicted to be less than the losses
- * due to troposcatter, and the diffraction model is guaranteed to intersect the
- * troposcatter model at some distance ≥ 𝑑′. The transhorizon region propagation
- * loss is physically consistent.*/
-    CASE_1    = 1,
-    CASE_2    = 2, /**< he diffraction line is parallel to the tangent of the troposcatter model.
-However, the transhorizon region propagation loss could be not physically consistent,
-i.e., there is a potential discontinuity*/
-
-    PROP_MODE__NOT_SET= 0, ///< Program did not finish running.
-    PROP_MODE__LOS    = 1, ///< Path is in the Line-of-Sight range.
-    PROP_MODE__DIFFRACTION    = 2, ///< Diffraction propagation dominates
-    PROP_MODE__SCATTERING     = 3, ///< Scattering propagation dominates
+    /**! Code is currently running TranshorizonSearch. */
+    CONST_MODE__SEARCH = 0, 
+    /**! Code returned TranshorizonSearch with CASE_1. */
+    CONST_MODE__DIFFRACTION = 1, 
+    /**! Code returned TranshorizonSearch with CASE_2. */
+    CONST_MODE__SCATTERING = 2,
+    /**! Smooth Earth diffraction losses are predicted to be less than the 
+     * losses due to troposcatter, and the diffraction model is guaranteed to 
+     * intersect the troposcatter model at some distance &ge; d'. The
+     * transhorizon region propagation loss is physically consistent.*/
+    CASE_1 = 1,
+    /**! The diffraction line is parallel to the tangent of the troposcatter 
+     * model. However, the transhorizon region propagation loss could be not 
+     * physically consistent, i.e., there is a potential discontinuity. */
+    CASE_2 = 2,
+    /**! Program did not finish running. */
+    PROP_MODE__NOT_SET = 0, 
+    /**! Path is in the Line-of-Sight range. */
+    PROP_MODE__LOS = 1, 
+    /**! Diffraction propagation dominates */
+    PROP_MODE__DIFFRACTION  = 2, 
+    /**! Scattering propagation dominates */
+    PROP_MODE__SCATTERING = 3,
 };
 
 
 /** List of valid polarizations */
 enum Polarization {
-    POLARIZATION__HORIZONTAL  = 0, ///< antenna has horizontal polarization
-    POLARIZATION__VERTICAL    = 1, ///< antenna has vertical polarization
+    /**! antenna has horizontal polarization */
+    POLARIZATION__HORIZONTAL = 0, 
+    /**! antenna has vertical polarization */
+    POLARIZATION__VERTICAL = 1,
 };
 
 
 /**
- * @brief
+ * @brief Index for the y value (second index) in the Nakagami-Rice curves.
  * y value (second index) for NakagamiRiceCurves
  */
 #define Y_pi_99_INDEX  16
@@ -155,27 +164,47 @@ enum Polarization {
  */
 enum ReturnCodes{
     SUCCESS   =  0, ///< Successful execution
-    ERROR_VALIDATION__D_KM    =  1, ///< Path distance must be >= 0 km
-    ERROR_VALIDATION__H_1     =  2, ///< Low terminal height must be >= 1.5 meters
-    ERROR_VALIDATION__H_2     =  3, ///< High terminal height must be >= 1.5 meters
-    ERROR_VALIDATION__TERM_GEO=  4, ///< Low terminal must be <= high terminal height
-    ERROR_VALIDATION__F_MHZ_LOW       =  5, ///< Frequency must be >= 100 MHz
-    ERROR_VALIDATION__F_MHZ_HIGH      =  6, ///< Frequency must be <= 30,000 MHz
-    ERROR_VALIDATION__PERCENT_LOW     =  7, ///< Time percentage must be >= 1
-    ERROR_VALIDATION__PERCENT_HIGH    =  8, ///< Time percentage must be <= 99
-    ERROR_VALIDATION__POLARIZATION    =  9, ///< T_pol must equal POLARIZATION__HORIZONTAL or POLARIZATION__VERTICAL
-    ERROR_HEIGHT_AND_DISTANCE =  10,///< Terminals are occupying the same point in space (they are the same height and 0 km apart)
-    SUCCESS_WITH_WARNINGS     =  11,///< Successful execution, but there were warnings triggered.
+    /**! Path distance must be >= 0 km */
+    ERROR_VALIDATION__D_KM =  1,
+    /**! Low terminal height must be >= 1.5 meters */
+    ERROR_VALIDATION__H_1 =  2,
+    /**! High terminal height must be >= 1.5 meters */
+    ERROR_VALIDATION__H_2 =  3,
+    /**! Low terminal must be <= high terminal height */
+    ERROR_VALIDATION__TERM_GEO =  4,
+    /**! Frequency must be >= 100 MHz */
+    ERROR_VALIDATION__F_MHZ_LOW =  5,
+    /**! Frequency must be <= 30,000 MHz */
+    ERROR_VALIDATION__F_MHZ_HIGH =  6,
+    /**! Time percentage must be >= 1 */
+    ERROR_VALIDATION__PERCENT_LOW =  7,
+    /**! Time percentage must be <= 99 */
+    ERROR_VALIDATION__PERCENT_HIGH =  8,
+    /**! T_pol must equal POLARIZATION__HORIZONTAL or POLARIZATION__VERTICAL */
+    ERROR_VALIDATION__POLARIZATION =  9,
+    /**! Terminals are occupying the same point in space (they are the same 
+     * height and 0 km apart) */
+    ERROR_HEIGHT_AND_DISTANCE =  10,
+    /**! Successful execution, but there were warnings triggered. */
+    SUCCESS_WITH_WARNINGS =  11,
+    /**! Slant path attenuation computation failed. Likely the frequency was too
+     * low. P676 gives a lower limit of 1 GHz.
+     */
+    ERROR__SLANT_PATH_ATTENUATION_FAILURE =  12,
 };
 
 /**
  * @brief warnings
  */
 enum Warnings {
-    WARNING__NO_WARNINGS      =  0x00, ///< No warning flags
-    WARNING__DFRAC_TROPO_REGION       =  0x01, ///< Warning that the diffraction and troposcatter model may not be physically consistent with each other. Caution should be taken when using the result
-    WARNING__HEIGHT_LIMIT_H_1 =  0x02, ///< Terminal 1 height above limit defined within in-force Recommendation text. Results should not be intepreted as an official prediction of Recommendation ITU-R P.528, but instead treated as informative
-    WARNING__HEIGHT_LIMIT_H_2 =  0x04, ///< Terminal 2 height above limit defined within in-force Recommendation text. Results should not be intepreted as an official prediction of Recommendation ITU-R P.528, but instead treated as informative
+    /**! No warning flags */
+    WARNING__NO_WARNINGS =  0x00,
+    /**! Warning that the diffraction and troposcatter model may not be physically consistent with each other. Caution should be taken when using the result */
+    WARNING__DFRAC_TROPO_REGION =  0x01,
+    /**! Terminal 1 height above limit defined within in-force Recommendation text. Results should not be intepreted as an official prediction of Recommendation ITU-R P.528, but instead treated as informative */
+    WARNING__HEIGHT_LIMIT_H_1 =  0x02,
+    /**! Terminal 2 height above limit defined within in-force Recommendation text. Results should not be intepreted as an official prediction of Recommendation ITU-R P.528, but instead treated as informative */
+    WARNING__HEIGHT_LIMIT_H_2 =  0x04,
 };
 
 //P
@@ -341,7 +370,7 @@ void RayOptics(
     double psi,
     LineOfSightParams *result);
 
-void TerminalGeometry(
+int TerminalGeometry(
     double f__mhz,
     Terminal *terminal);
 
@@ -379,7 +408,7 @@ void ReflectionCoefficients(
     double* R_g,
     double* phi_g);
 
-void LineOfSight(
+int LineOfSight(
     Path* path,
     Terminal* terminal_1,
     Terminal* terminal_2,

@@ -47,7 +47,9 @@ TEST_P(TestP528DataTables, TestDataTable) {
     std::vector<InputsAndResult> testData = ReadP528InputsAndResultFromDataTable(fileName, testStep);
     EXPECT_NE(static_cast<int>(testData.size()), 0);
     std::cout << "TestP528 from Data Table '" << fileName << "', " << testData.size() << " Test instances." << std::endl;
-    for (const auto& data : testData) {
+    for (size_t caseIndex = 0; caseIndex < testData.size(); ++caseIndex) {
+        const auto& data = testData[caseIndex];
+        SCOPED_TRACE(testing::Message() << "Data table case " << caseIndex << ": d__km=" << data.d__km << ", h_1__meter=" << data.h_1__meter << ", h_2__meter=" << data.h_2__meter << ", f__mhz=" << data.f__mhz << ", T_pol=" << data.T_pol << ", p=" << data.p);
         Result result;
         int rtn = P528(data.d__km, data.h_1__meter, data.h_2__meter, data.f__mhz, data.T_pol, data.p, &result);
         EXPECT_EQ(0, rtn);

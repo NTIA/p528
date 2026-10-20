@@ -145,7 +145,7 @@ double FindDistanceAtDeltaR(double delta_r__km, Path *path, Terminal *terminal_1
  * @param[out] result      Struct containing P.528 results
  * @param[out] K_LOS       K-value
  ******************************************************************************/
-void LineOfSight(Path *path, Terminal *terminal_1, Terminal *terminal_2, LineOfSightParams *los_params, 
+int LineOfSight(Path *path, Terminal *terminal_1, Terminal *terminal_2, LineOfSightParams *los_params,
     double f__mhz, double A_dML__db, double p, double d__km, int T_pol, Result *result, double *K_LOS)
 {
     double psi;
@@ -241,7 +241,18 @@ void LineOfSight(Path *path, Terminal *terminal_1, Terminal *terminal_2, LineOfS
     //
 
     P676::SlantPathAttenuationResult result_slant;
-    P676::SlantPathAttenuation(f__mhz / 1000, terminal_1->h_r__km, terminal_2->h_r__km, PI / 2 - los_params->theta_h1__rad, P676::Atmosphere::ATMOSPHERE__MAGRA, result_slant);
+    P676::ReturnCode rtn;
+    rtn = P676::SlantPathAttenuation(
+        f__mhz / 1000, 
+        terminal_1->h_r__km,
+        terminal_2->h_r__km,
+        PI / 2 - los_params->theta_h1__rad,
+        P676::Atmosphere::ATMOSPHERE__MAGRA, 
+        result_slant
+    );
+    if (rtn != P676::SUCCESS) {
+        return ERROR__SLANT_PATH_ATTENUATION_FAILURE;
+    }
 
     result->A_a__db = result_slant.A_gas__db;
 
@@ -326,6 +337,7 @@ void LineOfSight(Path *path, Terminal *terminal_1, Terminal *terminal_2, LineOfS
     result->d__km = los_params->d__km;
     result->A__db = result->A_fs__db + result->A_a__db - los_params->A_LOS__db + Y_total__db;
     result->theta_h1__rad = los_params->theta_h1__rad;
+    return SUCCESS;
 }
 
 }  // namespace P528

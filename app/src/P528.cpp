@@ -18,7 +18,7 @@ const std::string ModelInputKeys::d__km = "d__km";
 const std::string ModelInputKeys::h_1__meter = "h_1__meter";
 const std::string ModelInputKeys::h_2__meter = "h_2__meter";
 const std::string ModelInputKeys::f__mhz = "f__mhz";
-const std::string ModelInputKeys::T_pol = "T_pol";
+const std::string ModelInputKeys::T_pol = "t_pol";
 const std::string ModelInputKeys::p = "p";
 
 /*******************************************************************************

@@ -24,11 +24,24 @@ namespace P528 {
  * @par Returns
  *      Nothing.
  ******************************************************************************/
-void TerminalGeometry(double f__mhz, Terminal *terminal)
+int TerminalGeometry(double f__mhz, Terminal *terminal)
 {
     double theta_tx__rad = 0;
+    
     P676::SlantPathAttenuationResult result;
-    P676::SlantPathAttenuation(f__mhz / 1000, 0, terminal->h_r__km, PI / 2 - theta_tx__rad, P676::Atmosphere::ATMOSPHERE__MAGRA, result);
+    P676::ReturnCode rtn;
+    rtn = P676::SlantPathAttenuation(
+        f__mhz / 1000, 
+        0, 
+        terminal->h_r__km, 
+        PI / 2 - theta_tx__rad, 
+        P676::Atmosphere::ATMOSPHERE__MAGRA, 
+        result
+    );
+    if (rtn != P676::SUCCESS) {
+        return ERROR__SLANT_PATH_ATTENUATION_FAILURE;
+    }
+
     terminal->theta__rad = PI / 2 - result.incident__rad;
     terminal->A_a__db = result.A_gas__db;
     terminal->a__km = result.a__km;
@@ -41,6 +54,7 @@ void TerminalGeometry(double f__mhz, Terminal *terminal)
     terminal->h_e__km = (a_e__km / cos(terminal->phi__rad)) - a_e__km;  // [Eqn 4-2]
 
     terminal->delta_h__km = terminal->h_r__km - terminal->h_e__km;      // [Eqn 4-3]
+    return SUCCESS;
 }
 
 }  // namespace P528

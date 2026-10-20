@@ -42,6 +42,10 @@ static std::string GetDirectory(std::string name) {
     dataDir.resize(dataDir.find_last_of("/\\"));
     dataDir.resize(dataDir.find_last_of("/\\"));
     AppendDirectorySep(dataDir);
+    dataDir += "extern";
+    AppendDirectorySep(dataDir);
+    dataDir += "test-data";
+    AppendDirectorySep(dataDir);
     dataDir += name;
     AppendDirectorySep(dataDir);
     return dataDir;
@@ -59,7 +63,7 @@ static std::string GetDirectory(std::string name) {
  *===========================================================================*/
 std::vector<InputsAndResult> ReadP528InputsAndResultFromPoints(const std::string& filename) {
     std::vector<InputsAndResult> testData;
-    std::string dataDir = GetDirectory("data");
+    std::string dataDir = GetDirectory(".");
     std::ifstream file(dataDir + filename);
     std::string line;
     InputsAndResult d{};  // struct to store data from a single line of CSV

@@ -31,7 +31,7 @@ double NakagamiRice(double K, double p)
         else
             return LinearInterpolation(data::P[d_p], data::NakagamiRiceCurves[0][d_p], data::P[d_p - 1], data::NakagamiRiceCurves[0][d_p - 1], p);
     }
-    else if (d_K == data::K.size()) // K > 20
+    else if (d_K >= 0 && (unsigned long int)d_K == data::K.size()) // K > 20
     {
         if (d_p == 0)
             return data::NakagamiRiceCurves[d_K - 1][0];
