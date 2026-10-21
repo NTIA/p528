@@ -21,27 +21,20 @@ namespace P528 {
  *
  * @param[in] f__mhz    Frequency, in MHz
  * @param[in] terminal  Structure containing parameters dealing with the
- * geometry of the terminal
- * @return              #ITS::ITU::PSeries::P528::ReturnCodes value.
+ *                      geometry of the terminal
  ******************************************************************************/
-int TerminalGeometry(double f__mhz, Terminal* terminal) {
+void TerminalGeometry(double f__mhz, Terminal* terminal) {
   double theta_tx__rad = 0;
 
-  P676::SlantPathAttenuationResult result;
-  P676::ReturnCode rtn;
-  rtn = P676::SlantPathAttenuation(f__mhz / 1000, 0, terminal->h_r__km,
-                                   PI / 2 - theta_tx__rad,
-                                   P676::Atmosphere::ATMOSPHERE__MAGRA, result);
-  if (rtn != P676::SUCCESS) {
-    return ERROR__SLANT_PATH_ATTENUATION_FAILURE;
-  }
-
-  terminal->theta__rad = PI / 2 - result.incident__rad;
+  SlantPathAttenuation(f__mhz / 1000, 0, terminal->h_r__km, 
+                        PI / 2 - theta_tx__rad, &result);
+  
+  terminal->theta__rad = PI / 2 - result.angle__rad;
   terminal->A_a__db = result.A_gas__db;
   terminal->a__km = result.a__km;
 
   // compute arc distance
-  double central_angle = ((PI / 2 - result.incident__rad) - theta_tx__rad +
+  double central_angle = ((PI / 2 - result.angle__rad) - theta_tx__rad +
                           result.bending__rad);  // [Thayer, Equ 2], rearranged
   terminal->d_r__km = a_0__km * central_angle;
 
@@ -51,7 +44,6 @@ int TerminalGeometry(double f__mhz, Terminal* terminal) {
   terminal->h_e__km = (a_e__km / cos(terminal->phi__rad)) - a_e__km;  
 
   terminal->delta_h__km = terminal->h_r__km - terminal->h_e__km;  // [Eqn 4-3]
-  return SUCCESS;
 }
 
 }  // namespace P528

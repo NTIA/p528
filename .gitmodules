@@ -9,7 +9,3 @@
 	path = extern/test-data
 	url = https://github.com/NTIA/p528-test-data.git
 	branch = AddData
-[submodule "extern/p676"]
-	path = extern/p676
-	url = https://github.com/NTIA/p676-dev.git
-	branch = dev

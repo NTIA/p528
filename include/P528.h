@@ -193,10 +193,6 @@ enum ReturnCodes{
     ERROR_HEIGHT_AND_DISTANCE =  10,
     /**! Successful execution, but there were warnings triggered. */
     SUCCESS_WITH_WARNINGS =  11,
-    /**! Slant path attenuation computation failed. Likely the frequency was too
-     * low. P676 gives a lower limit of 1 GHz.
-     */
-    ERROR__SLANT_PATH_ATTENUATION_FAILURE =  12,
 };
 
 /**
@@ -422,7 +418,7 @@ void RayOptics(
     double psi,
     LineOfSightParams *result);
 
-int TerminalGeometry(
+void TerminalGeometry(
     double f__mhz,
     Terminal *terminal);
 
@@ -459,7 +455,7 @@ void ReflectionCoefficients(
     double* R_g,
     double* phi_g);
 
-int LineOfSight(
+void LineOfSight(
     Path* path,
     Terminal* terminal_1,
     Terminal* terminal_2,

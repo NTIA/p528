@@ -138,9 +138,8 @@ double FindDistanceAtDeltaR(double delta_r__km, Terminal* terminal_1,
  * @param[out] los_params  Struct containing LOS parameters
  * @param[out] result      Struct containing P.528 results
  * @param[out] K_LOS       K-value
- * @return                 #ITS::ITU::PSeries::P528::ReturnCodes value.
  ******************************************************************************/
-int LineOfSight(Path* path, Terminal* terminal_1, Terminal* terminal_2,
+void LineOfSight(Path* path, Terminal* terminal_1, Terminal* terminal_2,
                 LineOfSightParams* los_params, double f__mhz, double A_dML__db,
                 double p, double d__km, int T_pol, Result* result,
                 double* K_LOS) {
@@ -241,15 +240,9 @@ int LineOfSight(Path* path, Terminal* terminal_1, Terminal* terminal_2,
   // Compute atmospheric absorption
   //
 
-  P676::SlantPathAttenuationResult result_slant;
-  P676::ReturnCode rtn;
-  rtn = P676::SlantPathAttenuation(
+  SlantPathAttenuation(
       f__mhz / 1000, terminal_1->h_r__km, terminal_2->h_r__km,
-      PI / 2 - los_params->theta_h1__rad, P676::Atmosphere::ATMOSPHERE__MAGRA,
-      result_slant);
-  if (rtn != P676::SUCCESS) {
-    return ERROR__SLANT_PATH_ATTENUATION_FAILURE;
-  }
+      PI / 2 - los_params->theta_h1__rad, &result_slant);
 
   result->A_a__db = result_slant.A_gas__db;
 
@@ -343,7 +336,6 @@ int LineOfSight(Path* path, Terminal* terminal_1, Terminal* terminal_2,
   result->A__db =
       result->A_fs__db + result->A_a__db - los_params->A_LOS__db + Y_total__db;
   result->theta_h1__rad = los_params->theta_h1__rad;
-  return SUCCESS;
 }
 
 }  // namespace P528
