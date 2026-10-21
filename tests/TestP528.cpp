@@ -29,9 +29,14 @@ protected:
  |  Description:  Test case to verify P528 results are correct
  |
  *===========================================================================*/
-TEST_F(TestP528, TestP528Success) {
+ TEST_F(TestP528, TestP528Load) {
     // Ensure test data was loaded
-    EXPECT_NE(static_cast<int>(testData.size()), 0);
+    EXPECT_NE(static_cast<int>(testData.size()), 0); 
+}
+
+
+ TEST_F(TestP528, TestP528Success) {
+    // Ensure test data was loaded
     std::cout << "TestP528 from 'P528Test_001.csv': " << testData.size() << " Test instances." << std::endl;
     for (const auto& data : testData) {
         Result result;

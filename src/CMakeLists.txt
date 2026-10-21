@@ -22,12 +22,15 @@ set(LIB_FILES
     "Troposcatter.cpp"
     "ValidateInputs.cpp"
     "data.cpp"
+    "ReturnCodes.cpp"
     "${LIB_HEADERS}/P528.h"
 )
 
 # By default, create shared library
 if (NOT DEFINED BUILD_SHARED_LIBS)
-    message(STATUS "STATUS: BUILD_SHARED_LIBS is not defined to build the library: " ${LIB_NAME} ".")
+    message(STATUS 
+           "STATUS: BUILD_SHARED_LIBS is not defined to build the library: " 
+           ${LIB_NAME} ".")
     add_library(${LIB_NAME} SHARED ${LIB_FILES})
 else ()
     message(STATUS "STATUS: BUILD_SHARED_LIBS is " ${BUILD_SHARED_LIBS} " to build the library: " ${LIB_NAME} ".")

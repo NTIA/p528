@@ -11,17 +11,20 @@
 cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
 
 # Warn if '-A Win32' is provided but BUILD_32BIT has not been set. This may
-# indicate accidental use of a 64-bit CMake preset while intending to build for 32-bit.
+# indicate accidental use of a 64-bit CMake preset while intending to build for
+# 32-bit.
 if (DEFINED ENV{CMAKE_GENERATOR_PLATFORM})
     if ($ENV{CMAKE_GENERATOR_PLATFORM} STREQUAL "Win32")
         if (NOT BUILD_32BIT)
-            message(WARNING "Generator platform is Win32 but 32-bit preset is not being used.")
+            message(WARNING 
+             "Generator platform is Win32 but 32-bit preset is not being used.")
         endif ()
     endif ()
 endif ()
 
 # If on macOS, handle arm64/x86_64 architectures (must be done before project())
-# For other OS, identify the architecture and save it to the ARCH_SUFFIX variable.
+# For other OS, identify the architecture and save it to the ARCH_SUFFIX 
+# variable.
 if (APPLE)
     # Get the current platform's native architecture
     execute_process(
@@ -30,7 +33,8 @@ if (APPLE)
         OUTPUT_VARIABLE MACOS_NATIVE_ARCHITECTURE
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
-    # If running on Apple silicon, try a universal build. Otherwise, a native build.
+    # If running on Apple silicon, try a universal build. Otherwise, a native 
+    # build.
     if (${MACOS_NATIVE_ARCHITECTURE} STREQUAL "arm64")
         set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
         set(ARCH_SUFFIX "universal")
@@ -79,7 +83,8 @@ project(
 ###########################################
 ## CMAKE OPTIONS AND DEFAULTS
 ###########################################
-# Define options. Defaults to: compile 64-bit library and driver, build docs, run tests
+# Define options. Defaults to: compile 64-bit library and driver, build docs, 
+# run tests
 option(BUILD_DOCS "Generate documentation site with Doxygen" ON)
 option(BUILD_DRIVER "Build the command-line driver executable" ON)
 option(RUN_DRIVER_TESTS "Test the command-line driver executable" ON)
@@ -107,7 +112,8 @@ set(msvc_cxx "$<COMPILE_LANG_AND_ID:CXX,MSVC>")
 function(configure_proplib_target proplib_target)
     target_compile_options(${proplib_target} PRIVATE
         # For GCC-like compilers in any configuration
-        "$<${gcc_like_cxx}:$<BUILD_INTERFACE:-Wall;-Wextra;-Wshadow;-Wformat=2;-Wunused;-static>>"
+        "$<${gcc_like_cxx}:$<BUILD_INTERFACE:-Wall;-Wextra;-Wshadow>>"
+        "$<${gcc_like_cxx}:$<BUILD_INTERFACE:-Wformat=2;-Wunused;-static>>"
         # For GCC-like compilers in Release configurations
         "$<${gcc_like_cxx}:$<BUILD_INTERFACE:$<$<CONFIG:Release>:-O3;-DNDEBUG>>>"
         # For GCC-like compilers in Debug configurations
@@ -126,18 +132,30 @@ endfunction()
 # Enable Hot Reload for MSVC compilers if supported.
 if (POLICY CMP0141)
   cmake_policy(SET CMP0141 NEW)
-  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
+    string(CONCAT CMAKE_MSVC_DEBUG_INFORMATION_FORMAT
+        "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,,"
+        "$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,"
+        "$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>"
+    )
 endif ()
 
 # control where the static and shared libraries are built
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin" CACHE STRING "Set the CMAKE Archive Output Directory")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin" CACHE STRING "Set the CMAKE Library Output Directory")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin" CACHE STRING "Set the CMAKE Runtime Output Directory")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin" 
+    CACHE STRING "Set the CMAKE Archive Output Directory")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin" 
+    CACHE STRING "Set the CMAKE Library Output Directory")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin" 
+    CACHE STRING "Set the CMAKE Runtime Output Directory")
 
+
+string(CONCAT generator_platform_message
+    "Generator platform (for multi-config generators only): "
+    "$ENV{CMAKE_GENERATOR_PLATFORM}"
+)
 proplib_message(
     "Initial Configuration Complete"
     "Generator: ${CMAKE_GENERATOR}"
-    "Generator platform (for multi-config generators only): $ENV{CMAKE_GENERATOR_PLATFORM}"
+    "${generator_platform_message}"
     "C++ Compiler: ${CMAKE_CXX_COMPILER}"
     "Target architecture: ${ARCH_SUFFIX}"
     "CMake Options:"
@@ -181,9 +199,9 @@ if (NOT DOCS_ONLY)
             set(RUN_TESTS ${RUN_TESTS_${extern_alg}})
         else ()
             message(SEND_ERROR
-                "Unable to build ${LIB_NAME}. ${extern_alg} submodule is missing. "
-                "Run `git submodule init extern/${extern_alg}` then "
-                "`git submodule update` and try again."
+              "Unable to build ${LIB_NAME}. ${extern_alg} submodule is missing."
+              "Run `git submodule init extern/${extern_alg}` then "
+              "`git submodule update` and try again."
             )
         endif ()
     endforeach()
@@ -200,7 +218,8 @@ if (NOT DOCS_ONLY)
                 set(BUILD_SHARED_LIBS_${LIB_NAME} ${BUILD_SHARED_LIBS})
                 set(BUILD_SHARED_LIBS OFF)
             endif ()
-            add_subdirectory("${PROJECT_SOURCE_DIR}/extern/googletest" "extern/googletest" EXCLUDE_FROM_ALL)
+            add_subdirectory("${PROJECT_SOURCE_DIR}/extern/googletest" 
+                             "extern/googletest" EXCLUDE_FROM_ALL)
             include(GoogleTest)
             # Restore initial value of BUILD_SHARED_LIBS
             if (DEFINED BUILD_SHARED_LIBS_${LIB_NAME})
@@ -216,6 +235,9 @@ if (NOT DOCS_ONLY)
     endif ()
     if (RUN_TESTS)         # Build and run unit tests
         add_subdirectory(tests)
+    endif ()
+    if (BUILD_DRIVER OR RUN_DRIVER_TESTS)
+        add_subdirectory(app)
     endif ()
 endif ()
 
