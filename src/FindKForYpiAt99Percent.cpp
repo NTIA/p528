@@ -1,5 +1,6 @@
 /** @file FindKForYpiAt99Percent.cpp
- * Returns the K-value of the Nakagami-Rice distribution for the given value of Y_pi(99)
+ * Returns the K-value of the Nakagami-Rice distribution for the given value of
+ * Y_pi(99)
  */
 #include "P528.h"
 
@@ -9,25 +10,30 @@ namespace PSeries {
 namespace P528 {
 
 /**
- * Returns the K-value of the Nakagami-Rice distribution for the given value 
+ * Returns the K-value of the Nakagami-Rice distribution for the given value
  * of Y_pi(99)
  *
  * @param[in] Y_pi_99__db    Y_pi(99), in dB
  * @return                   K-value
-********************************************************************************/
-double FindKForYpiAt99Percent(double Y_pi_99__db)
-{
-    // is Y_pi_99__db smaller than the smallest value in the distribution data
-    if (Y_pi_99__db < data::NakagamiRiceCurves.front()[Y_pi_99_INDEX])
-        return data::K.front();
+ ********************************************************************************/
+double FindKForYpiAt99Percent(double Y_pi_99__db) {
+  // is Y_pi_99__db smaller than the smallest value in the distribution data
+  if (Y_pi_99__db < data::NakagamiRiceCurves.front()[Y_pi_99_INDEX])
+    return data::K.front();
 
-    // search the distribution data and interpolate to find K (dependent variable)
-    for (int i = 0; i < data::K.size(); i++)
-        if (Y_pi_99__db - data::NakagamiRiceCurves[i][Y_pi_99_INDEX] < 0)
-            return (data::K[i] * (Y_pi_99__db - data::NakagamiRiceCurves[i - 1][Y_pi_99_INDEX]) - data::K[i - 1] * (Y_pi_99__db - data::NakagamiRiceCurves[i][Y_pi_99_INDEX])) / (data::NakagamiRiceCurves[i][Y_pi_99_INDEX] - data::NakagamiRiceCurves[i - 1][Y_pi_99_INDEX]);
+  // search the distribution data and interpolate to find K (dependent variable)
+  for (size_t i = 0; i < data::K.size(); i++)
+    if (Y_pi_99__db - data::NakagamiRiceCurves[i][Y_pi_99_INDEX] < 0)
+      return (data::K[i] * 
+                (Y_pi_99__db - 
+                data::NakagamiRiceCurves[i - 1][Y_pi_99_INDEX]) -
+                data::K[i - 1] *
+                   (Y_pi_99__db - data::NakagamiRiceCurves[i][Y_pi_99_INDEX])
+            ) / (data::NakagamiRiceCurves[i][Y_pi_99_INDEX] -
+                data::NakagamiRiceCurves[i - 1][Y_pi_99_INDEX]);
 
-    // no match.  Y_pi_99__db is greater than the data contains.  Return largest K
-    return data::K.back();
+  // no match.  Y_pi_99__db is greater than the data contains.  Return largest K
+  return data::K.back();
 }
 
 }  // namespace P528

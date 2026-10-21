@@ -66,7 +66,8 @@ class DriverTest: public ::testing::Test {
          * are suppressed.
          * 
          * @param[in] dParams          The driver parameters
-         * @param[in] suppressOutputs  Whether to suppress outputs (default: true)
+         * @param[in] suppressOutputs  Whether to suppress outputs 
+         *                             (default: true)
          * @return                     The constructed command string
          **********************************************************************/
         std::string BuildCommand(
@@ -127,7 +128,8 @@ class DriverTest: public ::testing::Test {
          * driver, it is deleted before this method returns.
          * 
          * @param[in] inFileContents  The contents to write to the input file
-         * @param[in] dParams         A populated driver parameters struct (see above)
+         * @param[in] dParams         A populated driver parameters struct 
+         *                            (see above)
          * @return                    Return code from the driver execution
          **********************************************************************/
         int RunDriverWithInputFile(

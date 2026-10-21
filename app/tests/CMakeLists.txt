@@ -22,7 +22,8 @@ target_include_directories(
 configure_proplib_target(${DRIVER_TEST_NAME})
 
 # Make driver executable location available to source
-target_compile_definitions(${DRIVER_TEST_NAME} PRIVATE DRIVER_LOCATION="$<TARGET_FILE:${DRIVER_NAME}>")
+target_compile_definitions(
+    ${DRIVER_TEST_NAME} PRIVATE DRIVER_LOCATION="$<TARGET_FILE:${DRIVER_NAME}>")
 
 ###########################################
 ## SET UP AND DISCOVER TESTS

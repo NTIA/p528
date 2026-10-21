@@ -20,21 +20,33 @@ struct DrvrParams {
 
 /** Input parameters for the Model */
 struct ModelParams {
-    double d__km;       ///< %Path distance, in km
-    double h_1__meter;  ///< Height of the low terminal, in meters
-    double h_2__meter;  ///< Height of the high terminal, in meters
-    double f__mhz;      ///< Frequency, in MHz
-    int T_pol;          ///< Polarization type
-    double p;           ///< Time percentage
+    /**! %Path distance, in km */
+    double d__km;
+    /**! Height of the low terminal, in meters */
+    double h_1__meter;
+    /**! Height of the high terminal, in meters */
+    double h_2__meter;
+    /**! Frequency, in MHz */
+    double f__mhz;
+    /**! Polarization type */
+    int T_pol;
+    /**! Time percentage */
+    double p;
 };
 
 /** Key names for Model input file parameters */
 struct ModelInputKeys {
-    static const std::string d__km;       ///< %Path distance, in km
-    static const std::string h_1__meter;  ///< Height of the low terminal, in meters
-    static const std::string h_2__meter;  ///< Height of the high terminal, in meters
-    static const std::string f__mhz;      ///< Frequency, in MHz
-    static const std::string T_pol;       ///< Polarization type
-    static const std::string p;           ///< Time percentage
+    /**! %Path distance, in km */
+    static const std::string d__km;       
+    /**! Height of the low terminal, in meters */
+    static const std::string h_1__meter;  
+    /**! Height of the high terminal, in meters */
+    static const std::string h_2__meter;  
+    /**! Frequency, in MHz */
+    static const std::string f__mhz;      
+    /**! Polarization type */
+    static const std::string T_pol;       
+    /**! Time percentage */
+    static const std::string p;
 };
 

@@ -28,14 +28,20 @@ namespace P528 {
 
 /**
  * @brief
- * max(x,y). Returns y if x=y
+ * max(x,y).
+ * @param x The first value to compare.
+ * @param y The second value to compare.
+ * @return The maximum of the two values.
  */
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
+
 /**
  * @brief
- * min(x,y). Returns y if x=y
+ * min(x,y).
+ * @param x The first value to compare.
+ * @param y The second value to compare.
+ * @return The minimum of the two values.
  */
-
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
 /**
@@ -199,11 +205,17 @@ enum ReturnCodes{
 enum Warnings {
     /**! No warning flags */
     WARNING__NO_WARNINGS =  0x00,
-    /**! Warning that the diffraction and troposcatter model may not be physically consistent with each other. Caution should be taken when using the result */
+    /**! Warning that the diffraction and troposcatter model may not be 
+     * physically consistent with each other. Caution should be taken when using
+     * the result */
     WARNING__DFRAC_TROPO_REGION =  0x01,
-    /**! Terminal 1 height above limit defined within in-force Recommendation text. Results should not be intepreted as an official prediction of Recommendation ITU-R P.528, but instead treated as informative */
+    /**! Terminal 1 height above limit defined within in-force Recommendation 
+     * text. Results should not be intepreted as an official prediction of 
+     * Recommendation ITU-R P.528, but instead treated as informative */
     WARNING__HEIGHT_LIMIT_H_1 =  0x02,
-    /**! Terminal 2 height above limit defined within in-force Recommendation text. Results should not be intepreted as an official prediction of Recommendation ITU-R P.528, but instead treated as informative */
+    /**! Terminal 2 height above limit defined within in-force Recommendation 
+     * text. Results should not be intepreted as an official prediction of 
+     * Recommendation ITU-R P.528, but instead treated as informative */
     WARNING__HEIGHT_LIMIT_H_2 =  0x04,
 };
 
@@ -215,9 +227,12 @@ enum Warnings {
 class data
 { 
 public:
-    const static vector<double> P;    /**< Time Percentage. */
-    const static vector<vector<double>> NakagamiRiceCurves; /**< Values. */
-    const static vector<int> K;      /**< Row parameter */
+    /**! Time Percentage. */
+    const static vector<double> P;
+    /**! Values. */
+    const static vector<vector<double>> NakagamiRiceCurves;
+    /**! Row parameter */
+    const static vector<int> K;
 };
 
 //
@@ -231,41 +246,52 @@ struct Path
     /** @name Distance
      */
     ///@{
-    double d_ML__km;       /**< Maximum line of sight distance */
-    double d_0__km;        /**< Internal param.  See Recommendation text */
-    double d_d__km;        /**< Distance where smooth earth diffraction is 0 dB */
+    /** Maximum line of sight distance */
+    double d_ML__km;
+    /** Internal param.  See Recommendation text */
+    double d_0__km;
+    /** Distance where smooth earth diffraction is 0 dB */
+    double d_d__km;
     ///@}
 };
 
 /** Terminal variables */
 struct Terminal
-{
+{ 
     /** @name Height
      */
     ///@{
-    double h_r__km;         /**< Real terminal height */
-    double h_e__km;         /**< Effective terminal height */
-    double delta_h__km;     /**< Internal terminal param.  See Recommendation text */
+    /** Real terminal height */
+    double h_r__km;
+    /** Effective terminal height */
+    double h_e__km;
+    /** Internal terminal param.  See Recommendation text */
+    double delta_h__km;
     ///@}
 
     /** @name Distances
      */
     ///@{
-    double d_r__km;         /**< Ray traced horizon distance */
-    double a__km;           /**< Total ray path length to horizon */
+    /** Ray traced horizon distance */
+    double d_r__km;
+    /** Total ray path length to horizon */
+    double a__km;
     ///@}
 
     /** @name Angles
      */
     ///@{
-    double phi__rad;        /**< Central angle between the terminal and its smooth earth horizon */
-    double theta__rad;      /**< Incident angle of the grazing ray at the terminal */
+    /** Central angle between the terminal and its smooth earth horizon */
+    double phi__rad;
+    /** Incident angle of the grazing ray at the terminal */
+    double theta__rad;
     ///@}
 
     /** @name Losses
      */
     ///@{
-    double A_a__db;         /**< Median atmospheric absorption loss, in dB */
+    /** Median atmospheric absorption loss, in dB */
+    double A_a__db;
     ///@}
 };
 
@@ -275,32 +301,43 @@ struct LineOfSightParams
     /** @name Heights
      */
     ///@{
-    double z__km[2];       /**< A terminal geometric parameter */
+    /** A terminal geometric parameter */
+    double z__km[2];
     ///@}
 
     /** @name Distances
      */
     ///@{
-    double d__km;          /**< Path distance between terminals */
-    double r_0__km;        /**< Direct ray length */
-    double r_12__km;       /**< Indirect ray length */
-    double D__km[2];       /**< A terminal geometric parameter */
+    /** Path distance between terminals */
+    double d__km;
+    /** Direct ray length */
+    double r_0__km;
+    /** Indirect ray length */
+    double r_12__km;
+    /** A terminal geometric parameter */
+    double D__km[2];
     ///@}
 
     /** @name Angles
      */
     ///@{
-    double theta_h1__rad;  /**< Take-off angle from low terminal to high terminal, in rad */
-    double theta_h2__rad;  /**< Take-off angle from high terminal to low terminal, in rad */
-    double theta[2];       /**< A terminal geometric parameter */
+    /** Take-off angle from low terminal to high terminal, in rad */
+    double theta_h1__rad;
+    /** Take-off angle from high terminal to low terminal, in rad */
+    double theta_h2__rad;
+    /** A terminal geometric parameter */
+    double theta[2];
     ///@}
 
     /** @name Misc
      */
     ///@{
-    double a_a__km;        /**< Adjusted earth radius */
-    double delta_r__km;    /**< Ray length path difference */
-    double A_LOS__db;      /**< Loss due to LOS path */
+    /** Adjusted earth radius */
+    double a_a__km;
+    /** Ray length path difference */
+    double delta_r__km;
+    /** Loss due to LOS path */
+    double A_LOS__db;
     ///@}
 };
 
@@ -310,42 +347,57 @@ struct TroposcatterParams
     /** @name Distances
      */
     ///@{
-    double d_s__km;        /**< Scattering distance */
-    double d_z__km;        /**< Half the scattering distance */
+    /** Scattering distance */
+    double d_s__km;
+    /** Half the scattering distance */
+    double d_z__km;
 
-    double h_v__km;        /**< Height of the common volume cross-over point */
+    /** Height of the common volume cross-over point */
+    double h_v__km;
     ///@}
 
     /** @name Angles
      */
     ///@{
-    double theta_s;        /**< Scattering angle */
-    double theta_A;        /**< cross-over angle */
+    /** Scattering angle */
+    double theta_s;
+    /** cross-over angle */
+    double theta_A;
     ///@}
 
     /** @name Losses
      */
     ///@{
-    double A_s__db;        /**< Troposcattter Loss */
-    double A_s_prev__db;   /**< Troposcatter Loss of Previous Test Point */
+    /** Troposcattter Loss */
+    double A_s__db;
+    /** Troposcatter Loss of Previous Test Point */
+    double A_s_prev__db;
     ///@}
 
     /** @name Misc
      */
     ///@{
-    double M_s;            /**< Troposcatter Line Slope */
+    /** Troposcatter Line Slope */
+    double M_s;
     ///@}
 };
 
 /** Structure to hold  outputs. */
 struct Result {
-    int propagation_mode;  /**< Mode of propagation */
-    int warnings;          /**< Warning messages */
-    double d__km;          /**< Path distance used in calculations */
-    double A__db;          /**< Total loss */
-    double A_fs__db;       /**< Free space path loss */
-    double A_a__db;        /**< Atmospheric absorption loss, in dB */
-    double theta_h1__rad;  /**< Elevation angle of the ray at the low terminal, in rad */
+    /** Mode of propagation */
+    int propagation_mode;
+    /** Warning messages */
+    int warnings;
+    /** Path distance used in calculations */
+    double d__km;
+    /** Total loss */
+    double A__db;
+    /** Free space path loss */
+    double A_fs__db;
+    /** Atmospheric absorption loss, in dB */
+    double A_a__db;
+    /** Elevation angle of the ray at the low terminal, in rad */
+    double theta_h1__rad;
 };
 
 //
@@ -375,7 +427,6 @@ int TerminalGeometry(
     Terminal *terminal);
 
 void Troposcatter(
-    Path *path,
     Terminal *terminal_1,
     Terminal *terminal_2,
     double d__km,

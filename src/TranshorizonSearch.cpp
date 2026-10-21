@@ -54,7 +54,7 @@ void TranshorizonSearch(Path* path, Terminal *terminal_1, Terminal *terminal_2,
         A_s__db[1] = A_s__db[0];
 
         // Step 6.2
-        Troposcatter(path, terminal_1, terminal_2, d_search__km[0], f__mhz, &tropo);
+        Troposcatter(terminal_1, terminal_2, d_search__km[0], f__mhz, &tropo);
         A_s__db[0] = tropo.A_s__db;
 
         // if loss is less than 20 dB, the result is not within valid part of model

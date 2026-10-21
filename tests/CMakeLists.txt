@@ -20,7 +20,9 @@ configure_proplib_target(${TEST_NAME})
 ## SET UP AND DISCOVER TESTS
 ###########################################
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
-target_link_libraries(${TEST_NAME} ${LIB_NAME} GTest::gtest_main stdc++fs) # Explicitly link the filesystem flag
+
+# Explicitly link the filesystem flag
+target_link_libraries(${TEST_NAME} ${LIB_NAME} GTest::gtest_main stdc++fs) 
 include(GoogleTest)
 gtest_discover_tests(${TEST_NAME})
 

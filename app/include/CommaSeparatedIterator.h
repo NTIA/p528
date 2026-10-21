@@ -16,7 +16,10 @@
  ******************************************************************************/
 class CommaSeparatedIterator {
     public:
-        /** Type alias for the value returned by the iterator (pair of strings) */
+        /** Type alias for the value returned by the iterator (pair of strings) 
+         * Represents a single line from the input stream, split into two strings
+         * based on the comma delimiter. ex. "param,value\n" -> param and value
+        */
         using value_type = std::pair<std::string, std::string>;
 
         /***********************************************************************

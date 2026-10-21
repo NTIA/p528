@@ -20,13 +20,12 @@ namespace P528 {
  *                              + 1 : POLARIZATION__VERTICAL
  * @param[in]   p	        Time percentage
  * @param[in]   warnings    Warning flags
- * @return                  ReturnCodes object.
+ * @return                  #ITS::ITU::PSeries::P528::ReturnCodes value.
  ******************************************************************************/
 
 int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, 
     double f__mhz, int T_pol, double p, int* warnings)
 {
-    int rtn = SUCCESS;
 
     if (d__km < 0)
         return ERROR_VALIDATION__D_KM;

@@ -14,7 +14,8 @@ namespace ITU {
 namespace PSeries {
 namespace P528 {
 
-//! Values for the  Nakagami-Rice distributions. Contribution of tropospheric multipath at time percentage 𝑝, in dB. 
+//! Values for the  Nakagami-Rice distributions. Contribution of tropospheric 
+// multipath at time percentage 𝑝, in dB. 
 const vector<vector<double>> data::NakagamiRiceCurves =
 {
     // K = -40 distribution
