@@ -12,7 +12,7 @@
 #include <ostream>   // for std::endl, std::ostream
 #include <string>    // for std::string
 
-#include <P528.h>
+#include <p528.h>
 
 /////////////////////////////
 // Macros
@@ -24,7 +24,7 @@
 
 //////////////////////////////
 // Library Namespace
-using namespace ITS::ITU::PSeries::P528;
+using namespace ITS::ITU::PSeries::p528;
 
 /////////////////////////////
 // Functions

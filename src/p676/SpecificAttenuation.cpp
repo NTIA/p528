@@ -1,5 +1,10 @@
 #include "p676.h"
 
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace p528 {
+
 /*=============================================================================
  |
  |  Description:  The specific gaseous attenuation due to dry air and 
@@ -67,3 +72,7 @@ double WaterVapourSpecificAttenuation(double f__ghz, double T__kelvin, double e_
 
     return gamma_w;
 }
+}  // namespace p528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

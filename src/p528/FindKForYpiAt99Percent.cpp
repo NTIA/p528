@@ -2,12 +2,12 @@
  * Returns the K-value of the Nakagami-Rice distribution for the given value of
  * Y_pi(99)
  */
-#include "P528.h"
+#include "p528.h"
 
 namespace ITS {
 namespace ITU {
 namespace PSeries {
-namespace P528 {
+namespace p528 {
 
 /**
  * Returns the K-value of the Nakagami-Rice distribution for the given value
@@ -36,7 +36,7 @@ double FindKForYpiAt99Percent(double Y_pi_99__db) {
   return data::K.back();
 }
 
-}  // namespace P528
+}  // namespace p528
 }  // namespace PSeries
 }  // namespace ITU
 }  // namespace ITS

@@ -3,12 +3,12 @@
  */
 #include <math.h>
 
-#include "P528.h"
+#include "p528.h"
 
 namespace ITS {
 namespace ITU {
 namespace PSeries {
-namespace P528 {
+namespace p528 {
 
 /**
  * Computes the troposcatter loss.
@@ -164,7 +164,7 @@ void Troposcatter(Terminal* terminal_1, Terminal* terminal_2, double d__km,
   }
 }
 
-}  // namespace P528
+}  // namespace p528
 }  // namespace PSeries
 }  // namespace ITU
 }  // namespace ITS

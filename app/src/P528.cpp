@@ -11,7 +11,7 @@
 #include <tuple>     // for std::tie
 #include <vector>    // for std::vector
 
-#include "P528.h"
+#include "p528.h"
 
 // Define the input keys
 const std::string ModelInputKeys::d__km = "d__km";

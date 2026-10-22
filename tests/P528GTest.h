@@ -1,12 +1,10 @@
 #pragma once
-#ifndef ITS_ITU_PSERIES_P528GTEST_H
-#define ITS_ITU_PSERIES_P528GTEST_H
 
 #include <gtest/gtest.h>
 
-#include "P528.h"
+#include "p528.h"
 
-using namespace ITS::ITU::PSeries::P528;
+using namespace ITS::ITU::PSeries::p528;
 
 struct InputsAndResult {
     double d__km;
@@ -29,4 +27,3 @@ std::vector<std::string> readCSVRow(const std::string& row);
 
 std::vector<std::vector<std::string>> readCSV(std::istream& in);
 
-#endif

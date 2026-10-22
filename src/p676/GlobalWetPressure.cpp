@@ -1,5 +1,11 @@
 #include "p676.h"
 #include "p835.h"
+#include <cmath>
+
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace p528 {
 
 /*=============================================================================
  |
@@ -23,3 +29,7 @@ double GlobalWetPressure(double h__km)
 
     return e__hPa;
 }
+}  // namespace p528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

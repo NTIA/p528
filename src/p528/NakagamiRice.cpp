@@ -2,12 +2,12 @@
  * Computes the value of the Nakagami-Rice distribution for K and percentage p.
  */
 
-#include "P528.h"
+#include "p528.h"
 
 namespace ITS {
 namespace ITU {
 namespace PSeries {
-namespace P528 {
+namespace p528 {
 
 /**
  * Computes the value of the Nakagami-Rice distribution for K and p.
@@ -58,7 +58,7 @@ double NakagamiRice(double K, double p) {
   }
 }
 
-}  // namespace P528
+}  // namespace p528
 }  // namespace PSeries
 }  // namespace ITU
 }  // namespace ITS

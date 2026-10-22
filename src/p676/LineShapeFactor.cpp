@@ -1,4 +1,10 @@
 #include "p676.h"
+#include <cmath>
+
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace p528 {
 
 /*=============================================================================
  |
@@ -22,3 +28,7 @@ double LineShapeFactor(double f__ghz, double f_i__ghz, double delta_f__ghz, doub
 
     return F_i;
 }
+}  // namespace p528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

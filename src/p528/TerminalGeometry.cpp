@@ -3,13 +3,13 @@
  */
 #include <math.h>
 
-#include "P528.h"
-#include "P676.h"
+#include "p528.h"
+#include "p676.h"
 
 namespace ITS {
 namespace ITU {
 namespace PSeries {
-namespace P528 {
+namespace p528 {
 
 /**
  * Computes the terminal geometry as described
@@ -26,6 +26,7 @@ namespace P528 {
 void TerminalGeometry(double f__mhz, Terminal* terminal) {
   double theta_tx__rad = 0;
 
+  SlantPathAttenuationResult result;
   SlantPathAttenuation(f__mhz / 1000, 0, terminal->h_r__km, 
                         PI / 2 - theta_tx__rad, &result);
   
@@ -46,7 +47,7 @@ void TerminalGeometry(double f__mhz, Terminal* terminal) {
   terminal->delta_h__km = terminal->h_r__km - terminal->h_e__km;  // [Eqn 4-3]
 }
 
-}  // namespace P528
+}  // namespace p528
 }  // namespace PSeries
 }  // namespace ITU
 }  // namespace ITS

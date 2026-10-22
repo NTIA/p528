@@ -3,12 +3,12 @@
  */
 #include <math.h>
 
-#include "P528.h"
+#include "p528.h"
 
 namespace ITS {
 namespace ITU {
 namespace PSeries {
-namespace P528 {
+namespace p528 {
 
 /**
  * Computes the height of the terminal
@@ -135,7 +135,7 @@ double SmoothEarthDiffraction(double d_1__km, double d_2__km, double f__mhz,
   return G_x__db - F_x1__db - F_x2__db - 20.0;
 }
 
-}  // namespace P528
+}  // namespace p528
 }  // namespace PSeries
 }  // namespace ITU
 }  // namespace ITS

@@ -4,10 +4,10 @@
 #include <functional>
 #include <string>
 
-#include "P528.h"
+#include "p528.h"
 #include "P528GTest.h"
 
-using namespace ITS::ITU::PSeries::P528;
+using namespace ITS::ITU::PSeries::p528;
 
 /*=============================================================================
  |

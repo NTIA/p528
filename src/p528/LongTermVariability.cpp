@@ -4,12 +4,12 @@
  */
 #include <math.h>
 
-#include "P528.h"
+#include "p528.h"
 
 namespace ITS {
 namespace ITU {
 namespace PSeries {
-namespace P528 {
+namespace p528 {
 
 /**
  * Computes the long term variability
@@ -147,7 +147,7 @@ void LongTermVariability(double d_r1__km, double d_r2__km, double d__km,
   }
 }
 
-}  // namespace P528
+}  // namespace p528
 }  // namespace PSeries
 }  // namespace ITU
 }  // namespace ITS

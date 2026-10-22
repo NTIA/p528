@@ -3,13 +3,13 @@
  */
 #include <math.h>
 
-#include "P528.h"
-#include "P676.h"
+#include "p528.h"
+#include "p676.h"
 
 namespace ITS {
 namespace ITU {
 namespace PSeries {
-namespace P528 {
+namespace p528 {
 
 /**
  * Determine reflection angle for line of sight distance (d__km).
@@ -239,7 +239,8 @@ void LineOfSight(Path* path, Terminal* terminal_1, Terminal* terminal_2,
   /////////////////////////////////////////////
   // Compute atmospheric absorption
   //
-
+  
+  SlantPathAttenuationResult result_slant;
   SlantPathAttenuation(
       f__mhz / 1000, terminal_1->h_r__km, terminal_2->h_r__km,
       PI / 2 - los_params->theta_h1__rad, &result_slant);
@@ -338,7 +339,7 @@ void LineOfSight(Path* path, Terminal* terminal_1, Terminal* terminal_2,
   result->theta_h1__rad = los_params->theta_h1__rad;
 }
 
-}  // namespace P528
+}  // namespace p528
 }  // namespace PSeries
 }  // namespace ITU
 }  // namespace ITS

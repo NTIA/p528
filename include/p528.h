@@ -1,4 +1,4 @@
-/** @file P528.h
+/** @file p528.h
  * Interface header for this library
  */
 #pragma once
@@ -24,7 +24,7 @@ using namespace std;
 namespace ITS {
 namespace ITU {
 namespace PSeries {
-namespace P528 {
+namespace p528 {
 
 /**
  * @brief
@@ -547,7 +547,7 @@ PROPLIB_API char *GetLibraryNameCharArray();
 
 PROPLIB_API char *GetLibraryVersionCharArray();
 
-}  // namespace P528
+}  // namespace p528
 }  // namespace PSeries
 }  // namespace ITU
 }  // namespace ITS

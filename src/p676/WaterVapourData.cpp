@@ -1,5 +1,10 @@
 #include "p676.h"
 
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace p528 {
+
 // Spectroscopic data for water vapor attenuation (Table 2)
 
 // 
@@ -57,3 +62,7 @@ const vector<double> WaterVapourData::b_6 =
     .64, .72, .43, .45, 1.00, 1.00, 1.00, .68, .50, 1.00, .84, .45, .84,
     .90, .95, .53, .78, .80, .67, .90, 5.00
 };
+}  // namespace p528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

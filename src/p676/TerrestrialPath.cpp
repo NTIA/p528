@@ -1,5 +1,10 @@
 #include "p676.h"
 
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace p528 {
+
 /*=============================================================================
  |
  |  Description:  Gaseous attenuation for a terrestrial path, or for slightly
@@ -23,3 +28,7 @@ double TerrestrialPath(double f__ghz, double T__kelvin, double e__hPa, double p_
 
     return A__db;
 }
+}  // namespace p528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

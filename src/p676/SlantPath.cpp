@@ -1,7 +1,12 @@
 #include "p676.h"
 #include "p835.h"
-
+#include <cmath>
 // Calculation the slant path attenuation due to atmospheric gases
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace p528 {
+
 int SlantPathAttenuation(double f__ghz, double h_1__km, double h_2__km, double beta_1__rad,
     SlantPathAttenuationResult* result)
 {
@@ -71,3 +76,7 @@ int SlantPathAttenuation(double f__ghz, double h_1__km, double h_2__km, double b
 
     return 0;
 }
+}  // namespace p528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

@@ -2,7 +2,7 @@
  * Maps status messages to library return codes.
  */
 
-#include "P528.h"
+#include "p528.h"
 
 #ifdef _WIN32
 // Ensure strcpy_s is available on Windows
@@ -21,7 +21,7 @@
 namespace ITS {
 namespace ITU {
 namespace PSeries {
-namespace P528 {
+namespace p528 {
 
 /*******************************************************************************
  * Get library name
@@ -138,7 +138,7 @@ char* GetLibraryVersionCharArray() {
   return c_msg;
 }
 
-}  // namespace P528
+}  // namespace p528
 }  // namespace PSeries
 }  // namespace ITU
 }  // namespace ITS

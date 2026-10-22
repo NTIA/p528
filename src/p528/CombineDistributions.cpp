@@ -3,12 +3,12 @@
  */
 #include <math.h>
 
-#include "P528.h"
+#include "p528.h"
 
 namespace ITS {
 namespace ITU {
 namespace PSeries {
-namespace P528 {
+namespace p528 {
 
 /**
  * Combines two distributions A and B, returning the resulting percentile.
@@ -37,7 +37,7 @@ double CombineDistributions(double A_M, double A_p, double B_M, double B_p,
     return C_M - Y_3;
 }
 
-}  // namespace P528
+}  // namespace p528
 }  // namespace PSeries
 }  // namespace ITU
 }  // namespace ITS

@@ -1,5 +1,10 @@
 #include "p676.h"
 
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace p528 {
+
 // Spectroscopic data for oxygen attenuation (Table 1)
 
 // 
@@ -66,3 +71,7 @@ const vector<double> OxygenData::a_6 =
     -5.002, -6.091, -6.393, -6.475, -6.545, -6.600, -6.650,  0.079,  0.000,  0.000,
      0.000,  0.000,  0.000,  0.000
 };
+}  // namespace p528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

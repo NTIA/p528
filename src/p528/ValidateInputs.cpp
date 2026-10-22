@@ -1,12 +1,12 @@
 /** @file ValidateInputs.cpp
  * Validates the model's input values
  */
-#include "P528.h"
+#include "p528.h"
 
 namespace ITS {
 namespace ITU {
 namespace PSeries {
-namespace P528 {
+namespace p528 {
 
 /**
  * Validate the model input values
@@ -20,7 +20,7 @@ namespace P528 {
  *                              + 1 : POLARIZATION__VERTICAL
  * @param[in]   p	        Time percentage
  * @param[in]   warnings    Warning flags
- * @return                  #ITS::ITU::PSeries::P528::ReturnCodes value.
+ * @return                  #ITS::ITU::PSeries::p528::ReturnCodes value.
  ******************************************************************************/
 
 int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, 
@@ -67,7 +67,7 @@ int ValidateInputs(double d__km, double h_1__meter, double h_2__meter,
     return SUCCESS;
 }
 
-}  // namespace P528
+}  // namespace p528
 }  // namespace PSeries
 }  // namespace ITU
 }  // namespace ITS

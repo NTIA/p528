@@ -1,6 +1,12 @@
 #include "math.h"
 #include "p835.h"
 
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace p528 {
+
+
 /*=============================================================================
  |
  |  Description:  Converts from geometric height, in km, to geopotential
@@ -46,3 +52,7 @@ double WaterVapourDensityToPressure(double rho, double T__kelvin)
 {
     return (rho * T__kelvin) / 216.7;
 }
+}  // namespace P528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

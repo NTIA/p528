@@ -5,25 +5,44 @@ proplib_message("Configuring library ${PROJECT_SOURCE_DIR} ${LIB_NAME}")
 
 set(LIB_HEADERS "${PROJECT_SOURCE_DIR}/include")
 set(LIB_FILES
-    "CombineDistributions.cpp"
-    "FindKForYpiAt99Percent.cpp"
-    "GetPathLoss.cpp"
-    "InverseComplementaryCumulativeDistributionFunction.cpp"
-    "LineOfSight.cpp"
-    "LinearInterpolation.cpp"
-    "LongTermVariability.cpp"
-    "NakagamiRice.cpp"
-    "P528.cpp"
-    "RayOptics.cpp"
-    "ReflectionCoefficients.cpp"
-    "SmoothEarthDiffraction.cpp"
-    "TerminalGeometry.cpp"
-    "TranshorizonSearch.cpp"
-    "Troposcatter.cpp"
-    "ValidateInputs.cpp"
-    "data.cpp"
-    "ReturnCodes.cpp"
-    "${LIB_HEADERS}/P528.h"
+    # p528
+    "p528/CombineDistributions.cpp"
+    "p528/FindKForYpiAt99Percent.cpp"
+    "p528/GetPathLoss.cpp"
+    "p528/InverseComplementaryCumulativeDistributionFunction.cpp"
+    "p528/LineOfSight.cpp"
+    "p528/LinearInterpolation.cpp"
+    "p528/LongTermVariability.cpp"
+    "p528/NakagamiRice.cpp"
+    "p528/P528.cpp"
+    "p528/RayOptics.cpp"
+    "p528/ReflectionCoefficients.cpp"
+    "p528/SmoothEarthDiffraction.cpp"
+    "p528/TerminalGeometry.cpp"
+    "p528/TranshorizonSearch.cpp"
+    "p528/Troposcatter.cpp"
+    "p528/ValidateInputs.cpp"
+    "p528/data.cpp"
+    "p528/ReturnCodes.cpp"
+    "${LIB_HEADERS}/p528.h"
+    #p676
+    "p676/GlobalWetPressure.cpp"
+    "p676/LineShapeFactor.cpp"
+    "p676/NonresonantDebyeAttenuation.cpp"
+    "p676/OxygenData.cpp"
+    "p676/RayTrace.cpp"
+    "p676/RefractiveIndex.cpp"
+    "p676/Refractivity.cpp"
+    "p676/SlantPath.cpp"
+    "p676/SpecificAttenuation.cpp"
+    "p676/TerrestrialPath.cpp"
+    "p676/WaterVapourData.cpp"
+    "p676/WaterVapourDensityToPartialPressure.cpp"
+    "${LIB_HEADERS}/p676.h"
+    #p835
+    "p835/Conversions.cpp"
+    "p835/MeanAnnualGlobalReferenceAtmosphere.cpp"
+    "${LIB_HEADERS}/p835.h"
 )
 
 # By default, create shared library
@@ -38,10 +57,10 @@ else ()
 endif ()
 
 # Add the include directory
-target_include_directories(${LIB_NAME} PUBLIC "${LIB_HEADERS}"
-    "${PROJECT_SOURCE_DIR}/extern/p676/include")
+target_include_directories(${LIB_NAME} PUBLIC "${LIB_HEADERS}")
+    # "${PROJECT_SOURCE_DIR}/extern/p676/include")
 
-target_link_libraries(${LIB_NAME} PRIVATE P676)
+# target_link_libraries(${LIB_NAME} PRIVATE P676)
 
 # Set PropLib compiler option defaults
 configure_proplib_target(${LIB_NAME})

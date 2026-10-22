@@ -171,46 +171,13 @@ proplib_message(
 ## BUILD/RUN
 ##########################################
 if (NOT DOCS_ONLY)
-    set(extern_alg_names p676 ) #p835 is only needed by p676. It is necested.
-   foreach (extern_alg IN LISTS extern_alg_names) 
-    if (EXISTS "${PROJECT_SOURCE_DIR}/extern/${extern_alg}/CMakeLists.txt")
-            # Ensure external algorithm module is built as a static library
-            set(BUILD_SHARED_LIBS_${extern_alg} ${BUILD_SHARED_LIBS})
-            set(BUILD_SHARED_LIBS OFF)
-            set(BUILD_DOCS_${extern_alg} ${BUILD_DOCS})
-            set(BUILD_DOCS OFF)
-            set(BUILD_DRIVER_${extern_alg} ${BUILD_DRIVER})
-            set(BUILD_DRIVER OFF)
-            set(RUN_DRIVER_TESTS_${extern_alg} ${RUN_DRIVER_TESTS})
-            set(RUN_DRIVER_TESTS OFF)
-            set(DOCS_ONLY_${extern_alg} ${DOCS_ONLY})
-            set(DOCS_ONLY OFF)
-            set(RUN_TESTS_${extern_alg} ${RUN_TESTS})
-            set(RUN_TESTS OFF)
 
-            add_subdirectory("${PROJECT_SOURCE_DIR}/extern/${extern_alg}")
-
-            # Restore initial value of BUILD_SHARED_LIBS
-            set(BUILD_SHARED_LIBS ${BUILD_SHARED_LIBS_${extern_alg}})
-            set(BUILD_DOCS ${BUILD_DOCS_P835})
-            set(BUILD_DRIVER ${BUILD_DRIVER_${extern_alg}})
-            set(RUN_DRIVER_TESTS ${RUN_DRIVER_TESTS_${extern_alg}})
-            set(DOCS_ONLY ${DOCS_ONLY_${extern_alg}})
-            set(RUN_TESTS ${RUN_TESTS_${extern_alg}})
-        else ()
-            message(SEND_ERROR
-              "Unable to build ${LIB_NAME}. ${extern_alg} submodule is missing."
-              "Run `git submodule init extern/${extern_alg}` then "
-              "`git submodule update` and try again."
-            )
-        endif ()
-    endforeach()
     add_subdirectory(src)  # Configure the library
 
     if (RUN_TESTS OR RUN_DRIVER_TESTS)
         enable_testing()
         include(CTest)
-        # Initialize GoogleTest if any tests will be configured
+        # Initialize Gop676ogleTest if any tests will be configured
         if (EXISTS "${PROJECT_SOURCE_DIR}/extern/googletest/CMakeLists.txt")
             set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
             # Ensure GoogleTest is built as a static library

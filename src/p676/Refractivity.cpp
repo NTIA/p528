@@ -1,4 +1,10 @@
 #include "p676.h"
+#include <cmath>
+
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace p528 {
 
 /*=============================================================================
  |
@@ -91,3 +97,7 @@ double WaterVapourRefractivity(double f__ghz, double T__kelvin, double e__hPa, d
 
     return N_w;
 }
+}  // namespace p528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

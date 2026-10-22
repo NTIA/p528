@@ -4,9 +4,9 @@
 #include <filesystem>
 #include <cmath>
 #include <cfloat>
-#include "P528.h"
+#include "p528.h"
 
-using namespace ITS::ITU::PSeries::P528;
+using namespace ITS::ITU::PSeries::p528;
 
 /*=============================================================================
  |

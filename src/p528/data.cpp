@@ -7,12 +7,12 @@ multipath.
  * and radionavigation services using the VHF, UHF and SHF bands", 
  * Annex 2, Section 15.
  */
-#include "P528.h"
+#include "p528.h"
 
 namespace ITS {
 namespace ITU {
 namespace PSeries {
-namespace P528 {
+namespace p528 {
 
 //! Values for the  Nakagami-Rice distributions. Contribution of tropospheric 
 // multipath at time percentage 𝑝, in dB. 
@@ -116,7 +116,7 @@ const vector<int> data::K =
 const vector<double> data::P = { 1, 2, 5, 10, 15, 20, 30, 40, 50,
     60, 70, 80, 85, 90, 95, 98, 99 };
 
-}  // namespace P528
+}  // namespace p528
 }  // namespace PSeries
 }  // namespace ITU
 }  // namespace ITS

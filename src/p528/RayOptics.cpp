@@ -4,12 +4,12 @@
 
 #include <math.h>
 
-#include "P528.h"
+#include "p528.h"
 
 namespace ITS {
 namespace ITU {
 namespace PSeries {
-namespace P528 {
+namespace p528 {
 
 /**
  * Computes the line-of-sight ray optics
@@ -76,7 +76,7 @@ void RayOptics(Terminal* terminal_1, Terminal* terminal_2, double psi,
   params->theta_h2__rad = -(alpha + params->theta[1]);  // [Eqn 7-17]
 }
 
-}  // namespace P528
+}  // namespace p528
 }  // namespace PSeries
 }  // namespace ITU
 }  // namespace ITS

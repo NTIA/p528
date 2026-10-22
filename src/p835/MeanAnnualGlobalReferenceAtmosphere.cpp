@@ -1,6 +1,12 @@
 #include "math.h"
 #include "p835.h"
 
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace p528 {
+
+
 /*=============================================================================
  |
  |  Description:  The mean annual global reference atmospheric temperature, 
@@ -230,3 +236,7 @@ double GlobalWaterVapourPressure(double h__km, double rho_0)
     
     return WaterVapourDensityToPressure(rho, T__kelvin);
 }
+}  // namespace P528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

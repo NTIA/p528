@@ -1,5 +1,11 @@
 #include "p676.h"
 #include "p835.h"
+#include <cmath>
+
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace p528 {
 
 /*=============================================================================
  |
@@ -145,3 +151,7 @@ void GetLayerProperties(double f__ghz, double h_i__km, RayTraceConfig config,
     // specific attenuation of layer
     *gamma = SpecificAttenuation(f__ghz, T__kelvin, e__hPa, p__hPa);
 }
+}  // namespace p528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

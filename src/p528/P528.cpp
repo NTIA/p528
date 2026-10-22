@@ -2,16 +2,16 @@
  *  Implements the model from ITU-R P.528-5. ANnex 2, Section 3.
  */
 
-#include "P528.h"
+#include "p528.h"
 
 #include <math.h>
 
-#include "P676.h"
+#include "p676.h"
 
 namespace ITS {
 namespace ITU {
 namespace PSeries {
-namespace P528 {
+namespace p528 {
 
 /**
  * This is the main entry point to this software. It calculates the basic
@@ -97,8 +97,6 @@ int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
     } else
       return err;
   }
-
-  int rtn = SUCCESS;  // return code.
 
   /////////////////////////////////////////////
   // Compute terminal geometries
@@ -245,8 +243,8 @@ int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
     /////////////////////////////////////////////
     // Atmospheric absorption for transhorizon path
     //
-
-    SlantPathAttenuation(f__mhz / 1000, 0, tropo->h_v__km, PI / 2,&result_v);
+    SlantPathAttenuationResult result_v;
+    SlantPathAttenuation(f__mhz / 1000, 0, tropo->h_v__km, PI / 2, &result_v);
 
     result->A_a__db = terminal_1->A_a__db + terminal_2->A_a__db +
                       2 * result_v.A_gas__db;  // [Eqn 3-17]
@@ -280,7 +278,7 @@ int P528_Ex(double d__km, double h_1__meter, double h_2__meter, double f__mhz,
   }
 }
 
-}  // namespace P528
+}  // namespace p528
 }  // namespace PSeries
 }  // namespace ITU
 }  // namespace ITS

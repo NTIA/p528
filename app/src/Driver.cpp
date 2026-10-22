@@ -13,8 +13,8 @@
 #include <string>     // for std::string
 #include <vector>     // for std::vector
 
-#include "P528.h"
-using namespace ITS::ITU::PSeries::P528;
+#include "p528.h"
+using namespace ITS::ITU::PSeries::p528;
 /*******************************************************************************
  * Main function of the driver executable
  *
