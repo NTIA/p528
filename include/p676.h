@@ -1,9 +1,15 @@
+#pragma once
+
 #include <vector>
 #include <algorithm>
-
 using namespace std;
 
-#define DLLEXPORT extern "C" __declspec(dllexport)
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace p528 {
+
+
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
@@ -75,3 +81,7 @@ int SlantPathAttenuation(double f__ghz, double h_1__km, double h_2__km, double b
     SlantPathAttenuationResult* result);
 
 double GlobalWetPressure(double h__km);
+} // namespace p528
+} // namespace PSeries
+} // namespace ITU
+} // namespace ITS

@@ -1,4 +1,9 @@
-#include "../../include/p676.h"
+#include "p676.h"
+
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace p528 {
 
 double WaterVapourDensityToPartialPressure(double rho__g_m3, double T__kelvin)
 {
@@ -7,3 +12,7 @@ double WaterVapourDensityToPartialPressure(double rho__g_m3, double T__kelvin)
 
     return e__hPa;
 }
+}  // namespace p528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

@@ -1,41 +1,54 @@
+/** @file InverseComplementaryCumulativeDistributionFunction.cpp
+ * Computes the inverse complementary cumulative distribution function
+ * approximation
+ */
 #include <math.h>
-#include "../../include/p528.h"
 
-/*=============================================================================
- |
- |  Description:  This function computes the inverse complementary
- |                cumulative distribution function approximation as
- |                described in Recommendation ITU-R P.1057.  This
- |                approximation is sourced from Formula 26.2.23 in
- |                Abramowitz & Stegun.  This approximation has an error
- |                of abs(epsilon(p)) < 4.5e-4
- |
- |        Input:  q     - Probability, 0.0 < q < 1.0
- |
- |      Returns:  Q_q   - Q(q)^-1
- |
- *===========================================================================*/
-double InverseComplementaryCumulativeDistributionFunction(double q)
-{
-    double C_0 = 2.515516;
-    double C_1 = 0.802853;
-    double C_2 = 0.010328;
-    double D_1 = 1.432788;
-    double D_2 = 0.189269;
-    double D_3 = 0.001308;
+#include "p528.h"
 
-    double x = q;
-    if (q > 0.5)
-        x = 1.0 - x;
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace p528 {
 
-    double T_x = sqrt(-2.0 * log(x));
+/**
+ * Computes the inverse complementary cumulative distribution function
+ * approximation. The approximation has an error of abs(epsilon(p)) < 4.5e-4
+ *
+ * References:
+ *     - Recommendation ITU‑R P.1057. "Probability distributions relevant to
+ * radiowave propagation modelling"
+ *     - Abramowitz, M. (Ed.), & Stegun, I. A. (Ed.). (1965). Handbook of
+ * mathematical functions with formulas, graphs, and mathematical tables. Dover
+ * Publications. Formula 26.2.23.
+ *
+ * @param[in]     q     - Probability, 0.0 < q < 1.0
+ * @return        Q(q)^-1
+ ******************************************************************************/
+double InverseComplementaryCumulativeDistributionFunction(double q) {
+  double C_0 = 2.515516;
+  double C_1 = 0.802853;
+  double C_2 = 0.010328;
+  double D_1 = 1.432788;
+  double D_2 = 0.189269;
+  double D_3 = 0.001308;
 
-    double zeta_x = ((C_2 * T_x + C_1) * T_x + C_0) / (((D_3 * T_x + D_2) * T_x + D_1) * T_x + 1.0);
+  double x = q;
+  if (q > 0.5) x = 1.0 - x;
 
-    double Q_q = T_x - zeta_x;
+  double T_x = sqrt(-2.0 * log(x));
 
-    if (q > 0.5)
-        Q_q = -Q_q;
+  double zeta_x = ((C_2 * T_x + C_1) * T_x + C_0) /
+                  (((D_3 * T_x + D_2) * T_x + D_1) * T_x + 1.0);
 
-    return Q_q;
+  double Q_q = T_x - zeta_x;
+
+  if (q > 0.5) Q_q = -Q_q;
+
+  return Q_q;
 }
+
+}  // namespace p528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

@@ -1,4 +1,9 @@
-#include "../../include/p676.h"
+#include "p676.h"
+
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace p528 {
 
 /*=============================================================================
  |
@@ -67,3 +72,7 @@ double WaterVapourSpecificAttenuation(double f__ghz, double T__kelvin, double e_
 
     return gamma_w;
 }
+}  // namespace p528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS

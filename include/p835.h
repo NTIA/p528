@@ -1,4 +1,9 @@
-#define DLLEXPORT extern "C" __declspec(dllexport)
+#pragma once
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace p528 {
+
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
@@ -31,3 +36,8 @@ double GlobalPressure_Regime1(double h_prime__km);
 double GlobalPressure_Regime2(double h__km);
 double GlobalWaterVapourDensity(double h__km, double rho_0);
 double GlobalWaterVapourPressure(double h__km, double rho_0);
+
+} // namespace p528
+} // namespace PSeries
+} // namespace ITU
+} // namespace ITS

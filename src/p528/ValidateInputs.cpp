@@ -1,27 +1,31 @@
-#include "../../include/p528.h"
+/** @file ValidateInputs.cpp
+ * Validates the model's input values
+ */
+#include "p528.h"
 
-/*=============================================================================
- |
- |  Description:  Validate the model input values
- |
- |        Input:  d__km             - Path distance, in km
- |                h_1__meter        - Height of the low terminal, in meters
- |                h_2__meter        - Height of the high terminal, in meters
- |                f__mhz            - Frequency, in MHz
- |                T_pol             - Code indicating either polarization
- |                                      + 0 : POLARIZATION__HORIZONTAL
- |                                      + 1 : POLARIZATION__VERTICAL
- |                p	                - Time percentage
- |
- |       Output:  warnings          - Warning flags
- |
- |      Returns:  SUCCESS, or validation error code
- |
- *===========================================================================*/
+namespace ITS {
+namespace ITU {
+namespace PSeries {
+namespace p528 {
+
+/**
+ * Validate the model input values
+ *
+ * @param[in]   d__km       %Path distance, in km
+ * @param[in]   h_1__meter  Height of the low terminal, in meters
+ * @param[in]   h_2__meter  Height of the high terminal, in meters
+ * @param[in]   f__mhz      Frequency, in MHz
+ * @param[in]   T_pol       Code indicating either polarization
+ *                              + 0 : POLARIZATION__HORIZONTAL
+ *                              + 1 : POLARIZATION__VERTICAL
+ * @param[in]   p	        Time percentage
+ * @param[in]   warnings    Warning flags
+ * @return                  #ITS::ITU::PSeries::p528::ReturnCodes value.
+ ******************************************************************************/
+
 int ValidateInputs(double d__km, double h_1__meter, double h_2__meter, 
     double f__mhz, int T_pol, double p, int* warnings)
 {
-    int rtn = SUCCESS;
 
     if (d__km < 0)
         return ERROR_VALIDATION__D_KM;
@@ -62,3 +66,8 @@ int ValidateInputs(double d__km, double h_1__meter, double h_2__meter,
 
     return SUCCESS;
 }
+
+}  // namespace p528
+}  // namespace PSeries
+}  // namespace ITU
+}  // namespace ITS
